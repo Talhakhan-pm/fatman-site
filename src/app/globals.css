@@ -1,0 +1,510 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8fafc;
+  --foreground: #0f172a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-fatman-900: #0b1220;
+  --color-fatman-700: #1e293b;
+  --color-fatman-600: #334155;
+  --color-fatman-accent: #ea580c;
+  --color-fatman-accent-hover: #c2410c;
+  --color-fatman-success: #16a34a;
+  --color-fatman-warning: #f59e0b;
+  --color-fatman-danger: #dc2626;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   THEME CUSTOM PROPERTIES — used by inline styles in V2 page
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root,
+body[data-theme="dark"] {
+  --page-bg: #111318;
+  --caution-dark: #111318;
+  --section-alt-bg: #15181f;
+}
+
+body[data-theme="light"] {
+  --page-bg: #f7f8fa;
+  --caution-dark: #f7f8fa;
+  --section-alt-bg: #f1f3f5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LIGHT THEME — Polished, premium feel. Not a plain inversion.
+   Palette: warm grays, soft shadows, softened brand orange.
+   ═══════════════════════════════════════════════════════════════════ */
+
+body[data-theme="light"] {
+  background: #f7f8fa;
+  color: #1e293b;
+}
+
+/* ── Global component overrides (header, footer, shared) ── */
+
+body[data-theme="light"] .bg-fatman-900,
+body[data-theme="light"] .bg-fatman-900\/95 {
+  background-color: #ffffff !important;
+}
+
+body[data-theme="light"] .bg-fatman-700,
+body[data-theme="light"] .bg-fatman-700\/70,
+body[data-theme="light"] .bg-fatman-700\/60,
+body[data-theme="light"] .bg-fatman-700\/50 {
+  background-color: #f1f5f9 !important;
+}
+
+body[data-theme="light"] .bg-white\/5,
+body[data-theme="light"] .bg-white\/10 {
+  background-color: #f1f5f9 !important;
+}
+
+/* ── Text: multi-tier hierarchy for light mode ── */
+
+/* Primary text — near-black for headings & strong copy */
+body[data-theme="light"] .text-white {
+  color: #0f172a !important;
+}
+
+/* High-emphasis secondary text */
+body[data-theme="light"] .text-white\/90,
+body[data-theme="light"] .text-white\/85,
+body[data-theme="light"] .text-white\/80 {
+  color: #1e293b !important;
+}
+
+/* Medium-emphasis body text */
+body[data-theme="light"] .text-white\/75,
+body[data-theme="light"] .text-white\/70,
+body[data-theme="light"] .text-white\/65,
+body[data-theme="light"] .text-white\/60 {
+  color: #334155 !important;
+}
+
+/* Low-emphasis / supporting text */
+body[data-theme="light"] .text-white\/50 {
+  color: #475569 !important;
+}
+
+/* Muted / labels */
+body[data-theme="light"] .text-white\/40 {
+  color: #64748b !important;
+}
+
+/* Very subtle / decorative text */
+body[data-theme="light"] .text-white\/35,
+body[data-theme="light"] .text-white\/30 {
+  color: #94a3b8 !important;
+}
+
+/* Ghost text / watermarks */
+body[data-theme="light"] .text-white\/25,
+body[data-theme="light"] .text-white\/20 {
+  color: #cbd5e1 !important;
+}
+
+/* ── Borders ── */
+
+body[data-theme="light"] .border-white\/10,
+body[data-theme="light"] .border-white\/15,
+body[data-theme="light"] .border-white\/20 {
+  border-color: #e2e8f0 !important;
+}
+
+/* Gradient from/to */
+body[data-theme="light"] .from-white\/10,
+body[data-theme="light"] .to-white\/5 {
+  --tw-gradient-from: #ffffff var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: #f1f5f9 var(--tw-gradient-to-position) !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   HOMEPAGE V2 — Specific overrides for hardcoded arbitrary colors
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── Page backgrounds ── */
+
+/* Main dark bg → warm off-white */
+body[data-theme="light"] .bg-\[\#111318\] {
+  background-color: #f7f8fa !important;
+}
+
+/* Card / panel bg → white with subtle warmth */
+body[data-theme="light"] .bg-\[\#1a1d24\] {
+  background-color: #ffffff !important;
+}
+
+/* Steps section slightly different bg → cool gray */
+body[data-theme="light"] .bg-\[\#15181f\] {
+  background-color: #f1f3f5 !important;
+}
+
+/* ── Brand orange accent: soften for light mode ── */
+/* Keep orange recognizable but reduce harshness on light bg */
+
+body[data-theme="light"] .bg-\[\#ff6a00\] {
+  background-color: #ea580c !important;
+}
+
+body[data-theme="light"] .hover\:bg-\[\#e55d00\]:hover {
+  background-color: #c2410c !important;
+}
+
+body[data-theme="light"] .text-\[\#ff6a00\] {
+  color: #c2410c !important;
+}
+
+/* Orange accent backgrounds at low opacity → soft amber tint */
+body[data-theme="light"] .bg-\[\#ff6a00\]\/\[0\.06\],
+body[data-theme="light"] .bg-\[\#ff6a00\]\/\[0\.03\] {
+  background-color: rgba(234, 88, 12, 0.06) !important;
+}
+
+/* ── Hardcoded white text (in hero, headings) ── */
+
+body[data-theme="light"] .text-white {
+  color: #0f172a !important;
+}
+
+/* "FIRST TIME." faded line — keep subtle */
+body[data-theme="light"] .text-white\/20 {
+  color: #cbd5e1 !important;
+}
+
+/* ── V2 border overrides for low-opacity white borders ── */
+
+body[data-theme="light"] .border-white\/\[0\.06\],
+body[data-theme="light"] .border-white\/\[0\.08\],
+body[data-theme="light"] .border-white\/\[0\.05\] {
+  border-color: #e2e8f0 !important;
+}
+
+body[data-theme="light"] .hover\:border-\[\#ff6a00\]\/40:hover {
+  border-color: rgba(234, 88, 12, 0.35) !important;
+}
+
+body[data-theme="light"] .hover\:border-\[\#ff6a00\]\/30:hover {
+  border-color: rgba(234, 88, 12, 0.25) !important;
+}
+
+body[data-theme="light"] .hover\:border-\[\#ff6a00\]\/20:hover {
+  border-color: rgba(234, 88, 12, 0.2) !important;
+}
+
+body[data-theme="light"] .hover\:border-\[\#ff6a00\]\/60:hover {
+  border-color: rgba(234, 88, 12, 0.5) !important;
+}
+
+body[data-theme="light"] .border-\[\#ff6a00\]\/20 {
+  border-color: rgba(234, 88, 12, 0.2) !important;
+}
+
+/* ── V2 low-opacity white backgrounds → light tints ── */
+
+body[data-theme="light"] .bg-white\/\[0\.04\],
+body[data-theme="light"] .bg-white\/\[0\.03\],
+body[data-theme="light"] .bg-white\/\[0\.06\] {
+  background-color: #f1f5f9 !important;
+}
+
+body[data-theme="light"] .hover\:bg-white\/\[0\.1\]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+/* Category card icon-area depth wash — lighten for light mode */
+body[data-theme="light"] .category-icon-wash {
+  --tw-gradient-from: rgba(241, 245, 249, 0.9) !important;
+  opacity: 0.5 !important;
+}
+
+/* Card icon area gradient in light mode */
+body[data-theme="light"] .from-white\/\[0\.03\] {
+  --tw-gradient-from: rgba(241, 245, 249, 1) !important;
+}
+
+body[data-theme="light"] .to-white\/\[0\.01\] {
+  --tw-gradient-to: rgba(248, 250, 252, 1) !important;
+}
+
+/* ── SVG category icons: darken for light backgrounds ── */
+
+body[data-theme="light"] .text-white\/\[0\.35\] {
+  color: #94a3b8 !important;
+}
+
+body[data-theme="light"] .group:hover .group-hover\:text-\[\#ff6a00\]\/60 {
+  color: rgba(194, 65, 12, 0.7) !important;
+}
+
+/* Arrow icon boxes */
+body[data-theme="light"] .group:hover .group-hover\:bg-\[\#ff6a00\]\/20 {
+  background-color: rgba(234, 88, 12, 0.12) !important;
+}
+
+body[data-theme="light"] .group:hover .group-hover\:border-\[\#ff6a00\]\/30 {
+  border-color: rgba(234, 88, 12, 0.25) !important;
+}
+
+body[data-theme="light"] .group:hover .group-hover\:text-\[\#ff6a00\] {
+  color: #c2410c !important;
+}
+
+/* ── V2 noise overlay: reduce in light mode ── */
+
+body[data-theme="light"] .opacity-\[0\.04\] {
+  opacity: 0.02 !important;
+}
+
+/* ── Step number watermarks ── */
+
+body[data-theme="light"] .text-white\/\[0\.03\] {
+  color: rgba(15, 23, 42, 0.04) !important;
+}
+
+/* ── CTA section: orange bg stays, but refine button contrast ── */
+
+/* White button on orange CTA → slightly warm */
+body[data-theme="light"] .bg-white.text-\[\#111318\],
+body[data-theme="light"] .text-\[\#111318\] {
+  color: #0f172a !important;
+}
+
+/* ── Diagonal slash / decorative gradients ── */
+
+/* Orange diagonal slash in hero — soften for light */
+body[data-theme="light"] .from-\[\#ff6a00\] {
+  --tw-gradient-from: #ea580c !important;
+}
+
+body[data-theme="light"] .to-\[\#c2410c\] {
+  --tw-gradient-to: #9a3412 !important;
+}
+
+/* Hero bottom gradient transition */
+body[data-theme="light"] .bg-gradient-to-br.from-\[\#ff6a00\].to-\[\#c2410c\].opacity-\[0\.07\] {
+  opacity: 0.05 !important;
+}
+
+/* ── Caution stripe: soften for light mode ── */
+
+body[data-theme="light"] .h-2.w-full {
+  opacity: 0.65;
+}
+
+/* ── Corner bracket decorations ── */
+
+body[data-theme="light"] .border-white\/\[0\.08\] {
+  border-color: #e2e8f0 !important;
+}
+
+body[data-theme="light"] .border-white\/\[0\.05\] {
+  border-color: #e2e8f0 !important;
+}
+
+body[data-theme="light"] .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
+/* ── Emerald success indicator ── */
+
+body[data-theme="light"] .text-emerald-400\/80 {
+  color: #059669 !important;
+}
+
+body[data-theme="light"] .bg-emerald-400\/\[0\.06\] {
+  background-color: rgba(5, 150, 105, 0.08) !important;
+}
+
+body[data-theme="light"] .border-emerald-400\/10 {
+  border-color: rgba(5, 150, 105, 0.15) !important;
+}
+
+body[data-theme="light"] .bg-emerald-400 {
+  background-color: #059669 !important;
+}
+
+/* ── Hover shadow adjustments ── */
+
+body[data-theme="light"] .hover\:shadow-\[0_12px_40px_rgba\(255\,106\,0\,0\.12\)\]:hover {
+  box-shadow: 0 12px 40px rgba(234, 88, 12, 0.08) !important;
+}
+
+body[data-theme="light"] .hover\:shadow-\[0_8px_40px_rgba\(255\,106\,0\,0\.35\)\]:hover {
+  box-shadow: 0 8px 40px rgba(234, 88, 12, 0.2) !important;
+}
+
+body[data-theme="light"] .hover\:shadow-\[0_4px_20px_rgba\(255\,106\,0\,0\.3\)\]:hover {
+  box-shadow: 0 4px 20px rgba(234, 88, 12, 0.18) !important;
+}
+
+body[data-theme="light"] .hover\:shadow-\[0_8px_30px_rgba\(0\,0\,0\,0\.2\)\]:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* ── V2 card surfaces: add soft shadow in light mode ── */
+
+body[data-theme="light"] main .bg-\[\#1a1d24\] {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* ── Mobile sticky CTA bar ── */
+
+body[data-theme="light"] .bg-\[\#111318\]\/95 {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* ── Trust strip section border ── */
+
+body[data-theme="light"] .border-y.border-white\/\[0\.05\] {
+  border-color: #e2e8f0 !important;
+}
+
+/* ── Section blur glow spots: reduce in light mode ── */
+
+body[data-theme="light"] .blur-\[150px\],
+body[data-theme="light"] .blur-\[120px\] {
+  opacity: 0.4;
+}
+
+/* ── Blockquote text in testimonials ── */
+
+body[data-theme="light"] .text-white\/75 {
+  color: #334155 !important;
+}
+
+/* ── White/50 border overrides ── */
+
+body[data-theme="light"] .border-white\/50 {
+  border-color: #94a3b8 !important;
+}
+
+body[data-theme="light"] .hover\:border-white:hover {
+  border-color: #0f172a !important;
+}
+
+/* ── Tag badges on orange bg keep white text ── */
+body[data-theme="light"] .bg-\[\#ff6a00\] .text-white,
+body[data-theme="light"] .bg-\[\#ff6a00\].text-white,
+body[data-theme="light"] [style*="clipPath"] .text-white {
+  color: #ffffff !important;
+}
+
+/* CTA buttons on orange keep white text */
+body[data-theme="light"] a.bg-\[\#ff6a00\],
+body[data-theme="light"] button.bg-\[\#ff6a00\] {
+  color: #ffffff !important;
+}
+
+body[data-theme="light"] a.bg-\[\#ff6a00\] .text-white,
+body[data-theme="light"] button.bg-\[\#ff6a00\] .text-white,
+body[data-theme="light"] a.bg-\[\#ff6a00\] span,
+body[data-theme="light"] button.bg-\[\#ff6a00\] span {
+  color: #ffffff !important;
+}
+
+/* The main orange CTA section — keep white text (scoped only to CTA block) */
+body[data-theme="light"] section.cta-orange .bg-gradient-to-br.from-\[\#ff6a00\] ~ .text-white,
+body[data-theme="light"] section.cta-orange .from-\[\#ff6a00\].to-\[\#c2410c\] ~ * .text-white {
+  color: #ffffff !important;
+}
+
+/* Orange CTA full-bleed section — everything inside keeps white (scoped) */
+body[data-theme="light"] section.cta-orange:has(> .bg-gradient-to-br.from-\[\#ff6a00\]) .text-white,
+body[data-theme="light"] section.cta-orange:has(> .bg-gradient-to-br.from-\[\#ff6a00\]) .text-white\/80 {
+  color: #ffffff !important;
+}
+
+/* ── Header & footer: light mode ── */
+
+body[data-theme="light"] header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+body[data-theme="light"] header .text-white {
+  color: #0f172a !important;
+}
+
+body[data-theme="light"] header .text-white\/85 {
+  color: #334155 !important;
+}
+
+body[data-theme="light"] header .text-white\/80 {
+  color: #475569 !important;
+}
+
+body[data-theme="light"] header .text-white\/70 {
+  color: #64748b !important;
+}
+
+body[data-theme="light"] header .border-white\/15,
+body[data-theme="light"] header .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
+body[data-theme="light"] header .hover\:bg-white\/10:hover {
+  background-color: #f1f5f9 !important;
+}
+
+body[data-theme="light"] header .text-orange-100 {
+  color: #c2410c !important;
+}
+
+body[data-theme="light"] header .bg-fatman-accent\/15 {
+  background-color: rgba(234, 88, 12, 0.1) !important;
+}
+
+body[data-theme="light"] header .border-fatman-accent\/50 {
+  border-color: rgba(234, 88, 12, 0.3) !important;
+}
+
+body[data-theme="light"] footer {
+  background-color: #1e293b !important;
+  border-top-color: #334155 !important;
+}
+
+/* Footer stays dark for brand grounding — text remains light */
+body[data-theme="light"] footer .text-white {
+  color: #ffffff !important;
+}
+
+body[data-theme="light"] footer .text-white\/70 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ── Misc: mobile menu in light mode ── */
+
+body[data-theme="light"] header .bg-fatman-900 {
+  background-color: #ffffff !important;
+}

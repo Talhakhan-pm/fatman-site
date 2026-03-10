@@ -1,0 +1,279 @@
+import Link from "next/link";
+import { AnimatedReveal } from "@/components/animated-reveal";
+import { BentoCategories } from "@/components/bento-categories";
+import { FeaturedProducts } from "@/components/featured-products";
+import { FitmentCard } from "@/components/fitment-card";
+
+
+/* ───────────────────────── static data ───────────────────────── */
+
+const trustBadges = [
+  { icon: "🛡️", label: "Guaranteed Fitment", sub: "Wrong part? We fix it free." },
+  { icon: "🚚", label: "Ships in 24–48h", sub: "From our U.S. warehouse." },
+  { icon: "↩️", label: "Hassle-Free Returns", sub: "30-day no-questions policy." },
+  { icon: "📞", label: "Real Human Support", sub: "Not a chatbot maze." },
+];
+
+const steps = [
+  { num: "01", title: "Enter Your Vehicle", desc: "Year, make, model — or just drop a VIN." },
+  { num: "02", title: "We Verify Fitment", desc: "18,000+ fitment rules matched in real time." },
+  { num: "03", title: "Ships Fast, Fits Right", desc: "Out the door in 24–48h. Guaranteed match." },
+];
+
+const proofStats = [
+  { value: "5,200+", label: "OEM SKUs In Stock" },
+  { value: "18,000+", label: "Fitment Rules Verified" },
+  { value: "24–48h", label: "Average Dispatch" },
+  { value: "99.4%", label: "Fitment Accuracy" },
+];
+
+const testimonials = [
+  {
+    quote: "First time ordering auto parts online where the part actually fit. No returns, no headaches.",
+    name: "Marcus T.",
+    vehicle: "2019 Silverado 1500",
+  },
+  {
+    quote: "Ordered a turbo kit on Monday, had it by Wednesday. Fitment was dead-on.",
+    name: "Jason R.",
+    vehicle: "2021 F-150 EcoBoost",
+  },
+  {
+    quote: "Their VIN lookup saved me from ordering the wrong engine block. These guys know what they're doing.",
+    name: "Dani K.",
+    vehicle: "2017 RAM 2500 Cummins",
+  },
+];
+
+/* ───────────────────────── page ───────────────────────── */
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-fatman-900 text-white">
+      <main>
+        {/* ═══════════════ HERO ═══════════════ */}
+        <section className="relative overflow-hidden border-b border-white/10">
+          {/* ambient glow */}
+          <div className="pointer-events-none absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full bg-fatman-accent/15 blur-[120px]" />
+          <div className="pointer-events-none absolute -bottom-32 right-0 h-[400px] w-[400px] rounded-full bg-fatman-accent/10 blur-[100px]" />
+
+          <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-20 md:grid-cols-[1.2fr_1fr] md:items-center md:gap-14 md:py-28">
+            {/* left — headline */}
+            <AnimatedReveal>
+              <div>
+                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-fatman-accent/40 bg-fatman-accent/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-fatman-accent">
+                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-fatman-accent animate-pulse" />
+                  OEM Parts — Verified Fitment — Fast Dispatch
+                </div>
+
+                <h1 className="text-[clamp(2.25rem,5vw,4rem)] font-black leading-[1.08] tracking-tight">
+                  Stop Guessing.<br />
+                  <span className="text-fatman-accent">Start Fitting.</span>
+                </h1>
+
+                <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/70">
+                  Every OEM part verified against{" "}
+                  <strong className="text-white/90">18,000+ fitment rules</strong> before
+                  it ships. Wrong part? That&apos;s a{" "}
+                  <span className="underline decoration-fatman-accent decoration-2 underline-offset-4">
+                    them
+                  </span>{" "}
+                  problem. Not yours.
+                </p>
+
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <a
+                    href="#fitment"
+                    className="group relative inline-flex items-center justify-center gap-2 rounded-lg bg-fatman-accent px-7 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-fatman-accent/25 transition-all hover:bg-fatman-accent-hover hover:shadow-fatman-accent/40"
+                  >
+                    Check Fitment Now
+                    <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                  </a>
+                  <Link
+                    href="/category/engines"
+                    className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/20 px-6 py-3.5 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+                  >
+                    Shop Engines
+                  </Link>
+                </div>
+
+                {/* social proof nudge */}
+                <div className="mt-8 flex items-center gap-3">
+                  <div className="flex -space-x-2">
+                    {["bg-blue-500", "bg-green-500", "bg-orange-500", "bg-purple-500"].map((bg, i) => (
+                      <div
+                        key={i}
+                        className={`h-8 w-8 rounded-full border-2 border-fatman-900 ${bg} flex items-center justify-center text-xs font-bold`}
+                      >
+                        {String.fromCharCode(65 + i)}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-sm text-white/60">
+                    <strong className="text-white/90">2,400+</strong> parts shipped this month
+                  </p>
+                </div>
+              </div>
+            </AnimatedReveal>
+
+            {/* right — fitment command */}
+            <AnimatedReveal delay={150}>
+              <div id="fitment" className="scroll-mt-24">
+                <FitmentCard />
+              </div>
+            </AnimatedReveal>
+          </div>
+        </section>
+
+        {/* ═══════════════ TRUST / RISK-REVERSAL STRIP ═══════════════ */}
+        <section className="border-b border-white/10 bg-fatman-700/60">
+          <div className="mx-auto grid max-w-7xl gap-px px-6 py-0 sm:grid-cols-2 lg:grid-cols-4">
+            {trustBadges.map((item, i) => (
+              <AnimatedReveal key={item.label} delay={60 * i}>
+                <div className="flex items-start gap-3 px-4 py-5">
+                  <span className="mt-0.5 text-2xl">{item.icon}</span>
+                  <div>
+                    <p className="text-sm font-bold">{item.label}</p>
+                    <p className="mt-0.5 text-xs text-white/55">{item.sub}</p>
+                  </div>
+                </div>
+              </AnimatedReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══════════════ PROOF STATS BAR ═══════════════ */}
+        <section className="border-b border-white/10 bg-fatman-900">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px px-6 py-10 md:grid-cols-4">
+            {proofStats.map((stat, i) => (
+              <AnimatedReveal key={stat.label} delay={80 + i * 80}>
+                <div className="text-center">
+                  <p className="text-3xl font-black tracking-tight text-fatman-accent md:text-4xl">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-wider text-white/50">
+                    {stat.label}
+                  </p>
+                </div>
+              </AnimatedReveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ═══════════════ HOW IT WORKS — 3-STEP FLOW ═══════════════ */}
+        <section className="border-b border-white/10 bg-fatman-900">
+          <div className="mx-auto max-w-7xl px-6 py-16">
+            <AnimatedReveal>
+              <div className="mb-10 text-center">
+                <p className="text-xs font-semibold uppercase tracking-widest text-fatman-accent">
+                  How It Works
+                </p>
+                <h2 className="mt-2 text-3xl font-black md:text-4xl">
+                  Three Steps. Zero Guesswork.
+                </h2>
+              </div>
+            </AnimatedReveal>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              {steps.map((step, i) => (
+                <AnimatedReveal key={step.num} delay={100 + i * 120}>
+                  <div className="group relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition hover:border-fatman-accent/40">
+                    <span className="text-5xl font-black text-fatman-accent/20 transition group-hover:text-fatman-accent/40">
+                      {step.num}
+                    </span>
+                    <h3 className="mt-2 text-lg font-bold">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-white/60">
+                      {step.desc}
+                    </p>
+                  </div>
+                </AnimatedReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════ HIGH-INTENT CATEGORIES ═══════════════ */}
+        <BentoCategories />
+
+        {/* ═══════════════ FEATURED INVENTORY ═══════════════ */}
+        <FeaturedProducts />
+
+        {/* ═══════════════ TESTIMONIALS / PROOF SHELL ═══════════════ */}
+        <section className="border-t border-white/10 bg-fatman-700/40">
+          <div className="mx-auto max-w-7xl px-6 py-16">
+            <AnimatedReveal>
+              <div className="mb-10 text-center">
+                <p className="text-xs font-semibold uppercase tracking-widest text-fatman-accent">
+                  Don&apos;t Take Our Word For It
+                </p>
+                <h2 className="mt-2 text-3xl font-black md:text-4xl">
+                  Real Parts. Real Customers. Real Fitment.
+                </h2>
+              </div>
+            </AnimatedReveal>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              {testimonials.map((t, i) => (
+                <AnimatedReveal key={t.name} delay={80 + i * 100}>
+                  <blockquote className="flex h-full flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+                    <p className="text-sm leading-relaxed text-white/75">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <div className="mt-5 flex items-center gap-3 border-t border-white/10 pt-4">
+                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-fatman-accent/20 text-xs font-bold text-fatman-accent">
+                        {t.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold">{t.name}</p>
+                        <p className="text-xs text-white/50">{t.vehicle}</p>
+                      </div>
+                    </div>
+                  </blockquote>
+                </AnimatedReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════════ BOTTOM CTA BAND ═══════════════ */}
+        <section className="border-t border-white/10 bg-gradient-to-r from-fatman-accent/10 via-fatman-900 to-fatman-accent/10">
+          <div className="mx-auto max-w-4xl px-6 py-16 text-center">
+            <AnimatedReveal>
+              <h2 className="text-3xl font-black md:text-4xl">
+                Ready to Stop Returning Parts?
+              </h2>
+              <p className="mx-auto mt-4 max-w-xl text-white/60">
+                Enter your vehicle once. Get verified fitment on every part. Ship fast. Done.
+              </p>
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <a
+                  href="#fitment"
+                  className="group inline-flex items-center gap-2 rounded-lg bg-fatman-accent px-8 py-4 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-fatman-accent/25 transition-all hover:bg-fatman-accent-hover hover:shadow-fatman-accent/40"
+                >
+                  Check Fitment Now
+                  <span className="inline-block transition-transform group-hover:translate-x-0.5">→</span>
+                </a>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-4 text-sm font-semibold text-white/90 transition hover:bg-white/10"
+                >
+                  Talk to a Human
+                </Link>
+              </div>
+            </AnimatedReveal>
+          </div>
+        </section>
+      </main>
+
+      {/* ═══════════════ STICKY MOBILE CTA ═══════════════ */}
+      <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/15 bg-fatman-900/95 px-4 py-3 backdrop-blur-md md:hidden">
+        <a
+          href="#fitment"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-fatman-accent py-3 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-fatman-accent/30"
+        >
+          🔍 Check Fitment — Free &amp; Instant
+        </a>
+      </div>
+    </div>
+  );
+}
