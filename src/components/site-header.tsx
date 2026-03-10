@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useGarage } from "./garage-provider";
@@ -21,9 +22,24 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-fatman-900/95 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="text-xl font-black tracking-tight text-white">
-          FATMAN PARTS
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
+        <Link href="/" className="inline-flex items-center" aria-label="Fatman Parts home">
+          <Image
+            src="/brand/fatman-primary-horizontal.png"
+            alt="Fatman Parts"
+            width={520}
+            height={132}
+            priority
+            className="hidden h-9 w-auto object-contain sm:block"
+          />
+          <Image
+            src="/brand/fatman-compact-horizontal.png"
+            alt="Fatman Parts"
+            width={420}
+            height={132}
+            priority
+            className="block h-7 w-auto object-contain sm:hidden"
+          />
         </Link>
 
         <nav className="hidden gap-5 text-sm text-white/85 md:flex">
