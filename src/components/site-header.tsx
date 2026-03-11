@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGarage } from "./garage-provider";
 import { useTheme } from "./theme-provider";
 import { enableDemoMode } from "@/lib/demo";
@@ -19,15 +19,31 @@ export function SiteHeader() {
   const { vehicle } = useGarage();
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const isDark = theme === "dark";
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const desktopLogoSrc = !mounted
+    ? "/brand/fatman-primary-horizontal-dark.png"
+    : isDark
+      ? "/brand/fatman-primary-horizontal.png"
+      : "/brand/fatman-primary-horizontal-dark.png";
+
+  const mobileLogoSrc = !mounted
+    ? "/brand/fatman-compact-horizontal-dark.png"
+    : isDark
+      ? "/brand/fatman-compact-horizontal.png"
+      : "/brand/fatman-compact-horizontal-dark.png";
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-fatman-900/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
         <Link href="/" className="inline-flex items-center" aria-label="Fatman Parts home">
           <Image
-            src={isDark ? "/brand/fatman-primary-horizontal.png" : "/brand/fatman-primary-horizontal-dark.png"}
+            src={desktopLogoSrc}
             alt="Fatman Parts"
             width={2043}
             height={671}
@@ -35,7 +51,7 @@ export function SiteHeader() {
             className="hidden h-10 w-auto object-contain sm:block"
           />
           <Image
-            src={isDark ? "/brand/fatman-compact-horizontal.png" : "/brand/fatman-compact-horizontal-dark.png"}
+            src={mobileLogoSrc}
             alt="Fatman Parts"
             width={1265}
             height={383}

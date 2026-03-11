@@ -2,18 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useTheme } from "./theme-provider";
 
 export function SiteFooter() {
   const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const isDark = theme === "dark";
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const footerLogoSrc = !mounted
+    ? "/brand/fatman-primary-horizontal-dark.png"
+    : isDark
+      ? "/brand/fatman-primary-horizontal.png"
+      : "/brand/fatman-primary-horizontal-dark.png";
+
   return (
     <footer className="border-t border-white/10 bg-fatman-900">
       <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 text-sm text-white/70 md:grid-cols-4">
         <div>
           <Link href="/" className="inline-flex items-center" aria-label="Fatman Parts home">
             <Image
-              src={isDark ? "/brand/fatman-primary-horizontal.png" : "/brand/fatman-primary-horizontal-dark.png"}
+              src={footerLogoSrc}
               alt="Fatman Parts"
               width={2043}
               height={671}
