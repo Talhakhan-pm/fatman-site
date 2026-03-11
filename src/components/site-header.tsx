@@ -30,7 +30,15 @@ export function SiteHeader() {
             width={520}
             height={132}
             priority
-            className="hidden h-9 w-auto object-contain sm:block"
+            className="hidden h-10 w-auto object-contain sm:block dark:hidden"
+          />
+          <Image
+            src="/brand/fatman-primary-horizontal-dark.png"
+            alt="Fatman Parts"
+            width={520}
+            height={132}
+            priority
+            className="hidden h-10 w-auto object-contain sm:dark:block"
           />
           <Image
             src="/brand/fatman-compact-horizontal.png"
@@ -38,7 +46,15 @@ export function SiteHeader() {
             width={420}
             height={132}
             priority
-            className="block h-7 w-auto object-contain sm:hidden"
+            className="block h-8 w-auto object-contain sm:hidden dark:hidden"
+          />
+          <Image
+            src="/brand/fatman-compact-horizontal-dark.png"
+            alt="Fatman Parts"
+            width={420}
+            height={132}
+            priority
+            className="hidden h-8 w-auto object-contain dark:block sm:dark:hidden"
           />
         </Link>
 

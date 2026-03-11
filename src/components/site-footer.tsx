@@ -19,7 +19,14 @@ export function SiteFooter() {
               alt="Fatman Parts"
               width={520}
               height={132}
-              className="h-8 w-auto object-contain"
+              className="h-8 w-auto object-contain dark:hidden"
+            />
+            <Image
+              src="/brand/fatman-primary-horizontal-dark.png"
+              alt="Fatman Parts"
+              width={520}
+              height={132}
+              className="hidden h-8 w-auto object-contain dark:block"
             />
           </Link>
           <p className="mt-2">OEM confidence. Fast dispatch. Zero guesswork.</p>
