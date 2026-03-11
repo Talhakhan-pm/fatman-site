@@ -27,16 +27,12 @@ export function SiteHeader() {
   }, []);
 
   const desktopLogoSrc = !mounted
-    ? "/brand/fatman-primary-horizontal-dark.png"
-    : isDark
-      ? "/brand/fatman-primary-horizontal.png"
-      : "/brand/fatman-primary-horizontal-dark.png";
-
-  const mobileLogoSrc = !mounted
     ? "/brand/fatman-compact-horizontal-dark.png"
     : isDark
       ? "/brand/fatman-compact-horizontal.png"
       : "/brand/fatman-compact-horizontal-dark.png";
+
+  const mobileLogoSrc = desktopLogoSrc;
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-fatman-900/95 backdrop-blur">
@@ -45,8 +41,8 @@ export function SiteHeader() {
           <Image
             src={desktopLogoSrc}
             alt="Fatman Parts"
-            width={2043}
-            height={671}
+            width={1265}
+            height={383}
             priority
             className="hidden h-10 w-auto object-contain sm:block"
           />

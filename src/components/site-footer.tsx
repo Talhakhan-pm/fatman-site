@@ -15,10 +15,10 @@ export function SiteFooter() {
   }, []);
 
   const footerLogoSrc = !mounted
-    ? "/brand/fatman-primary-horizontal-dark.png"
+    ? "/brand/fatman-compact-horizontal-dark.png"
     : isDark
-      ? "/brand/fatman-primary-horizontal.png"
-      : "/brand/fatman-primary-horizontal-dark.png";
+      ? "/brand/fatman-compact-horizontal.png"
+      : "/brand/fatman-compact-horizontal-dark.png";
 
   return (
     <footer className="border-t border-white/10 bg-fatman-900">
@@ -28,8 +28,8 @@ export function SiteFooter() {
             <Image
               src={footerLogoSrc}
               alt="Fatman Parts"
-              width={2043}
-              height={671}
+              width={1265}
+              height={383}
               className="h-8 w-auto object-contain"
             />
           </Link>
