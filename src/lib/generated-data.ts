@@ -3045,6 +3045,18 @@ export const generatedFitmentRules = [
         "make": "Ford",
         "model": "Escape",
         "engine": "1.5L"
+      },
+      {
+        "year": "2022",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      },
+      {
+        "year": "2023",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
       }
     ]
   },
