@@ -1,14 +1,14 @@
 # Fatman Brand Logo System
 
-This project uses the Round 6 native-regenerated Fatman logo set.
+This project uses the exact approved Round 5 fixed Fatman horizontal logo source, with a dark-mode-safe recolor derived from that same asset only.
 
 ## Logo files
 
-- `public/brand/fatman-primary-horizontal.png` — light wordmark variant for dark surfaces
-- `public/brand/fatman-primary-horizontal-dark.png` — dark wordmark variant for light surfaces
-- `public/brand/fatman-compact-horizontal.png` — compact light variant for dark surfaces
-- `public/brand/fatman-compact-horizontal-dark.png` — compact dark variant for light surfaces
-- `public/brand/fatman-badge-round.png`
+- `public/brand/fatman-primary-horizontal.png` — dark-surface variant derived from the exact approved fixed primary asset
+- `public/brand/fatman-primary-horizontal-dark.png` — exact approved fixed primary asset for light surfaces
+- `public/brand/fatman-compact-horizontal.png` — dark-surface compact variant derived from the exact approved fixed compact asset
+- `public/brand/fatman-compact-horizontal-dark.png` — exact approved fixed compact asset for light surfaces
+- `public/brand/fatman-badge-round.png` — legacy file kept in repo, not used in header/footer
 - `public/brand/fatman-fp-shield.png`
 
 ## Usage rules
@@ -29,10 +29,7 @@ Use on narrow horizontal spaces:
 - Tight side panels or utility bars
 
 ### 3) Badge round logo
-Use as a supporting brand mark, not the only wordmark on major surfaces:
-- Footer accent/logo lockups
-- Social/profile avatars
-- Stickers, badges, and circular placements
+Legacy/supporting asset only. Do not use in the site header or footer for the exact-logo-only implementation.
 
 ### 4) FP shield icon
 Use for app/icon-only contexts:

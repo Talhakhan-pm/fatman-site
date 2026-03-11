@@ -11,19 +11,12 @@ export function SiteFooter() {
     <footer className="border-t border-white/10 bg-fatman-900">
       <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 text-sm text-white/70 md:grid-cols-4">
         <div>
-          <Link href="/" className="inline-flex items-center gap-3" aria-label="Fatman Parts home">
-            <Image
-              src="/brand/fatman-badge-round.png"
-              alt="Fatman Parts badge"
-              width={112}
-              height={112}
-              className="h-9 w-9 shrink-0 object-contain"
-            />
+          <Link href="/" className="inline-flex items-center" aria-label="Fatman Parts home">
             <Image
               src={isDark ? "/brand/fatman-primary-horizontal.png" : "/brand/fatman-primary-horizontal-dark.png"}
               alt="Fatman Parts"
-              width={2816}
-              height={1536}
+              width={1947}
+              height={647}
               className="h-8 w-auto object-contain"
             />
           </Link>
