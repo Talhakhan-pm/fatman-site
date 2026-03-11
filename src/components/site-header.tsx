@@ -29,16 +29,16 @@ export function SiteHeader() {
           <Image
             src={isDark ? "/brand/fatman-primary-horizontal.png" : "/brand/fatman-primary-horizontal-dark.png"}
             alt="Fatman Parts"
-            width={1947}
-            height={647}
+            width={2043}
+            height={671}
             priority
             className="hidden h-10 w-auto object-contain sm:block"
           />
           <Image
             src={isDark ? "/brand/fatman-compact-horizontal.png" : "/brand/fatman-compact-horizontal-dark.png"}
             alt="Fatman Parts"
-            width={1193}
-            height={367}
+            width={1265}
+            height={383}
             priority
             className="block h-8 w-auto object-contain sm:hidden"
           />

@@ -15,8 +15,8 @@ export function SiteFooter() {
             <Image
               src={isDark ? "/brand/fatman-primary-horizontal.png" : "/brand/fatman-primary-horizontal-dark.png"}
               alt="Fatman Parts"
-              width={1947}
-              height={647}
+              width={2043}
+              height={671}
               className="h-8 w-auto object-contain"
             />
           </Link>
