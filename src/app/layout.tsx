@@ -17,8 +17,37 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Fatman Parts",
-  description: "OEM parts with verified fitment and fast U.S. shipping.",
+  metadataBase: new URL("https://fatmanparts.com"),
+  title: {
+    default: "Fatman Parts",
+    template: "%s | Fatman Parts",
+  },
+  description: "OEM parts with verified fitment, clear pricing, and fast U.S. shipping.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Fatman Parts",
+    description: "OEM parts with verified fitment, clear pricing, and fast U.S. shipping.",
+    url: "https://fatmanparts.com",
+    siteName: "Fatman Parts",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/brand/fatman-primary-horizontal.png",
+        width: 1200,
+        height: 630,
+        alt: "Fatman Parts logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fatman Parts",
+    description: "OEM parts with verified fitment, clear pricing, and fast U.S. shipping.",
+    images: ["/brand/fatman-primary-horizontal.png"],
+  },
   icons: {
     icon: [
       { url: "/brand/fatman-fp-shield.png", sizes: "32x32", type: "image/png" },
