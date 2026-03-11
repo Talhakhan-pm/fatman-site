@@ -17,44 +17,30 @@ const navItems = [
 
 export function SiteHeader() {
   const { vehicle } = useGarage();
-  const { toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
+  const isDark = theme === "dark";
+
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-fatman-900/95 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-3.5">
         <Link href="/" className="inline-flex items-center" aria-label="Fatman Parts home">
           <Image
-            src="/brand/fatman-primary-horizontal.png"
+            src={isDark ? "/brand/fatman-primary-horizontal.png" : "/brand/fatman-primary-horizontal-dark.png"}
             alt="Fatman Parts"
-            width={520}
-            height={132}
+            width={2816}
+            height={1536}
             priority
-            className="hidden h-10 w-auto object-contain sm:block dark:hidden"
+            className="hidden h-10 w-auto object-contain sm:block"
           />
           <Image
-            src="/brand/fatman-primary-horizontal-dark.png"
+            src={isDark ? "/brand/fatman-compact-horizontal.png" : "/brand/fatman-compact-horizontal-dark.png"}
             alt="Fatman Parts"
-            width={520}
-            height={132}
+            width={3712}
+            height={1152}
             priority
-            className="hidden h-10 w-auto object-contain sm:dark:block"
-          />
-          <Image
-            src="/brand/fatman-compact-horizontal.png"
-            alt="Fatman Parts"
-            width={420}
-            height={132}
-            priority
-            className="block h-8 w-auto object-contain sm:hidden dark:hidden"
-          />
-          <Image
-            src="/brand/fatman-compact-horizontal-dark.png"
-            alt="Fatman Parts"
-            width={420}
-            height={132}
-            priority
-            className="hidden h-8 w-auto object-contain dark:block sm:dark:hidden"
+            className="block h-8 w-auto object-contain sm:hidden"
           />
         </Link>
 

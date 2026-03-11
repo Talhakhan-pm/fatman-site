@@ -1,7 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "./theme-provider";
 
 export function SiteFooter() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   return (
     <footer className="border-t border-white/10 bg-fatman-900">
       <div className="mx-auto grid max-w-6xl gap-8 px-6 py-10 text-sm text-white/70 md:grid-cols-4">
@@ -15,18 +20,11 @@ export function SiteFooter() {
               className="h-9 w-9 shrink-0 object-contain"
             />
             <Image
-              src="/brand/fatman-primary-horizontal.png"
+              src={isDark ? "/brand/fatman-primary-horizontal.png" : "/brand/fatman-primary-horizontal-dark.png"}
               alt="Fatman Parts"
-              width={520}
-              height={132}
-              className="h-8 w-auto object-contain dark:hidden"
-            />
-            <Image
-              src="/brand/fatman-primary-horizontal-dark.png"
-              alt="Fatman Parts"
-              width={520}
-              height={132}
-              className="hidden h-8 w-auto object-contain dark:block"
+              width={2816}
+              height={1536}
+              className="h-8 w-auto object-contain"
             />
           </Link>
           <p className="mt-2">OEM confidence. Fast dispatch. Zero guesswork.</p>

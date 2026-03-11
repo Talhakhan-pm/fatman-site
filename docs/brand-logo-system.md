@@ -1,11 +1,13 @@
 # Fatman Brand Logo System
 
-This project uses the Round 5 separated Fatman logo set.
+This project uses the Round 6 native-regenerated Fatman logo set.
 
 ## Logo files
 
-- `public/brand/fatman-primary-horizontal.png`
-- `public/brand/fatman-compact-horizontal.png`
+- `public/brand/fatman-primary-horizontal.png` — light wordmark variant for dark surfaces
+- `public/brand/fatman-primary-horizontal-dark.png` — dark wordmark variant for light surfaces
+- `public/brand/fatman-compact-horizontal.png` — compact light variant for dark surfaces
+- `public/brand/fatman-compact-horizontal-dark.png` — compact dark variant for light surfaces
 - `public/brand/fatman-badge-round.png`
 - `public/brand/fatman-fp-shield.png`
 
@@ -13,12 +15,16 @@ This project uses the Round 5 separated Fatman logo set.
 
 ### 1) Primary horizontal logo
 Use as the default brand mark on desktop and wide surfaces:
+- `fatman-primary-horizontal.png` on dark surfaces
+- `fatman-primary-horizontal-dark.png` on light surfaces
 - Header brand area (desktop/tablet)
 - Footer brand lockup
 - Any standard website branding placement where width is available
 
 ### 2) Compact horizontal logo
 Use on narrow horizontal spaces:
+- `fatman-compact-horizontal.png` on dark surfaces
+- `fatman-compact-horizontal-dark.png` on light surfaces
 - Mobile header / small nav bars
 - Tight side panels or utility bars
 
