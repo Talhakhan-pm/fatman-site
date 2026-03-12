@@ -16,7 +16,7 @@ type Product = {
   price: number;
   compareAt?: number;
   stock: "in-stock" | "low-stock" | "preorder";
-  category: "engines" | "oem-parts" | "drivetrain" | "cooling" | "electrical" | "suspension";
+  category: "engines" | "brakes" | "drivetrain" | "cooling" | "electrical" | "suspension";
   imageUrl?: string;
 };
 

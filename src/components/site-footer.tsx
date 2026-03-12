@@ -41,8 +41,8 @@ export function SiteFooter() {
             <Link href="/category/engines" className="block">
               Engines
             </Link>
-            <Link href="/category/oem-parts" className="block">
-              OEM Parts
+            <Link href="/category/brakes" className="block">
+              Brakes
             </Link>
           </div>
         </div>

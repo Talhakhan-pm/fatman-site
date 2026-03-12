@@ -47,7 +47,7 @@ const products = productsRaw.map((p) => ({
 
 const categoryMap = {
   engines: "Long blocks, heads, and complete assemblies.",
-  "oem-parts": "VIN-aware selection with verified compatibility.",
+  brakes: "Pads, rotors, calipers, lines, and hydraulic service parts.",
   drivetrain: "Trans, mounts, and support systems.",
   cooling: "Radiators, thermostats, and flow components.",
   electrical: "Sensors, harnesses, and charging parts.",
@@ -56,7 +56,7 @@ const categoryMap = {
 
 const categoryTitles = {
   engines: "Engines",
-  "oem-parts": "OEM Parts",
+  brakes: "Brakes",
   drivetrain: "Drivetrain",
   cooling: "Cooling",
   electrical: "Electrical",

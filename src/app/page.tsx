@@ -29,10 +29,10 @@ const categories = [
     tag: "BEST SELLER",
   },
   {
-    name: "OEM Parts",
-    slug: "oem-parts",
+    name: "Brakes",
+    slug: "brakes",
     count: "800+",
-    desc: "VIN-aware, verified compatibility",
+    desc: "Pads, rotors, calipers, and hydraulic parts",
     Icon: BrakeIcon,
     tag: "POPULAR",
   },
