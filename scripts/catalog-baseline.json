@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-03-12T15:06:43.093Z",
+  "categories": {
+    "engines": {
+      "productCount": 34,
+      "realImageCount": 14,
+      "placeholderImageCount": 20,
+      "missingImageCount": 0
+    },
+    "brakes": {
+      "productCount": 34,
+      "realImageCount": 8,
+      "placeholderImageCount": 0,
+      "missingImageCount": 26
+    },
+    "oem-parts": {
+      "productCount": 34,
+      "realImageCount": 34,
+      "placeholderImageCount": 0,
+      "missingImageCount": 0
+    },
+    "suspension": {
+      "productCount": 33,
+      "realImageCount": 3,
+      "placeholderImageCount": 30,
+      "missingImageCount": 0
+    },
+    "cooling": {
+      "productCount": 33,
+      "realImageCount": 0,
+      "placeholderImageCount": 33,
+      "missingImageCount": 0
+    },
+    "electrical": {
+      "productCount": 33,
+      "realImageCount": 0,
+      "placeholderImageCount": 33,
+      "missingImageCount": 0
+    },
+    "drivetrain": {
+      "productCount": 33,
+      "realImageCount": 0,
+      "placeholderImageCount": 33,
+      "missingImageCount": 0
+    }
+  }
+}

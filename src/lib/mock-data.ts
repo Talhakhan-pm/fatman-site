@@ -1,9 +1,10 @@
 import { generatedCategories, generatedProducts } from "@/lib/generated-data";
+import type { CategorySlug } from "@/lib/catalog-registry";
 
 export type Product = {
   sku: string;
   slug: string;
-  category: "engines" | "brakes" | "oem-parts" | "drivetrain" | "cooling" | "electrical" | "suspension";
+  category: CategorySlug;
   brand: string;
   name: string;
   shortDescription: string;
@@ -17,9 +18,11 @@ export type Product = {
 };
 
 export type Category = {
-  slug: Product["category"];
+  slug: CategorySlug;
   title: string;
   description: string;
+  productCount: number;
+  realImageCount: number;
 };
 
 export const categories: Category[] = generatedCategories as unknown as Category[];

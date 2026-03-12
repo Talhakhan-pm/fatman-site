@@ -6,6 +6,7 @@ const dataDir = path.resolve(root, "../fatman-data");
 const productsCsv = path.join(dataDir, "products.csv");
 const fitmentCsv = path.join(dataDir, "fitment.csv");
 const outFile = path.join(root, "src/lib/generated-data.ts");
+const registryFile = path.join(root, "src/lib/catalog-registry.json");
 
 function parseCsv(filePath) {
   const raw = fs.readFileSync(filePath, "utf8").trim();
@@ -59,56 +60,64 @@ function parseCsv(filePath) {
   });
 }
 
+function isValidImageUrl(imageUrl) {
+  if (!imageUrl?.trim()) return false;
+  return /^(\/|https?:\/\/|data:image\/|blob:)/.test(imageUrl.trim());
+}
+
+function isPlaceholderImage(imageUrl) {
+  return imageUrl?.includes("picsum.photos/seed/fatman-") ?? false;
+}
+
 const productsRaw = parseCsv(productsCsv);
 const fitmentRaw = parseCsv(fitmentCsv);
+const categoryRegistry = JSON.parse(fs.readFileSync(registryFile, "utf8"));
+const registryBySlug = Object.fromEntries(categoryRegistry.map((entry) => [entry.slug, entry]));
 
-const products = productsRaw.map((p) => ({
-  sku: p.sku,
-  slug: p.slug,
-  category: p.category,
-  brand: p.brand,
-  name: p.name,
-  shortDescription: p.short_description,
-  price: Number(p.price_usd || 0),
-  compareAt: p.compare_at_usd ? Number(p.compare_at_usd) : undefined,
-  stock:
-    p.stock_status === "in_stock"
-      ? "in-stock"
-      : p.stock_status === "low_stock"
-        ? "low-stock"
-        : "preorder",
-  imageUrl: p.image_url || "",
-  shippingClass: p.shipping_class || "ground",
-  warrantyDays: Number(p.warranty_days || 0),
-  oemPartNumber: p.oem_part_number || "",
-}));
+const categoryCounts = {};
+const realImageCounts = {};
 
-const categoryMap = {
-  engines: "Long blocks, heads, and complete assemblies.",
-  brakes: "Pads, rotors, calipers, lines, and hydraulic service parts.",
-  "oem-parts": "Core OEM-style replacement parts across braking, ignition, filtration, intake, and charging systems.",
-  drivetrain: "Trans, mounts, and support systems.",
-  cooling: "Radiators, thermostats, and flow components.",
-  electrical: "Sensors, harnesses, and charging parts.",
-  suspension: "Shocks, struts, and ride-control parts.",
-};
+const products = productsRaw.map((p) => {
+  if (!registryBySlug[p.category]) {
+    throw new Error(`products.csv contains unknown category slug: ${p.category}`);
+  }
 
-const categoryTitles = {
-  engines: "Engines",
-  brakes: "Brakes",
-  "oem-parts": "OEM Parts",
-  drivetrain: "Drivetrain",
-  cooling: "Cooling",
-  electrical: "Electrical",
-  suspension: "Suspension",
-};
+  categoryCounts[p.category] = (categoryCounts[p.category] ?? 0) + 1;
+  if (isValidImageUrl(p.image_url) && !isPlaceholderImage(p.image_url)) {
+    realImageCounts[p.category] = (realImageCounts[p.category] ?? 0) + 1;
+  }
 
-const presentCategories = [...new Set(products.map((p) => p.category))];
-const categories = presentCategories.map((slug) => ({
-  slug,
-  title: categoryTitles[slug] ?? slug,
-  description: categoryMap[slug] ?? "",
-}));
+  return {
+    sku: p.sku,
+    slug: p.slug,
+    category: p.category,
+    brand: p.brand,
+    name: p.name,
+    shortDescription: p.short_description,
+    price: Number(p.price_usd || 0),
+    compareAt: p.compare_at_usd ? Number(p.compare_at_usd) : undefined,
+    stock:
+      p.stock_status === "in_stock"
+        ? "in-stock"
+        : p.stock_status === "low_stock"
+          ? "low-stock"
+          : "preorder",
+    imageUrl: p.image_url || "",
+    shippingClass: p.shipping_class || "ground",
+    warrantyDays: Number(p.warranty_days || 0),
+    oemPartNumber: p.oem_part_number || "",
+  };
+});
+
+const categories = categoryRegistry
+  .filter((entry) => categoryCounts[entry.slug])
+  .map((entry) => ({
+    slug: entry.slug,
+    title: entry.title,
+    description: entry.description,
+    productCount: categoryCounts[entry.slug] ?? 0,
+    realImageCount: realImageCounts[entry.slug] ?? 0,
+  }));
 
 const grouped = {};
 for (const row of fitmentRaw) {

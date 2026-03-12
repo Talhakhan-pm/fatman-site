@@ -5,7 +5,7 @@ import { categories } from "@/lib/mock-data";
 export const metadata: Metadata = {
   title: "All Categories | Fatman Parts",
   description:
-    "Browse all auto part categories — engines, OEM parts, drivetrain, cooling, electrical, and suspension. OEM-verified fitment.",
+    "Browse all Fatman catalog categories from the synced registry and live catalog snapshot. OEM-verified fitment.",
   alternates: { canonical: "/category" },
 };
 

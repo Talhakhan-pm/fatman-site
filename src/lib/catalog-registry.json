@@ -1,0 +1,79 @@
+[
+  {
+    "slug": "engines",
+    "title": "Engines",
+    "description": "Long blocks, heads, and complete assemblies.",
+    "shortDescription": "Long blocks, heads, complete assemblies",
+    "icon": "engine",
+    "tag": "BEST SELLER",
+    "showInHeader": true,
+    "showInFooter": true,
+    "showOnHomepage": true
+  },
+  {
+    "slug": "brakes",
+    "title": "Brakes",
+    "description": "Pads, rotors, calipers, lines, and hydraulic service parts.",
+    "shortDescription": "Pads, rotors, calipers, and hydraulic parts",
+    "icon": "brake",
+    "tag": "POPULAR",
+    "showInHeader": true,
+    "showInFooter": true,
+    "showOnHomepage": true
+  },
+  {
+    "slug": "oem-parts",
+    "title": "OEM Parts",
+    "description": "Core OEM-style replacement parts across braking, ignition, filtration, intake, and charging systems.",
+    "shortDescription": "OEM-style replacement parts across braking, ignition, filtration, intake, and charging",
+    "icon": "electrical",
+    "tag": "OEM",
+    "showInHeader": true,
+    "showInFooter": false,
+    "showOnHomepage": true
+  },
+  {
+    "slug": "suspension",
+    "title": "Suspension",
+    "description": "Shocks, struts, and ride-control parts.",
+    "shortDescription": "Shocks, struts, ride-control parts",
+    "icon": "suspension",
+    "tag": null,
+    "showInHeader": true,
+    "showInFooter": false,
+    "showOnHomepage": true
+  },
+  {
+    "slug": "cooling",
+    "title": "Cooling",
+    "description": "Radiators, thermostats, and flow components.",
+    "shortDescription": "Radiators, thermostats, flow components",
+    "icon": "exhaust",
+    "tag": null,
+    "showInHeader": false,
+    "showInFooter": false,
+    "showOnHomepage": true
+  },
+  {
+    "slug": "electrical",
+    "title": "Electrical",
+    "description": "Sensors, harnesses, and charging parts.",
+    "shortDescription": "Sensors, harnesses, charging parts",
+    "icon": "electrical",
+    "tag": "NEW",
+    "showInHeader": false,
+    "showInFooter": false,
+    "showOnHomepage": true
+  },
+  {
+    "slug": "drivetrain",
+    "title": "Drivetrain",
+    "description": "Trans, mounts, and support systems.",
+    "shortDescription": "Trans, mounts, support systems",
+    "icon": "transmission",
+    "tag": null,
+    "showInHeader": false,
+    "showInFooter": false,
+    "showOnHomepage": true
+  }
+]

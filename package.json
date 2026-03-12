@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync:data": "node scripts/sync-fatman-data.mjs"
+    "sync:data": "node scripts/sync-fatman-data.mjs",
+    "catalog:doctor": "node scripts/catalog-doctor.mjs",
+    "catalog:baseline": "node scripts/catalog-doctor.mjs --write-baseline"
   },
   "dependencies": {
     "next": "16.1.6",

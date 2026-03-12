@@ -3516,37 +3516,51 @@ export const generatedCategories = [
   {
     "slug": "engines",
     "title": "Engines",
-    "description": "Long blocks, heads, and complete assemblies."
-  },
-  {
-    "slug": "oem-parts",
-    "title": "OEM Parts",
-    "description": "Core OEM-style replacement parts across braking, ignition, filtration, intake, and charging systems."
-  },
-  {
-    "slug": "drivetrain",
-    "title": "Drivetrain",
-    "description": "Trans, mounts, and support systems."
-  },
-  {
-    "slug": "cooling",
-    "title": "Cooling",
-    "description": "Radiators, thermostats, and flow components."
-  },
-  {
-    "slug": "electrical",
-    "title": "Electrical",
-    "description": "Sensors, harnesses, and charging parts."
-  },
-  {
-    "slug": "suspension",
-    "title": "Suspension",
-    "description": "Shocks, struts, and ride-control parts."
+    "description": "Long blocks, heads, and complete assemblies.",
+    "productCount": 34,
+    "realImageCount": 14
   },
   {
     "slug": "brakes",
     "title": "Brakes",
-    "description": "Pads, rotors, calipers, lines, and hydraulic service parts."
+    "description": "Pads, rotors, calipers, lines, and hydraulic service parts.",
+    "productCount": 34,
+    "realImageCount": 8
+  },
+  {
+    "slug": "oem-parts",
+    "title": "OEM Parts",
+    "description": "Core OEM-style replacement parts across braking, ignition, filtration, intake, and charging systems.",
+    "productCount": 34,
+    "realImageCount": 34
+  },
+  {
+    "slug": "suspension",
+    "title": "Suspension",
+    "description": "Shocks, struts, and ride-control parts.",
+    "productCount": 33,
+    "realImageCount": 3
+  },
+  {
+    "slug": "cooling",
+    "title": "Cooling",
+    "description": "Radiators, thermostats, and flow components.",
+    "productCount": 33,
+    "realImageCount": 0
+  },
+  {
+    "slug": "electrical",
+    "title": "Electrical",
+    "description": "Sensors, harnesses, and charging parts.",
+    "productCount": 33,
+    "realImageCount": 0
+  },
+  {
+    "slug": "drivetrain",
+    "title": "Drivetrain",
+    "description": "Trans, mounts, and support systems.",
+    "productCount": 33,
+    "realImageCount": 0
   }
 ] as const;
 
