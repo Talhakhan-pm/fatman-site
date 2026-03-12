@@ -9,15 +9,53 @@ const outFile = path.join(root, "src/lib/generated-data.ts");
 
 function parseCsv(filePath) {
   const raw = fs.readFileSync(filePath, "utf8").trim();
-  const [headerLine, ...lines] = raw.split(/\r?\n/);
-  const headers = headerLine.split(",");
-  return lines.map((line) => {
-    const cols = line.split(",");
-    const row = {};
-    headers.forEach((h, i) => {
-      row[h] = cols[i] ?? "";
+  const rows = [];
+  let current = "";
+  let row = [];
+  let inQuotes = false;
+
+  for (let i = 0; i < raw.length; i += 1) {
+    const char = raw[i];
+    const next = raw[i + 1];
+
+    if (char === '"') {
+      if (inQuotes && next === '"') {
+        current += '"';
+        i += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+      continue;
+    }
+
+    if (char === "," && !inQuotes) {
+      row.push(current);
+      current = "";
+      continue;
+    }
+
+    if ((char === "\n" || char === "\r") && !inQuotes) {
+      if (char === "\r" && next === "\n") i += 1;
+      row.push(current);
+      rows.push(row);
+      row = [];
+      current = "";
+      continue;
+    }
+
+    current += char;
+  }
+
+  row.push(current);
+  rows.push(row);
+
+  const [headers, ...dataRows] = rows;
+  return dataRows.map((cols) => {
+    const record = {};
+    headers.forEach((header, index) => {
+      record[header] = cols[index] ?? "";
     });
-    return row;
+    return record;
   });
 }
 
