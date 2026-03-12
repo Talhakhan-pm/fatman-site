@@ -1,11 +1,13 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { FitmentBadge } from "./fitment-badge";
 import { getFitmentState } from "@/lib/fitment";
 import { useGarage } from "./garage-provider";
 import { formatPrice } from "@/lib/mock-data";
 import { track } from "@/lib/analytics";
+import { getProductDisplayMedia } from "@/lib/catalog-media";
 
 type Product = {
   slug: string;
@@ -14,6 +16,8 @@ type Product = {
   price: number;
   compareAt?: number;
   stock: "in-stock" | "low-stock" | "preorder";
+  category: "engines" | "oem-parts" | "drivetrain" | "cooling" | "electrical" | "suspension";
+  imageUrl?: string;
 };
 
 function StockBadge({ stock }: { stock: Product["stock"] }) {
@@ -30,12 +34,21 @@ export function ProductCard({ product }: { product: Product }) {
   const { vehicle } = useGarage();
   const fitment = getFitmentState(product.slug, vehicle);
   const hasSavings = typeof product.compareAt === "number" && product.compareAt > product.price;
+  const media = getProductDisplayMedia(product);
 
   return (
     <article className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:-translate-y-0.5 hover:border-fatman-accent">
-      <Link href={`/product/${product.slug}`} className="relative block h-32 overflow-hidden rounded-lg bg-gradient-to-br from-fatman-700/80 to-fatman-900/80">
-        <span className="absolute left-2 top-2 rounded bg-black/30 px-2 py-0.5 text-[10px] uppercase tracking-wider text-white/80">
-          Mock image
+      <Link href={`/product/${product.slug}`} className="relative block h-40 overflow-hidden rounded-lg bg-gradient-to-br from-fatman-700/80 via-fatman-800/80 to-fatman-900/90">
+        {media.src ? (
+          <>
+            <Image src={media.src} alt={media.alt} fill className="object-cover transition duration-500 group-hover:scale-[1.02]" sizes="(max-width: 768px) 100vw, 33vw" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.25),_transparent_45%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))]" />
+        )}
+        <span className="absolute left-3 top-3 rounded-full border border-white/15 bg-black/35 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
+          {product.category.replace("-", " ")}
         </span>
       </Link>
       <div className="mt-3 flex items-center gap-2">

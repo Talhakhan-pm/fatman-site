@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { categories } from "@/lib/mock-data";
+import { getCategoryMedia } from "@/lib/catalog-media";
 
 export const metadata: Metadata = {
   title: "All Categories | Fatman Parts",
@@ -16,29 +18,48 @@ export default function CategoriesIndexPage() {
         <h1 className="text-4xl font-black tracking-tight">
           Shop by <span className="text-[#ff6a00]">Category</span>
         </h1>
-        <p className="mt-3 text-white/50 max-w-xl">
+        <p className="mt-3 max-w-xl text-white/50">
           Browse OEM-verified parts across every major system. Pick a category
           to see products with guaranteed fitment.
         </p>
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/category/${cat.slug}`}
-              className="group relative bg-[#1a1d24] border border-white/[0.06] hover:border-[#ff6a00]/40 p-6 transition-all duration-300 hover:translate-y-[-2px]"
-            >
-              <h2 className="text-lg font-black uppercase tracking-wide text-white group-hover:text-[#ff6a00] transition-colors">
-                {cat.title}
-              </h2>
-              <p className="mt-2 text-white/40 text-sm leading-relaxed">
-                {cat.description}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1 text-[#ff6a00] text-sm font-mono font-bold">
-                Browse <span className="group-hover:translate-x-1 transition-transform">→</span>
-              </span>
-            </Link>
-          ))}
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {categories.map((cat) => {
+            const media = getCategoryMedia(cat.slug);
+
+            return (
+              <Link
+                key={cat.slug}
+                href={`/category/${cat.slug}`}
+                className="group relative overflow-hidden border border-white/[0.06] bg-[#1a1d24] transition-all duration-300 hover:translate-y-[-2px] hover:border-[#ff6a00]/40"
+              >
+                <div className="relative h-44 overflow-hidden border-b border-white/[0.06] bg-gradient-to-br from-white/[0.04] to-white/[0.01]">
+                  {media ? (
+                    <>
+                      <Image src={media.src} alt={media.alt} fill className="object-cover transition duration-500 group-hover:scale-[1.03]" sizes="(max-width: 768px) 100vw, 33vw" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1a1d24] via-black/15 to-transparent" />
+                    </>
+                  ) : (
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.20),_transparent_45%),linear-gradient(135deg,rgba(255,255,255,0.05),rgba(255,255,255,0.015))]" />
+                  )}
+                  <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/35 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
+                    {cat.title}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h2 className="text-lg font-black uppercase tracking-wide text-white transition-colors group-hover:text-[#ff6a00]">
+                    {cat.title}
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-white/40">
+                    {cat.description}
+                  </p>
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-mono font-bold text-[#ff6a00]">
+                    Browse <span className="transition-transform group-hover:translate-x-1">→</span>
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </div>

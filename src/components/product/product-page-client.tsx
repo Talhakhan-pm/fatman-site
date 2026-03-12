@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect } from "react";
 import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
@@ -7,10 +8,12 @@ import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
 import { getFitmentState } from "@/lib/fitment";
 import { formatPrice, type Product } from "@/lib/mock-data";
 import { track } from "@/lib/analytics";
+import { getProductDisplayMedia } from "@/lib/catalog-media";
 
 export function ProductPageClient({ product }: { product: Product }) {
   const { vehicle } = useGarage();
   const fitment = getFitmentState(product.slug, vehicle);
+  const media = getProductDisplayMedia(product);
 
   useEffect(() => {
     track("view_item", { slug: product.slug, price: product.price });
@@ -21,10 +24,26 @@ export function ProductPageClient({ product }: { product: Product }) {
       <StickyFitmentBar />
       <main className="mx-auto grid max-w-6xl gap-8 px-6 py-10 md:grid-cols-2">
         <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-6">
-          <div className="h-80 rounded-xl bg-fatman-700/60" />
+          <div className="relative h-80 overflow-hidden rounded-xl bg-fatman-700/60">
+            {media.src ? (
+              <>
+                <Image src={media.src} alt={media.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              </>
+            ) : (
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.22),_transparent_42%),linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))]" />
+            )}
+          </div>
           <div className="grid grid-cols-4 gap-2">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-16 rounded-md bg-fatman-700/50" />
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="relative h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
+                {media.src ? (
+                  <Image src={media.src} alt={`${media.alt} detail ${i + 1}`} fill className="object-cover" sizes="120px" />
+                ) : (
+                  <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,106,0,0.18),rgba(255,255,255,0.04))]" />
+                )}
+                <div className="absolute inset-0 bg-black/20" />
+              </div>
             ))}
           </div>
         </div>
