@@ -37,6 +37,14 @@ const categories = [
     tag: "POPULAR",
   },
   {
+    name: "OEM Parts",
+    slug: "oem-parts",
+    count: "900+",
+    desc: "OEM-style replacement parts across braking, ignition, filtration, intake, and charging",
+    Icon: ElectricalIcon,
+    tag: "OEM",
+  },
+  {
     name: "Suspension",
     slug: "suspension",
     count: "600+",

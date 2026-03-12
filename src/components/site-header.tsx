@@ -10,6 +10,8 @@ import { enableDemoMode } from "@/lib/demo";
 const navItems = [
   { href: "/category/engines", label: "Engines" },
   { href: "/category/brakes", label: "Brakes" },
+  { href: "/category/oem-parts", label: "OEM Parts" },
+  { href: "/category/suspension", label: "Suspension" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/cart", label: "Cart" },
