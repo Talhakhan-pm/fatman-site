@@ -5,7 +5,6 @@
  * a fully interactive fitment module (Year → Make → Model → Engine).
  */
 
-import Image from "next/image";
 import Link from "next/link";
 import { HeroRotatingText } from "@/components/hero-rotating-text";
 import { FitmentModuleV2 } from "@/components/fitment-module-v2";
@@ -264,28 +263,8 @@ export default function Home() {
             </div>
 
             {/* Right column — Interactive Fitment Module */}
-            <div className="lg:col-span-5 animate-[fadeUp_0.8s_ease-out_0.3s_both] space-y-4">
-              <div className="relative overflow-hidden bg-[#1a1d24] border border-white/[0.08] p-1">
-                <div className="relative aspect-[4/3] overflow-hidden border-b border-white/[0.08]">
-                  <Image
-                    src="/editorial/fatman-engine-warehouse-hero.png"
-                    alt="OEM engine assembly palletized in a warehouse for fast shipment"
-                    fill
-                    className="object-cover"
-                    priority
-                    sizes="(min-width: 1024px) 40vw, 100vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111318] via-[#111318]/35 to-transparent" />
-                  <div className="absolute left-5 right-5 bottom-4 flex items-end justify-between gap-4">
-                    <div>
-                      <p className="text-[10px] font-black tracking-[0.25em] uppercase text-[#ff6a00]">Fast Fulfillment</p>
-                      <p className="mt-2 max-w-xs text-sm text-white/70">Warehouse-packed engine inventory matched against OEM fitment rules before it ships.</p>
-                    </div>
-                    <span className="hidden sm:inline-flex shrink-0 items-center rounded-full border border-white/15 bg-black/25 px-3 py-1 text-[11px] font-mono uppercase tracking-[0.18em] text-white/70">
-                      U.S. Ready Stock
-                    </span>
-                  </div>
-                </div>
+            <div className="lg:col-span-5 animate-[fadeUp_0.8s_ease-out_0.3s_both]">
+              <div className="relative bg-[#1a1d24] border border-white/[0.08] p-1">
                 <CautionStripe />
                 <FitmentModuleV2 />
                 <CornerBrackets color="white/10" />
@@ -407,50 +386,31 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-8 items-start">
-            <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
-              {steps.map((step, i) => (
-                <div key={step.num} className="group relative" style={{ animationDelay: `${i * 0.15}s` }}>
-                  <div className="relative bg-[#1a1d24] border border-white/[0.06] hover:border-[#ff6a00]/30 p-8 sm:p-10 transition-all duration-300 h-full">
-                    <span className="absolute top-4 right-6 text-[5rem] sm:text-[6rem] font-black text-white/[0.03] leading-none select-none">
-                      {step.num}
-                    </span>
-                    <div className="w-12 h-1 bg-[#ff6a00] mb-6" />
-                    <span className="text-[#ff6a00] font-mono text-xs font-bold tracking-[0.2em] mb-3 block">
-                      STEP {step.num}
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wide mb-3 leading-tight">
-                      {step.title}
-                    </h3>
-                    <p className="text-white/50 leading-relaxed mb-4">{step.desc}</p>
-                    <p className="text-white/25 text-xs font-mono">{step.detail}</p>
-                    <CornerBrackets color="white/[0.05]" />
-                  </div>
-                  {i < steps.length - 1 && (
-                    <div className="hidden md:flex absolute top-1/2 -right-4 z-20 w-8 items-center justify-center">
-                      <span className="text-[#ff6a00]/40 text-xl font-mono">▸</span>
-                    </div>
-                  )}
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
+            {steps.map((step, i) => (
+              <div key={step.num} className="group relative" style={{ animationDelay: `${i * 0.15}s` }}>
+                <div className="relative bg-[#1a1d24] border border-white/[0.06] hover:border-[#ff6a00]/30 p-8 sm:p-10 transition-all duration-300 h-full">
+                  <span className="absolute top-4 right-6 text-[5rem] sm:text-[6rem] font-black text-white/[0.03] leading-none select-none">
+                    {step.num}
+                  </span>
+                  <div className="w-12 h-1 bg-[#ff6a00] mb-6" />
+                  <span className="text-[#ff6a00] font-mono text-xs font-bold tracking-[0.2em] mb-3 block">
+                    STEP {step.num}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black text-white uppercase tracking-wide mb-3 leading-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-white/50 leading-relaxed mb-4">{step.desc}</p>
+                  <p className="text-white/25 text-xs font-mono">{step.detail}</p>
+                  <CornerBrackets color="white/[0.05]" />
                 </div>
-              ))}
-            </div>
-
-            <div className="relative overflow-hidden rounded-none border border-white/[0.06] bg-[#1a1d24] min-h-[320px]">
-              <Image
-                src="/editorial/fatman-parts-pick-warehouse-aisle.png"
-                alt="Warehouse aisle with organized OEM parts inventory ready for picking"
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 32vw, 100vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#111318] via-[#111318]/45 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-7">
-                <p className="text-[10px] font-black tracking-[0.25em] uppercase text-[#ff6a00]">Warehouse Confidence</p>
-                <h3 className="mt-3 text-2xl font-black uppercase tracking-wide text-white">Picked Fast. Verified Before It Leaves.</h3>
-                <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/65">Real inventory, organized picking, and fitment checks before outbound shipping.</p>
+                {i < steps.length - 1 && (
+                  <div className="hidden md:flex absolute top-1/2 -right-4 z-20 w-8 items-center justify-center">
+                    <span className="text-[#ff6a00]/40 text-xl font-mono">▸</span>
+                  </div>
+                )}
               </div>
-              <CornerBrackets color="white/[0.08]" />
-            </div>
+            ))}
           </div>
         </div>
       </section>
