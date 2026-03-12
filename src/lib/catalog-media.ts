@@ -34,14 +34,6 @@ export function getProductDisplayMedia(product: Pick<Product, "category" | "imag
     };
   }
 
-  const categoryAsset = getCategoryMedia(product.category);
-  if (categoryAsset) {
-    return {
-      ...categoryAsset,
-      isPhoto: true,
-    };
-  }
-
   return {
     src: null,
     alt: `${product.name} placeholder-free catalog card`,
