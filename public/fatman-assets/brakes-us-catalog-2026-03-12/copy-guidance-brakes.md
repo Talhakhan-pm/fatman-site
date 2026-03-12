@@ -117,6 +117,90 @@ Suggested title patterns:
 Suggested description style:
 - Aluminum brake master cylinder replacement unit built for restoring hydraulic pressure and pedal consistency after seal wear or internal bypass issues. Keep the copy focused on factory-style service, reservoir-port layout, and dependable pressure delivery.
 
+### `2026-03-12-10-55-00-brake-rotor-pair-rear-solid-stock.png`
+Use for:
+- rear solid brake rotor pair listings
+- stock rear-disc rotor replacement copy
+- quiet rear pad-and-rotor kit positioning
+
+Suggested title patterns:
+- Rear Solid Brake Rotor Pair - Stock Replacement
+- Rear Disc Rotor Set - Smooth Solid OE Service
+- Stock-Style Rear Brake Rotor Pair
+
+Suggested description style:
+- Rear solid brake rotor pair aimed at routine rear-disc service where smooth operation, balanced braking, and straightforward stock replacement matter more than vented or slotted styling. Keep the tone OE-style and practical.
+
+### `2026-03-12-10-56-00-brake-pad-set-severe-duty-front.png`
+Use for:
+- severe-duty front pad sets
+- semi-metallic fleet-service pad listings
+- SUV, van, and tow-package friction copy
+
+Suggested title patterns:
+- Severe Duty Front Brake Pad Set - Tow Package
+- Front Semi-Metallic Brake Pad Set - Fleet Service
+- Heavy-Duty Front Disc Brake Pads - Utility Vehicle Spec
+
+Suggested description style:
+- Severe-duty semi-metallic front pad set intended for heavier thermal loads, repeated stop-and-go use, and work-truck or SUV service intervals. Keep the claims grounded in fleet and towing use, not racetrack language.
+
+### `2026-03-12-10-57-00-brake-pad-rotor-kit-front.png`
+Use for:
+- front pad-and-rotor bundle listings
+- all-in-one daily-driver brake refresh kits
+- truck or crossover front service package copy
+
+Suggested title patterns:
+- Front Pad and Rotor Kit - Ceramic Daily Driver
+- Front Brake Service Kit - Pads and Vented Rotors
+- Front Disc Brake Kit - Complete OE-Style Refresh
+
+Suggested description style:
+- Matched front brake service kit combining vented rotors and disc pads for easier, balanced front-axle replacement work. Best for bundled-service listings where convenience and parts compatibility are the main selling points.
+
+### `2026-03-12-10-58-00-drum-brake-hardware-kit-rear.png`
+Use for:
+- rear drum hardware kits
+- spring and retainer service listings
+- adjuster support hardware copy
+
+Suggested title patterns:
+- Rear Drum Hardware Kit - Springs and Retainers
+- Drum Brake Hardware Assortment - Rear Axle Service
+- Rear Drum Service Hardware Kit - Adjuster and Spring Set
+
+Suggested description style:
+- Rear drum hardware kit with springs, hold-down pieces, and adjuster support parts used to finish drum-brake service correctly instead of reusing fatigued original hardware. Keep the tone service-bay practical.
+
+### `2026-03-12-10-59-00-power-brake-booster-vacuum.png`
+Use for:
+- vacuum brake booster listings
+- hard-pedal complaint repair copy
+- brake-assist replacement service parts
+
+Suggested title patterns:
+- Power Brake Booster - Vacuum Assist Service Unit
+- Vacuum Brake Booster - Stock-Style Replacement
+- Brake Assist Booster Assembly - OE Service Type
+
+Suggested description style:
+- Vacuum brake booster replacement unit built to restore brake-assist feel and reduce hard-pedal complaints on stock hydraulic systems. Focus on assist function, firewall mounting, and OE-style service fit.
+
+### `2026-03-12-11-00-00-parking-brake-cable-rear-direct-fit.png`
+Use for:
+- direct-fit rear parking brake cable listings
+- seized or stretched cable replacement copy
+- mechanical hold restoration service parts
+
+Suggested title patterns:
+- Parking Brake Cable - Direct Fit Rear
+- Rear Parking Brake Cable - Chassis-Specific Service Part
+- Mechanical Parking Brake Cable - Rear Replacement
+
+Suggested description style:
+- Direct-fit rear parking brake cable with sheath, fittings, and mounting hardware detail for restoring mechanical parking-brake hold after stretch, corrosion, or seizure. Keep the copy focused on stock routing and dependable hand- or foot-brake operation.
+
 ## Brake Copy Rules
 - Sound like a smart parts counterperson, not a performance influencer.
 - Avoid: beast, monster, ultimate stopping power, race-proven, track weapon, insane bite.
