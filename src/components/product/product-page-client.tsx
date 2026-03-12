@@ -35,16 +35,18 @@ export function ProductPageClient({ product }: { product: Product }) {
             )}
           </div>
           <div className="grid grid-cols-4 gap-2">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="relative h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
-                {media.src ? (
-                  <Image src={media.src} alt={`${media.alt} detail ${i + 1}`} fill className="object-cover" sizes="120px" />
-                ) : (
-                  <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,106,0,0.18),rgba(255,255,255,0.04))]" />
-                )}
+            {media.src ? (
+              <div className="relative col-span-1 h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
+                <Image src={media.src} alt={media.alt} fill className="object-cover" sizes="120px" />
                 <div className="absolute inset-0 bg-black/20" />
               </div>
-            ))}
+            ) : (
+              Array.from({ length: 4 }).map((_, i) => (
+                <div key={i} className="relative h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
+                  <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,106,0,0.18),rgba(255,255,255,0.04))]" />
+                </div>
+              ))
+            )}
           </div>
         </div>
 
