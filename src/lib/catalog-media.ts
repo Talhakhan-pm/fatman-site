@@ -1,12 +1,20 @@
 import type { Product } from "@/lib/mock-data";
 
+function isValidProductImageUrl(imageUrl?: string) {
+  if (!imageUrl) return false;
+
+  const value = imageUrl.trim();
+  if (!value) return false;
+
+  return value.startsWith("/") || value.startsWith("http://") || value.startsWith("https://") || value.startsWith("data:image/") || value.startsWith("blob:");
+}
 
 export function isPlaceholderProductImage(imageUrl?: string) {
   return Boolean(imageUrl && imageUrl.includes("picsum.photos/seed/fatman-"));
 }
 
 export function getProductDisplayMedia(product: Pick<Product, "category" | "imageUrl" | "name">) {
-  if (product.imageUrl && !isPlaceholderProductImage(product.imageUrl)) {
+  if (isValidProductImageUrl(product.imageUrl) && !isPlaceholderProductImage(product.imageUrl)) {
     return {
       src: product.imageUrl,
       alt: product.name,
