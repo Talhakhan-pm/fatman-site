@@ -355,7 +355,7 @@ export const generatedProducts = [
     "price": 1881.99,
     "compareAt": 2128.99,
     "stock": "preorder",
-    "imageUrl": "https://picsum.photos/seed/fatman-24/1200/800",
+    "imageUrl": "/fatman-assets/suspension-us-catalog-2026-03-11/control-arm-forged.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-SUS-10024"
@@ -625,7 +625,7 @@ export const generatedProducts = [
     "price": 633.99,
     "compareAt": 679.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-42/1200/800",
+    "imageUrl": "/fatman-assets/suspension-us-catalog-2026-03-11/sway-bar-link-pair.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-SUS-10042"
@@ -2965,7 +2965,7 @@ export const generatedProducts = [
     "price": 779.99,
     "compareAt": 847.99,
     "stock": "low-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-198/1200/800",
+    "imageUrl": "/fatman-assets/suspension-us-catalog-2026-03-11/lowering-springs-red.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-SUS-10198"
@@ -3539,7 +3539,7 @@ export const generatedCategories = [
     "title": "Suspension",
     "description": "Shocks, struts, and ride-control parts.",
     "productCount": 33,
-    "realImageCount": 3
+    "realImageCount": 6
   },
   {
     "slug": "cooling",
