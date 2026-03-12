@@ -5,7 +5,6 @@
  * a fully interactive fitment module (Year → Make → Model → Engine).
  */
 
-import Image from "next/image";
 import Link from "next/link";
 import { HeroRotatingText } from "@/components/hero-rotating-text";
 import { FitmentModuleV2 } from "@/components/fitment-module-v2";
@@ -17,7 +16,6 @@ import {
   ElectricalIcon,
   TransmissionIcon,
 } from "@/components/category-icons";
-import { getCategoryMedia } from "@/lib/catalog-media";
 
 /* ═══════════════════════ STATIC DATA ═══════════════════════ */
 
@@ -305,8 +303,6 @@ export default function Home() {
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
             {categories.map((cat, i) => {
-              const media = getCategoryMedia(cat.slug);
-
               return (
                 <Link
                   key={cat.slug}
@@ -315,31 +311,22 @@ export default function Home() {
                   style={{ animationDelay: `${i * 0.08}s` }}
                 >
                   <div className="relative h-44 overflow-hidden border-b border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-white/[0.01] sm:h-48">
-                    {media ? (
-                      <>
-                        <Image src={media.src} alt={media.alt} fill className="object-cover transition-all duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 33vw" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1d24] via-black/10 to-transparent" />
-                      </>
-                    ) : (
-                      <>
-                        <div
-                          className="absolute inset-0 opacity-[0.04]"
-                          style={{
-                            backgroundImage: `
-                              linear-gradient(rgba(255,106,0,0.3) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,106,0,0.3) 1px, transparent 1px)
-                            `,
-                            backgroundSize: "20px 20px",
-                          }}
-                        />
-                        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#1a1d24] to-transparent opacity-40 category-icon-wash" />
-                        <div className="absolute inset-0 flex items-center justify-center p-8">
-                          <div className="h-24 w-24 text-white/[0.35] transition-all duration-500 group-hover:scale-110 group-hover:text-[#ff6a00]/60 sm:h-28 sm:w-28">
-                            <cat.Icon />
-                          </div>
-                        </div>
-                      </>
-                    )}
+                    <div
+                      className="absolute inset-0 opacity-[0.04]"
+                      style={{
+                        backgroundImage: `
+                          linear-gradient(rgba(255,106,0,0.3) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255,106,0,0.3) 1px, transparent 1px)
+                        `,
+                        backgroundSize: "20px 20px",
+                      }}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#1a1d24] to-transparent opacity-40 category-icon-wash" />
+                    <div className="absolute inset-0 flex items-center justify-center p-8">
+                      <div className="h-24 w-24 text-white/[0.35] transition-all duration-500 group-hover:scale-110 group-hover:text-[#ff6a00]/60 sm:h-28 sm:w-28">
+                        <cat.Icon />
+                      </div>
+                    </div>
                     <div className="absolute inset-0 bg-gradient-to-b from-[#ff6a00]/[0.03] via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     {cat.tag && (
                       <span
