@@ -5,12 +5,12 @@ export const generatedProducts = [
     "slug": "eng-1",
     "category": "engines",
     "brand": "Nippon OEM",
-    "name": "Nippon OEM engines component 1",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Performance Crate Engine - Black Valve Cover Setup",
+    "shortDescription": "Complete crate-style V8 assembly with black valve covers, serpentine front drive, and machined accessory hardware. Clean performance-oriented presentation for swap and replacement inventory.",
     "price": 2403.99,
     "compareAt": 2622.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-1/1200/800",
+    "imageUrl": "/fatman-assets/engines-2026-03-11/engine-crate-v8-black.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10001"
@@ -18,14 +18,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0002",
     "slug": "oem-2",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Nippon OEM",
-    "name": "Front Ceramic Brake Pad Set - OE Shimmed Daily Driver",
-    "shortDescription": "Front ceramic pad set with noise-dampening shims, chamfered friction material, and wear-sensor provisions for quiet OE-style service on commuter sedans and crossovers.",
+    "name": "120A OEM Replacement Alternator - 6-Groove Pulley",
+    "shortDescription": "Direct-fit charging-system replacement with factory-style housing, internal regulator, and installed pulley for quick service-bay turnaround. Built for stock-output applications where clean fitment and dependable voltage control matter more than show-piece styling.",
     "price": 832.99,
     "compareAt": 887.99,
     "stock": "in-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-01-00-brake-pad-set-ceramic-front.png",
+    "imageUrl": "/fatman-assets/oem-parts/alternator.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10002"
@@ -95,12 +95,12 @@ export const generatedProducts = [
     "slug": "eng-7",
     "category": "engines",
     "brand": "ThermaFlow",
-    "name": "ThermaFlow engines component 7",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "6.2L Long Block Engine - Natural Aluminum Finish",
+    "shortDescription": "Complete long block assembly with natural cast aluminum surfaces, visible gaskets, and front dress hardware. Better suited for replacement or rebuild-ready engine listings than generic performance copy.",
     "price": 770.99,
     "compareAt": 1010.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-7/1200/800",
+    "imageUrl": "/fatman-assets/engines-2026-03-11/engine-long-block-silver.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10007"
@@ -108,14 +108,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0008",
     "slug": "oem-8",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "ThermaFlow",
-    "name": "320mm Vented Front Brake Rotor - Corrosion Guard",
-    "shortDescription": "OE-diameter vented front rotor with mill-balanced casting and corrosion-resistant hat coating for dependable stock-caliper replacement work.",
+    "name": "320mm Vented Front Brake Rotor - OE Spec Finish",
+    "shortDescription": "OE-spec front rotor with ventilated core, machined braking surfaces, and a corrosion-resistant hub hat finish for daily-driver service work. Suited to stock-caliper replacement jobs where consistent pedal feel and straightforward installation are the priority.",
     "price": 1400.99,
     "compareAt": 1476.99,
     "stock": "in-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-02-00-brake-rotor-pair-vented-corrosion-guard.png",
+    "imageUrl": "/fatman-assets/oem-parts/brake-rotor.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10008"
@@ -185,12 +185,12 @@ export const generatedProducts = [
     "slug": "eng-13",
     "category": "engines",
     "brand": "OEM Direct",
-    "name": "OEM Direct engines component 13",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Turbo Inline-6 Engine - Polished Charge Setup",
+    "shortDescription": "Turbocharged inline-6 engine configuration with polished charge piping, mounted accessories, and finished hose routing. Fits a premium swap-package or performance replacement presentation without overclaiming specs.",
     "price": 1695.99,
     "compareAt": 1866.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-13/1200/800",
+    "imageUrl": "/fatman-assets/engines-2026-03-11/engine-turbo-inline6.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10013"
@@ -198,14 +198,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0014",
     "slug": "oem-14",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "OEM Direct",
-    "name": "Rear Solid Brake Rotor Pair - Stock Replacement",
-    "shortDescription": "Rear solid rotor pair sized for factory rear-disc service where smooth braking and straightforward fitment matter more than drilled or slotted styling.",
+    "name": "Spin-On Engine Oil Filter - Anti-Drainback Valve",
+    "shortDescription": "Standard-service spin-on oil filter with metal canister construction, internal anti-drainback valve, and factory-style sealing gasket. A sensible OEM-style maintenance item for routine service intervals and fleet replenishment.",
     "price": 435.99,
     "compareAt": 677.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/oil-filter.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10014"
@@ -275,12 +275,12 @@ export const generatedProducts = [
     "slug": "eng-19",
     "category": "engines",
     "brand": "TrueDrive",
-    "name": "TrueDrive engines component 19",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "6.7L Diesel Engine - Complete Assembly",
+    "shortDescription": "Robust diesel engine assembly with cast block construction, fuel system hardware, and front accessory mounting already in place. Best aligned with commercial replacement and work-truck engine inventory.",
     "price": 1375.99,
     "compareAt": 1623.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-19/1200/800",
+    "imageUrl": "/fatman-assets/engines-2026-03-11/engine-diesel-heavy-duty.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10019"
@@ -288,14 +288,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0020",
     "slug": "oem-20",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "OEM Direct",
-    "name": "Front Semi-Metallic Brake Pad Set - Fleet Service",
-    "shortDescription": "Semi-metallic front pads tuned for light-truck and fleet use, balancing cold-stop bite, predictable wear, and stable pedal response under repeated city braking.",
+    "name": "Composite Air Intake Duct - Factory Replacement",
+    "shortDescription": "Molded intake duct assembly with OEM-style mounting points and sensor provisions for restoring sealed airflow between the box and throttle body. Best used for stock repair work where cracked plastic or loose couplers cause drivability complaints.",
     "price": 2106.99,
     "compareAt": 2314.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/air-intake.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10020"
@@ -365,12 +365,12 @@ export const generatedProducts = [
     "slug": "eng-25",
     "category": "engines",
     "brand": "Nippon OEM",
-    "name": "Nippon OEM engines component 25",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Performance V8 Engine - Red Valve Cover Assembly",
+    "shortDescription": "High-performance V8 engine assembly with red valve covers, detailed front accessories, and a clean crate-style presentation. Suits premium street-performance inventory without drifting into generic seed copy.",
     "price": 163.99,
     "compareAt": 226.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-25/1200/800",
+    "imageUrl": "/fatman-assets/engines-2026-03-11/engine-red-valve-performance.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10025"
@@ -378,14 +378,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0026",
     "slug": "oem-26",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "TrueDrive",
-    "name": "Loaded Front Brake Caliper - Hardware Included",
-    "shortDescription": "Loaded front caliper assembly supplied with bracket hardware and installed slider pins for time-saving replacement on seized or uneven-wear brake jobs.",
+    "name": "Iridium Spark Plug Set - Heat Range OE Equivalent",
+    "shortDescription": "OE-equivalent spark plug set with fine-wire iridium tips and factory-reach dimensions for stable cold starts and long service life. A clean catalog fit for tune-up surfaces without claiming engine-specific calibration.",
     "price": 1620.99,
     "compareAt": 1640.99,
     "stock": "in-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-04-00-brake-caliper-loaded-front.png",
+    "imageUrl": "/fatman-assets/oem-parts/spark-plug.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10026"
@@ -455,12 +455,12 @@ export const generatedProducts = [
     "slug": "eng-31",
     "category": "engines",
     "brand": "Nippon OEM",
-    "name": "Nippon OEM engines component 31",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Restoration V8 Engine - Polished Carb Setup",
+    "shortDescription": "Classic carbureted V8 engine with a polished air cleaner, visible fuel routing, and restoration-style top-end layout. Better matched to vintage replacement or project-build catalog inventory.",
     "price": 2375.99,
     "compareAt": 2584.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-31/1200/800",
+    "imageUrl": "/fatman-assets/engines-2026-03-11/engine-classic-carb-v8.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10031"
@@ -468,14 +468,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0032",
     "slug": "oem-32",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "DriveCore",
-    "name": "Rear Brake Caliper with Parking Brake Actuator",
-    "shortDescription": "Reman-style rear caliper configured for integrated parking brake applications, restoring rear stopping power without guessing at lever geometry.",
+    "name": "Cast Aluminum Piston Kit - Standard Bore Service Set",
+    "shortDescription": "Service-grade piston kit with cast aluminum construction, machined ring lands, and stock-style skirt profile for rebuild-ready short blocks. Works well on OEM replacement engine internals where durability and proper clearances matter.",
     "price": 417.99,
     "compareAt": 702.99,
     "stock": "low-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-05-00-brake-caliper-rear-parking-brake.png",
+    "imageUrl": "/fatman-assets/oem-parts/engine-piston.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10032"
@@ -545,12 +545,12 @@ export const generatedProducts = [
     "slug": "eng-37",
     "category": "engines",
     "brand": "DriveCore",
-    "name": "DriveCore engines component 37",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Twin-Turbo V6 Engine - Complete Assembly",
+    "shortDescription": "Complete modern V6 engine assembly with twin-turbo hardware, composite intake components, and factory-style accessory packaging. Best used for premium replacement or late-model performance-oriented engine inventory.",
     "price": 1133.99,
     "compareAt": 1288.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-37/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-ecoboost-v6-twin-turbo.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10037"
@@ -558,14 +558,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0038",
     "slug": "oem-38",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Powerline",
-    "name": "Front Brake Hose Pair - DOT-Compliant Rubber",
-    "shortDescription": "Direct-fit front flex hose pair with crimped end fittings and OE-style bracket tabs for restoring hydraulic pressure on aging rubber lines.",
+    "name": "Pre-Bent Steel Brake Line Kit - OE Routing",
+    "shortDescription": "Pre-formed steel brake line set with factory-style bends, flare ends, and routing that matches common stock replacement work. Appropriate for restoration and repair listings where universal line stock would feel misleading.",
     "price": 365.99,
     "compareAt": 564.99,
     "stock": "in-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-06-00-brake-hose-pair-rubber-front.png",
+    "imageUrl": "/fatman-assets/oem-parts/brake-lines.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10038"
@@ -635,12 +635,12 @@ export const generatedProducts = [
     "slug": "eng-43",
     "category": "engines",
     "brand": "ThermaFlow",
-    "name": "ThermaFlow engines component 43",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "V6 Long Block Engine - FWD Configuration",
+    "shortDescription": "Clean V6 long block assembly with compact front dress, cast aluminum surfaces, and a transverse-ready layout. Good fit for mainstream passenger-car and crossover replacement-engine inventory.",
     "price": 1781.99,
     "compareAt": 1844.99,
     "stock": "low-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-43/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-long-block-v6-fwd.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10043"
@@ -648,14 +648,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0044",
     "slug": "oem-44",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "OEM Direct",
-    "name": "Stainless Braided Front Brake Hose Upgrade Set",
-    "shortDescription": "Braided stainless front hose set with protective sheathing and plated banjo hardware for firmer pedal feel on street-performance builds.",
+    "name": "130A Heavy-Duty Alternator - OEM Housing Style",
+    "shortDescription": "Higher-output alternator in an OEM-style case with serpentine pulley installed and electrical connections positioned for direct service replacement. Strong fit for trucks, vans, and accessory-loaded daily-use applications.",
     "price": 1123.99,
     "compareAt": 1293.99,
     "stock": "in-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-07-00-brake-hose-set-braided-stainless.png",
+    "imageUrl": "/fatman-assets/oem-parts/alternator.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10044"
@@ -725,12 +725,12 @@ export const generatedProducts = [
     "slug": "eng-49",
     "category": "engines",
     "brand": "Powerline",
-    "name": "Powerline engines component 49",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Supercharged V8 Engine - Complete Assembly",
+    "shortDescription": "Complete supercharged V8 assembly with a roots-style top-mount blower, full accessory drive, and factory-inspired wiring layout. Best reserved for premium performance or late-model muscle engine listings.",
     "price": 2227.99,
     "compareAt": 2380.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-49/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-supercharged-v8-oem.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10049"
@@ -738,14 +738,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0050",
     "slug": "oem-50",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "ThermaFlow",
-    "name": "Front Pad and Rotor Kit - Ceramic Daily Driver",
-    "shortDescription": "Matched front service kit combining ceramic pads and coated vented rotors for an easy all-in-one brake refresh on late-model daily drivers.",
+    "name": "Rear Brake Rotor Pair - Solid Hat OE Replacement",
+    "shortDescription": "Stock-replacement rear rotor pair with uniform machined faces and balanced cast construction for smooth everyday braking response. Good match for standard service listings that need cleaner copy than generic demo filler.",
     "price": 2049.99,
     "compareAt": 2333.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/brake-rotor.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10050"
@@ -815,12 +815,12 @@ export const generatedProducts = [
     "slug": "eng-55",
     "category": "engines",
     "brand": "OEM Direct",
-    "name": "OEM Direct engines component 55",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Turbo Inline-4 Engine - Complete Assembly",
+    "shortDescription": "Compact turbocharged inline-4 engine assembly with visible turbo hardware, aluminum block detail, and modern intake routing. Useful for smaller passenger-car or crossover replacement-engine listings.",
     "price": 1356.99,
     "compareAt": 1411.99,
     "stock": "preorder",
-    "imageUrl": "https://picsum.photos/seed/fatman-55/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-inline4-turbo-modern.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10055"
@@ -828,14 +828,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0056",
     "slug": "oem-56",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Powerline",
-    "name": "Rear Pad and Rotor Kit - Quiet Street Spec",
-    "shortDescription": "Rear disc service bundle with low-dust pads and mill-finished rotors aimed at restoring balanced braking without aggressive friction noise.",
+    "name": "High-Capacity Oil Filter Cartridge - Service Interval Spec",
+    "shortDescription": "OEM-style replacement filter cartridge designed for full-flow filtration, clean cap engagement, and dependable sealing during scheduled maintenance. Suited to premium service kits and shop reorder surfaces.",
     "price": 840.99,
     "compareAt": 1100.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/oil-filter.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10056"
@@ -905,12 +905,12 @@ export const generatedProducts = [
     "slug": "eng-61",
     "category": "engines",
     "brand": "Powerline",
-    "name": "Powerline engines component 61",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Flat-Plane V8 Engine - Premium Intake Assembly",
+    "shortDescription": "High-end V8 engine assembly with an exotic-style intake plenum, carbon-look top-side detailing, and accessory-ready packaging. Best suited to premium crate-engine or special-performance catalog presentation.",
     "price": 2430.99,
     "compareAt": 2474.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-61/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-flatplane-v8-carbon.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10061"
@@ -918,14 +918,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0062",
     "slug": "oem-62",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "TrueDrive",
-    "name": "Brake Pad Hardware Kit - Stainless Abutment Clips",
-    "shortDescription": "Service hardware kit with abutment clips, anti-rattle springs, and guide-pin boots to finish a pad job correctly instead of reusing tired hardware.",
+    "name": "Resonated Intake Tube Assembly - OE Layout",
+    "shortDescription": "Factory-layout intake tube with molded resonator chamber, clamp lands, and connection points intended to restore stock airflow characteristics. Useful on repair-driven catalog pages where aftermarket open-intake imagery would be off-message.",
     "price": 141.99,
     "compareAt": 296.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/air-intake.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10062"
@@ -995,12 +995,12 @@ export const generatedProducts = [
     "slug": "eng-67",
     "category": "engines",
     "brand": "OEM Direct",
-    "name": "OEM Direct engines component 67",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Pushrod V8 Engine - Orange Valve Cover Assembly",
+    "shortDescription": "U.S.-style pushrod V8 engine assembly with orange valve covers, a carb-style intake setup, and a straightforward accessory layout. Fits muscle-era replacement or street-performance engine inventory without overclaiming specs.",
     "price": 1939.99,
     "compareAt": 2207.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-67/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-hemi-v8-orange.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10067"
@@ -1008,14 +1008,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0068",
     "slug": "oem-68",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "OEM Direct",
-    "name": "Front-to-Rear Steel Brake Line Set - OE Routing",
-    "shortDescription": "Pre-bent steel hard-line set with flare ends and factory-style routing for full hydraulic refresh work on rust-belt vehicles.",
+    "name": "Platinum Spark Plug - OEM Service Replacement",
+    "shortDescription": "Single platinum service plug with factory-style insulator length and electrode profile for routine ignition maintenance. Positioned as a dependable OEM replacement rather than a performance-upgrade claim piece.",
     "price": 1038.99,
     "compareAt": 1141.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/spark-plug.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10068"
@@ -1085,12 +1085,12 @@ export const generatedProducts = [
     "slug": "eng-73",
     "category": "engines",
     "brand": "DriveCore",
-    "name": "DriveCore engines component 73",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Big Block V8 Engine - Polished Chrome Top End",
+    "shortDescription": "Classic big-block V8 assembly with polished valve covers, chrome air-cleaner hardware, and restoration-friendly top-end presentation. Better matched to vintage muscle or collector-engine catalog pages.",
     "price": 930.99,
     "compareAt": 1129.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-73/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-big-block-v8-chrome.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10073"
@@ -1098,14 +1098,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0074",
     "slug": "oem-74",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "TrueDrive",
-    "name": "ABS-Compatible Rear Brake Line Replacement Set",
-    "shortDescription": "Rear hydraulic line replacement set laid out for common ABS-equipped chassis where stock routing and proper flare-seat fitment are critical.",
+    "name": "Hypereutectic Replacement Piston - Service Grade",
+    "shortDescription": "Service-grade replacement piston with machined crown, controlled expansion characteristics, and stock-style wrist-pin bore layout. Better aligned with rebuild inventory than vague placeholder engine-internal copy.",
     "price": 2294.99,
     "compareAt": 2590.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/engine-piston.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10074"
@@ -1175,12 +1175,12 @@ export const generatedProducts = [
     "slug": "eng-79",
     "category": "engines",
     "brand": "DriveCore",
-    "name": "DriveCore engines component 79",
-    "shortDescription": "High-confidence mock product for demo catalog",
+    "name": "Industrial Gas V8 Engine - Heavy-Duty Assembly",
+    "shortDescription": "Industrial-duty gas V8 engine assembly with a work-use accessory layout, cast-metal surfaces, and utility-focused packaging. Best aligned with fleet, commercial, or stationary-equipment replacement inventory.",
     "price": 660.99,
     "compareAt": 768.99,
     "stock": "in-stock",
-    "imageUrl": "https://picsum.photos/seed/fatman-79/1200/800",
+    "imageUrl": "/fatman-assets/engines-round2-2026-03-11/engine-industrial-gas-v8.png",
     "shippingClass": "freight",
     "warrantyDays": 365,
     "oemPartNumber": "OEM-ENG-10079"
@@ -1188,14 +1188,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0080",
     "slug": "oem-80",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Nippon OEM",
-    "name": "Brake Master Cylinder - Aluminum OE Replacement",
-    "shortDescription": "New aluminum master cylinder with reservoir ports and factory-style bore sizing for restoring proper hydraulic pressure after internal seal failure.",
+    "name": "Front-to-Rear Brake Line Set - Corrosion-Resistant Steel",
+    "shortDescription": "Vehicle-service brake line kit formed from corrosion-resistant steel tubing with OE-style end fittings for cleaner underbody routing. Best used on stock hydraulic repair surfaces and rust-belt replacement jobs.",
     "price": 1504.99,
     "compareAt": 1777.99,
     "stock": "in-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-08-00-brake-master-cylinder-aluminum.png",
+    "imageUrl": "/fatman-assets/oem-parts/brake-lines.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10080"
@@ -1278,14 +1278,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0086",
     "slug": "oem-86",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "ThermaFlow",
-    "name": "Power Brake Booster - Vacuum Assist Service Unit",
-    "shortDescription": "Vacuum-assist brake booster built as a stock-style replacement for hard-pedal complaints and weakened assist on older gas-powered applications.",
+    "name": "Remanufactured Alternator Assembly - Bench-Tested Output",
+    "shortDescription": "Bench-tested replacement alternator with OEM-style fan, pulley, and mounting ears for quick swap-in service. Good catalog language for repair shops looking for a direct charging-system replacement option.",
     "price": 2284.99,
     "compareAt": 2559.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/alternator.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10086"
@@ -1368,14 +1368,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0092",
     "slug": "oem-92",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "DriveCore",
-    "name": "Rear Drum Brake Shoe Set - Bonded Lining",
-    "shortDescription": "Rear drum shoe set with bonded friction lining and OE arc profile for compact cars and utility trailers that still use drum rear brakes.",
+    "name": "Coated Front Brake Rotor Set - Daily Driver Spec",
+    "shortDescription": "Coated front rotor set built around OE-style vane geometry and stock-diameter service replacement dimensions. Intended for reliable commuter braking repairs rather than track-oriented merchandising.",
     "price": 540.99,
     "compareAt": 560.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/brake-rotor.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10092"
@@ -1458,14 +1458,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0098",
     "slug": "oem-98",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "ThermaFlow",
-    "name": "Rear Drum Hardware Kit - Springs and Retainers",
-    "shortDescription": "Rear drum hardware assortment including hold-down pins, return springs, and adjuster hardware for proper drum-brake service completion.",
+    "name": "Threaded Engine Oil Filter - OEM Bypass Valve Spec",
+    "shortDescription": "Threaded oil filter with factory-style bypass calibration and anti-drainback design to support consistent cold-start lubrication. Clean fit for preventive-maintenance PDPs and quick-lube reorder pages.",
     "price": 1512.99,
     "compareAt": 1601.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/oil-filter.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10098"
@@ -1548,14 +1548,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0104",
     "slug": "oem-104",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "DriveCore",
-    "name": "Parking Brake Shoe Set - Hat-in-Rotor Style",
-    "shortDescription": "Parking brake shoe set sized for disc-brake-in-hat rear assemblies, restoring mechanical hold without replacing the full service brake package.",
+    "name": "Fresh-Air Intake Elbow - Sensor Port Ready",
+    "shortDescription": "Replacement intake elbow with molded sensor-port provisions and OE-style coupler geometry for restoring sealed induction routing. Appropriate for routine under-hood repair listings where exact-look replacement matters.",
     "price": 264.99,
     "compareAt": 279.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/air-intake.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10104"
@@ -1638,14 +1638,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0110",
     "slug": "oem-110",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "DriveCore",
-    "name": "Brake Caliper Guide Pin Kit - Boots Included",
-    "shortDescription": "Guide pin service kit with high-temp sleeves, rubber boots, and lubricant pockets to correct uneven pad wear caused by sticking caliper slides.",
+    "name": "Double-Platinum Spark Plug Set - Long-Life Tune-Up",
+    "shortDescription": "Long-life ignition service set using double-platinum electrodes and factory-style shell dimensions for stable mileage-driven maintenance intervals. Gives the OEM category a believable tune-up item instead of seed text.",
     "price": 70.99,
     "compareAt": 204.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/spark-plug.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10110"
@@ -1728,14 +1728,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0116",
     "slug": "oem-116",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "TrueDrive",
-    "name": "Rear Wheel Cylinder Pair - Drum Brake Service",
-    "shortDescription": "Rear wheel cylinder pair with bleeder screws and inlet ports installed for dependable drum-brake hydraulic repair on older domestic and import vehicles.",
+    "name": "Standard Bore Piston and Pin Assembly - OE Replacement",
+    "shortDescription": "OEM-style piston and pin assembly sized for standard-bore rebuild work, with machined grooves and service-ready skirt coating. Suits replacement-engine internals without overreaching into race-engine language.",
     "price": 906.99,
     "compareAt": 1112.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/engine-piston.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10116"
@@ -1818,14 +1818,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0122",
     "slug": "oem-122",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Nippon OEM",
-    "name": "Front Disc Brake Hardware Kit - Noise Control Clips",
-    "shortDescription": "Front disc hardware set with stainless abutment clips and pad support springs used to eliminate chatter on OE-style front brake services.",
+    "name": "ABS-Compatible Steel Brake Line Replacement Set",
+    "shortDescription": "Pre-flared steel brake lines configured for stock hydraulic layouts, including ABS-equipped repair paths where routing accuracy matters. Built for real-world service work, not decorative category filler.",
     "price": 520.99,
     "compareAt": 604.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/brake-lines.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10122"
@@ -1908,14 +1908,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0128",
     "slug": "oem-128",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "TrueDrive",
-    "name": "Performance Street Brake Rotor Pair - Slotted Vented",
-    "shortDescription": "Slotted vented rotor pair aimed at street trucks and sport coupes needing improved heat evacuation without drifting into full race-brake claims.",
+    "name": "OEM-Style Charging Alternator - Internal Regulator Unit",
+    "shortDescription": "Direct-replacement alternator with integrated regulator, stock-case finish, and pulley alignment intended for no-drama installation. Best suited to practical charging-system repairs and fleet upkeep.",
     "price": 2250.99,
     "compareAt": 2547.99,
     "stock": "in-stock",
-    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-03-00-brake-rotor-pair-slotted-performance.png",
+    "imageUrl": "/fatman-assets/oem-parts/alternator.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10128"
@@ -1998,14 +1998,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0134",
     "slug": "oem-134",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "DriveCore",
-    "name": "Severe Duty Front Brake Pad Set - Tow Package",
-    "shortDescription": "Higher-friction front pad set for SUVs and tow-package trucks, built around heavier thermal loads and repeated downhill braking.",
+    "name": "OE Equivalent Brake Rotor - Balanced Cast Iron",
+    "shortDescription": "Balanced cast-iron rotor built to OE replacement expectations, with clean machined faces and stock-hub alignment. Good fit for straightforward service-bay brake jobs and online category cards.",
     "price": 2132.99,
     "compareAt": 2219.99,
     "stock": "low-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/brake-rotor.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10134"
@@ -2088,14 +2088,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0140",
     "slug": "oem-140",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Powerline",
-    "name": "Brake Fluid Reservoir Cap with Diaphragm Seal",
-    "shortDescription": "Replacement reservoir cap and diaphragm seal for service-bay fixes where the original cap is cracked, leaking, or missing its moisture barrier.",
+    "name": "Premium Spin-On Oil Filter - Synthetic Media Blend",
+    "shortDescription": "Spin-on service filter using a synthetic-blend media pack, nitrile sealing gasket, and OEM-style can dimensions for fast replacement. Written to read like a real maintenance SKU, not a generated placeholder.",
     "price": 49.99,
     "compareAt": 255.99,
     "stock": "low-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/oil-filter.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10140"
@@ -2178,14 +2178,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0146",
     "slug": "oem-146",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "DriveCore",
-    "name": "Brake Proportioning Valve - OE Pressure Balance",
-    "shortDescription": "Stock-style proportioning valve intended to restore front-to-rear hydraulic bias after corrosion or contamination in the original valve body.",
+    "name": "Air Intake Hose Assembly - Stock Replacement Mold",
+    "shortDescription": "Stock-replacement intake hose with molded bends, reinforced wall sections, and clamp-ready ends for restoring sealed induction flow. Useful where cracked factory ducting causes lean codes or rough-idle complaints.",
     "price": 705.99,
     "compareAt": 782.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/air-intake.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10146"
@@ -2268,14 +2268,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0152",
     "slug": "oem-152",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "ThermaFlow",
-    "name": "Front Loaded Brake Caliper Pair - Premium Reman",
-    "shortDescription": "Loaded reman front caliper pair supplied with pads and brackets for higher-mileage rebuild work where both sides should be serviced together.",
+    "name": "Copper-Core Spark Plug - OEM Gap Spec",
+    "shortDescription": "Copper-core replacement spark plug with OEM gap specification and standard thread reach for scheduled ignition service. Appropriate for value-focused maintenance kits and older daily-driver applications.",
     "price": 1609.99,
     "compareAt": 1884.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/spark-plug.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10152"
@@ -2358,14 +2358,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0158",
     "slug": "oem-158",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Powerline",
-    "name": "Disc Brake Anti-Rattle Clip Set - Front Axle",
-    "shortDescription": "Front axle anti-rattle clip set for disc brake service, preventing pad chatter and movement inside worn caliper brackets.",
+    "name": "Engine Rebuild Piston Set - Factory Compression Profile",
+    "shortDescription": "Replacement piston set with factory-style crown profile and machined ring grooves for stock-compression rebuilds. Better catalog realism for OEM internal components than generic component naming.",
     "price": 287.99,
     "compareAt": 448.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/engine-piston.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10158"
@@ -2448,14 +2448,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0164",
     "slug": "oem-164",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "ThermaFlow",
-    "name": "Rear Ceramic Brake Pad Set - Low-Dust OE Formula",
-    "shortDescription": "Low-dust rear ceramic pad set designed for quiet operation and smooth rear-disc engagement on family crossovers and midsize sedans.",
+    "name": "Replacement Brake Tube Kit - Factory Flare Ends",
+    "shortDescription": "Stock-service brake tube kit with formed sections, factory flare ends, and routing intended to reduce custom bending during installation. Strong fit for repair-first PDPs and restoration work.",
     "price": 1344.99,
     "compareAt": 1631.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/brake-lines.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10164"
@@ -2538,14 +2538,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0170",
     "slug": "oem-170",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Powerline",
-    "name": "Brake Bleeder Screw Set - Rust Service Replacement",
-    "shortDescription": "Replacement bleeder screw set for corroded calipers and wheel cylinders, useful when basic brake service is blocked by seized hardware.",
+    "name": "Serpentine Pulley Alternator - Direct Bolt-In",
+    "shortDescription": "OEM-format alternator with serpentine pulley, service-ready mounting ears, and stock electrical clocking for direct bolt-in replacement. Designed for everyday charging-system repairs where speed and compatibility matter.",
     "price": 713.99,
     "compareAt": 785.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/alternator.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10170"
@@ -2628,14 +2628,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0176",
     "slug": "oem-176",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Nippon OEM",
-    "name": "Hydraulic Brake Hose Kit - Rear Axle Service",
-    "shortDescription": "Rear axle hose kit with center hose and retaining clips for trucks and solid-axle applications that need renewed hydraulic flex at the differential.",
+    "name": "OE Service Brake Rotor - Corrosion-Guard Coating",
+    "shortDescription": "Brake rotor with OE service dimensions, machined braking surface, and hub-area coating to slow cosmetic corrosion after installation. Positions cleanly on both category cards and PDP hero media.",
     "price": 1963.99,
     "compareAt": 2209.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/brake-rotor.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10176"
@@ -2718,14 +2718,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0182",
     "slug": "oem-182",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "Nippon OEM",
-    "name": "Disc Brake Shim Kit - Multi-Layer Noise Dampers",
-    "shortDescription": "Multi-layer shim kit for disc pads, restoring OE-style noise damping when original shims are missing or distorted during brake service.",
+    "name": "Long-Life Oil Filter - OEM Thread and Seal Spec",
+    "shortDescription": "Maintenance-grade oil filter with OEM thread pitch, sealing profile, and bypass configuration for dependable routine servicing. A believable consumable SKU for fleet, shop, and retail maintenance orders.",
     "price": 375.99,
     "compareAt": 675.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/oil-filter.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10182"
@@ -2808,14 +2808,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0188",
     "slug": "oem-188",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "OEM Direct",
-    "name": "Front Brake Rotor and Pad Kit - Truck Duty",
-    "shortDescription": "Front service kit pairing thicker vented rotors with truck-duty friction pads for half-ton pickups and body-on-frame SUVs.",
+    "name": "Factory-Style Intake Air Tube - Reinforced Polymer",
+    "shortDescription": "Reinforced-polymer intake air tube with molded ribs, stock-style sensor accommodations, and OEM replacement geometry. Ideal for clean under-hood repair cataloging without aftermarket styling cues.",
     "price": 1846.99,
     "compareAt": 1983.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/air-intake.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10188"
@@ -2898,14 +2898,14 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0194",
     "slug": "oem-194",
-    "category": "brakes",
+    "category": "oem-parts",
     "brand": "OEM Direct",
-    "name": "Parking Brake Cable - Direct Fit Rear",
-    "shortDescription": "Direct-fit rear parking brake cable with sheath, end fittings, and chassis clips for restoring mechanical hold after stretched or seized cables.",
+    "name": "Iridium OEM Replacement Spark Plug - Fine Wire Tip",
+    "shortDescription": "Fine-wire iridium service plug engineered around OEM-style heat range and reach for long-interval maintenance. Keeps the ignition portion of the OEM catalog looking credible and parts-driven.",
     "price": 772.99,
     "compareAt": 886.99,
     "stock": "in-stock",
-    "imageUrl": "",
+    "imageUrl": "/fatman-assets/oem-parts/spark-plug.png",
     "shippingClass": "ground",
     "warrantyDays": 180,
     "oemPartNumber": "OEM-OEM-10194"
@@ -2988,6 +2988,516 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0200",
     "slug": "oem-200",
+    "category": "oem-parts",
+    "brand": "DriveCore",
+    "name": "Standard Compression Service Piston - Machined Ring Lands",
+    "shortDescription": "Service replacement piston with standard-compression crown design, machined ring lands, and stock-style pin bore sizing for rebuild applications. Appropriate for engine-internal listings that need grounded, technical copy.",
+    "price": 361.99,
+    "compareAt": 607.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/oem-parts/engine-piston.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10200"
+  },
+  {
+    "sku": "FTM-BRK-0002",
+    "slug": "brk-2",
+    "category": "brakes",
+    "brand": "Nippon OEM",
+    "name": "Front Ceramic Brake Pad Set - OE Shimmed Daily Driver",
+    "shortDescription": "Front ceramic pad set with noise-dampening shims, chamfered friction material, and wear-sensor provisions for quiet OE-style service on commuter sedans and crossovers.",
+    "price": 832.99,
+    "compareAt": 887.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-01-00-brake-pad-set-ceramic-front.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10002"
+  },
+  {
+    "sku": "FTM-BRK-0008",
+    "slug": "brk-8",
+    "category": "brakes",
+    "brand": "ThermaFlow",
+    "name": "320mm Vented Front Brake Rotor - Corrosion Guard",
+    "shortDescription": "OE-diameter vented front rotor with mill-balanced casting and corrosion-resistant hat coating for dependable stock-caliper replacement work.",
+    "price": 1400.99,
+    "compareAt": 1476.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-02-00-brake-rotor-pair-vented-corrosion-guard.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10008"
+  },
+  {
+    "sku": "FTM-BRK-0014",
+    "slug": "brk-14",
+    "category": "brakes",
+    "brand": "OEM Direct",
+    "name": "Rear Solid Brake Rotor Pair - Stock Replacement",
+    "shortDescription": "Rear solid rotor pair sized for factory rear-disc service where smooth braking and straightforward fitment matter more than drilled or slotted styling.",
+    "price": 435.99,
+    "compareAt": 677.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10014"
+  },
+  {
+    "sku": "FTM-BRK-0020",
+    "slug": "brk-20",
+    "category": "brakes",
+    "brand": "OEM Direct",
+    "name": "Front Semi-Metallic Brake Pad Set - Fleet Service",
+    "shortDescription": "Semi-metallic front pads tuned for light-truck and fleet use, balancing cold-stop bite, predictable wear, and stable pedal response under repeated city braking.",
+    "price": 2106.99,
+    "compareAt": 2314.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10020"
+  },
+  {
+    "sku": "FTM-BRK-0026",
+    "slug": "brk-26",
+    "category": "brakes",
+    "brand": "TrueDrive",
+    "name": "Loaded Front Brake Caliper - Hardware Included",
+    "shortDescription": "Loaded front caliper assembly supplied with bracket hardware and installed slider pins for time-saving replacement on seized or uneven-wear brake jobs.",
+    "price": 1620.99,
+    "compareAt": 1640.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-04-00-brake-caliper-loaded-front.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10026"
+  },
+  {
+    "sku": "FTM-BRK-0032",
+    "slug": "brk-32",
+    "category": "brakes",
+    "brand": "DriveCore",
+    "name": "Rear Brake Caliper with Parking Brake Actuator",
+    "shortDescription": "Reman-style rear caliper configured for integrated parking brake applications, restoring rear stopping power without guessing at lever geometry.",
+    "price": 417.99,
+    "compareAt": 702.99,
+    "stock": "low-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-05-00-brake-caliper-rear-parking-brake.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10032"
+  },
+  {
+    "sku": "FTM-BRK-0038",
+    "slug": "brk-38",
+    "category": "brakes",
+    "brand": "Powerline",
+    "name": "Front Brake Hose Pair - DOT-Compliant Rubber",
+    "shortDescription": "Direct-fit front flex hose pair with crimped end fittings and OE-style bracket tabs for restoring hydraulic pressure on aging rubber lines.",
+    "price": 365.99,
+    "compareAt": 564.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-06-00-brake-hose-pair-rubber-front.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10038"
+  },
+  {
+    "sku": "FTM-BRK-0044",
+    "slug": "brk-44",
+    "category": "brakes",
+    "brand": "OEM Direct",
+    "name": "Stainless Braided Front Brake Hose Upgrade Set",
+    "shortDescription": "Braided stainless front hose set with protective sheathing and plated banjo hardware for firmer pedal feel on street-performance builds.",
+    "price": 1123.99,
+    "compareAt": 1293.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-07-00-brake-hose-set-braided-stainless.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10044"
+  },
+  {
+    "sku": "FTM-BRK-0050",
+    "slug": "brk-50",
+    "category": "brakes",
+    "brand": "ThermaFlow",
+    "name": "Front Pad and Rotor Kit - Ceramic Daily Driver",
+    "shortDescription": "Matched front service kit combining ceramic pads and coated vented rotors for an easy all-in-one brake refresh on late-model daily drivers.",
+    "price": 2049.99,
+    "compareAt": 2333.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10050"
+  },
+  {
+    "sku": "FTM-BRK-0056",
+    "slug": "brk-56",
+    "category": "brakes",
+    "brand": "Powerline",
+    "name": "Rear Pad and Rotor Kit - Quiet Street Spec",
+    "shortDescription": "Rear disc service bundle with low-dust pads and mill-finished rotors aimed at restoring balanced braking without aggressive friction noise.",
+    "price": 840.99,
+    "compareAt": 1100.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10056"
+  },
+  {
+    "sku": "FTM-BRK-0062",
+    "slug": "brk-62",
+    "category": "brakes",
+    "brand": "TrueDrive",
+    "name": "Brake Pad Hardware Kit - Stainless Abutment Clips",
+    "shortDescription": "Service hardware kit with abutment clips, anti-rattle springs, and guide-pin boots to finish a pad job correctly instead of reusing tired hardware.",
+    "price": 141.99,
+    "compareAt": 296.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10062"
+  },
+  {
+    "sku": "FTM-BRK-0068",
+    "slug": "brk-68",
+    "category": "brakes",
+    "brand": "OEM Direct",
+    "name": "Front-to-Rear Steel Brake Line Set - OE Routing",
+    "shortDescription": "Pre-bent steel hard-line set with flare ends and factory-style routing for full hydraulic refresh work on rust-belt vehicles.",
+    "price": 1038.99,
+    "compareAt": 1141.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10068"
+  },
+  {
+    "sku": "FTM-BRK-0074",
+    "slug": "brk-74",
+    "category": "brakes",
+    "brand": "TrueDrive",
+    "name": "ABS-Compatible Rear Brake Line Replacement Set",
+    "shortDescription": "Rear hydraulic line replacement set laid out for common ABS-equipped chassis where stock routing and proper flare-seat fitment are critical.",
+    "price": 2294.99,
+    "compareAt": 2590.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10074"
+  },
+  {
+    "sku": "FTM-BRK-0080",
+    "slug": "brk-80",
+    "category": "brakes",
+    "brand": "Nippon OEM",
+    "name": "Brake Master Cylinder - Aluminum OE Replacement",
+    "shortDescription": "New aluminum master cylinder with reservoir ports and factory-style bore sizing for restoring proper hydraulic pressure after internal seal failure.",
+    "price": 1504.99,
+    "compareAt": 1777.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-08-00-brake-master-cylinder-aluminum.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10080"
+  },
+  {
+    "sku": "FTM-BRK-0086",
+    "slug": "brk-86",
+    "category": "brakes",
+    "brand": "ThermaFlow",
+    "name": "Power Brake Booster - Vacuum Assist Service Unit",
+    "shortDescription": "Vacuum-assist brake booster built as a stock-style replacement for hard-pedal complaints and weakened assist on older gas-powered applications.",
+    "price": 2284.99,
+    "compareAt": 2559.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10086"
+  },
+  {
+    "sku": "FTM-BRK-0092",
+    "slug": "brk-92",
+    "category": "brakes",
+    "brand": "DriveCore",
+    "name": "Rear Drum Brake Shoe Set - Bonded Lining",
+    "shortDescription": "Rear drum shoe set with bonded friction lining and OE arc profile for compact cars and utility trailers that still use drum rear brakes.",
+    "price": 540.99,
+    "compareAt": 560.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10092"
+  },
+  {
+    "sku": "FTM-BRK-0098",
+    "slug": "brk-98",
+    "category": "brakes",
+    "brand": "ThermaFlow",
+    "name": "Rear Drum Hardware Kit - Springs and Retainers",
+    "shortDescription": "Rear drum hardware assortment including hold-down pins, return springs, and adjuster hardware for proper drum-brake service completion.",
+    "price": 1512.99,
+    "compareAt": 1601.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10098"
+  },
+  {
+    "sku": "FTM-BRK-0104",
+    "slug": "brk-104",
+    "category": "brakes",
+    "brand": "DriveCore",
+    "name": "Parking Brake Shoe Set - Hat-in-Rotor Style",
+    "shortDescription": "Parking brake shoe set sized for disc-brake-in-hat rear assemblies, restoring mechanical hold without replacing the full service brake package.",
+    "price": 264.99,
+    "compareAt": 279.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10104"
+  },
+  {
+    "sku": "FTM-BRK-0110",
+    "slug": "brk-110",
+    "category": "brakes",
+    "brand": "DriveCore",
+    "name": "Brake Caliper Guide Pin Kit - Boots Included",
+    "shortDescription": "Guide pin service kit with high-temp sleeves, rubber boots, and lubricant pockets to correct uneven pad wear caused by sticking caliper slides.",
+    "price": 70.99,
+    "compareAt": 204.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10110"
+  },
+  {
+    "sku": "FTM-BRK-0116",
+    "slug": "brk-116",
+    "category": "brakes",
+    "brand": "TrueDrive",
+    "name": "Rear Wheel Cylinder Pair - Drum Brake Service",
+    "shortDescription": "Rear wheel cylinder pair with bleeder screws and inlet ports installed for dependable drum-brake hydraulic repair on older domestic and import vehicles.",
+    "price": 906.99,
+    "compareAt": 1112.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10116"
+  },
+  {
+    "sku": "FTM-BRK-0122",
+    "slug": "brk-122",
+    "category": "brakes",
+    "brand": "Nippon OEM",
+    "name": "Front Disc Brake Hardware Kit - Noise Control Clips",
+    "shortDescription": "Front disc hardware set with stainless abutment clips and pad support springs used to eliminate chatter on OE-style front brake services.",
+    "price": 520.99,
+    "compareAt": 604.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10122"
+  },
+  {
+    "sku": "FTM-BRK-0128",
+    "slug": "brk-128",
+    "category": "brakes",
+    "brand": "TrueDrive",
+    "name": "Performance Street Brake Rotor Pair - Slotted Vented",
+    "shortDescription": "Slotted vented rotor pair aimed at street trucks and sport coupes needing improved heat evacuation without drifting into full race-brake claims.",
+    "price": 2250.99,
+    "compareAt": 2547.99,
+    "stock": "in-stock",
+    "imageUrl": "/fatman-assets/brakes-us-catalog-2026-03-12/2026-03-12-07-03-00-brake-rotor-pair-slotted-performance.png",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10128"
+  },
+  {
+    "sku": "FTM-BRK-0134",
+    "slug": "brk-134",
+    "category": "brakes",
+    "brand": "DriveCore",
+    "name": "Severe Duty Front Brake Pad Set - Tow Package",
+    "shortDescription": "Higher-friction front pad set for SUVs and tow-package trucks, built around heavier thermal loads and repeated downhill braking.",
+    "price": 2132.99,
+    "compareAt": 2219.99,
+    "stock": "low-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10134"
+  },
+  {
+    "sku": "FTM-BRK-0140",
+    "slug": "brk-140",
+    "category": "brakes",
+    "brand": "Powerline",
+    "name": "Brake Fluid Reservoir Cap with Diaphragm Seal",
+    "shortDescription": "Replacement reservoir cap and diaphragm seal for service-bay fixes where the original cap is cracked, leaking, or missing its moisture barrier.",
+    "price": 49.99,
+    "compareAt": 255.99,
+    "stock": "low-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10140"
+  },
+  {
+    "sku": "FTM-BRK-0146",
+    "slug": "brk-146",
+    "category": "brakes",
+    "brand": "DriveCore",
+    "name": "Brake Proportioning Valve - OE Pressure Balance",
+    "shortDescription": "Stock-style proportioning valve intended to restore front-to-rear hydraulic bias after corrosion or contamination in the original valve body.",
+    "price": 705.99,
+    "compareAt": 782.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10146"
+  },
+  {
+    "sku": "FTM-BRK-0152",
+    "slug": "brk-152",
+    "category": "brakes",
+    "brand": "ThermaFlow",
+    "name": "Front Loaded Brake Caliper Pair - Premium Reman",
+    "shortDescription": "Loaded reman front caliper pair supplied with pads and brackets for higher-mileage rebuild work where both sides should be serviced together.",
+    "price": 1609.99,
+    "compareAt": 1884.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10152"
+  },
+  {
+    "sku": "FTM-BRK-0158",
+    "slug": "brk-158",
+    "category": "brakes",
+    "brand": "Powerline",
+    "name": "Disc Brake Anti-Rattle Clip Set - Front Axle",
+    "shortDescription": "Front axle anti-rattle clip set for disc brake service, preventing pad chatter and movement inside worn caliper brackets.",
+    "price": 287.99,
+    "compareAt": 448.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10158"
+  },
+  {
+    "sku": "FTM-BRK-0164",
+    "slug": "brk-164",
+    "category": "brakes",
+    "brand": "ThermaFlow",
+    "name": "Rear Ceramic Brake Pad Set - Low-Dust OE Formula",
+    "shortDescription": "Low-dust rear ceramic pad set designed for quiet operation and smooth rear-disc engagement on family crossovers and midsize sedans.",
+    "price": 1344.99,
+    "compareAt": 1631.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10164"
+  },
+  {
+    "sku": "FTM-BRK-0170",
+    "slug": "brk-170",
+    "category": "brakes",
+    "brand": "Powerline",
+    "name": "Brake Bleeder Screw Set - Rust Service Replacement",
+    "shortDescription": "Replacement bleeder screw set for corroded calipers and wheel cylinders, useful when basic brake service is blocked by seized hardware.",
+    "price": 713.99,
+    "compareAt": 785.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10170"
+  },
+  {
+    "sku": "FTM-BRK-0176",
+    "slug": "brk-176",
+    "category": "brakes",
+    "brand": "Nippon OEM",
+    "name": "Hydraulic Brake Hose Kit - Rear Axle Service",
+    "shortDescription": "Rear axle hose kit with center hose and retaining clips for trucks and solid-axle applications that need renewed hydraulic flex at the differential.",
+    "price": 1963.99,
+    "compareAt": 2209.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10176"
+  },
+  {
+    "sku": "FTM-BRK-0182",
+    "slug": "brk-182",
+    "category": "brakes",
+    "brand": "Nippon OEM",
+    "name": "Disc Brake Shim Kit - Multi-Layer Noise Dampers",
+    "shortDescription": "Multi-layer shim kit for disc pads, restoring OE-style noise damping when original shims are missing or distorted during brake service.",
+    "price": 375.99,
+    "compareAt": 675.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10182"
+  },
+  {
+    "sku": "FTM-BRK-0188",
+    "slug": "brk-188",
+    "category": "brakes",
+    "brand": "OEM Direct",
+    "name": "Front Brake Rotor and Pad Kit - Truck Duty",
+    "shortDescription": "Front service kit pairing thicker vented rotors with truck-duty friction pads for half-ton pickups and body-on-frame SUVs.",
+    "price": 1846.99,
+    "compareAt": 1983.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10188"
+  },
+  {
+    "sku": "FTM-BRK-0194",
+    "slug": "brk-194",
+    "category": "brakes",
+    "brand": "OEM Direct",
+    "name": "Parking Brake Cable - Direct Fit Rear",
+    "shortDescription": "Direct-fit rear parking brake cable with sheath, end fittings, and chassis clips for restoring mechanical hold after stretched or seized cables.",
+    "price": 772.99,
+    "compareAt": 886.99,
+    "stock": "in-stock",
+    "imageUrl": "",
+    "shippingClass": "ground",
+    "warrantyDays": 180,
+    "oemPartNumber": "OEM-OEM-10194"
+  },
+  {
+    "sku": "FTM-BRK-0200",
+    "slug": "brk-200",
     "category": "brakes",
     "brand": "DriveCore",
     "name": "Rear Brake Adjuster Kit - Drum Self-Adjusting Hardware",
@@ -3009,9 +3519,9 @@ export const generatedCategories = [
     "description": "Long blocks, heads, and complete assemblies."
   },
   {
-    "slug": "brakes",
-    "title": "Brakes",
-    "description": "Pads, rotors, calipers, lines, and hydraulic service parts."
+    "slug": "oem-parts",
+    "title": "OEM Parts",
+    "description": "Core OEM-style replacement parts across braking, ignition, filtration, intake, and charging systems."
   },
   {
     "slug": "drivetrain",
@@ -3032,6 +3542,11 @@ export const generatedCategories = [
     "slug": "suspension",
     "title": "Suspension",
     "description": "Shocks, struts, and ride-control parts."
+  },
+  {
+    "slug": "brakes",
+    "title": "Brakes",
+    "description": "Pads, rotors, calipers, lines, and hydraulic service parts."
   }
 ] as const;
 
@@ -97958,6 +98473,7098 @@ export const generatedFitmentRules = [
   },
   {
     "productSlug": "oem-200",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      },
+      {
+        "year": "2023",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-2",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-2",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "2.4"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Convertible",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "2.4 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "200 Saloon",
+        "engine": "3.6 FLEX"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 Flexfuel"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "5.7 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "6.4 SRT8"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7 AWD"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 V6"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 V6"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C (LX)",
+        "engine": "3.0 V6"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7 AWD"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "2.7"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.5 AWD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.6 AWD"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "6.1 SRT8"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 CRD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 V6"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 V6"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "300 C Saloon (LX)",
+        "engine": "3.0 V6"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 4WD"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 4WD"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 AWD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "4.7 Flexfuel"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 AWD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 Hybrid"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "ASPEN",
+        "engine": "5.7 4x4"
+      },
+      {
+        "year": "2000",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2001",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2002",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2003",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.0"
+      },
+      {
+        "year": "2000",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2001",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2002",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2003",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4"
+      },
+      {
+        "year": "2001",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4 Turbo"
+      },
+      {
+        "year": "2002",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4 Turbo"
+      },
+      {
+        "year": "2003",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4 Turbo"
+      },
+      {
+        "year": "2004",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4 Turbo"
+      },
+      {
+        "year": "2005",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4 Turbo"
+      },
+      {
+        "year": "2006",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4 Turbo"
+      },
+      {
+        "year": "2000",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "2.4 Turbo"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "CIRRUS",
+        "engine": "3.5"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.4 16V"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "1.6 D"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "DELTA",
+        "engine": "2.0 D"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3 Flexfuel"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3 Flexfuel"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.3 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "GRAND VOYAGER V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3 Flexfuel"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3 Flexfuel"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.3 Flexfuel"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.6 Flexfuel"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "3.8"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "4.0"
+      },
+      {
+        "year": "2007",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2008",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2009",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2010",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "TOWN & COUNTRY V (RT)",
+        "engine": "2.8 CRD"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "0.9 Twinair"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.2"
+      },
+      {
+        "year": "2011",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2012",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2013",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2014",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2015",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2016",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2017",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2018",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2019",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2020",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2021",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2022",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2023",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2024",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2025",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      },
+      {
+        "year": "2026",
+        "make": "Chrysler",
+        "model": "YPSILON",
+        "engine": "1.3 Multijet"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-2",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-8",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-8",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-14",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-14",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-20",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-20",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-26",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "2.0T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-26",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-32",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-32",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-32",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      },
+      {
+        "year": "2024",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-38",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-38",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-44",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-44",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-44",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      },
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-50",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-50",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-50",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-56",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-56",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-56",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-62",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "2.0T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-62",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-62",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-68",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-68",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-68",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      },
+      {
+        "year": "2020",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-74",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-74",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-74",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      },
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-80",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-80",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-80",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-86",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-86",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-92",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-92",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-92",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-98",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-98",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-104",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-104",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-104",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      },
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-110",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-110",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-116",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-116",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-122",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-122",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-122",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-128",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-128",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-128",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-134",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-134",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-140",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-140",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-146",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-146",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-152",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-152",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-152",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      },
+      {
+        "year": "2021",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-158",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-158",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-158",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-164",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-164",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-170",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-170",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-170",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "1.5T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-176",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-176",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-176",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-182",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-182",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-182",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Ford",
+        "model": "F-150",
+        "engine": "2.7L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-188",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Ford",
+        "model": "Escape",
+        "engine": "1.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-188",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2023",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "2.0T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-188",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Toyota",
+        "model": "Corolla",
+        "engine": "1.8L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-194",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2020",
+        "make": "Honda",
+        "model": "Civic",
+        "engine": "2.0L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-194",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2021",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-194",
+    "matchType": "no-fit",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "3.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-200",
+    "matchType": "fits",
+    "vehicles": [
+      {
+        "year": "2024",
+        "make": "Honda",
+        "model": "Accord",
+        "engine": "2.0T"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-200",
+    "matchType": "verify",
+    "vehicles": [
+      {
+        "year": "2022",
+        "make": "Toyota",
+        "model": "Camry",
+        "engine": "2.5L"
+      }
+    ]
+  },
+  {
+    "productSlug": "brk-200",
     "matchType": "no-fit",
     "vehicles": [
       {

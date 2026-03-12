@@ -3,7 +3,7 @@ import { generatedCategories, generatedProducts } from "@/lib/generated-data";
 export type Product = {
   sku: string;
   slug: string;
-  category: "engines" | "brakes" | "drivetrain" | "cooling" | "electrical" | "suspension";
+  category: "engines" | "brakes" | "oem-parts" | "drivetrain" | "cooling" | "electrical" | "suspension";
   brand: string;
   name: string;
   shortDescription: string;
