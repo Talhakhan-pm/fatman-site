@@ -1,0 +1,20 @@
+{
+  "category": "suspension",
+  "lane": "asset-generation-only",
+  "date": "2026-03-11",
+  "assetCount": 6,
+  "format": "png",
+  "files": [
+    "coilover-kit-blue.png",
+    "strut-assembly-oem.png",
+    "shock-absorber-performance.png",
+    "control-arm-forged.png",
+    "sway-bar-link-pair.png",
+    "lowering-springs-red.png"
+  ],
+  "notes": [
+    "No mappings were changed in this batch.",
+    "No product rows, category names, or UI were changed.",
+    "Use these assets in a separate mapping pass only."
+  ]
+}
