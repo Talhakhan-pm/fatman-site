@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGarage } from "./garage-provider";
 import { useTheme } from "./theme-provider";
-import { enableDemoMode } from "@/lib/demo";
 import { catalogRegistry } from "@/lib/catalog-registry";
+import { formatVehicleLabel } from "@/lib/fitment";
 
 const navItems = [
   ...catalogRegistry.filter((item) => item.showInHeader).map((item) => ({ href: `/category/${item.slug}`, label: item.title })),
@@ -37,9 +37,8 @@ export function SiteHeader() {
           {navItems.map((item) => <Link key={item.href} href={item.href} className="transition hover:text-white">{item.label}</Link>)}
         </nav>
         <div className="hidden items-center gap-3 md:flex">
-          <button onClick={() => { enableDemoMode(); window.location.reload(); }} className="rounded-md border border-fatman-accent/50 bg-fatman-accent/15 px-2.5 py-1.5 text-xs text-orange-100 transition hover:bg-fatman-accent/25">Enable demo data</button>
           <button onClick={toggleTheme} className="rounded-md border border-white/15 px-2.5 py-1.5 text-xs text-white/80 transition hover:bg-white/10">Toggle theme</button>
-          <div className="text-right text-xs text-white/70">{vehicle ? <span>Garage: {vehicle.year} {vehicle.make} {vehicle.model}</span> : <span>Garage: not selected</span>}</div>
+          <div className="text-right text-xs text-white/70">{vehicle ? <span>Garage: {formatVehicleLabel(vehicle)}</span> : <span>Garage: not selected</span>}</div>
         </div>
         <button onClick={() => setOpen((v) => !v)} className="rounded-lg border border-white/15 px-3 py-2 text-xs text-white md:hidden">Menu</button>
       </div>
@@ -47,9 +46,8 @@ export function SiteHeader() {
         <div className="border-t border-white/10 bg-fatman-900 md:hidden">
           <div className="mx-auto max-w-6xl space-y-2 px-6 py-3">
             {navItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="block rounded-md px-2 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white">{item.label}</Link>)}
-            <button onClick={() => { enableDemoMode(); window.location.reload(); }} className="w-full rounded-md border border-fatman-accent/50 bg-fatman-accent/15 px-2 py-2 text-left text-xs text-orange-100">Enable demo data</button>
             <button onClick={toggleTheme} className="w-full rounded-md border border-white/15 px-2 py-2 text-left text-xs text-white/80">Toggle theme</button>
-            <div className="rounded-md bg-white/5 px-2 py-2 text-xs text-white/70">{vehicle ? `Garage: ${vehicle.year} ${vehicle.make} ${vehicle.model}` : "Garage: not selected"}</div>
+            <div className="rounded-md bg-white/5 px-2 py-2 text-xs text-white/70">{vehicle ? `Garage: ${formatVehicleLabel(vehicle)}` : "Garage: not selected"}</div>
           </div>
         </div>
       )}
