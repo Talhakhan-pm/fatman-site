@@ -1,13 +1,8 @@
+export type { Vehicle } from "@fatman/fitment-react";
+import type { Vehicle } from "@fatman/fitment-react";
 import { generatedFitmentRules, generatedVehicleOptions } from "@/lib/generated-data";
 
 export type FitmentState = "fits" | "verify" | "no-fit";
-
-export type Vehicle = {
-  year: string;
-  make: string;
-  model: string;
-  engine: string;
-};
 
 export type ProductFitmentRule = {
   productSlug: string;
@@ -23,6 +18,20 @@ export const vehicleOptions = generatedVehicleOptions as unknown as {
 };
 
 export const fitmentRules: ProductFitmentRule[] = generatedFitmentRules as unknown as ProductFitmentRule[];
+
+export function formatVehicleLabel(vehicle?: Vehicle | null): string {
+  if (!vehicle) return "";
+
+  return [
+    vehicle.year,
+    vehicle.make,
+    vehicle.model,
+    vehicle.variant && vehicle.variant !== "Base" ? vehicle.variant : "",
+    vehicle.engine,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
 
 export function getFitmentState(productSlug: string, vehicle?: Vehicle | null): FitmentState {
   if (!vehicle) return "verify";

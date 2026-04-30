@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@fatman/fitment-react": ["./packages/fitment-react/src/index.ts"]
     }
   },
   "include": [

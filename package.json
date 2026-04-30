@@ -2,16 +2,23 @@
   "name": "fatman-site",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:fitment-package": "npm run build --workspace @fatman/fitment-react",
     "start": "next start",
     "lint": "eslint",
+    "typecheck": "tsc --noEmit",
     "sync:data": "node scripts/sync-fatman-data.mjs",
     "catalog:doctor": "node scripts/catalog-doctor.mjs",
-    "catalog:baseline": "node scripts/catalog-doctor.mjs --write-baseline"
+    "catalog:baseline": "node scripts/catalog-doctor.mjs --write-baseline",
+    "fitment:charm": "node scripts/charm-fitment-firecrawl.mjs"
   },
   "dependencies": {
+    "@fatman/fitment-react": "file:./packages/fitment-react",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3"
