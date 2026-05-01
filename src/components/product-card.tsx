@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FitmentBadge } from "./fitment-badge";
 import { useFitment } from "./use-fitment";
 import { useGarage } from "./garage-provider";
+import type { FitmentState } from "@/lib/fitment";
 import { formatPrice } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
@@ -30,9 +31,15 @@ function StockBadge({ stock }: { stock: Product["stock"] }) {
   return <span className="rounded-full border border-blue-400/30 bg-blue-500/20 px-2 py-1 text-[10px] font-semibold text-blue-200">Preorder</span>;
 }
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  fitmentState,
+}: {
+  product: Product;
+  fitmentState?: FitmentState;
+}) {
   const { vehicle } = useGarage();
-  const fitment = useFitment(product.slug, vehicle);
+  const fitment = useFitment(product.slug, vehicle, fitmentState);
   const hasSavings = typeof product.compareAt === "number" && product.compareAt > product.price;
   const media = getProductDisplayMedia(product);
 

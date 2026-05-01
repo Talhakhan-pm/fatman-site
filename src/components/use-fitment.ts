@@ -8,13 +8,18 @@ function vehicleKey(vehicle?: Vehicle | null): string {
   return [vehicle.year, vehicle.make, vehicle.model, vehicle.variant ?? "", vehicle.engine].join("|");
 }
 
-export function useFitment(productSlug: string, vehicle?: Vehicle | null): FitmentState {
+export function useFitment(
+  productSlug: string,
+  vehicle?: Vehicle | null,
+  resolvedVerdict?: FitmentState,
+): FitmentState {
   const legacy = useMemo(() => getFitmentState(productSlug, vehicle), [productSlug, vehicle]);
-  const [verdict, setVerdict] = useState<FitmentState>(legacy);
+  const initialVerdict = resolvedVerdict ?? legacy;
+  const [verdict, setVerdict] = useState<FitmentState>(initialVerdict);
 
   useEffect(() => {
-    setVerdict(legacy);
-    if (!vehicle) return;
+    setVerdict(initialVerdict);
+    if (resolvedVerdict || !vehicle) return;
 
     let ignore = false;
     fetch("/api/fitment/check", {
@@ -34,7 +39,7 @@ export function useFitment(productSlug: string, vehicle?: Vehicle | null): Fitme
     return () => {
       ignore = true;
     };
-  }, [productSlug, legacy, vehicle]);
+  }, [productSlug, initialVerdict, resolvedVerdict, vehicle]);
 
   return verdict;
 }

@@ -24,8 +24,5 @@ export async function POST(req: Request) {
     fitments[slug] = dbVerdict ?? getFitmentState(slug, vehicle);
   }
 
-  return NextResponse.json({
-    fitments,
-    source: dbVerdicts && Object.keys(dbVerdicts).length ? "db" : "legacy",
-  });
+  return NextResponse.json({ fitments });
 }

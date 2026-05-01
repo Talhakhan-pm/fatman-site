@@ -20,7 +20,7 @@ export const fitmentRules: ProductFitmentRule[] =
 
 export { formatVehicleLabel };
 
-function normalizeVehicle(vehicle?: Vehicle | null): Vehicle | null {
+export function normalizeVehicle(vehicle?: Vehicle | null): Vehicle | null {
   if (!vehicle?.year || !vehicle.make || !vehicle.model || !vehicle.engine) return null;
 
   const variants = charmFitmentCatalog.getVariants(vehicle.year, vehicle.make, vehicle.model);

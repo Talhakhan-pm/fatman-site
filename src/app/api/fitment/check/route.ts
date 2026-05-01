@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getFitmentState, type Vehicle } from "@/lib/fitment";
-import { getFitmentVerdictFromDb } from "@/lib/fitment-db";
+import { getFitmentStateFromDb } from "@/lib/fitment-db";
 
 type Payload = {
   productSlug?: string;
@@ -15,12 +15,9 @@ export async function POST(req: Request) {
   }
 
   const vehicle = body.vehicle ?? null;
-  const dbVerdict = await getFitmentVerdictFromDb(body.productSlug, vehicle);
+  const fitment = await getFitmentStateFromDb(body.productSlug, vehicle);
+  const fallback = getFitmentState(body.productSlug, vehicle);
+  const source = fitment === fallback ? "legacy-or-db" : "db";
 
-  if (dbVerdict) {
-    return NextResponse.json({ fitment: dbVerdict, source: "db" });
-  }
-
-  const fitment = getFitmentState(body.productSlug, vehicle);
-  return NextResponse.json({ fitment, source: "legacy" });
+  return NextResponse.json({ fitment, source });
 }

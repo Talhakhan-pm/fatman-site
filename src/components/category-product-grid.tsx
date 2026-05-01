@@ -59,7 +59,11 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
         <div className="mb-3 text-sm text-white/65">{filtered.length} products</div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              fitmentState={fitments[product.slug]}
+            />
           ))}
         </div>
       </section>
