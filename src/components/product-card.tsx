@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FitmentBadge } from "./fitment-badge";
-import { getFitmentState } from "@/lib/fitment";
+import { useFitment } from "./use-fitment";
 import { useGarage } from "./garage-provider";
 import { formatPrice } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
@@ -32,7 +32,7 @@ function StockBadge({ stock }: { stock: Product["stock"] }) {
 
 export function ProductCard({ product }: { product: Product }) {
   const { vehicle } = useGarage();
-  const fitment = getFitmentState(product.slug, vehicle);
+  const fitment = useFitment(product.slug, vehicle);
   const hasSavings = typeof product.compareAt === "number" && product.compareAt > product.price;
   const media = getProductDisplayMedia(product);
 

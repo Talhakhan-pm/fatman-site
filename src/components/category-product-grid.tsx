@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
-import { getFitmentState } from "@/lib/fitment";
+import { useFitmentBatch } from "@/components/use-fitment";
 import type { Product } from "@/lib/catalog";
 
 export function CategoryProductGrid({ products }: { products: Product[] }) {
@@ -13,18 +13,21 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
   const [verifiedFitOnly, setVerifiedFitOnly] = useState(false);
   const [sort, setSort] = useState<"relevance" | "price-asc" | "price-desc">("relevance");
 
+  const slugs = useMemo(() => products.map((p) => p.slug), [products]);
+  const fitments = useFitmentBatch(slugs, vehicle);
+
   const filtered = useMemo(() => {
     let rows = [...products];
 
     if (inStockOnly) rows = rows.filter((p) => p.stock === "in-stock");
     if (oemOnly) rows = rows.filter((p) => p.brand.toLowerCase().includes("oem"));
-    if (verifiedFitOnly) rows = rows.filter((p) => getFitmentState(p.slug, vehicle) === "fits");
+    if (verifiedFitOnly) rows = rows.filter((p) => fitments[p.slug] === "fits");
 
     if (sort === "price-asc") rows.sort((a, b) => a.price - b.price);
     if (sort === "price-desc") rows.sort((a, b) => b.price - a.price);
 
     return rows;
-  }, [products, inStockOnly, oemOnly, verifiedFitOnly, sort, vehicle]);
+  }, [products, inStockOnly, oemOnly, verifiedFitOnly, sort, fitments]);
 
   return (
     <>

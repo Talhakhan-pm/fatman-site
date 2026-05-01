@@ -5,14 +5,14 @@ import { useEffect } from "react";
 import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
 import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
-import { getFitmentState } from "@/lib/fitment";
+import { useFitment } from "@/components/use-fitment";
 import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 
 export function ProductPageClient({ product }: { product: Product }) {
   const { vehicle } = useGarage();
-  const fitment = getFitmentState(product.slug, vehicle);
+  const fitment = useFitment(product.slug, vehicle);
   const media = getProductDisplayMedia(product);
 
   useEffect(() => {

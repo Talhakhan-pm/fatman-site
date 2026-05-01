@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getFitmentState, type Vehicle } from "@/lib/fitment";
+import { getFitmentVerdictFromDb } from "@/lib/fitment-db";
 
 type Payload = {
   productSlug?: string;
@@ -13,6 +14,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "productSlug is required" }, { status: 400 });
   }
 
-  const fitment = getFitmentState(body.productSlug, body.vehicle ?? null);
-  return NextResponse.json({ fitment });
+  const vehicle = body.vehicle ?? null;
+  const dbVerdict = await getFitmentVerdictFromDb(body.productSlug, vehicle);
+
+  if (dbVerdict) {
+    return NextResponse.json({ fitment: dbVerdict, source: "db" });
+  }
+
+  const fitment = getFitmentState(body.productSlug, vehicle);
+  return NextResponse.json({ fitment, source: "legacy" });
 }
