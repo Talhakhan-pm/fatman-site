@@ -8,6 +8,17 @@ type ApiResult = {
   body: unknown;
 };
 
+type ProductSummary = {
+  slug: string;
+  sku: string;
+  category_slug: string;
+  brand: string;
+  name: string;
+  price: number | string;
+  stock_status: "in-stock" | "low-stock" | "preorder";
+  published: boolean;
+};
+
 const STARTER_PAYLOAD = `{
   "product": {
     "sku": "FTM-COL-9001",
@@ -62,6 +73,12 @@ export default function AdminCatalogPage() {
   const [upsertBusy, setUpsertBusy] = useState(false);
   const [result, setResult] = useState<ApiResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [listBusy, setListBusy] = useState(false);
+  const [listError, setListError] = useState<string | null>(null);
+  const [products, setProducts] = useState<ProductSummary[] | null>(null);
+  const [search, setSearch] = useState("");
+  const [loadingSlug, setLoadingSlug] = useState<string | null>(null);
+  const [lastLoadedPayload, setLastLoadedPayload] = useState<string | null>(null);
 
   function buildHeaders(): HeadersInit {
     const headers: Record<string, string> = { "Content-Type": "application/json" };
@@ -121,6 +138,67 @@ export default function AdminCatalogPage() {
     setPayload(STARTER_PAYLOAD);
   }
 
+  async function handleListProducts() {
+    setListBusy(true);
+    setListError(null);
+    try {
+      const params = new URLSearchParams();
+      if (search.trim()) params.set("q", search.trim());
+      const qs = params.toString();
+      const res = await fetch(`/api/admin/catalog/list${qs ? `?${qs}` : ""}`, {
+        headers: buildHeaders(),
+      });
+      const json = (await res.json().catch(() => null)) as
+        | { products?: ProductSummary[]; error?: string }
+        | null;
+      if (!res.ok) {
+        setListError(json?.error || `Request failed (${res.status})`);
+        setProducts(null);
+        return;
+      }
+      setProducts(json?.products ?? []);
+    } catch (err) {
+      setListError(err instanceof Error ? err.message : "Request failed");
+      setProducts(null);
+    } finally {
+      setListBusy(false);
+    }
+  }
+
+  async function handleLoad(slug: string) {
+    setLoadingSlug(slug);
+    setListError(null);
+    try {
+      const res = await fetch(
+        `/api/admin/catalog/list?slug=${encodeURIComponent(slug)}`,
+        { headers: buildHeaders() },
+      );
+      const json = (await res.json().catch(() => null)) as
+        | { payload?: unknown; error?: string }
+        | null;
+      if (!res.ok || !json?.payload) {
+        setListError(json?.error || `Failed to load ${slug} (${res.status})`);
+        return;
+      }
+      const next = JSON.stringify(json.payload, null, 2);
+
+      // TODO: Decide how to overwrite the editor when the user clicks "Load".
+      // Options discussed:
+      //   1. Always overwrite (simple, but loses unsaved edits).
+      //   2. Confirm only when the textarea differs from STARTER_PAYLOAD and
+      //      from `lastLoadedPayload` (protects unsaved edits, allows free
+      //      reloads when idle).
+      //   3. Always confirm via window.confirm (safest, most annoying).
+      // Replace the body below with your chosen behavior.
+      setPayload(next);
+      setLastLoadedPayload(next);
+    } catch (err) {
+      setListError(err instanceof Error ? err.message : "Request failed");
+    } finally {
+      setLoadingSlug(null);
+    }
+  }
+
   const ok = result && result.status >= 200 && result.status < 300;
 
   return (
@@ -168,6 +246,86 @@ export default function AdminCatalogPage() {
           >
             {seedBusy ? "Seeding…" : "Run seed"}
           </button>
+        </div>
+
+        <div className="mt-6 space-y-3 rounded-xl border border-white/15 bg-white/5 p-5">
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-lg font-bold">Existing products</h2>
+            <button
+              type="button"
+              className={ghostButtonClass}
+              onClick={handleListProducts}
+              disabled={listBusy}
+            >
+              {listBusy ? "Loading…" : products ? "Refresh" : "Load list"}
+            </button>
+          </div>
+          <p className="text-sm text-white/60">
+            Reads from Supabase via{" "}
+            <code className="text-fatman-accent">/api/admin/catalog/list</code>. Click a row to
+            pull the product + fitment into the upsert editor below.
+          </p>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              className={inputClass}
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  handleListProducts();
+                }
+              }}
+              placeholder="Search slug / name / sku (Enter to search)"
+            />
+          </div>
+          {listError && (
+            <div className="rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-xs text-red-200">
+              {listError}
+            </div>
+          )}
+          {products && (
+            <div className="max-h-80 overflow-auto rounded-lg border border-white/10">
+              {products.length === 0 ? (
+                <p className="p-3 text-sm text-white/60">No products match.</p>
+              ) : (
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-white/5 text-white/60">
+                    <tr>
+                      <th className="px-3 py-2 font-medium">Slug</th>
+                      <th className="px-3 py-2 font-medium">Name</th>
+                      <th className="px-3 py-2 font-medium">Cat</th>
+                      <th className="px-3 py-2 font-medium">Price</th>
+                      <th className="px-3 py-2 font-medium">Pub</th>
+                      <th className="px-3 py-2" />
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products.map((p) => (
+                      <tr key={p.slug} className="border-t border-white/5">
+                        <td className="px-3 py-2 font-mono text-white/80">{p.slug}</td>
+                        <td className="px-3 py-2 text-white/90">{p.name}</td>
+                        <td className="px-3 py-2 text-white/60">{p.category_slug}</td>
+                        <td className="px-3 py-2 text-white/80">{Number(p.price).toFixed(2)}</td>
+                        <td className="px-3 py-2 text-white/60">{p.published ? "✓" : "—"}</td>
+                        <td className="px-3 py-2 text-right">
+                          <button
+                            type="button"
+                            className={ghostButtonClass}
+                            onClick={() => handleLoad(p.slug)}
+                            disabled={loadingSlug === p.slug}
+                          >
+                            {loadingSlug === p.slug ? "Loading…" : "Load"}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="mt-6 space-y-3 rounded-xl border border-white/15 bg-white/5 p-5">
