@@ -5,22 +5,8 @@
 import Link from "next/link";
 import { HeroRotatingText } from "@/components/hero-rotating-text";
 import { FitmentModuleV2 } from "@/components/fitment-module-v2";
+import { getCategories } from "@/lib/catalog-db";
 import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
-import { categories as generatedCategories } from "@/lib/catalog";
-
-const categories = generatedCategories.flatMap((category) => {
-  const registry = catalogRegistry.find((entry) => entry.slug === category.slug);
-  if (!registry || !registry.showOnHomepage) return [];
-
-  return [{
-    name: registry.title,
-    slug: registry.slug,
-    count: `${category.productCount}+`,
-    desc: registry.shortDescription,
-    Icon: categoryIconMap[registry.icon],
-    tag: registry.tag,
-  }];
-});
 
 const heroRotatingWords = ["ENGINE.", "BRAKES.", "TURBO.", "CLUTCH.", "EXHAUST.", "COILS."];
 const trustBadges = [
@@ -103,7 +89,22 @@ function SectionTag({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const generatedCategories = await getCategories();
+  const categories = generatedCategories.flatMap((category) => {
+    const registry = catalogRegistry.find((entry) => entry.slug === category.slug);
+    if (!registry || !registry.showOnHomepage) return [];
+
+    return [{
+      name: registry.title,
+      slug: registry.slug,
+      count: `${category.productCount}+`,
+      desc: registry.shortDescription,
+      Icon: categoryIconMap[registry.icon],
+      tag: registry.tag,
+    }];
+  });
+
   return (
     <main className="relative overflow-hidden bg-[#111318] text-white">
       <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundRepeat: "repeat", backgroundSize: "200px 200px" }} />

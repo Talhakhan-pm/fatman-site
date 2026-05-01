@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CategoryProductGrid } from "@/components/category-product-grid";
 import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
 import { TrustStrip } from "@/components/trust-strip";
-import { getCategory, getProductsByCategory } from "@/lib/catalog";
+import { getCategory, getProductsByCategory } from "@/lib/catalog-db";
 
 const SITE_URL = "https://fatmanparts.com";
 
@@ -13,7 +13,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const category = await getCategory(slug);
 
   if (!category) {
     return {
@@ -41,11 +41,11 @@ export default async function CategoryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const category = getCategory(slug);
+  const category = await getCategory(slug);
 
   if (!category) notFound();
 
-  const categoryProducts = getProductsByCategory(slug);
+  const categoryProducts = await getProductsByCategory(slug);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

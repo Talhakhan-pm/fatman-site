@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { categories } from "@/lib/catalog";
+import { getCategories } from "@/lib/catalog-db";
 
 export const metadata: Metadata = {
   title: "All Categories | Fatman Parts",
@@ -9,7 +9,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/category" },
 };
 
-export default function CategoriesIndexPage() {
+export default async function CategoriesIndexPage() {
+  const categories = await getCategories();
+
   return (
     <div className="min-h-screen bg-[#111318] text-white">
       <section className="mx-auto max-w-6xl px-6 py-16">

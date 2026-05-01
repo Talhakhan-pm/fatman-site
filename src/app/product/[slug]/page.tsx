@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductPageClient } from "@/components/product/product-page-client";
-import { getProduct } from "@/lib/catalog";
+import { getProduct } from "@/lib/catalog-db";
 
 const SITE_URL = "https://fatmanparts.com";
 
@@ -11,7 +11,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
 
   if (!product) {
     return {
@@ -41,7 +41,7 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
 
   if (!product) notFound();
 
