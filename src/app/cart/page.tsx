@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { products, formatPrice } from "@/lib/mock-data";
+import { products, formatPrice } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 
 export default function CartPage() {

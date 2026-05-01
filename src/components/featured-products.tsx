@@ -1,4 +1,4 @@
-import { products } from "@/lib/mock-data";
+import { products } from "@/lib/catalog";
 import { ProductCard } from "./product-card";
 
 export function FeaturedProducts() {

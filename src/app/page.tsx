@@ -6,7 +6,7 @@ import Link from "next/link";
 import { HeroRotatingText } from "@/components/hero-rotating-text";
 import { FitmentModuleV2 } from "@/components/fitment-module-v2";
 import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
-import { categories as generatedCategories } from "@/lib/mock-data";
+import { categories as generatedCategories } from "@/lib/catalog";
 
 const categories = generatedCategories.flatMap((category) => {
   const registry = catalogRegistry.find((entry) => entry.slug === category.slug);

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import { getFitmentState } from "@/lib/fitment";
-import type { Product } from "@/lib/mock-data";
+import type { Product } from "@/lib/catalog";
 
 export function CategoryProductGrid({ products }: { products: Product[] }) {
   const { vehicle } = useGarage();

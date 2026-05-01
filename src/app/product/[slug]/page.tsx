@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductPageClient } from "@/components/product/product-page-client";
-import { getProduct } from "@/lib/mock-data";
+import { getProduct } from "@/lib/catalog";
 
 const SITE_URL = "https://fatmanparts.com";
 

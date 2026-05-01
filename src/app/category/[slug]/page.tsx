@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { CategoryProductGrid } from "@/components/category-product-grid";
 import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
 import { TrustStrip } from "@/components/trust-strip";
-import { getCategory, getProductsByCategory } from "@/lib/mock-data";
+import { getCategory, getProductsByCategory } from "@/lib/catalog";
 
 const SITE_URL = "https://fatmanparts.com";
 

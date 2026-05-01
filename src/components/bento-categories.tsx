@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { categories } from "@/lib/mock-data";
+import { categories } from "@/lib/catalog";
 
 export function BentoCategories() {
   return (

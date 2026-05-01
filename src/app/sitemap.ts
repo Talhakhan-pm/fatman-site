@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { categories, products } from "@/lib/mock-data";
+import { categories, products } from "@/lib/catalog";
 
 const SITE_URL = "https://fatmanparts.com";
 

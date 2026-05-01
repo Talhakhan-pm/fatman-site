@@ -6,7 +6,7 @@ import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
 import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
 import { getFitmentState } from "@/lib/fitment";
-import { formatPrice, type Product } from "@/lib/mock-data";
+import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 

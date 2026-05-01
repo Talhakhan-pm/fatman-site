@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FitmentBadge } from "./fitment-badge";
 import { getFitmentState } from "@/lib/fitment";
 import { useGarage } from "./garage-provider";
-import { formatPrice } from "@/lib/mock-data";
+import { formatPrice } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 
