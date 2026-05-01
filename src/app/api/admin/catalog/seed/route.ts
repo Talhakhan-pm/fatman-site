@@ -1,20 +1,13 @@
 import { NextResponse } from "next/server";
+import { isAllowedAdminRequest } from "@/lib/admin-api";
 import { categories, products } from "@/lib/catalog";
 import { fitmentRules } from "@/lib/fitment";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
 const FITMENT_CHUNK_SIZE = 500;
 
-function isAllowed(req: Request) {
-  if (process.env.NODE_ENV !== "production") return true;
-  const expected = process.env.FATMAN_ADMIN_SEED_KEY;
-  if (!expected) return false;
-  const provided = req.headers.get("x-fatman-admin-key");
-  return Boolean(provided && provided === expected);
-}
-
 export async function POST(req: Request) {
-  if (!isAllowed(req)) {
+  if (!isAllowedAdminRequest(req, "FATMAN_ADMIN_SEED_KEY")) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 
