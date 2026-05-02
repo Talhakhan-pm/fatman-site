@@ -20,8 +20,13 @@ export const fitmentRules: ProductFitmentRule[] =
 
 export { formatVehicleLabel };
 
+function isUsableEngine(engine?: string | null) {
+  if (!engine) return false;
+  return engine.trim().toLowerCase() !== "unknown";
+}
+
 export function normalizeVehicle(vehicle?: Vehicle | null): Vehicle | null {
-  if (!vehicle?.year || !vehicle.make || !vehicle.model || !vehicle.engine) return null;
+  if (!vehicle?.year || !vehicle.make || !vehicle.model || !isUsableEngine(vehicle.engine)) return null;
 
   const variants = charmFitmentCatalog.getVariants(vehicle.year, vehicle.make, vehicle.model);
   const variant = vehicle.variant || charmFitmentCatalog.getDefaultVariant(variants);

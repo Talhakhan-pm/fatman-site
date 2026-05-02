@@ -12,6 +12,9 @@ const DEFAULT_VARIANT_LABEL = "Base";
 const cleanList = (values: readonly string[] | undefined): string[] =>
   (values ?? []).filter((v): v is string => typeof v === "string" && v.length > 0);
 
+const cleanEngineList = (values: readonly string[] | undefined): string[] =>
+  cleanList(values).filter((value) => value.trim().toLowerCase() !== "unknown");
+
 const dedupeSorted = (values: readonly string[]): string[] =>
   Array.from(new Set(cleanList(values))).sort((a, b) => a.localeCompare(b));
 
@@ -67,7 +70,7 @@ export function createFitmentCatalog(
     const yearBucket = data.enginesByYearMakeModelVariant?.[year];
     if (!yearBucket) return [];
     const lookupVariant = variant || defaultVariant;
-    return cleanList(yearBucket[buildKey(make, model, lookupVariant)]);
+    return cleanEngineList(yearBucket[buildKey(make, model, lookupVariant)]);
   };
 
   const getDefaultVariant = (variants: string[]): string => {

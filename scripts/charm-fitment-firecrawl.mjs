@@ -325,7 +325,7 @@ function buildIndexes(rows) {
 
     const engineKey = `${row.make}|||${row.model}|||${row.variant || 'Base'}`;
     const engineSet = enginesByYearMakeModelVariant[row.year][engineKey] ??= new Set();
-    engineSet.add(row.engine || 'Unknown');
+    if (row.engine) engineSet.add(row.engine);
 
     const yearNode = fitmentTree[row.year];
     const makeNode = yearNode[row.make] ??= {};
