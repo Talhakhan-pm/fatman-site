@@ -68,6 +68,7 @@ type ProductForm = {
 };
 
 type FitmentForm = {
+  id: string;
   year: string;
   make: string;
   model: string;
@@ -96,8 +97,13 @@ const buttonClass =
 const ghostButtonClass =
   "rounded-lg border border-white/20 px-3 py-2 text-xs font-medium text-white/80 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-50";
 
+function createFitmentId() {
+  return globalThis.crypto?.randomUUID?.() ?? `fitment-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
 function createBlankFitmentRow(): FitmentForm {
   return {
+    id: createFitmentId(),
     year: "",
     make: "",
     model: "",
@@ -151,6 +157,7 @@ const STARTER_EDITOR: EditorState = {
   },
   fitment: [
     {
+      id: createFitmentId(),
       year: "2018",
       make: "Toyota",
       model: "Camry",
@@ -161,6 +168,7 @@ const STARTER_EDITOR: EditorState = {
       notes: "",
     },
     {
+      id: createFitmentId(),
       year: "2019",
       make: "Toyota",
       model: "Camry",
@@ -242,6 +250,7 @@ function payloadToEditor(payload: UpsertPayload | null | undefined): EditorState
     fitment:
       fitment.length > 0
         ? fitment.map((row) => ({
+            id: createFitmentId(),
             year: row.year ?? "",
             make: row.make ?? "",
             model: row.model ?? "",
@@ -878,7 +887,7 @@ export default function AdminCatalogPage() {
               <div className="mt-4 space-y-3">
                 {editor.fitment.map((row, index) => (
                   <div
-                    key={`${index}-${row.year}-${row.make}-${row.model}`}
+                    key={row.id}
                     className="rounded-lg border border-white/10 bg-black/10 p-4"
                   >
                     <div className="mb-3 flex items-center justify-between gap-3">
