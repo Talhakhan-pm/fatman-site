@@ -273,16 +273,26 @@ export default function AdminCatalogPage() {
     JSON.stringify(STARTER_EDITOR),
   );
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [imageUploadBusy, setImageUploadBusy] = useState(false);
+  const [imageUploadError, setImageUploadError] = useState<string | null>(null);
 
   const draftPayload = useMemo(() => editorToPayload(editor), [editor]);
+  const imagePreviewUrl = editor.product.imageUrl.trim();
   const currentSnapshot = useMemo(() => JSON.stringify(editor), [editor]);
   const isDirty = currentSnapshot !== lastLoadedSnapshot;
   const ok = result && result.status >= 200 && result.status < 300;
 
-  function buildHeaders(): HeadersInit {
-    const headers: Record<string, string> = { "Content-Type": "application/json" };
+  function buildAuthHeaders(): HeadersInit {
+    const headers: Record<string, string> = {};
     if (adminKey.trim()) headers["x-fatman-admin-key"] = adminKey.trim();
     return headers;
+  }
+
+  function buildHeaders(): HeadersInit {
+    return {
+      ...buildAuthHeaders(),
+      "Content-Type": "application/json",
+    };
   }
 
   function setProductField<K extends keyof ProductForm>(field: K, value: ProductForm[K]) {
@@ -366,6 +376,37 @@ export default function AdminCatalogPage() {
     }
   }
 
+  async function handleImageUpload(file: File) {
+    setImageUploadBusy(true);
+    setImageUploadError(null);
+    try {
+      const formData = new FormData();
+      formData.set("file", file);
+      formData.set("slug", editor.product.slug.trim() || editor.product.sku.trim() || editor.product.name.trim() || "product");
+
+      const res = await fetch("/api/admin/catalog/upload-image", {
+        method: "POST",
+        headers: buildAuthHeaders(),
+        body: formData,
+      });
+
+      const json = (await res.json().catch(() => null)) as
+        | { url?: string; error?: string }
+        | null;
+
+      if (!res.ok || !json?.url) {
+        setImageUploadError(json?.error || `Upload failed (${res.status})`);
+        return;
+      }
+
+      setProductField("imageUrl", json.url);
+    } catch (err) {
+      setImageUploadError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setImageUploadBusy(false);
+    }
+  }
+
   function maybeReplaceEditor(nextEditor: EditorState) {
     if (
       isDirty &&
@@ -378,6 +419,7 @@ export default function AdminCatalogPage() {
     setLastLoadedSnapshot(JSON.stringify(nextEditor));
     setResult(null);
     setError(null);
+    setImageUploadError(null);
   }
 
   function loadStarter() {
@@ -439,7 +481,12 @@ export default function AdminCatalogPage() {
 
   const savedBody =
     result && typeof result.body !== "string" && result.body && "product" in (result.body as object)
-      ? (result.body as { product?: { slug?: string }; fitmentCount?: number })
+      ? (result.body as {
+          product?: { slug?: string };
+          fitmentCount?: number;
+          source?: string;
+          fallbackReason?: { stage?: string; error?: string };
+        })
       : null;
 
   return (
@@ -714,8 +761,69 @@ export default function AdminCatalogPage() {
                     className={`${inputClass} mt-1`}
                     value={editor.product.imageUrl}
                     onChange={(event) => setProductField("imageUrl", event.target.value)}
-                    placeholder="https://..."
+                    placeholder="/fatman-uploads/catalog/product-image.jpg"
                   />
+                </div>
+              </div>
+
+              <div className="mt-4 rounded-xl border border-white/10 bg-black/10 p-4">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div className="min-w-0 flex-1">
+                    <label className={labelClass}>Product image</label>
+                    <p className="mt-1 text-sm text-white/60">
+                      Upload a picture here. We will save it and fill the image URL automatically.
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-3">
+                      <label className={`${ghostButtonClass} cursor-pointer`}>
+                        <input
+                          type="file"
+                          accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+                          className="hidden"
+                          onChange={(event) => {
+                            const file = event.target.files?.[0];
+                            if (file) handleImageUpload(file);
+                            event.currentTarget.value = "";
+                          }}
+                        />
+                        {imageUploadBusy ? "Uploading image…" : "Choose image"}
+                      </label>
+                      <button
+                        type="button"
+                        className={ghostButtonClass}
+                        onClick={() => {
+                          setProductField("imageUrl", "");
+                          setImageUploadError(null);
+                        }}
+                        disabled={imageUploadBusy || !editor.product.imageUrl}
+                      >
+                        Clear image
+                      </button>
+                    </div>
+                    {imageUploadError && (
+                      <div className="mt-3 rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-xs text-red-200">
+                        {imageUploadError}
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-full max-w-xs">
+                    <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-white/50">
+                      Preview
+                    </div>
+                    <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-fatman-700/60">
+                      {imagePreviewUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={imagePreviewUrl}
+                          alt={editor.product.name || "Product preview"}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <span className="px-4 text-center text-sm text-white/45">
+                          No image yet
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -874,8 +982,8 @@ export default function AdminCatalogPage() {
                 <div>
                   <h2 className="text-lg font-bold">Save</h2>
                   <p className="mt-1 text-sm text-white/60">
-                    This saves the product and fitment into Supabase using the same backend route
-                    agents use.
+                    This saves through the same backend route agents use. If Supabase is down in
+                    local dev, the editor falls back to a local store so staff work is not lost.
                   </p>
                 </div>
                 <button
@@ -934,6 +1042,13 @@ export default function AdminCatalogPage() {
                     {typeof savedBody.fitmentCount === "number"
                       ? ` with ${savedBody.fitmentCount} fitment row${savedBody.fitmentCount === 1 ? "" : "s"}.`
                       : "."}
+                  </p>
+                )}
+
+                {savedBody?.source === "local" && (
+                  <p className="mt-3 text-xs text-white/80">
+                    Supabase write failed in local dev, so this draft was saved to the local fallback
+                    store instead.
                   </p>
                 )}
 

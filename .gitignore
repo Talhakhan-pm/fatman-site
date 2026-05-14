@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local admin runtime artifacts
+/data/admin-catalog-local.json
+/public/fatman-uploads/

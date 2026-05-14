@@ -1,10 +1,21 @@
 import { NextResponse } from "next/server";
 import { isAllowedAdminRequest } from "@/lib/admin-api";
+import { upsertLocalCatalogRecord } from "@/lib/admin-catalog-local-store";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
 const FITMENT_CHUNK_SIZE = 500;
 const STOCK_STATUSES = new Set(["in-stock", "low-stock", "preorder"]);
 const MATCH_TYPES = new Set(["fits", "verify", "no-fit"]);
+const SUPABASE_TIMEOUT_MS = 1200;
+
+function withTimeout<T>(promise: PromiseLike<T>, ms: number) {
+  return Promise.race<T>([
+    Promise.resolve(promise),
+    new Promise<T>((_, reject) => {
+      setTimeout(() => reject(new Error(`Supabase request timed out after ${ms}ms`)), ms);
+    }),
+  ]);
+}
 
 type ProductInput = {
   sku: string;
@@ -113,11 +124,15 @@ function validateProduct(input: ProductInput | undefined): ValidationResult<Norm
     category: normalizeString(input.category),
     brand: normalizeString(input.brand),
     name: normalizeString(input.name),
-    shortDescription: typeof input.shortDescription === "string" ? input.shortDescription.trim() : "",
+    shortDescription:
+      typeof input.shortDescription === "string" ? input.shortDescription.trim() : "",
     price: Number(input.price),
     compareAt: input.compareAt == null ? null : Number(input.compareAt),
     stock,
-    imageUrl: typeof input.imageUrl === "string" && input.imageUrl.trim() ? input.imageUrl.trim() : null,
+    imageUrl:
+      typeof input.imageUrl === "string" && input.imageUrl.trim()
+        ? input.imageUrl.trim()
+        : null,
     shippingClass:
       typeof input.shippingClass === "string" && input.shippingClass.trim()
         ? input.shippingClass.trim()
@@ -177,7 +192,9 @@ function validateCategory(
   return { ok: true, value: category };
 }
 
-function validateFitment(rows: FitmentInput[] | undefined): ValidationResult<NormalizedFitment[] | null> {
+function validateFitment(
+  rows: FitmentInput[] | undefined,
+): ValidationResult<NormalizedFitment[] | null> {
   if (!rows) return { ok: true, value: null };
   if (!Array.isArray(rows)) return { ok: false, error: "fitment must be an array when provided" };
 
@@ -190,7 +207,8 @@ function validateFitment(rows: FitmentInput[] | undefined): ValidationResult<Nor
       variant: typeof row.variant === "string" && row.variant.trim() ? row.variant.trim() : null,
       engine: normalizeString(row.engine),
       matchType,
-      source: typeof row.source === "string" && row.source.trim() ? row.source.trim() : "agent-upsert",
+      source:
+        typeof row.source === "string" && row.source.trim() ? row.source.trim() : "agent-upsert",
       confidence: row.confidence == null ? null : Number(row.confidence),
       notes: typeof row.notes === "string" && row.notes.trim() ? row.notes.trim() : null,
     };
@@ -211,6 +229,60 @@ function validateFitment(rows: FitmentInput[] | undefined): ValidationResult<Nor
   });
 
   return { ok: true, value: fitment };
+}
+
+async function saveLocalFallback(
+  productInput: NormalizedProduct,
+  fitmentInput: NormalizedFitment[] | null,
+  replaceFitment: boolean,
+  stage: string,
+  error: string,
+) {
+  const localRecord = await upsertLocalCatalogRecord({
+    product: {
+      sku: productInput.sku,
+      slug: productInput.slug,
+      category: productInput.category,
+      brand: productInput.brand,
+      name: productInput.name,
+      shortDescription: productInput.shortDescription,
+      price: productInput.price,
+      compareAt: productInput.compareAt,
+      stock: productInput.stock,
+      imageUrl: productInput.imageUrl,
+      shippingClass: productInput.shippingClass,
+      warrantyDays: productInput.warrantyDays,
+      oemPartNumber: productInput.oemPartNumber,
+      published: productInput.published,
+      metadata: productInput.metadata,
+    },
+    fitment:
+      fitmentInput?.map((row) => ({
+        year: row.year,
+        make: row.make,
+        model: row.model,
+        variant: row.variant,
+        engine: row.engine,
+        matchType: row.matchType,
+        source: row.source,
+        confidence: row.confidence,
+        notes: row.notes,
+      })) ?? [],
+    replaceFitment,
+  });
+
+  return NextResponse.json({
+    ok: true,
+    source: "local",
+    fallbackReason: { stage, error },
+    product: {
+      id: localRecord.product.slug,
+      slug: localRecord.product.slug,
+      published: localRecord.product.published,
+    },
+    fitmentCount: localRecord.fitment.length,
+    replaceFitment,
+  });
 }
 
 export async function POST(req: Request) {
@@ -238,112 +310,190 @@ export async function POST(req: Request) {
   if (!fitmentResult.ok) return badRequest(fitmentResult.error);
   const fitmentInput = fitmentResult.value;
 
-  const supabase = createSupabaseAdminClient();
   const replaceFitment = body.replaceFitment ?? Boolean(fitmentInput);
 
-  if (categoryInput) {
-    const { error } = await supabase.from("categories").upsert(
-      {
-        slug: categoryInput.slug,
-        title: categoryInput.title,
-        description: categoryInput.description,
-        short_description: categoryInput.shortDescription ?? categoryInput.description,
-        published: categoryInput.published,
-        sort_order: categoryInput.sortOrder,
-      },
-      { onConflict: "slug" },
+  try {
+    const supabase = createSupabaseAdminClient();
+
+    if (categoryInput) {
+      const { error } = await withTimeout(
+        supabase.from("categories").upsert(
+          {
+            slug: categoryInput.slug,
+            title: categoryInput.title,
+            description: categoryInput.description,
+            short_description: categoryInput.shortDescription ?? categoryInput.description,
+            published: categoryInput.published,
+            sort_order: categoryInput.sortOrder,
+          },
+          { onConflict: "slug" },
+        ),
+        SUPABASE_TIMEOUT_MS,
+      );
+
+      if (error) {
+        return saveLocalFallback(
+          productInput,
+          fitmentInput,
+          replaceFitment,
+          "category_upsert",
+          error.message,
+        );
+      }
+    }
+
+    const { data: productRows, error: productError } = await withTimeout(
+      supabase
+        .from("products")
+        .upsert(
+          {
+            sku: productInput.sku,
+            slug: productInput.slug,
+            category_slug: productInput.category,
+            brand: productInput.brand,
+            name: productInput.name,
+            short_description: productInput.shortDescription,
+            price: productInput.price,
+            compare_at: productInput.compareAt,
+            stock_status: productInput.stock,
+            image_url: productInput.imageUrl,
+            shipping_class: productInput.shippingClass,
+            warranty_days: productInput.warrantyDays,
+            oem_part_number: productInput.oemPartNumber,
+            published: productInput.published,
+            metadata: productInput.metadata,
+          },
+          { onConflict: "slug" },
+        )
+        .select("id, slug, published")
+        .limit(1),
+      SUPABASE_TIMEOUT_MS,
     );
 
-    if (error) {
-      return NextResponse.json({ error: error.message, stage: "category_upsert" }, { status: 500 });
+    if (productError) {
+      return saveLocalFallback(
+        productInput,
+        fitmentInput,
+        replaceFitment,
+        "product_upsert",
+        productError.message,
+      );
     }
-  }
 
-  const { data: productRows, error: productError } = await supabase
-    .from("products")
-    .upsert(
-      {
+    const product = productRows?.[0];
+    if (!product) {
+      return saveLocalFallback(
+        productInput,
+        fitmentInput,
+        replaceFitment,
+        "product_upsert",
+        "Product upsert returned no row",
+      );
+    }
+
+    let fitmentCount = 0;
+
+    if (replaceFitment) {
+      const { error: deleteError } = await withTimeout(
+        supabase.from("fitment_rules").delete().eq("product_id", product.id),
+        SUPABASE_TIMEOUT_MS,
+      );
+
+      if (deleteError) {
+        return saveLocalFallback(
+          productInput,
+          fitmentInput,
+          replaceFitment,
+          "fitment_delete",
+          deleteError.message,
+        );
+      }
+    }
+
+    if (fitmentInput?.length) {
+      const rows = fitmentInput.map((rule) => ({
+        product_id: product.id,
+        year: rule.year,
+        make: rule.make,
+        model: rule.model,
+        variant: rule.variant,
+        engine: rule.engine,
+        match_type: rule.matchType,
+        source: rule.source,
+        confidence: rule.confidence,
+        notes: rule.notes,
+      }));
+
+      for (let index = 0; index < rows.length; index += FITMENT_CHUNK_SIZE) {
+        const chunk = rows.slice(index, index + FITMENT_CHUNK_SIZE);
+        const { error } = await withTimeout(
+          supabase.from("fitment_rules").insert(chunk),
+          SUPABASE_TIMEOUT_MS,
+        );
+        if (error) {
+          return saveLocalFallback(
+            productInput,
+            fitmentInput,
+            replaceFitment,
+            "fitment_insert",
+            error.message,
+          );
+        }
+        fitmentCount += chunk.length;
+      }
+    }
+
+    await upsertLocalCatalogRecord({
+      product: {
         sku: productInput.sku,
         slug: productInput.slug,
-        category_slug: productInput.category,
+        category: productInput.category,
         brand: productInput.brand,
         name: productInput.name,
-        short_description: productInput.shortDescription,
+        shortDescription: productInput.shortDescription,
         price: productInput.price,
-        compare_at: productInput.compareAt,
-        stock_status: productInput.stock,
-        image_url: productInput.imageUrl,
-        shipping_class: productInput.shippingClass,
-        warranty_days: productInput.warrantyDays,
-        oem_part_number: productInput.oemPartNumber,
+        compareAt: productInput.compareAt,
+        stock: productInput.stock,
+        imageUrl: productInput.imageUrl,
+        shippingClass: productInput.shippingClass,
+        warrantyDays: productInput.warrantyDays,
+        oemPartNumber: productInput.oemPartNumber,
         published: productInput.published,
         metadata: productInput.metadata,
       },
-      { onConflict: "slug" },
-    )
-    .select("id, slug, published")
-    .limit(1);
+      fitment:
+        fitmentInput?.map((rule) => ({
+          year: rule.year,
+          make: rule.make,
+          model: rule.model,
+          variant: rule.variant,
+          engine: rule.engine,
+          matchType: rule.matchType,
+          source: rule.source,
+          confidence: rule.confidence,
+          notes: rule.notes,
+        })) ?? [],
+      replaceFitment,
+    });
 
-  if (productError) {
-    return NextResponse.json({ error: productError.message, stage: "product_upsert" }, { status: 500 });
-  }
-
-  const product = productRows?.[0];
-  if (!product) {
-    return NextResponse.json(
-      { error: "Product upsert returned no row", stage: "product_upsert" },
-      { status: 500 },
+    return NextResponse.json({
+      ok: true,
+      source: "supabase",
+      product: {
+        id: product.id,
+        slug: product.slug,
+        published: product.published,
+      },
+      fitmentCount,
+      replaceFitment,
+    });
+  } catch (error) {
+    return saveLocalFallback(
+      productInput,
+      fitmentInput,
+      replaceFitment,
+      "supabase_exception",
+      error instanceof Error ? error.message : "Unknown Supabase error",
     );
   }
-
-  let fitmentCount = 0;
-
-  if (replaceFitment) {
-    const { error: deleteError } = await supabase
-      .from("fitment_rules")
-      .delete()
-      .eq("product_id", product.id);
-
-    if (deleteError) {
-      return NextResponse.json({ error: deleteError.message, stage: "fitment_delete" }, { status: 500 });
-    }
-  }
-
-  if (fitmentInput?.length) {
-    const rows = fitmentInput.map((rule) => ({
-      product_id: product.id,
-      year: rule.year,
-      make: rule.make,
-      model: rule.model,
-      variant: rule.variant,
-      engine: rule.engine,
-      match_type: rule.matchType,
-      source: rule.source,
-      confidence: rule.confidence,
-      notes: rule.notes,
-    }));
-
-    for (let index = 0; index < rows.length; index += FITMENT_CHUNK_SIZE) {
-      const chunk = rows.slice(index, index + FITMENT_CHUNK_SIZE);
-      const { error } = await supabase.from("fitment_rules").insert(chunk);
-      if (error) {
-        return NextResponse.json(
-          { error: error.message, stage: "fitment_insert", inserted: fitmentCount },
-          { status: 500 },
-        );
-      }
-      fitmentCount += chunk.length;
-    }
-  }
-
-  return NextResponse.json({
-    ok: true,
-    product: {
-      id: product.id,
-      slug: product.slug,
-      published: product.published,
-    },
-    fitmentCount,
-    replaceFitment,
-  });
 }
