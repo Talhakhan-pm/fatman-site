@@ -131,6 +131,7 @@ Notes:
 - In production, send `x-fatman-admin-key: <FATMAN_ADMIN_WRITE_KEY>`.
 - `replaceFitment: true` deletes old fitment rows for that product before inserting the new set.
 - Omit `fitment` if you only want to update product fields.
+- Local JSON fallback is development-only. In production, Supabase write failures return an error instead of silently saving to `data/admin-catalog-local.json`.
 
 ## Current migration status
 
@@ -138,4 +139,5 @@ Notes:
 2. Internal upsert endpoint for product + fitment now exists.
 3. Current catalog + fitment have been seeded into Supabase.
 4. Admin image uploads now target Supabase Storage instead of local disk.
-5. Remaining work is to move more storefront behavior off generated source-file fitment and onto database-backed logic, and continue reducing split-truth behavior between fallback data and live Supabase records.
+5. Local admin JSON fallback is now restricted to development only.
+6. Remaining work is to move more storefront behavior off generated source-file fitment and onto database-backed logic, and continue reducing split-truth behavior between fallback data and live Supabase records.

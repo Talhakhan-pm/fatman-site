@@ -63,6 +63,7 @@ const FULL_COLUMNS =
   "id, sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, published, metadata";
 
 const SUPABASE_TIMEOUT_MS = 6000;
+const LOCAL_FALLBACK_ENABLED = process.env.NODE_ENV === "development";
 
 function withTimeout<T>(promise: PromiseLike<T>, ms: number) {
   return Promise.race<T>([
@@ -331,8 +332,10 @@ export async function GET(req: Request) {
 
       if (productError) throw productError;
       if (!productRow) {
-        const local = await getLocalPayloadBySlug(slug);
-        if (local) return NextResponse.json(local);
+        if (LOCAL_FALLBACK_ENABLED) {
+          const local = await getLocalPayloadBySlug(slug);
+          if (local) return NextResponse.json(local);
+        }
 
         const fallback = getFallbackPayloadBySlug(slug);
         if (!fallback) {
@@ -379,7 +382,9 @@ export async function GET(req: Request) {
     const { data, error } = await withTimeout(query, SUPABASE_TIMEOUT_MS);
     if (error) throw error;
 
-    const localProducts = await getLocalProductList(search, category);
+    const localProducts = LOCAL_FALLBACK_ENABLED
+      ? await getLocalProductList(search, category)
+      : [];
     const products = mergeProductLists((data ?? []) as ProductSummary[], localProducts, limit);
 
     return NextResponse.json({
@@ -390,8 +395,10 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     if (slug) {
-      const local = await getLocalPayloadBySlug(slug);
-      if (local) return NextResponse.json(local);
+      if (LOCAL_FALLBACK_ENABLED) {
+        const local = await getLocalPayloadBySlug(slug);
+        if (local) return NextResponse.json(local);
+      }
 
       const fallback = getFallbackPayloadBySlug(slug);
       if (fallback) return NextResponse.json(fallback);
@@ -403,7 +410,7 @@ export async function GET(req: Request) {
 
     const [fallbackProducts, localProducts] = await Promise.all([
       Promise.resolve(getFallbackProductList(search, category)),
-      getLocalProductList(search, category),
+      LOCAL_FALLBACK_ENABLED ? getLocalProductList(search, category) : Promise.resolve([]),
     ]);
     const products = mergeProductLists(fallbackProducts, localProducts, limit);
 

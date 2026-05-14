@@ -361,6 +361,7 @@ export default function AdminCatalogPage() {
   const currentSnapshot = useMemo(() => JSON.stringify(editor), [editor]);
   const isDirty = currentSnapshot !== lastLoadedSnapshot;
   const ok = result && result.status >= 200 && result.status < 300;
+  const devLocalFallbackEnabled = process.env.NODE_ENV === "development";
 
   function buildAuthHeaders(): HeadersInit {
     const headers: Record<string, string> = {};
@@ -587,6 +588,16 @@ export default function AdminCatalogPage() {
           source?: string;
           fallbackReason?: { stage?: string; error?: string };
         })
+      : null;
+
+  const resultError =
+    result && typeof result.body !== "string" && result.body && "error" in (result.body as object)
+      ? (result.body as { error?: string; details?: string }).error ?? null
+      : null;
+
+  const resultErrorDetails =
+    result && typeof result.body !== "string" && result.body && "details" in (result.body as object)
+      ? (result.body as { error?: string; details?: string }).details ?? null
       : null;
 
   return (
@@ -1091,7 +1102,9 @@ export default function AdminCatalogPage() {
                 <div>
                   <h2 className="text-lg font-bold">Save</h2>
                   <p className="mt-1 text-sm text-white/60">
-                    Save this product and its fitment. In local dev, your work is still kept even if the database connection is unavailable.
+                    {devLocalFallbackEnabled
+                      ? "Save this product and its fitment to Supabase. In local development only, drafts can still fall back to the local safety store if Supabase is unavailable."
+                      : "Save this product and its fitment to Supabase. In production, a failed save stays failed so you know it is not live yet."}
                   </p>
                 </div>
                 <button
@@ -1141,9 +1154,17 @@ export default function AdminCatalogPage() {
 
                 {savedBody?.source === "local" && (
                   <p className="mt-3 text-xs text-white/80">
-                    Supabase write failed in local dev, so this draft was saved to the local fallback
-                    store instead.
+                    Supabase write failed in local development, so this draft was saved to the
+                    local safety store instead. It is not live until it exists in Supabase.
                   </p>
+                )}
+
+                {!ok && resultError && (
+                  <div className="mt-3 rounded-lg border border-amber-400/30 bg-black/20 p-3 text-xs text-white/90">
+                    <strong className="block text-amber-100">Save failed</strong>
+                    <p className="mt-1">{resultError}</p>
+                    {resultErrorDetails && <p className="mt-1 text-white/70">{resultErrorDetails}</p>}
+                  </div>
                 )}
 
                 {showDeveloperTools && (

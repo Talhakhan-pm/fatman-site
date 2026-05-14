@@ -7,6 +7,7 @@ const FITMENT_CHUNK_SIZE = 500;
 const STOCK_STATUSES = new Set(["in-stock", "low-stock", "preorder"]);
 const MATCH_TYPES = new Set(["fits", "verify", "no-fit"]);
 const SUPABASE_TIMEOUT_MS = 6000;
+const LOCAL_FALLBACK_ENABLED = process.env.NODE_ENV === "development";
 
 function withTimeout<T>(promise: PromiseLike<T>, ms: number) {
   return Promise.race<T>([
@@ -251,6 +252,17 @@ async function saveLocalFallback(
   stage: string,
   error: string,
 ) {
+  if (!LOCAL_FALLBACK_ENABLED) {
+    return NextResponse.json(
+      {
+        error: `Supabase write failed during ${stage}`,
+        details: error,
+        source: "supabase",
+      },
+      { status: 503 },
+    );
+  }
+
   const localRecord = await upsertLocalCatalogRecord({
     product: {
       sku: productInput.sku,
@@ -456,38 +468,40 @@ export async function POST(req: Request) {
       }
     }
 
-    await upsertLocalCatalogRecord({
-      product: {
-        sku: productInput.sku,
-        slug: productInput.slug,
-        category: productInput.category,
-        brand: productInput.brand,
-        name: productInput.name,
-        shortDescription: productInput.shortDescription,
-        price: productInput.price,
-        compareAt: productInput.compareAt,
-        stock: productInput.stock,
-        imageUrl: productInput.imageUrl,
-        shippingClass: productInput.shippingClass,
-        warrantyDays: productInput.warrantyDays,
-        oemPartNumber: productInput.oemPartNumber,
-        published: productInput.published,
-        metadata: productInput.metadata,
-      },
-      fitment:
-        fitmentInput?.map((rule) => ({
-          year: rule.year,
-          make: rule.make,
-          model: rule.model,
-          variant: rule.variant,
-          engine: rule.engine,
-          matchType: rule.matchType,
-          source: rule.source,
-          confidence: rule.confidence,
-          notes: rule.notes,
-        })) ?? [],
-      replaceFitment,
-    });
+    if (LOCAL_FALLBACK_ENABLED) {
+      await upsertLocalCatalogRecord({
+        product: {
+          sku: productInput.sku,
+          slug: productInput.slug,
+          category: productInput.category,
+          brand: productInput.brand,
+          name: productInput.name,
+          shortDescription: productInput.shortDescription,
+          price: productInput.price,
+          compareAt: productInput.compareAt,
+          stock: productInput.stock,
+          imageUrl: productInput.imageUrl,
+          shippingClass: productInput.shippingClass,
+          warrantyDays: productInput.warrantyDays,
+          oemPartNumber: productInput.oemPartNumber,
+          published: productInput.published,
+          metadata: productInput.metadata,
+        },
+        fitment:
+          fitmentInput?.map((rule) => ({
+            year: rule.year,
+            make: rule.make,
+            model: rule.model,
+            variant: rule.variant,
+            engine: rule.engine,
+            matchType: rule.matchType,
+            source: rule.source,
+            confidence: rule.confidence,
+            notes: rule.notes,
+          })) ?? [],
+        replaceFitment,
+      });
+    }
 
     return NextResponse.json({
       ok: true,

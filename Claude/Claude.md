@@ -78,11 +78,12 @@ Internal admin routes:
 Current behavior:
 - admin writes go through the app server, not directly from browser to Supabase
 - successful admin saves write to Supabase
-- admin saves are also mirrored into a local fallback file:
+- in local development only, admin saves are also mirrored into a local fallback file:
   - `data/admin-catalog-local.json`
-- this local fallback exists so staff work is not lost if Supabase is temporarily unavailable in local dev
+- this local fallback exists so staff work is not lost if Supabase is temporarily unavailable during local dev
+- in production, local fallback is disabled, so failed saves stay failed instead of pretending to be live
 
-Important: local fallback is a safety net, not the desired source of truth.
+Important: local fallback is a dev safety net, not the desired source of truth.
 
 ---
 
@@ -95,6 +96,7 @@ A product shows on storefront when:
 
 ### What is not truly live?
 If an admin save returns local fallback only, then:
+- this should only happen in local development
 - the product may appear in admin flows
 - but it is not guaranteed to appear on storefront
 - it is not truly synced/live until it exists in Supabase
@@ -102,7 +104,7 @@ If an admin save returns local fallback only, then:
 ### Current intended direction
 - **Supabase = canonical live catalog source**
 - source-file generated catalog = fallback / baseline seed material
-- local admin JSON store = local-dev emergency safety net only
+- local admin JSON store = local-dev emergency safety net only, never a production persistence layer
 
 ---
 
