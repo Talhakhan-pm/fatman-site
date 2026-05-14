@@ -121,8 +121,8 @@ Recent state of the admin editor:
 - internal `source` field is hidden from normal staff UI
 - admin key, seed tools, and raw payload preview are hidden behind developer tools
 - image upload is supported through `/api/admin/catalog/upload-image`
-- uploaded images currently save under:
-  - `public/fatman-uploads/catalog/`
+- admin product images now upload to Supabase Storage bucket:
+  - `fatman-catalog/catalog/`
 
 Important UX reality:
 - the editor is much better now, but it still sits on top of a hybrid data architecture
@@ -260,7 +260,7 @@ Best next step from current state:
 3. **Prepare deployability**
    - confirm clean GitHub push state
    - confirm env requirements for Vercel
-   - review whether file uploads should remain local-disk or move to durable object storage
+   - decide whether any remaining local-only fallback behavior should be disabled or clearly flagged in production
 
 4. **Continue catalog-quality work**
    - clean real catalog entries, fitment, and merchandising data
@@ -291,7 +291,7 @@ From `fatman-site/`:
 
 Git hygiene:
 - `tmp/` is ignored
-- local uploads under `public/fatman-uploads/` are ignored
+- legacy local uploads under `public/fatman-uploads/` are ignored
 - local admin fallback JSON is ignored
 
 ---

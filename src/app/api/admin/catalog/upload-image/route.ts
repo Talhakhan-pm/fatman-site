@@ -1,8 +1,7 @@
 import { randomUUID } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
-import path from "node:path";
 import { NextResponse } from "next/server";
 import { isAllowedAdminRequest } from "@/lib/admin-api";
+import { createSupabaseAdminClient } from "@/lib/supabase";
 
 const ALLOWED_TYPES = new Map([
   ["image/jpeg", ".jpg"],
@@ -11,6 +10,28 @@ const ALLOWED_TYPES = new Map([
   ["image/gif", ".gif"],
   ["image/svg+xml", ".svg"],
 ]);
+
+const STORAGE_BUCKET = "fatman-catalog";
+const STORAGE_FOLDER = "catalog";
+
+async function ensureBucket() {
+  const supabase = createSupabaseAdminClient();
+  const { data: bucket, error: getError } = await supabase.storage.getBucket(STORAGE_BUCKET);
+
+  if (!getError && bucket) return supabase;
+
+  const { error: createError } = await supabase.storage.createBucket(STORAGE_BUCKET, {
+    public: true,
+    fileSizeLimit: 10 * 1024 * 1024,
+    allowedMimeTypes: [...ALLOWED_TYPES.keys()],
+  });
+
+  if (createError && createError.message !== `Bucket already exists`) {
+    throw new Error(`Failed to prepare Supabase Storage bucket: ${createError.message}`);
+  }
+
+  return supabase;
+}
 
 function slugify(value: string) {
   return value
@@ -45,16 +66,28 @@ export async function POST(req: Request) {
     const bytes = Buffer.from(await file.arrayBuffer());
     const safeSlug = slugify(slug || file.name || "product");
     const fileName = `${safeSlug || "product"}-${randomUUID().slice(0, 8)}${ext}`;
-    const relativeDir = path.join("fatman-uploads", "catalog");
-    const absoluteDir = path.join(process.cwd(), "public", relativeDir);
-    const absolutePath = path.join(absoluteDir, fileName);
+    const objectPath = `${STORAGE_FOLDER}/${fileName}`;
 
-    await mkdir(absoluteDir, { recursive: true });
-    await writeFile(absolutePath, bytes);
+    const supabase = await ensureBucket();
+    const { error: uploadError } = await supabase.storage
+      .from(STORAGE_BUCKET)
+      .upload(objectPath, bytes, {
+        contentType: file.type,
+        upsert: false,
+        cacheControl: "3600",
+      });
+
+    if (uploadError) {
+      throw new Error(`Supabase Storage upload failed: ${uploadError.message}`);
+    }
+
+    const { data: publicUrlData } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(objectPath);
 
     return NextResponse.json({
-      url: `/${relativeDir}/${fileName}`,
+      url: publicUrlData.publicUrl,
       fileName,
+      bucket: STORAGE_BUCKET,
+      path: objectPath,
       size: file.size,
       type: file.type,
     });

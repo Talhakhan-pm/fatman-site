@@ -28,6 +28,20 @@ This creates:
 - `products`
 - `fitment_rules`
 
+## Storage
+
+Admin product image uploads now go to **Supabase Storage**, not the local `public/` folder.
+
+Current bucket used by the app:
+- `fatman-catalog`
+
+Current object folder used by the admin upload route:
+- `catalog/`
+
+Notes:
+- the upload route can create the bucket automatically if it does not exist
+- the bucket is expected to be public so storefront product images can render directly
+
 ## Intended write path
 
 Agents should write through the Fatman app server, not directly from the browser.
@@ -55,6 +69,20 @@ Body:
 Notes:
 - In local development, the route is open.
 - In production, send `x-fatman-admin-key: <FATMAN_ADMIN_SEED_KEY>`.
+
+### Upload one product image
+
+`POST /api/admin/catalog/upload-image`
+
+Multipart form fields:
+- `file` → image file
+- `slug` → optional product slug/name hint for filename generation
+
+Notes:
+- In local development, the route is open.
+- In production, send `x-fatman-admin-key: <FATMAN_ADMIN_WRITE_KEY>`.
+- The route uploads to Supabase Storage bucket `fatman-catalog` under `catalog/`.
+- The route returns a public URL that can be stored directly in `product.imageUrl`.
 
 ### Upsert one product with fitment in one call
 
@@ -109,4 +137,5 @@ Notes:
 1. Category/product reads can now fall back to Supabase without breaking local source-file behavior.
 2. Internal upsert endpoint for product + fitment now exists.
 3. Current catalog + fitment have been seeded into Supabase.
-4. Remaining work is to move more storefront behavior off generated source-file fitment and onto database-backed logic.
+4. Admin image uploads now target Supabase Storage instead of local disk.
+5. Remaining work is to move more storefront behavior off generated source-file fitment and onto database-backed logic, and continue reducing split-truth behavior between fallback data and live Supabase records.
