@@ -17,6 +17,19 @@ function withTimeout<T>(promise: PromiseLike<T>, ms: number) {
   ]);
 }
 
+function formatSupabaseError(error: unknown) {
+  if (error instanceof Error) {
+    const cause = (error as Error & { cause?: { code?: string; message?: string } }).cause;
+    if (cause?.code) return `${error.message} (cause: ${cause.code})`;
+    if (cause?.message && cause.message !== error.message) {
+      return `${error.message} (cause: ${cause.message})`;
+    }
+    return error.message;
+  }
+
+  return "Unknown Supabase error";
+}
+
 type ProductInput = {
   sku: string;
   slug: string;
@@ -493,7 +506,7 @@ export async function POST(req: Request) {
       fitmentInput,
       replaceFitment,
       "supabase_exception",
-      error instanceof Error ? error.message : "Unknown Supabase error",
+      formatSupabaseError(error),
     );
   }
 }

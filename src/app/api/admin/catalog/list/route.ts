@@ -73,6 +73,19 @@ function withTimeout<T>(promise: PromiseLike<T>, ms: number) {
   ]);
 }
 
+function formatSupabaseError(error: unknown) {
+  if (error instanceof Error) {
+    const cause = (error as Error & { cause?: { code?: string; message?: string } }).cause;
+    if (cause?.code) return `${error.message} (cause: ${cause.code})`;
+    if (cause?.message && cause.message !== error.message) {
+      return `${error.message} (cause: ${cause.message})`;
+    }
+    return error.message;
+  }
+
+  return "Failed to load product";
+}
+
 function toUpsertPayload(product: ProductRow, fitment: FitmentRow[]) {
   return {
     product: {
@@ -382,7 +395,7 @@ export async function GET(req: Request) {
       const fallback = getFallbackPayloadBySlug(slug);
       if (fallback) return NextResponse.json(fallback);
       return NextResponse.json(
-        { error: error instanceof Error ? error.message : "Failed to load product" },
+        { error: formatSupabaseError(error) },
         { status: 500 },
       );
     }
