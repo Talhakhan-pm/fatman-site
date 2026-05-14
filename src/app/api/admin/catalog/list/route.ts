@@ -320,11 +320,6 @@ export async function GET(req: Request) {
   const limitRaw = Number(url.searchParams.get("limit"));
   const limit = Number.isFinite(limitRaw) && limitRaw > 0 ? Math.min(limitRaw, 500) : 200;
 
-  if (slug) {
-    const local = await getLocalPayloadBySlug(slug);
-    if (local) return NextResponse.json(local);
-  }
-
   try {
     const supabase = createSupabaseAdminClient();
 
@@ -336,6 +331,9 @@ export async function GET(req: Request) {
 
       if (productError) throw productError;
       if (!productRow) {
+        const local = await getLocalPayloadBySlug(slug);
+        if (local) return NextResponse.json(local);
+
         const fallback = getFallbackPayloadBySlug(slug);
         if (!fallback) {
           return NextResponse.json({ error: "Product not found" }, { status: 404 });
@@ -392,6 +390,9 @@ export async function GET(req: Request) {
     });
   } catch (error) {
     if (slug) {
+      const local = await getLocalPayloadBySlug(slug);
+      if (local) return NextResponse.json(local);
+
       const fallback = getFallbackPayloadBySlug(slug);
       if (fallback) return NextResponse.json(fallback);
       return NextResponse.json(
