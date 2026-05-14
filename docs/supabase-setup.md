@@ -152,9 +152,10 @@ Notes:
 
 ## Current migration status
 
-1. Category/product reads can now fall back to Supabase without breaking local source-file behavior.
-2. Internal upsert endpoint for product + fitment now exists.
-3. Current catalog + fitment have been seeded into Supabase.
-4. Admin image uploads now target Supabase Storage instead of local disk.
-5. Local admin JSON fallback is now restricted to development only.
-6. Remaining work is to move more storefront behavior off generated source-file fitment and onto database-backed logic, and continue reducing split-truth behavior between fallback data and live Supabase records.
+1. Category/product storefront reads now use a server-side Supabase reader with per-request caching for a more consistent live snapshot.
+2. In production, storefront catalog reads no longer silently fall back to source-file catalog data when live Supabase catalog reads fail.
+3. Internal upsert endpoint for product + fitment now exists.
+4. Current catalog + fitment have been seeded into Supabase.
+5. Admin image uploads now target Supabase Storage instead of local disk.
+6. Local admin JSON fallback is now restricted to development only.
+7. Remaining work is to move more storefront behavior off generated source-file fitment and onto database-backed logic, and continue reducing split-truth behavior between fallback data and live Supabase records.

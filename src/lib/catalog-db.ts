@@ -1,3 +1,6 @@
+import "server-only";
+
+import { cache } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase";
 import {
   categories as fallbackCategories,
@@ -34,6 +37,13 @@ type SupabaseProductRow = {
   published: boolean;
 };
 
+type CatalogData = {
+  products: Product[];
+  categories: Category[];
+};
+
+const ALLOW_SOURCE_FALLBACK = process.env.NODE_ENV !== "production";
+
 const toProduct = (row: SupabaseProductRow): Product => ({
   sku: row.sku,
   slug: row.slug,
@@ -66,7 +76,12 @@ const toCategories = (
     };
   });
 
-async function readPublishedCatalogFromSupabase() {
+const getFallbackCatalogData = (): CatalogData => ({
+  products: fallbackProducts,
+  categories: fallbackCategories,
+});
+
+const readPublishedCatalogFromSupabase = cache(async (): Promise<CatalogData | null> => {
   try {
     const supabase = createSupabaseServerClient();
     const [{ data: productRows, error: productsError }, { data: categoryRows, error: categoriesError }] =
@@ -86,30 +101,40 @@ async function readPublishedCatalogFromSupabase() {
       ]);
 
     if (productsError || categoriesError) {
-      console.warn("Supabase catalog read failed, falling back to source data.", {
+      console.warn("Supabase catalog read failed.", {
         productsError,
         categoriesError,
       });
       return null;
     }
 
-    if (!productRows?.length || !categoryRows?.length) return null;
+    const products = (productRows as SupabaseProductRow[] | null | undefined)?.map(toProduct) ?? [];
+    const categories = toCategories(
+      (categoryRows as SupabaseCategoryRow[] | null | undefined) ?? [],
+      products,
+    );
 
-    const products = (productRows as SupabaseProductRow[]).map(toProduct);
-    const categories = toCategories(categoryRows as SupabaseCategoryRow[], products);
     return { products, categories };
   } catch (error) {
-    console.warn("Supabase catalog unavailable, falling back to source data.", error);
+    console.warn("Supabase catalog unavailable.", error);
     return null;
   }
-}
+});
 
-export async function getCatalogData() {
-  return (await readPublishedCatalogFromSupabase()) ?? {
-    products: fallbackProducts,
-    categories: fallbackCategories,
-  };
-}
+export const getCatalogData = cache(async (): Promise<CatalogData> => {
+  const liveCatalog = await readPublishedCatalogFromSupabase();
+  if (liveCatalog) return liveCatalog;
+
+  if (ALLOW_SOURCE_FALLBACK) {
+    console.warn("Using source-file catalog fallback because Supabase live catalog was unavailable.");
+    return getFallbackCatalogData();
+  }
+
+  console.error(
+    "Supabase live catalog was unavailable in production. Returning empty live catalog instead of source-file fallback.",
+  );
+  return { products: [], categories: [] };
+});
 
 export async function getCategories() {
   return (await getCatalogData()).categories;
@@ -120,19 +145,31 @@ export async function getProducts() {
 }
 
 export async function getCategory(slug: string) {
-  const db = await readPublishedCatalogFromSupabase();
-  if (!db) return getFallbackCategory(slug);
-  return db.categories.find((item) => item.slug === slug);
+  const catalog = await getCatalogData();
+  const liveCategory = catalog.categories.find((item) => item.slug === slug);
+
+  if (liveCategory) return liveCategory;
+  if (ALLOW_SOURCE_FALLBACK) return getFallbackCategory(slug);
+  return undefined;
 }
 
 export async function getProductsByCategory(slug: string) {
-  const db = await readPublishedCatalogFromSupabase();
-  if (!db) return getFallbackProductsByCategory(slug);
-  return db.products.filter((item) => item.category === slug);
+  const catalog = await getCatalogData();
+  const liveProducts = catalog.products.filter((item) => item.category === slug);
+
+  if (liveProducts.length || catalog.categories.some((item) => item.slug === slug)) {
+    return liveProducts;
+  }
+
+  if (ALLOW_SOURCE_FALLBACK) return getFallbackProductsByCategory(slug);
+  return [];
 }
 
 export async function getProduct(slug: string) {
-  const db = await readPublishedCatalogFromSupabase();
-  if (!db) return getFallbackProduct(slug);
-  return db.products.find((item) => item.slug === slug);
+  const catalog = await getCatalogData();
+  const liveProduct = catalog.products.find((item) => item.slug === slug);
+
+  if (liveProduct) return liveProduct;
+  if (ALLOW_SOURCE_FALLBACK) return getFallbackProduct(slug);
+  return undefined;
 }

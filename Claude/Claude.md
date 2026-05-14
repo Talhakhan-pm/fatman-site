@@ -80,10 +80,12 @@ Current behavior:
 - admin writes go through the app server, not directly from browser to Supabase
 - production admin access is unlocked by posting the write key or seed key once to `/api/admin/session`, which sets an HttpOnly cookie session for later admin requests
 - successful admin saves write to Supabase
+- storefront catalog reads now use server-side Supabase credentials and request-cached catalog reads, so product/category pages within one request see the same live snapshot
 - in local development only, admin saves are also mirrored into a local fallback file:
   - `data/admin-catalog-local.json`
 - this local fallback exists so staff work is not lost if Supabase is temporarily unavailable during local dev
 - in production, local fallback is disabled, so failed saves stay failed instead of pretending to be live
+- in production, storefront catalog reads no longer silently fall back to source-file catalog data when live Supabase catalog reads fail
 
 Important: local fallback is a dev safety net, not the desired source of truth.
 
@@ -221,13 +223,13 @@ Important caveat:
 ---
 
 ## 10) Known Gaps / Current Risks
-### A) Split truth still exists
+### A) Split truth still exists, but is smaller now
 There is still a hybrid state between:
 - Supabase live catalog
 - generated source-file fallback catalog
 - local admin fallback JSON
 
-This is safer than before, but still not ideal.
+However, production storefront catalog reads are now stricter and no longer silently fall back to source-file catalog data when Supabase live reads fail. The remaining split-truth risk is mostly around development fallback behavior and any flows that still intentionally rely on generated source data.
 
 ### B) Admin sync-state clarity
 The admin UI still needs clearer messaging for:
@@ -257,6 +259,7 @@ Best next step from current state:
 1. **Reduce split truth further**
    - make Supabase the clearly primary system everywhere practical
    - tighten fallback behavior so it is obvious when something is local-only
+   - continue removing remaining generated-source assumptions from non-dev paths
 
 2. **Add explicit admin save-state messaging**
    - show whether a save was synced to Supabase or only stored locally
