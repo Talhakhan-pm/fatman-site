@@ -70,6 +70,23 @@ Notes:
 - In local development, the route is open.
 - In production, send `x-fatman-admin-key: <FATMAN_ADMIN_SEED_KEY>`.
 
+### Create or refresh an admin session
+
+`POST /api/admin/session`
+
+Example body:
+
+```json
+{
+  "password": "<FATMAN_ADMIN_WRITE_KEY or FATMAN_ADMIN_SEED_KEY>"
+}
+```
+
+Notes:
+- In local development, admin is already open and this route just reports success.
+- In production, a valid password sets an HttpOnly cookie so `/admin/catalog` no longer has to send the raw key on every normal request.
+- `DELETE /api/admin/session` clears the admin session cookie.
+
 ### Upload one product image
 
 `POST /api/admin/catalog/upload-image`
@@ -80,7 +97,7 @@ Multipart form fields:
 
 Notes:
 - In local development, the route is open.
-- In production, send `x-fatman-admin-key: <FATMAN_ADMIN_WRITE_KEY>`.
+- In production, either unlock admin first through `/api/admin/session` or send `x-fatman-admin-key: <FATMAN_ADMIN_WRITE_KEY>`.
 - The route uploads to Supabase Storage bucket `fatman-catalog` under `catalog/`.
 - The route returns a public URL that can be stored directly in `product.imageUrl`.
 
@@ -128,7 +145,7 @@ Example body:
 
 Notes:
 - In local development, the route is open.
-- In production, send `x-fatman-admin-key: <FATMAN_ADMIN_WRITE_KEY>`.
+- In production, either unlock admin first through `/api/admin/session` or send `x-fatman-admin-key: <FATMAN_ADMIN_WRITE_KEY>`.
 - `replaceFitment: true` deletes old fitment rows for that product before inserting the new set.
 - Omit `fitment` if you only want to update product fields.
 - Local JSON fallback is development-only. In production, Supabase write failures return an error instead of silently saving to `data/admin-catalog-local.json`.

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { catalogRegistry } from "@/lib/catalog-registry";
 import { charmFitmentCatalog } from "@/lib/fitment-catalog";
 
@@ -9,6 +9,9 @@ type ApiResult = {
   status: number;
   body: unknown;
 };
+
+type AdminSessionScope = "write" | "seed";
+type AdminSessionState = "checking" | "locked" | "unlocked";
 
 type ProductSummary = {
   slug: string;
@@ -338,6 +341,11 @@ function payloadToEditor(payload: UpsertPayload | null | undefined): EditorState
 
 export default function AdminCatalogPage() {
   const [adminKey, setAdminKey] = useState("");
+  const [sessionPassword, setSessionPassword] = useState("");
+  const [sessionState, setSessionState] = useState<AdminSessionState>("checking");
+  const [sessionScope, setSessionScope] = useState<AdminSessionScope | null>(null);
+  const [sessionBusy, setSessionBusy] = useState(false);
+  const [sessionError, setSessionError] = useState<string | null>(null);
   const [includeFitment, setIncludeFitment] = useState(true);
   const [editor, setEditor] = useState<EditorState>(STARTER_EDITOR);
   const [seedBusy, setSeedBusy] = useState(false);
@@ -362,6 +370,100 @@ export default function AdminCatalogPage() {
   const isDirty = currentSnapshot !== lastLoadedSnapshot;
   const ok = result && result.status >= 200 && result.status < 300;
   const devLocalFallbackEnabled = process.env.NODE_ENV === "development";
+  const adminSessionRequired = process.env.NODE_ENV === "production";
+
+  useEffect(() => {
+    if (!adminSessionRequired) {
+      setSessionState("unlocked");
+      setSessionScope("write");
+      return;
+    }
+
+    void refreshAdminSession();
+  }, [adminSessionRequired]);
+
+  async function refreshAdminSession() {
+    setSessionError(null);
+    setSessionState("checking");
+
+    try {
+      const res = await fetch("/api/admin/session", {
+        method: "GET",
+        cache: "no-store",
+      });
+      const json = (await res.json().catch(() => null)) as
+        | { authenticated?: boolean; scope?: AdminSessionScope | null; error?: string }
+        | null;
+
+      if (res.ok && json?.authenticated) {
+        setSessionState("unlocked");
+        setSessionScope(json.scope ?? "write");
+        return;
+      }
+
+      setSessionState("locked");
+      setSessionScope(null);
+      if (json?.error) setSessionError(json.error);
+    } catch (err) {
+      setSessionState("locked");
+      setSessionScope(null);
+      setSessionError(err instanceof Error ? err.message : "Could not verify admin session");
+    }
+  }
+
+  async function handleUnlockAdmin() {
+    setSessionBusy(true);
+    setSessionError(null);
+
+    try {
+      const res = await fetch("/api/admin/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password: sessionPassword }),
+      });
+
+      const json = (await res.json().catch(() => null)) as
+        | { authenticated?: boolean; scope?: AdminSessionScope | null; error?: string }
+        | null;
+
+      if (!res.ok || !json?.authenticated) {
+        setSessionState("locked");
+        setSessionScope(null);
+        setSessionError(json?.error || `Unlock failed (${res.status})`);
+        return;
+      }
+
+      setSessionState("unlocked");
+      setSessionScope(json.scope ?? "write");
+      setSessionPassword("");
+      setSessionError(null);
+    } catch (err) {
+      setSessionState("locked");
+      setSessionScope(null);
+      setSessionError(err instanceof Error ? err.message : "Unlock failed");
+    } finally {
+      setSessionBusy(false);
+    }
+  }
+
+  async function handleLockAdmin() {
+    setSessionBusy(true);
+    setSessionError(null);
+
+    try {
+      await fetch("/api/admin/session", {
+        method: "DELETE",
+      });
+    } finally {
+      setSessionBusy(false);
+      setSessionState("locked");
+      setSessionScope(null);
+      setSessionPassword("");
+      setAdminKey("");
+    }
+  }
 
   function buildAuthHeaders(): HeadersInit {
     const headers: Record<string, string> = {};
@@ -600,6 +702,71 @@ export default function AdminCatalogPage() {
       ? (result.body as { error?: string; details?: string }).details ?? null
       : null;
 
+  if (adminSessionRequired && sessionState !== "unlocked") {
+    return (
+      <div className="min-h-screen bg-fatman-900 text-white">
+        <section className="mx-auto flex min-h-screen max-w-xl items-center px-6 py-10">
+          <div className="w-full rounded-2xl border border-white/15 bg-white/5 p-6 shadow-2xl shadow-black/20">
+            <div>
+              <h1 className="text-3xl font-black">Catalog Admin</h1>
+              <p className="mt-2 text-sm text-white/70">
+                Unlock the admin area with your catalog password. This creates a secure server-side
+                session cookie so you do not have to keep pasting the write key into developer tools.
+              </p>
+            </div>
+
+            {sessionState === "checking" ? (
+              <div className="mt-6 rounded-xl border border-white/10 bg-black/10 p-4 text-sm text-white/75">
+                Checking admin session…
+              </div>
+            ) : (
+              <div className="mt-6 space-y-4">
+                <div>
+                  <label className={labelClass}>Admin password</label>
+                  <input
+                    type="password"
+                    className={`${inputClass} mt-1`}
+                    value={sessionPassword}
+                    onChange={(event) => setSessionPassword(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        void handleUnlockAdmin();
+                      }
+                    }}
+                    placeholder="Enter FATMAN_ADMIN_WRITE_KEY"
+                    autoComplete="current-password"
+                  />
+                </div>
+
+                {sessionError && (
+                  <div className="rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-200">
+                    {sessionError}
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    className={buttonClass}
+                    onClick={() => void handleUnlockAdmin()}
+                    disabled={sessionBusy || !sessionPassword.trim()}
+                  >
+                    {sessionBusy ? "Unlocking…" : "Unlock admin"}
+                  </button>
+                  <p className="text-xs text-white/55">
+                    Write key unlocks normal catalog tools. Seed key also works if you need setup
+                    actions later.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-fatman-900 text-white">
       <section className="mx-auto max-w-6xl px-6 py-10">
@@ -608,6 +775,27 @@ export default function AdminCatalogPage() {
           Built for staff, not developers. Load a product, edit the fields, add fitment rows,
           then save. No JSON required.
         </p>
+
+        {adminSessionRequired && (
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-100">
+            <div>
+              <strong className="block text-emerald-50">Admin session active</strong>
+              <span className="text-emerald-100/80">
+                {sessionScope === "seed"
+                  ? "Seed-level session is unlocked for catalog admin and setup tools."
+                  : "Catalog admin is unlocked with a secure cookie session."}
+              </span>
+            </div>
+            <button
+              type="button"
+              className={ghostButtonClass}
+              onClick={() => void handleLockAdmin()}
+              disabled={sessionBusy}
+            >
+              {sessionBusy ? "Locking…" : "Lock admin"}
+            </button>
+          </div>
+        )}
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_1.9fr]">
           <div className="space-y-6">
@@ -1192,15 +1380,18 @@ export default function AdminCatalogPage() {
                   </p>
 
                   <div className="space-y-2">
-                    <label className={labelClass}>Admin key (usually not needed in local dev)</label>
+                    <label className={labelClass}>Optional override key</label>
                     <input
                       type="password"
                       className={inputClass}
                       value={adminKey}
                       onChange={(event) => setAdminKey(event.target.value)}
-                      placeholder="Only needed when protected routes require it"
+                      placeholder="Usually blank. Use only if you need to override the session or send a separate seed key."
                       autoComplete="off"
                     />
+                    <p className="text-xs text-white/50">
+                      Normal list, save, and image upload requests now use your admin session cookie.
+                    </p>
                   </div>
 
                   <div className="space-y-3 rounded-xl border border-white/10 bg-black/10 p-4">

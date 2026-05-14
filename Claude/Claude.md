@@ -70,6 +70,7 @@ Admin catalog editor lives at:
 - `/admin/catalog`
 
 Internal admin routes:
+- `/api/admin/session`
 - `/api/admin/catalog/list`
 - `/api/admin/catalog/upsert`
 - `/api/admin/catalog/upload-image`
@@ -77,6 +78,7 @@ Internal admin routes:
 
 Current behavior:
 - admin writes go through the app server, not directly from browser to Supabase
+- production admin access is unlocked by posting the write key or seed key once to `/api/admin/session`, which sets an HttpOnly cookie session for later admin requests
 - successful admin saves write to Supabase
 - in local development only, admin saves are also mirrored into a local fallback file:
   - `data/admin-catalog-local.json`
