@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { catalogRegistry } from "@/lib/catalog-registry";
+import { charmFitmentCatalog } from "@/lib/fitment-catalog";
 
 type ApiResult = {
   endpoint: string;
@@ -138,6 +139,74 @@ function createBlankEditor(): EditorState {
   };
 }
 
+function withCurrentOption(options: readonly string[], current: string) {
+  if (!current.trim() || options.includes(current)) return [...options];
+  return [current, ...options];
+}
+
+function getFitmentOptions(row: FitmentForm) {
+  const years = withCurrentOption(charmFitmentCatalog.years, row.year);
+  const makes = row.year
+    ? withCurrentOption(charmFitmentCatalog.getMakes(row.year), row.make)
+    : row.make
+      ? [row.make]
+      : [];
+  const models = row.year && row.make
+    ? withCurrentOption(charmFitmentCatalog.getModels(row.year, row.make), row.model)
+    : row.model
+      ? [row.model]
+      : [];
+
+  const catalogVariants = row.year && row.make && row.model
+    ? charmFitmentCatalog.getVariants(row.year, row.make, row.model)
+    : [];
+  const normalizedVariants = catalogVariants.length > 0
+    ? catalogVariants
+    : row.year && row.make && row.model
+      ? [charmFitmentCatalog.defaultVariant]
+      : [];
+  const variants = normalizedVariants.length > 0
+    ? withCurrentOption(normalizedVariants, row.variant)
+    : row.variant
+      ? [row.variant]
+      : [];
+
+  const variantForEngines =
+    row.variant || charmFitmentCatalog.getDefaultVariant(normalizedVariants) || normalizedVariants[0] || "";
+  const engines = row.year && row.make && row.model && variantForEngines
+    ? withCurrentOption(
+        charmFitmentCatalog.getEngines(row.year, row.make, row.model, variantForEngines),
+        row.engine,
+      )
+    : row.engine
+      ? [row.engine]
+      : [];
+
+  return { years, makes, models, variants, engines };
+}
+
+function autofillFitmentRow(row: FitmentForm): FitmentForm {
+  const next = { ...row };
+  const { makes, models, variants } = getFitmentOptions(next);
+
+  if (!next.make && makes.length === 1) next.make = makes[0];
+  if (!next.model && models.length === 1) next.model = models[0];
+
+  const resolvedVariants = variants;
+  const defaultVariant = charmFitmentCatalog.getDefaultVariant(resolvedVariants);
+
+  if (!next.variant && resolvedVariants.length === 1) next.variant = resolvedVariants[0];
+  else if (!next.variant && defaultVariant) next.variant = defaultVariant;
+
+  const resolvedEngines = next.year && next.make && next.model && (next.variant || defaultVariant)
+    ? charmFitmentCatalog.getEngines(next.year, next.make, next.model, next.variant || defaultVariant)
+    : [];
+
+  if (!next.engine && resolvedEngines.length === 1) next.engine = resolvedEngines[0];
+
+  return next;
+}
+
 const STARTER_EDITOR: EditorState = {
   product: {
     sku: "FTM-COL-9001",
@@ -161,7 +230,7 @@ const STARTER_EDITOR: EditorState = {
       year: "2018",
       make: "Toyota",
       model: "Camry",
-      variant: "",
+      variant: "Base",
       engine: "2.5L L4",
       matchType: "fits",
       source: "admin-ui",
@@ -172,7 +241,7 @@ const STARTER_EDITOR: EditorState = {
       year: "2019",
       make: "Toyota",
       model: "Camry",
-      variant: "",
+      variant: "Base",
       engine: "2.5L L4",
       matchType: "fits",
       source: "admin-ui",
@@ -249,17 +318,19 @@ function payloadToEditor(payload: UpsertPayload | null | undefined): EditorState
     },
     fitment:
       fitment.length > 0
-        ? fitment.map((row) => ({
-            id: createFitmentId(),
-            year: row.year ?? "",
-            make: row.make ?? "",
-            model: row.model ?? "",
-            variant: row.variant ?? "",
-            engine: row.engine ?? "",
-            matchType: row.matchType ?? "fits",
-            source: row.source ?? "admin-ui",
-            notes: row.notes ?? "",
-          }))
+        ? fitment.map((row) =>
+            autofillFitmentRow({
+              id: createFitmentId(),
+              year: row.year ?? "",
+              make: row.make ?? "",
+              model: row.model ?? "",
+              variant: row.variant ?? "",
+              engine: row.engine ?? "",
+              matchType: row.matchType ?? "fits",
+              source: row.source ?? "admin-ui",
+              notes: row.notes ?? "",
+            }),
+          )
         : [createBlankFitmentRow()],
     replaceFitment: payload?.replaceFitment ?? true,
   };
@@ -317,9 +388,29 @@ export default function AdminCatalogPage() {
   function setFitmentField(index: number, field: keyof FitmentForm, value: string) {
     setEditor((current) => ({
       ...current,
-      fitment: current.fitment.map((row, rowIndex) =>
-        rowIndex === index ? { ...row, [field]: value } : row,
-      ),
+      fitment: current.fitment.map((row, rowIndex) => {
+        if (rowIndex !== index) return row;
+
+        const nextRow: FitmentForm = { ...row, [field]: value };
+
+        if (field === "year") {
+          nextRow.make = "";
+          nextRow.model = "";
+          nextRow.variant = "";
+          nextRow.engine = "";
+        } else if (field === "make") {
+          nextRow.model = "";
+          nextRow.variant = "";
+          nextRow.engine = "";
+        } else if (field === "model") {
+          nextRow.variant = "";
+          nextRow.engine = "";
+        } else if (field === "variant") {
+          nextRow.engine = "";
+        }
+
+        return autofillFitmentRow(nextRow);
+      }),
     }));
   }
 
@@ -901,53 +992,100 @@ export default function AdminCatalogPage() {
                       </button>
                     </div>
                     <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                      <div>
-                        <label className={labelClass}>Year</label>
-                        <input
-                          className={`${inputClass} mt-1`}
-                          value={row.year}
-                          onChange={(event) => setFitmentField(index, "year", event.target.value)}
-                          placeholder="2021"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Make</label>
-                        <input
-                          className={`${inputClass} mt-1`}
-                          value={row.make}
-                          onChange={(event) => setFitmentField(index, "make", event.target.value)}
-                          placeholder="Ford"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Model</label>
-                        <input
-                          className={`${inputClass} mt-1`}
-                          value={row.model}
-                          onChange={(event) => setFitmentField(index, "model", event.target.value)}
-                          placeholder="F-150"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Variant / trim</label>
-                        <input
-                          className={`${inputClass} mt-1`}
-                          value={row.variant}
-                          onChange={(event) =>
-                            setFitmentField(index, "variant", event.target.value)
-                          }
-                          placeholder="Base"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Engine</label>
-                        <input
-                          className={`${inputClass} mt-1`}
-                          value={row.engine}
-                          onChange={(event) => setFitmentField(index, "engine", event.target.value)}
-                          placeholder="V6-3.5L"
-                        />
-                      </div>
+                      {(() => {
+                        const options = getFitmentOptions(row);
+                        return (
+                          <>
+                            <div>
+                              <label className={labelClass}>Year</label>
+                              <select
+                                className={`${inputClass} mt-1`}
+                                value={row.year}
+                                onChange={(event) => setFitmentField(index, "year", event.target.value)}
+                              >
+                                <option value="">Select year</option>
+                                {options.years.map((year) => (
+                                  <option key={year} value={year}>
+                                    {year}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div>
+                              <label className={labelClass}>Make</label>
+                              <select
+                                className={`${inputClass} mt-1`}
+                                value={row.make}
+                                onChange={(event) => setFitmentField(index, "make", event.target.value)}
+                                disabled={!row.year}
+                              >
+                                <option value="">{row.year ? "Select make" : "Choose year first"}</option>
+                                {options.makes.map((make) => (
+                                  <option key={make} value={make}>
+                                    {make}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div>
+                              <label className={labelClass}>Model</label>
+                              <select
+                                className={`${inputClass} mt-1`}
+                                value={row.model}
+                                onChange={(event) => setFitmentField(index, "model", event.target.value)}
+                                disabled={!row.year || !row.make}
+                              >
+                                <option value="">
+                                  {row.year && row.make ? "Select model" : "Choose make first"}
+                                </option>
+                                {options.models.map((model) => (
+                                  <option key={model} value={model}>
+                                    {model}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div>
+                              <label className={labelClass}>Variant / trim</label>
+                              <select
+                                className={`${inputClass} mt-1`}
+                                value={row.variant}
+                                onChange={(event) => setFitmentField(index, "variant", event.target.value)}
+                                disabled={!row.year || !row.make || !row.model}
+                              >
+                                <option value="">
+                                  {row.year && row.make && row.model ? "Select variant" : "Choose model first"}
+                                </option>
+                                {options.variants.map((variant) => (
+                                  <option key={variant} value={variant}>
+                                    {variant}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div>
+                              <label className={labelClass}>Engine</label>
+                              <select
+                                className={`${inputClass} mt-1`}
+                                value={row.engine}
+                                onChange={(event) => setFitmentField(index, "engine", event.target.value)}
+                                disabled={!row.year || !row.make || !row.model || options.engines.length === 0}
+                              >
+                                <option value="">
+                                  {row.year && row.make && row.model
+                                    ? "Select engine"
+                                    : "Choose variant first"}
+                                </option>
+                                {options.engines.map((engine) => (
+                                  <option key={engine} value={engine}>
+                                    {engine}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          </>
+                        );
+                      })()}
                       <div>
                         <label className={labelClass}>Match</label>
                         <select
