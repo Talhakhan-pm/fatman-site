@@ -352,7 +352,7 @@ export default function AdminCatalogPage() {
   const [lastLoadedSnapshot, setLastLoadedSnapshot] = useState(
     JSON.stringify(STARTER_EDITOR),
   );
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [showDeveloperTools, setShowDeveloperTools] = useState(false);
   const [imageUploadBusy, setImageUploadBusy] = useState(false);
   const [imageUploadError, setImageUploadError] = useState<string | null>(null);
 
@@ -600,18 +600,6 @@ export default function AdminCatalogPage() {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_1.9fr]">
           <div className="space-y-6">
-            <div className="space-y-2 rounded-xl border border-white/15 bg-white/5 p-5">
-              <label className={labelClass}>Admin key (optional in local dev)</label>
-              <input
-                type="password"
-                className={inputClass}
-                value={adminKey}
-                onChange={(event) => setAdminKey(event.target.value)}
-                placeholder="Required only in production"
-                autoComplete="off"
-              />
-            </div>
-
             <div className="space-y-3 rounded-xl border border-white/15 bg-white/5 p-5">
               <div className="flex items-center justify-between gap-3">
                 <h2 className="text-lg font-bold">Pick a product to edit</h2>
@@ -704,28 +692,6 @@ export default function AdminCatalogPage() {
               )}
             </div>
 
-            <div className="space-y-3 rounded-xl border border-white/15 bg-white/5 p-5">
-              <h2 className="text-lg font-bold">Reset / seed tools</h2>
-              <p className="text-sm text-white/60">
-                Only use this when you want to reload the starter catalog into Supabase.
-              </p>
-              <label className="flex items-center gap-2 text-sm text-white/80">
-                <input
-                  type="checkbox"
-                  checked={includeFitment}
-                  onChange={(event) => setIncludeFitment(event.target.checked)}
-                />
-                Include fitment rules while seeding
-              </label>
-              <button
-                type="button"
-                className={buttonClass}
-                onClick={handleSeed}
-                disabled={seedBusy}
-              >
-                {seedBusy ? "Seeding…" : "Run seed"}
-              </button>
-            </div>
           </div>
 
           <div className="space-y-6">
@@ -734,7 +700,7 @@ export default function AdminCatalogPage() {
                 <div>
                   <h2 className="text-lg font-bold">Edit product and save</h2>
                   <p className="mt-1 text-sm text-white/60">
-                    Fill the fields, add fitment rows, then click <strong>Save product</strong>.
+                    Fill the product details, pick the vehicle step by step, then save.
                   </p>
                 </div>
                 <div className="rounded-full border border-white/15 px-3 py-1 text-xs text-white/70">
@@ -967,7 +933,7 @@ export default function AdminCatalogPage() {
                 <div>
                   <h2 className="text-lg font-bold">Vehicle fitment rows</h2>
                   <p className="mt-1 text-sm text-white/60">
-                    Add one row per vehicle combination this product fits.
+                    Add one row per vehicle. Pick year first, then make, model, trim, and engine.
                   </p>
                 </div>
                 <button type="button" className={ghostButtonClass} onClick={addFitmentRow}>
@@ -1100,24 +1066,20 @@ export default function AdminCatalogPage() {
                           <option value="no-fit">No fit</option>
                         </select>
                       </div>
+                    </div>
+                    <div className="mt-3 space-y-2">
+                      <p className="text-xs text-white/55">
+                        Use <strong>Fits</strong> for confirmed matches, <strong>Verify</strong> if someone should double-check, and <strong>No fit</strong> only when you know it does not fit.
+                      </p>
                       <div>
-                        <label className={labelClass}>Source</label>
+                        <label className={labelClass}>Notes (optional)</label>
                         <input
                           className={`${inputClass} mt-1`}
-                          value={row.source}
-                          onChange={(event) => setFitmentField(index, "source", event.target.value)}
-                          placeholder="admin-ui"
+                          value={row.notes}
+                          onChange={(event) => setFitmentField(index, "notes", event.target.value)}
+                          placeholder="Optional note, for example: verify with VIN or trim package"
                         />
                       </div>
-                    </div>
-                    <div className="mt-3">
-                      <label className={labelClass}>Notes (optional)</label>
-                      <input
-                        className={`${inputClass} mt-1`}
-                        value={row.notes}
-                        onChange={(event) => setFitmentField(index, "notes", event.target.value)}
-                        placeholder="Use VIN if trim is unclear"
-                      />
                     </div>
                   </div>
                 ))}
@@ -1129,8 +1091,7 @@ export default function AdminCatalogPage() {
                 <div>
                   <h2 className="text-lg font-bold">Save</h2>
                   <p className="mt-1 text-sm text-white/60">
-                    This saves through the same backend route agents use. If Supabase is down in
-                    local dev, the editor falls back to a local store so staff work is not lost.
+                    Save this product and its fitment. In local dev, your work is still kept even if the database connection is unavailable.
                   </p>
                 </div>
                 <button
@@ -1147,20 +1108,7 @@ export default function AdminCatalogPage() {
                 <span className="rounded-full border border-white/10 px-3 py-1">
                   {isDirty ? "Unsaved changes" : "All changes saved or loaded"}
                 </span>
-                <button
-                  type="button"
-                  className={ghostButtonClass}
-                  onClick={() => setShowAdvanced((current) => !current)}
-                >
-                  {showAdvanced ? "Hide raw payload" : "Show raw payload"}
-                </button>
               </div>
-
-              {showAdvanced && (
-                <pre className="mt-4 max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-black/40 p-3 text-xs text-white/90">
-                  {JSON.stringify(draftPayload, null, 2)}
-                </pre>
-              )}
             </div>
 
             {error && (
@@ -1180,7 +1128,6 @@ export default function AdminCatalogPage() {
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <strong>{ok ? "Saved" : "Response"}</strong>
-                  <code className="text-xs opacity-80">{result.endpoint}</code>
                 </div>
 
                 {savedBody?.product?.slug && (
@@ -1199,13 +1146,74 @@ export default function AdminCatalogPage() {
                   </p>
                 )}
 
-                <pre className="mt-3 max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-black/40 p-3 text-xs text-white/90">
-                  {typeof result.body === "string"
-                    ? result.body
-                    : JSON.stringify(result.body, null, 2)}
-                </pre>
+                {showDeveloperTools && (
+                  <pre className="mt-3 max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-black/40 p-3 text-xs text-white/90">
+                    {typeof result.body === "string"
+                      ? result.body
+                      : JSON.stringify(result.body, null, 2)}
+                  </pre>
+                )}
               </div>
             )}
+            <div className="rounded-xl border border-white/15 bg-white/5 p-5">
+              <button
+                type="button"
+                className={ghostButtonClass}
+                onClick={() => setShowDeveloperTools((current) => !current)}
+              >
+                {showDeveloperTools ? "Hide developer tools" : "Show developer tools"}
+              </button>
+
+              {showDeveloperTools && (
+                <div className="mt-4 space-y-4">
+                  <p className="text-sm text-white/60">
+                    These controls are mainly for debugging and setup, not normal catalog work.
+                  </p>
+
+                  <div className="space-y-2">
+                    <label className={labelClass}>Admin key (usually not needed in local dev)</label>
+                    <input
+                      type="password"
+                      className={inputClass}
+                      value={adminKey}
+                      onChange={(event) => setAdminKey(event.target.value)}
+                      placeholder="Only needed when protected routes require it"
+                      autoComplete="off"
+                    />
+                  </div>
+
+                  <div className="space-y-3 rounded-xl border border-white/10 bg-black/10 p-4">
+                    <h3 className="text-sm font-bold text-white/85">Reset / seed catalog</h3>
+                    <p className="text-sm text-white/60">
+                      Reload the starter catalog into Supabase. Use this only for setup or recovery.
+                    </p>
+                    <label className="flex items-center gap-2 text-sm text-white/80">
+                      <input
+                        type="checkbox"
+                        checked={includeFitment}
+                        onChange={(event) => setIncludeFitment(event.target.checked)}
+                      />
+                      Include fitment rules while seeding
+                    </label>
+                    <button
+                      type="button"
+                      className={buttonClass}
+                      onClick={handleSeed}
+                      disabled={seedBusy}
+                    >
+                      {seedBusy ? "Seeding…" : "Run seed"}
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className={labelClass}>Current payload preview</label>
+                    <pre className="mt-2 max-h-96 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-black/40 p-3 text-xs text-white/90">
+                      {JSON.stringify(draftPayload, null, 2)}
+                    </pre>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </section>
