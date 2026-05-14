@@ -6,7 +6,7 @@ import { createSupabaseAdminClient } from "@/lib/supabase";
 const FITMENT_CHUNK_SIZE = 500;
 const STOCK_STATUSES = new Set(["in-stock", "low-stock", "preorder"]);
 const MATCH_TYPES = new Set(["fits", "verify", "no-fit"]);
-const SUPABASE_TIMEOUT_MS = 1200;
+const SUPABASE_TIMEOUT_MS = 6000;
 
 function withTimeout<T>(promise: PromiseLike<T>, ms: number) {
   return Promise.race<T>([

@@ -62,7 +62,7 @@ const SUMMARY_COLUMNS =
 const FULL_COLUMNS =
   "id, sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, published, metadata";
 
-const SUPABASE_TIMEOUT_MS = 1200;
+const SUPABASE_TIMEOUT_MS = 6000;
 
 function withTimeout<T>(promise: PromiseLike<T>, ms: number) {
   return Promise.race<T>([
