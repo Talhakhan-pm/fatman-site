@@ -1,18 +1,35 @@
 # Fatman catalog lanes
 
-Keep this lightweight. One source flow, four lanes, no stepping on each other.
+Keep this lightweight. One flow, clear lanes, no stepping on each other.
 
 ## Source of truth
 
-1. `../fatman-data/products.csv` = canonical catalog rows
-2. `../fatman-data/fitment.csv` = canonical fitment rows
-3. `src/lib/catalog-registry.json` = canonical category metadata for site UI
-4. `npm run sync:data` = only supported step that turns CSV data into `src/lib/generated-data.ts`
+Fatman now has **two different truths for two different jobs**:
 
-If you change catalog rows directly in the site, you are doing it wrong.
+### Live storefront truth
+1. Supabase `products`
+2. Supabase `categories`
+3. Supabase `fitment_rules`
+
+This is what production storefront behavior should follow.
+
+### Baseline/source-data truth
+1. `../fatman-data/products.csv`
+2. `../fatman-data/fitment.csv`
+3. `src/lib/catalog-registry.json` = canonical category metadata for site UI
+4. `npm run sync:data` = supported step that turns CSV data into `src/lib/generated-data.ts`
+
+This baseline/source-data layer still matters for development fallback, seeding, and bulk source maintenance.
 
 ## Safe flow
 
+### For live product/admin changes
+1. Use `/admin/catalog`
+2. Save to Supabase
+3. Verify on `/product/[slug]` and `/category/[slug]`
+4. Run `npm run build` before merging code changes tied to the flow
+
+### For baseline/source-data changes
 1. Edit catalog rows in `fatman-data`
 2. Run `npm run sync:data`
 3. Run `npm run catalog:doctor`
@@ -23,16 +40,18 @@ If you change catalog rows directly in the site, you are doing it wrong.
 
 ### 1) Normalization lane
 - Allowed: names, descriptions, category assignment, SKU cleanup, fitment cleanup
-- Files: `fatman-data/*.csv`
-- Not allowed: touching site components, public assets, or generated site data manually
+- Primary files: `fatman-data/*.csv`
+- May also include: cleanup planning for existing Supabase live rows when fixing live catalog quality
+- Not allowed: touching generated site data manually
 
 ### 2) Assets lane
 - Allowed: create/replace real product images under `public/fatman-assets/...`
-- Must also update matching `image_url` values in `fatman-data/products.csv`
+- Also allowed: upload live product images through admin to Supabase Storage when the goal is live catalog improvement
+- If working from baseline source data, also update matching image references in `fatman-data/products.csv`
 - Not allowed: changing category slugs or product text unless explicitly bundled with integration
 
 ### 3) Integration lane
-- Allowed: `npm run sync:data`, UI wiring, registry-driven category presentation, build fixes
+- Allowed: `npm run sync:data`, UI wiring, Supabase/storefront integration, registry-driven category presentation, build fixes
 - Files: `fatman-site/src/**`, `fatman-site/scripts/**`
 - Not allowed: editing `generated-data.ts` by hand
 
@@ -41,6 +60,14 @@ If you change catalog rows directly in the site, you are doing it wrong.
 - Required commands:
   - `npm run catalog:doctor`
   - `npm run build`
+
+## Important rule
+
+Do not confuse **live storefront state** with **baseline source-data state**.
+
+- Admin saves affect live Supabase-backed storefront behavior.
+- CSV sync affects baseline/generated fallback data.
+- If the two diverge, treat that as a conscious transition state, not an invisible assumption.
 
 ## What the doctor protects against
 

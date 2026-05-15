@@ -39,4 +39,18 @@ Raw markdown cache stays in `tmp/charm-fitment-cache/` by make/year.
 
 ## Notes
 
-Charm labels are inconsistent across years. The script keeps both normalized fields and the original `rawDescriptor` plus `lineage` so future homepage integration can tighten matching without re-scraping.
+Charm labels are inconsistent across years. The script keeps both normalized fields and the original `rawDescriptor` plus `lineage` so future fitment integration can tighten matching without re-scraping.
+
+## Relationship to live fitment
+
+This pipeline produces structured fitment source data, but it is not the same thing as the final live storefront truth by itself.
+
+Current reality:
+- generated/source fitment still exists in the repo for fallback behavior
+- live product/catalog work is moving toward Supabase-backed truth
+- fitment is the next cleanup target, because some fitment verdict paths still mix DB-backed and legacy/generated logic
+
+Practical rule:
+- use this pipeline to improve source fitment quality
+- use Supabase-backed fitment flows to improve live storefront behavior
+- avoid assuming generated fitment output automatically equals final production truth everywhere
