@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import {
   FitmentSelector,
   type FitmentSelectorClassNames,
@@ -72,6 +73,7 @@ const VIN_DECODE_PLACEHOLDER: Vehicle = {
 
 export function FitmentModuleV2() {
   const { vehicle, setVehicle } = useGarage();
+  const router = useRouter();
 
   const labels = useMemo(
     () => ({
@@ -107,6 +109,14 @@ export function FitmentModuleV2() {
       onConfirm={(confirmed, source) => {
         setVehicle(confirmed);
         track(source === "vin" ? "vin_decoded" : "fitment_confirmed", { ...confirmed });
+
+        // Redirect to shop page with vehicle context
+        const params = new URLSearchParams({
+          year: confirmed.year,
+          make: confirmed.make,
+          model: confirmed.model,
+        });
+        router.push(`/shop?${params.toString()}`);
       }}
       onVinSubmit={() => VIN_DECODE_PLACEHOLDER}
       renderHeader={() => (

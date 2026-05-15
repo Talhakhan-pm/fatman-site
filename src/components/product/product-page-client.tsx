@@ -9,9 +9,12 @@ import { useFitment } from "@/components/use-fitment";
 import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
+import { useCart } from "@/components/use-cart";
+import { ProductCard } from "@/components/product-card";
 
-export function ProductPageClient({ product }: { product: Product }) {
+export function ProductPageClient({ product, relatedProducts = [] }: { product: Product, relatedProducts?: Product[] }) {
   const { vehicle } = useGarage();
+  const { addItem } = useCart();
   const fitment = useFitment(product.slug, vehicle);
   const media = getProductDisplayMedia(product);
 
@@ -80,7 +83,10 @@ export function ProductPageClient({ product }: { product: Product }) {
           <div className="mt-6 flex items-center gap-3">
             <p className="text-3xl font-black">{formatPrice(product.price)}</p>
             <button
-              onClick={() => track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp" })}
+              onClick={() => {
+                addItem(product);
+                track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp" });
+              }}
               className="rounded-lg bg-fatman-accent px-5 py-3 text-sm font-semibold transition hover:bg-fatman-accent-hover"
             >
               Add to Cart
@@ -109,11 +115,27 @@ export function ProductPageClient({ product }: { product: Product }) {
         </div>
       </main>
 
+      {relatedProducts.length > 0 && (
+        <section className="mx-auto max-w-6xl px-6 py-12 border-t border-white/5">
+          <h2 className="text-xl font-black italic uppercase tracking-tight text-white mb-8">
+            You might also need
+          </h2>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {relatedProducts.map((p) => (
+              <ProductCard key={p.slug} product={p} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <div className="sticky bottom-0 border-t border-white/10 bg-fatman-900/95 p-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <p className="text-lg font-black">{formatPrice(product.price)}</p>
           <button
-            onClick={() => track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp_sticky" })}
+            onClick={() => {
+              addItem(product);
+              track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp_sticky" });
+            }}
             className="rounded-lg bg-fatman-accent px-4 py-2 text-sm font-semibold"
           >
             Add to Cart

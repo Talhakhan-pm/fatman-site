@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductPageClient } from "@/components/product/product-page-client";
-import { getProduct } from "@/lib/catalog-db";
+import { getProduct, getProductsByCategory } from "@/lib/catalog-db";
 
 const SITE_URL = "https://fatmanparts.com";
 
@@ -44,6 +44,10 @@ export default async function ProductPage({
   const product = await getProduct(slug);
 
   if (!product) notFound();
+
+  const relatedProducts = (await getProductsByCategory(product.category))
+    .filter((p) => p.slug !== product.slug)
+    .slice(0, 4);
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -90,7 +94,7 @@ export default async function ProductPage({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <ProductPageClient product={product} />
+      <ProductPageClient product={product} relatedProducts={relatedProducts} />
     </>
   );
 }
