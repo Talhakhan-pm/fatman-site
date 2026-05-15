@@ -215,6 +215,10 @@ Verified in recent work:
 - a fresh browser-created product was saved from the real admin UI and showed up on:
   - product page
   - engines category listing
+- live admin auth/session works
+- admin save/load/upload works on Vercel
+- storefront reads live Supabase products correctly
+- production is less split-brain than before
 
 Important caveat:
 - browser-created test product had `0 fitment rows` and still saved/published correctly as a product
@@ -256,21 +260,38 @@ Infrastructure is improving, but data quality still matters:
 ## 11) Recommended Next Work
 Best next step from current state:
 
-1. **Reduce split truth further**
-   - make Supabase the clearly primary system everywhere practical
-   - tighten fallback behavior so it is obvious when something is local-only
-   - continue removing remaining generated-source assumptions from non-dev paths
+Stay in **Phase 1** a little longer and finish source-of-truth cleanup properly.
 
-2. **Add explicit admin save-state messaging**
-   - show whether a save was synced to Supabase or only stored locally
+### Best next target
+**Fitment/source-of-truth cleanup**
 
-3. **Prepare deployability**
-   - confirm clean GitHub push state
-   - confirm env requirements for Vercel
-   - decide whether any remaining local-only fallback behavior should be disabled or clearly flagged in production
+Review next:
+- `src/lib/fitment-db.ts`
+- `src/app/api/fitment/check/route.ts`
+- `src/app/api/fitment/check-batch/route.ts`
+- any places still relying on legacy/generated fitment when live DB should be primary
 
-4. **Continue catalog-quality work**
-   - clean real catalog entries, fitment, and merchandising data
+Why this should be next:
+- product visibility is live now
+- catalog reads are tighter now
+- fitment still has hybrid behavior and fallback logic
+- if product visibility is live but fitment verdicts are mixed-source, the storefront can still feel inconsistent
+
+That is the next hidden split-truth problem.
+
+### After that
+Move into **Phase 2**:
+- homepage merchandising
+- featured/new products
+- better category discovery
+- related products
+
+### Later
+Move into **Phase 3**:
+- conversion work
+- stronger PDP trust/support flows
+- VIN verification improvements
+- analytics and funnel improvement
 
 ---
 
