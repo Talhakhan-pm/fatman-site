@@ -20,6 +20,12 @@ export const fitmentRules: ProductFitmentRule[] =
 
 export { formatVehicleLabel };
 
+export function formatCompactVehicleLabel(vehicle?: Vehicle | null) {
+  if (!vehicle) return "";
+
+  return [vehicle.year, vehicle.make, vehicle.model].filter(Boolean).join(" ");
+}
+
 function isUsableEngine(engine?: string | null) {
   if (!engine) return false;
   return engine.trim().toLowerCase() !== "unknown";

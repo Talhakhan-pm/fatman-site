@@ -69,16 +69,18 @@ export function CompatibleProducts({
 
   return (
     <section className="mx-auto max-w-6xl px-6 pb-14">
-      <div className="mb-5 flex items-end justify-between">
-        <h3 className="text-2xl font-bold">Also fits your vehicle</h3>
-        <p className="text-sm text-white/60">
-          Same category. Verified fitment for your selected vehicle.
-        </p>
-      </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {fits.map((product) => (
-          <ProductCard key={product.slug} product={product} fitmentState="fits" />
-        ))}
+      <div className="rounded-2xl border border-white/15 bg-white/5 p-5 sm:p-6">
+        <div className="mb-5 space-y-1.5">
+          <h3 className="text-2xl font-bold text-white">Also fits your vehicle</h3>
+          <p className="max-w-2xl text-sm text-white/60">
+            Same category, confirmed fit for your selected vehicle.
+          </p>
+        </div>
+        <div className={fits.length === 1 ? "max-w-sm" : "grid gap-4 md:grid-cols-2 lg:grid-cols-3"}>
+          {fits.map((product) => (
+            <ProductCard key={product.slug} product={product} fitmentState="fits" />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -11,10 +11,20 @@ import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 
+function getProductEyebrow(product: Product) {
+  const brand = product.brand.trim();
+  if (!brand || /^(blah(\s+blah)+|placeholder|test brand)$/i.test(brand)) {
+    return product.category.replace(/-/g, " ");
+  }
+  return brand;
+}
+
 export function ProductPageClient({ product }: { product: Product }) {
   const { vehicle } = useGarage();
   const fitment = useFitment(product.slug, vehicle);
   const media = getProductDisplayMedia(product);
+  const categoryLabel = product.category.replace(/-/g, " ");
+  const eyebrow = getProductEyebrow(product);
 
   useEffect(() => {
     track("view_item", { slug: product.slug, price: product.price });
@@ -32,7 +42,15 @@ export function ProductPageClient({ product }: { product: Product }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
               </>
             ) : (
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.22),_transparent_42%),linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))]" />
+              <div className="absolute inset-0 flex flex-col justify-between bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.22),_transparent_42%),linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6">
+                <span className="self-start rounded-full border border-white/15 bg-black/35 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
+                  {categoryLabel}
+                </span>
+                <div>
+                  <p className="text-lg font-semibold text-white/90">Image coming soon</p>
+                  <p className="mt-2 max-w-xs text-sm text-white/60">We have live fitment and product data, but this listing still needs final media.</p>
+                </div>
+              </div>
             )}
           </div>
           <div className="grid grid-cols-4 gap-2">
@@ -52,7 +70,7 @@ export function ProductPageClient({ product }: { product: Product }) {
         </div>
 
         <div>
-          <p className="text-xs uppercase tracking-wider text-white/60">{product.brand}</p>
+          <p className="text-xs uppercase tracking-wider text-white/60">{eyebrow}</p>
           <h1 className="mt-2 text-3xl font-black">{product.name}</h1>
           <p className="mt-2 text-white/70">{product.shortDescription}</p>
           <div className="mt-4">
