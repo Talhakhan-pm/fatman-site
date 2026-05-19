@@ -6,6 +6,7 @@ import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
 import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
 import { useFitment } from "@/components/use-fitment";
+import { CompatibleProducts } from "@/components/product/compatible-products";
 import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
@@ -108,6 +109,8 @@ export function ProductPageClient({ product }: { product: Product }) {
           </div>
         </div>
       </main>
+
+      <CompatibleProducts currentSlug={product.slug} categorySlug={product.category} />
 
       <div className="sticky bottom-0 border-t border-white/10 bg-fatman-900/95 p-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between">

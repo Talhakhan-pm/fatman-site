@@ -286,6 +286,12 @@ Move into **Phase 2**:
 - better category discovery
 - related products
 
+Current Phase 2 direction is now sharper:
+- prefer **garage-aware discovery** over generic related products first
+- use selected vehicle state to surface compatible products, category paths, and later PDP related items
+- start with a DB-backed compatible-product retrieval layer before building multiple UI modules
+- see `docs/phase-2-garage-aware-discovery.md`
+
 ### Later
 Move into **Phase 3**:
 - conversion work
