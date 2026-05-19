@@ -225,24 +225,49 @@ Do not blur `verify` into `fits` just to fill slots.
 
 ---
 
+## Current shipped progress
+
+### Shipped already
+The first Phase 2 slice is now in the repo:
+- server-side compatible-product retrieval layer in `src/lib/discovery-db.ts`
+- API route at `/api/discovery/compatible-products`
+- PDP **Also fits your vehicle** module in `src/components/product/compatible-products.tsx`
+- current live behavior hides the module entirely when no vehicle is selected
+- first UI polish pass is also done for this flow:
+  - badge contrast improved
+  - garage labels shortened
+  - related-products section tightened
+  - placeholder media states made more intentional
+
+### Important caveat discovered during testing
+The new discovery layer works, but some live DB fitment combinations still do not surface cleanly because parts of the fitment path still depend on catalog-aware / legacy assumptions.
+
+That means the next slice should not blindly keep stacking new UI on top.
+The fitment/discovery gate should be tightened first.
+
 ## Implementation order
 
 ### Slice 1
 Build the data/query layer for vehicle-compatible product retrieval.
 
-This is the best first coding task because it becomes the foundation for:
+Status: **done**
+
+This now exists and becomes the foundation for:
 - homepage compatible section
 - category fitment-aware ordering
 - PDP related products
 
 ### Slice 2
-Add homepage **Compatible Products for Your Vehicle**.
+Tighten the fitment/discovery gate so live DB-backed compatible products are trusted more directly where appropriate.
 
 ### Slice 3
 Add category fitment-aware ordering / filtering.
 
 ### Slice 4
-Add PDP **Also fits your vehicle** related products.
+Add homepage **Compatible Products for Your Vehicle** and/or **Shop Categories for Your Vehicle**.
+
+### Slice 5
+Broaden garage-aware merchandising only after the above is solid.
 
 ---
 
@@ -255,10 +280,19 @@ Phase 2 V1 is successful when:
 - PDPs can lead to other compatible products
 - the storefront feels smarter without overclaiming fitment certainty
 
+Current partial success already achieved:
+- PDPs can now lead to other compatible products
+- vehicle-aware discovery is now visible in at least one real storefront surface
+
+Still needed to call V1 truly complete:
+- category pages prioritize products that fit the selected vehicle
+- homepage surfaces compatible discovery intentionally
+- fitment/discovery gate behavior is tightened so live DB-compatible products surface more reliably
+
 ---
 
 ## Best immediate next build task
 
-**Implement the compatible-product retrieval layer first.**
+**Tighten the fitment/discovery gate, then apply fitment-aware ordering to category pages.**
 
-That is the cleanest foundation and the right first coding slice for garage-aware discovery.
+That is now the cleanest next step because the compatible-product retrieval layer already exists and PDP discovery is already live.

@@ -106,7 +106,8 @@ npm run fitment:charm
 
 ## Current verified status
 
-Phase 1 has real progress:
+### Phase 1, largely completed
+Phase 1 infrastructure work now has real progress:
 - live admin auth/session works
 - admin save/load/upload works on Vercel
 - storefront reads live Supabase products correctly
@@ -117,39 +118,65 @@ Also verified:
 - remote product images from Supabase Storage render correctly
 - production admin no longer requires repeated developer-tools header pasting once session unlock is in place
 
+### Phase 2, started
+The first garage-aware discovery slice is now shipped:
+- server-side compatible-product retrieval layer lives in `src/lib/discovery-db.ts`
+- API route lives at `/api/discovery/compatible-products`
+- PDPs can now show **Also fits your vehicle** for selected-vehicle matches in the same category
+- if no vehicle is selected, the module stays hidden instead of falling back to generic recommendations
+- the first UI polish pass is also done for this flow (badge contrast, tighter related-products layout, shorter garage labels, better placeholder states)
+
 ## Current risks / known gaps
 
 - fitment still has hybrid behavior and fallback logic in some places
+- garage-aware discovery is now real, but not every live DB fitment row will surface cleanly yet because some fitment flows are still gated by legacy/catalog-aware assumptions
+- homepage and category pages are not garage-aware yet
 - catalog quality is still separate from infrastructure quality
 - admin/live-state messaging can still be clearer
 - some generated-source assumptions still exist outside the ideal live-data path
 
+## Current phase direction
+
+Fatman is now in **Phase 2: garage-aware discovery**, not just Phase 1 cleanup.
+
+Current principle:
+- use selected vehicle state to make the storefront feel smarter
+- prefer fitment-aware discovery over generic merchandising first
+- do not overclaim fitment certainty
+
 ## Next recommended work
 
-Stay in Phase 1 a little longer and finish source-of-truth cleanup properly.
-
 ### Best next target
-**Fitment/source-of-truth cleanup**
+**Category-page fitment-aware ordering, after tightening the fitment gate/source-of-truth path**
 
-Review next:
+Recommended immediate sequence:
+1. tighten the fitment/discovery gate so live DB-compatible products are trusted more directly where appropriate
+2. make category pages reorder products by fitment state (`fits` first, then `verify`, then `no-fit`)
+3. optionally add a stronger `Verified Fit` / `Show only fits` browsing mode
+4. then move to homepage compatible-product merchandising
+
+Files most worth reviewing next:
 - `src/lib/fitment-db.ts`
+- `src/lib/discovery-db.ts`
 - `src/app/api/fitment/check/route.ts`
 - `src/app/api/fitment/check-batch/route.ts`
-- any places still relying on legacy/generated fitment when live DB should be primary
+- `src/components/category-product-grid.tsx`
 
 Why:
-- product visibility is now much tighter
-- fitment can still feel inconsistent if it resolves from mixed sources
-- this is the next hidden split-truth problem
+- PDP compatible discovery is already live
+- category pages are where real browsing happens
+- fitment trust becomes much more valuable when it changes product ordering, not just badges and one PDP module
 
-## After Phase 1
-Move into Phase 2:
-- homepage merchandising
-- featured/new products
-- better category discovery
-- related products
+## Phase roadmap from here
 
-Then Phase 3:
+### Remaining Phase 2
+- tighten fitment/source-of-truth behavior for discovery
+- category-page fitment-aware ordering/filtering
+- homepage **Compatible Products for Your Vehicle**
+- homepage or category **Shop Categories for Your Vehicle**
+- later, broader merchandising modules (featured/new) once vehicle-aware discovery is stronger
+
+### Phase 3
 - conversion work
 - stronger PDP trust/support flows
 - VIN verification improvements

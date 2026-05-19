@@ -219,10 +219,18 @@ Verified in recent work:
 - admin save/load/upload works on Vercel
 - storefront reads live Supabase products correctly
 - production is less split-brain than before
+- Phase 2 garage-aware discovery is now started, not just planned
+- server-side compatible-product retrieval now exists in:
+  - `src/lib/discovery-db.ts`
+- PDPs can now show fitment-aware related products via:
+  - `src/components/product/compatible-products.tsx`
+  - `/api/discovery/compatible-products`
+- current shipped behavior: if no vehicle is selected, the compatible-products module hides entirely instead of falling back to generic recommendations
 
 Important caveat:
 - browser-created test product had `0 fitment rows` and still saved/published correctly as a product
 - fitment completeness and live product presence are related, but not identical concerns
+- some live DB fitment rows still do not surface through discovery as expected because there are still catalog-aware / legacy fitment gates in the path
 
 ---
 
@@ -235,17 +243,17 @@ There is still a hybrid state between:
 
 However, production storefront catalog reads are now stricter and no longer silently fall back to source-file catalog data when Supabase live reads fail. The remaining split-truth risk is mostly around development fallback behavior and any flows that still intentionally rely on generated source data.
 
-### B) Admin sync-state clarity
+### B) Fitment/discovery gate mismatch
+The new compatible-product discovery layer works, but some live DB fitment combinations still do not surface cleanly because parts of the fitment path still depend on catalog-aware / legacy assumptions.
+
+Practical consequence:
+- some vehicle + category combinations that exist in live `fitment_rules` may still return no compatible products through discovery
+- before broadening Phase 2 UI further, this gate should be tightened so live DB-backed fitment is trusted more directly where appropriate
+
+### C) Admin sync-state clarity
 The admin UI still needs clearer messaging for:
 - saved to Supabase / live
 - saved locally only / not truly live
-
-### C) Deploy-readiness gaps
-Before Vercel / production hardening, confirm:
-- environment variables
-- image storage strategy
-- Supabase availability expectations
-- whether local-only fallback behavior should remain in production
 
 ### D) Catalog quality remains a separate problem
 Infrastructure is improving, but data quality still matters:
@@ -260,40 +268,43 @@ Infrastructure is improving, but data quality still matters:
 ## 11) Recommended Next Work
 Best next step from current state:
 
-Stay in **Phase 1** a little longer and finish source-of-truth cleanup properly.
+Continue **Phase 2**, but do it in the right order.
+
+### What is already shipped in Phase 2
+- compatible-product retrieval layer
+- PDP **Also fits your vehicle** module
+- first UI polish pass for the garage-aware PDP flow
 
 ### Best next target
-**Fitment/source-of-truth cleanup**
+**Tighten fitment/discovery source-of-truth behavior, then add category-page fitment-aware ordering**
 
 Review next:
 - `src/lib/fitment-db.ts`
+- `src/lib/discovery-db.ts`
 - `src/app/api/fitment/check/route.ts`
 - `src/app/api/fitment/check-batch/route.ts`
-- any places still relying on legacy/generated fitment when live DB should be primary
+- `src/components/category-product-grid.tsx`
 
 Why this should be next:
-- product visibility is live now
-- catalog reads are tighter now
-- fitment still has hybrid behavior and fallback logic
-- if product visibility is live but fitment verdicts are mixed-source, the storefront can still feel inconsistent
+- PDP compatible discovery is already real
+- category pages are where real browsing happens
+- some discovery results are still undercut by legacy/catalog-aware fitment gates
+- once category pages sort by fitment state, selected-vehicle shopping becomes much more meaningful than just badges + one PDP module
 
-That is the next hidden split-truth problem.
+### Remaining Phase 2 direction
+- tighten fitment/discovery source-of-truth behavior
+- category-page fitment-aware ordering/filtering
+- homepage **Compatible Products for Your Vehicle**
+- homepage or category **Shop Categories for Your Vehicle**
+- only after that, broaden into generic merchandising modules like featured/new
 
-### After that
-Move into **Phase 2**:
-- homepage merchandising
-- featured/new products
-- better category discovery
-- related products
-
-Current Phase 2 direction is now sharper:
+Current Phase 2 principle:
 - prefer **garage-aware discovery** over generic related products first
-- use selected vehicle state to surface compatible products, category paths, and later PDP related items
-- start with a DB-backed compatible-product retrieval layer before building multiple UI modules
+- use selected vehicle state to surface compatible products, category paths, and later homepage modules
+- preserve honest fitment separation (`fits`, `verify`, `no-fit`)
 - see `docs/phase-2-garage-aware-discovery.md`
 
-### Later
-Move into **Phase 3**:
+### Later, Phase 3
 - conversion work
 - stronger PDP trust/support flows
 - VIN verification improvements
@@ -310,6 +321,8 @@ Recent relevant commits:
 - `2b146b7` Increase Supabase admin API timeout
 - `ed50141` Prefer Supabase for admin catalog loads
 - `89ef5b2` Ignore tmp fitment cache
+- `76d37b3` Add garage-aware compatible product discovery
+- `6d9ceb3` Polish garage-aware PDP discovery UI
 
 ---
 
