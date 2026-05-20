@@ -126,6 +126,14 @@ function productNameToSlug(name: string) {
   return slugifyIdentifier(name) || "new-product";
 }
 
+function productToSlugBase(product: ProductForm) {
+  const parts = [product.brand, product.name, product.sku]
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  return slugifyIdentifier(parts.join(" ")) || productNameToSlug(product.name);
+}
+
 function categoryToSkuCode(categorySlug: string) {
   const category = catalogRegistry.find((item) => item.slug === categorySlug);
   const source = category?.title || categorySlug || "parts";
@@ -560,8 +568,8 @@ export default function AdminCatalogPage() {
     );
   }
 
-  function buildAutoSlug(name: string, current: EditorState) {
-    return makeUniqueIdentifier(productNameToSlug(name), getTakenSlugs(current));
+  function buildAutoSlug(product: ProductForm, current: EditorState) {
+    return makeUniqueIdentifier(productToSlugBase(product), getTakenSlugs(current));
   }
 
   function buildAutoSku(name: string, category: string, current: EditorState) {
@@ -585,12 +593,21 @@ export default function AdminCatalogPage() {
 
       if (field === "name") {
         const name = String(value);
-        if (autoSlugEnabled) next.product.slug = buildAutoSlug(name, current);
         if (autoSkuEnabled) next.product.sku = buildAutoSku(name, product.category, current);
+        if (autoSlugEnabled) next.product.slug = buildAutoSlug(next.product, current);
+      }
+
+      if (field === "brand" && autoSlugEnabled) {
+        next.product.slug = buildAutoSlug(next.product, current);
       }
 
       if (field === "category" && autoSkuEnabled) {
         next.product.sku = buildAutoSku(product.name, String(value), current);
+        if (autoSlugEnabled) next.product.slug = buildAutoSlug(next.product, current);
+      }
+
+      if (field === "sku" && autoSlugEnabled) {
+        next.product.slug = buildAutoSlug(next.product, current);
       }
 
       return next;
@@ -602,7 +619,7 @@ export default function AdminCatalogPage() {
       ...current,
       product: {
         ...current.product,
-        slug: buildAutoSlug(current.product.name, current),
+        slug: buildAutoSlug(current.product, current),
       },
     }));
     setAutoSlugEnabled(true);
@@ -1096,7 +1113,7 @@ export default function AdminCatalogPage() {
                     placeholder="front-brake-kit"
                   />
                   <p className="mt-1 text-xs text-white/45">
-                    {autoSlugEnabled ? "Auto-updates from product name until edited." : "Manual override active."}
+                    {autoSlugEnabled ? "Auto-updates from brand/name/SKU until edited." : "Manual override active."}
                   </p>
                 </div>
                 <div>
