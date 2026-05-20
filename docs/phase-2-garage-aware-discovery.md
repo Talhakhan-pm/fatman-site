@@ -310,6 +310,7 @@ Phase 2 V1 is successful when:
 Current partial success already achieved:
 - PDPs can now lead to other compatible products
 - vehicle-aware discovery is now visible in at least one real storefront surface
+- customer-facing fitment confidence rules are now written down in `docs/fitment-ux-rule-set.md`
 
 Still needed to call V1 truly complete:
 - fitment/discovery gate behavior is tightened further wherever legacy fallback still distorts verdicts

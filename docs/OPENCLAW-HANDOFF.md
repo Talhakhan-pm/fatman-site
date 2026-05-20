@@ -24,6 +24,7 @@ If working from another machine or VPS:
 2. `README.md`
 3. `Claude/Claude.md`
 4. `docs/phase-2-garage-aware-discovery.md`
+5. `docs/fitment-ux-rule-set.md`
 
 ---
 
