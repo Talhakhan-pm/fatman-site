@@ -240,10 +240,13 @@ The first Phase 2 slice is now in the repo:
   - placeholder media states made more intentional
 
 ### Important caveat discovered during testing
-The new discovery layer works, but some live DB fitment combinations still do not surface cleanly because parts of the fitment path still depend on catalog-aware / legacy assumptions.
+The new discovery layer initially missed some live DB fitment combinations because parts of the fitment path still depended on catalog-aware / legacy assumptions.
 
-That means the next slice should not blindly keep stacking new UI on top.
-The fitment/discovery gate should be tightened first.
+That issue has now been partially addressed by removing the catalog-presence gate from discovery + DB fitment lookup entry points.
+
+Remaining caveat:
+- fitment still has hybrid fallback behavior in some verdict paths
+- more cleanup is still justified, but the most obvious discovery choke point is no longer blocking progress to broader Phase 2 UI work
 
 ## Implementation order
 
@@ -260,8 +263,16 @@ This now exists and becomes the foundation for:
 ### Slice 2
 Tighten the fitment/discovery gate so live DB-backed compatible products are trusted more directly where appropriate.
 
+Status: **done as first pass**
+
 ### Slice 3
 Add category fitment-aware ordering / filtering.
+
+Status: **baseline done**
+
+Current behavior:
+- when a vehicle is selected, category relevance now sorts `fits` first, then `verify`, then `no-fit`
+- category UI now communicates that it is showing best matches for the selected vehicle
 
 ### Slice 4
 Add homepage **Compatible Products for Your Vehicle** and/or **Shop Categories for Your Vehicle**.
@@ -285,14 +296,18 @@ Current partial success already achieved:
 - vehicle-aware discovery is now visible in at least one real storefront surface
 
 Still needed to call V1 truly complete:
-- category pages prioritize products that fit the selected vehicle
 - homepage surfaces compatible discovery intentionally
-- fitment/discovery gate behavior is tightened so live DB-compatible products surface more reliably
+- fitment/discovery gate behavior is tightened further wherever legacy fallback still distorts verdicts
+- the vehicle-aware browsing experience is strong across homepage, category pages, and PDPs together
 
 ---
 
 ## Best immediate next build task
 
-**Tighten the fitment/discovery gate, then apply fitment-aware ordering to category pages.**
+**Add homepage garage-aware discovery.**
 
-That is now the cleanest next step because the compatible-product retrieval layer already exists and PDP discovery is already live.
+That is now the cleanest next step because:
+- compatible-product retrieval already exists
+- PDP discovery is already live
+- category pages now have fitment-aware ordering
+- homepage is the next major surface that still needs to react meaningfully to the selected vehicle

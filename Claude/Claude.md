@@ -219,13 +219,15 @@ Verified in recent work:
 - admin save/load/upload works on Vercel
 - storefront reads live Supabase products correctly
 - production is less split-brain than before
-- Phase 2 garage-aware discovery is now started, not just planned
+- Phase 2 garage-aware discovery is now underway, not just planned
 - server-side compatible-product retrieval now exists in:
   - `src/lib/discovery-db.ts`
 - PDPs can now show fitment-aware related products via:
   - `src/components/product/compatible-products.tsx`
   - `/api/discovery/compatible-products`
 - current shipped behavior: if no vehicle is selected, the compatible-products module hides entirely instead of falling back to generic recommendations
+- the discovery gate has been tightened so normalized live DB fitment can surface without requiring catalog-presence checks first
+- category pages now sort by fitment relevance when a vehicle is selected (`fits` first, then `verify`, then `no-fit`)
 
 Important caveat:
 - browser-created test product had `0 fitment rows` and still saved/published correctly as a product
@@ -243,12 +245,13 @@ There is still a hybrid state between:
 
 However, production storefront catalog reads are now stricter and no longer silently fall back to source-file catalog data when Supabase live reads fail. The remaining split-truth risk is mostly around development fallback behavior and any flows that still intentionally rely on generated source data.
 
-### B) Fitment/discovery gate mismatch
-The new compatible-product discovery layer works, but some live DB fitment combinations still do not surface cleanly because parts of the fitment path still depend on catalog-aware / legacy assumptions.
+### B) Fitment/discovery still has hybrid behavior
+The most obvious catalog-presence choke point has now been removed from discovery + DB fitment lookups, which fixed at least one previously failing live DB-compatible case.
 
-Practical consequence:
-- some vehicle + category combinations that exist in live `fitment_rules` may still return no compatible products through discovery
-- before broadening Phase 2 UI further, this gate should be tightened so live DB-backed fitment is trusted more directly where appropriate
+Remaining reality:
+- fitment still has legacy fallback behavior in verdict paths
+- category ordering is now fitment-aware, but homepage is not yet vehicle-aware
+- further cleanup should keep pushing verdict and discovery behavior toward live DB-backed truth where appropriate
 
 ### C) Admin sync-state clarity
 The admin UI still needs clearer messaging for:
@@ -274,28 +277,27 @@ Continue **Phase 2**, but do it in the right order.
 - compatible-product retrieval layer
 - PDP **Also fits your vehicle** module
 - first UI polish pass for the garage-aware PDP flow
+- fitment/discovery gate loosened so normalized live DB fitment is trusted more directly in discovery + DB verdict lookups
+- category-page fitment-aware ordering/filtering baseline
 
 ### Best next target
-**Tighten fitment/discovery source-of-truth behavior, then add category-page fitment-aware ordering**
+**Homepage garage-aware discovery**
 
 Review next:
-- `src/lib/fitment-db.ts`
+- `src/app/page.tsx`
 - `src/lib/discovery-db.ts`
-- `src/app/api/fitment/check/route.ts`
-- `src/app/api/fitment/check-batch/route.ts`
-- `src/components/category-product-grid.tsx`
+- `src/lib/catalog-db.ts`
+- any new homepage discovery component(s)
 
 Why this should be next:
 - PDP compatible discovery is already real
-- category pages are where real browsing happens
-- some discovery results are still undercut by legacy/catalog-aware fitment gates
-- once category pages sort by fitment state, selected-vehicle shopping becomes much more meaningful than just badges + one PDP module
+- category browsing is now fitment-aware
+- homepage is the next major storefront surface that still does not fully respond to selected vehicle state
 
 ### Remaining Phase 2 direction
-- tighten fitment/discovery source-of-truth behavior
-- category-page fitment-aware ordering/filtering
 - homepage **Compatible Products for Your Vehicle**
 - homepage or category **Shop Categories for Your Vehicle**
+- possible stronger fitment-only browsing controls on category pages
 - only after that, broaden into generic merchandising modules like featured/new
 
 Current Phase 2 principle:
@@ -323,6 +325,7 @@ Recent relevant commits:
 - `89ef5b2` Ignore tmp fitment cache
 - `76d37b3` Add garage-aware compatible product discovery
 - `6d9ceb3` Polish garage-aware PDP discovery UI
+- latest: add fitment-aware category ordering
 
 ---
 

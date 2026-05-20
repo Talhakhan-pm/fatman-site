@@ -118,19 +118,22 @@ Also verified:
 - remote product images from Supabase Storage render correctly
 - production admin no longer requires repeated developer-tools header pasting once session unlock is in place
 
-### Phase 2, started
-The first garage-aware discovery slice is now shipped:
+### Phase 2, underway
+Garage-aware discovery now has two real slices shipped:
 - server-side compatible-product retrieval layer lives in `src/lib/discovery-db.ts`
 - API route lives at `/api/discovery/compatible-products`
 - PDPs can now show **Also fits your vehicle** for selected-vehicle matches in the same category
 - if no vehicle is selected, the module stays hidden instead of falling back to generic recommendations
 - the first UI polish pass is also done for this flow (badge contrast, tighter related-products layout, shorter garage labels, better placeholder states)
+- the fitment/discovery gate has been loosened to trust normalized live DB fitment more directly instead of requiring catalog-presence checks first
+- category pages now sort by fitment relevance when a vehicle is selected (`fits` first, then `verify`, then `no-fit`)
 
 ## Current risks / known gaps
 
 - fitment still has hybrid behavior and fallback logic in some places
-- garage-aware discovery is now real, but not every live DB fitment row will surface cleanly yet because some fitment flows are still gated by legacy/catalog-aware assumptions
-- homepage and category pages are not garage-aware yet
+- the biggest catalog-aware discovery choke point is improved, but fitment still has legacy fallback behavior in verdict paths
+- homepage is not garage-aware yet
+- category pages are now fitment-aware for ordering, but not yet deeply merchandised
 - catalog quality is still separate from infrastructure quality
 - admin/live-state messaging can still be clearer
 - some generated-source assumptions still exist outside the ideal live-data path
@@ -147,33 +150,31 @@ Current principle:
 ## Next recommended work
 
 ### Best next target
-**Category-page fitment-aware ordering, after tightening the fitment gate/source-of-truth path**
+**Homepage garage-aware discovery**
 
 Recommended immediate sequence:
-1. tighten the fitment/discovery gate so live DB-compatible products are trusted more directly where appropriate
-2. make category pages reorder products by fitment state (`fits` first, then `verify`, then `no-fit`)
-3. optionally add a stronger `Verified Fit` / `Show only fits` browsing mode
-4. then move to homepage compatible-product merchandising
+1. add homepage **Compatible Products for Your Vehicle**
+2. optionally add **Shop Categories for Your Vehicle**
+3. decide whether to expose `verify` products in a clearly lower-confidence secondary module or keep homepage `fits`-only
+4. after that, broaden into featured/new merchandising only if it does not dilute the fitment-first UX
 
 Files most worth reviewing next:
-- `src/lib/fitment-db.ts`
+- `src/app/page.tsx`
 - `src/lib/discovery-db.ts`
-- `src/app/api/fitment/check/route.ts`
-- `src/app/api/fitment/check-batch/route.ts`
-- `src/components/category-product-grid.tsx`
+- `src/lib/catalog-db.ts`
+- `src/components/garage-provider.tsx`
 
 Why:
-- PDP compatible discovery is already live
-- category pages are where real browsing happens
-- fitment trust becomes much more valuable when it changes product ordering, not just badges and one PDP module
+- PDP discovery is already live
+- category browsing is now fitment-aware
+- homepage is the next major surface that still does not fully respond to selected vehicle state
 
 ## Phase roadmap from here
 
 ### Remaining Phase 2
-- tighten fitment/source-of-truth behavior for discovery
-- category-page fitment-aware ordering/filtering
 - homepage **Compatible Products for Your Vehicle**
 - homepage or category **Shop Categories for Your Vehicle**
+- possible deeper category filtering / fitment-only browsing controls
 - later, broader merchandising modules (featured/new) once vehicle-aware discovery is stronger
 
 ### Phase 3

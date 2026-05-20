@@ -2,7 +2,6 @@ import "server-only";
 
 import { createSupabaseServerClient } from "@/lib/supabase";
 import {
-  isVehicleInCatalog,
   normalizeVehicle,
   type FitmentState,
   type Vehicle,
@@ -73,7 +72,7 @@ export async function getCompatibleProductsForVehicle(
   options: CompatibleProductsOptions = {},
 ): Promise<CompatibleProduct[]> {
   const normalized = normalizeVehicle(vehicle);
-  if (!normalized || !isVehicleInCatalog(normalized)) return [];
+  if (!normalized) return [];
 
   const requestedLimit = options.limit ?? DEFAULT_LIMIT;
   const limit = Math.max(1, Math.min(MAX_LIMIT, requestedLimit));

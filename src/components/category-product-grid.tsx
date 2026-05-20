@@ -5,6 +5,13 @@ import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import { useFitmentBatch } from "@/components/use-fitment";
 import type { Product } from "@/lib/catalog";
+import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment";
+
+const FITMENT_SORT_RANK: Record<FitmentState, number> = {
+  fits: 0,
+  verify: 1,
+  "no-fit": 2,
+};
 
 export function CategoryProductGrid({ products }: { products: Product[] }) {
   const { vehicle } = useGarage();
@@ -23,11 +30,24 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
     if (oemOnly) rows = rows.filter((p) => p.brand.toLowerCase().includes("oem"));
     if (verifiedFitOnly) rows = rows.filter((p) => fitments[p.slug] === "fits");
 
-    if (sort === "price-asc") rows.sort((a, b) => a.price - b.price);
-    if (sort === "price-desc") rows.sort((a, b) => b.price - a.price);
+    if (sort === "relevance") {
+      if (vehicle) {
+        rows.sort((a, b) => {
+          const fitmentDelta = FITMENT_SORT_RANK[fitments[a.slug]] - FITMENT_SORT_RANK[fitments[b.slug]];
+          if (fitmentDelta !== 0) return fitmentDelta;
+          return a.name.localeCompare(b.name);
+        });
+      }
+    } else if (sort === "price-asc") {
+      rows.sort((a, b) => a.price - b.price);
+    } else if (sort === "price-desc") {
+      rows.sort((a, b) => b.price - a.price);
+    }
 
     return rows;
-  }, [products, inStockOnly, oemOnly, verifiedFitOnly, sort, fitments]);
+  }, [products, inStockOnly, oemOnly, verifiedFitOnly, sort, fitments, vehicle]);
+
+  const fitCount = filtered.filter((product) => fitments[product.slug] === "fits").length;
 
   return (
     <>
@@ -40,7 +60,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
             OEM
           </button>
           <button onClick={() => setVerifiedFitOnly((v) => !v)} className={`rounded-full border px-3 py-1.5 transition ${verifiedFitOnly ? "border-fatman-accent bg-fatman-accent/20 text-white" : "border-white/15 bg-white/5 text-white/80"}`}>
-            Verified Fit
+            Fits Only
           </button>
 
           <select
@@ -56,7 +76,14 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 pb-10">
-        <div className="mb-3 text-sm text-white/65">{filtered.length} products</div>
+        <div className="mb-3 space-y-1 text-sm text-white/65">
+          <div>{filtered.length} products</div>
+          {vehicle ? (
+            <div className="text-xs text-white/60">
+              Showing best matches for {formatCompactVehicleLabel(vehicle)}. {fitCount} confirmed fits in this view.
+            </div>
+          ) : null}
+        </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {filtered.map((product) => (
             <ProductCard

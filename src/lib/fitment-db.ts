@@ -3,7 +3,6 @@ import "server-only";
 import { createSupabaseServerClient } from "@/lib/supabase";
 import {
   getFitmentState as getLegacyFitmentState,
-  isVehicleInCatalog,
   normalizeVehicle,
   type FitmentState,
   type Vehicle,
@@ -41,7 +40,7 @@ export async function getFitmentStatesFromDb(
   const normalized = normalizeVehicle(vehicle);
 
   if (!uniqueSlugs.length) return fallback;
-  if (!normalized || !isVehicleInCatalog(normalized)) return fallback;
+  if (!normalized) return fallback;
 
   try {
     const supabase = createSupabaseServerClient();
