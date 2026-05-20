@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useGarage } from "./garage-provider";
 import { useTheme } from "./theme-provider";
+import { useCart } from "./cart-provider";
 import { catalogRegistry } from "@/lib/catalog-registry";
 import { formatCompactVehicleLabel, formatVehicleLabel } from "@/lib/fitment";
 
@@ -18,11 +19,15 @@ const navItems = [
 export function SiteHeader() {
   const { vehicle } = useGarage();
   const { theme, toggleTheme } = useTheme();
+  const { itemCount, mounted: cartMounted } = useCart();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const isDark = theme === "dark";
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setMounted(true), 0);
+    return () => window.clearTimeout(timer);
+  }, []);
 
   const desktopLogoSrc = !mounted ? "/brand/fatman-compact-horizontal-dark.png" : isDark ? "/brand/fatman-compact-horizontal.png" : "/brand/fatman-compact-horizontal-dark.png";
 
@@ -34,7 +39,16 @@ export function SiteHeader() {
           <Image src={desktopLogoSrc} alt="Fatman Parts" width={1265} height={383} priority className="block h-8 w-auto object-contain sm:hidden" />
         </Link>
         <nav className="hidden gap-5 text-sm text-white/85 md:flex">
-          {navItems.map((item) => <Link key={item.href} href={item.href} className="transition hover:text-white">{item.label}</Link>)}
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href} className="relative transition hover:text-white">
+              {item.label}
+              {item.href === "/cart" && cartMounted && itemCount > 0 ? (
+                <span className="absolute -right-3 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-fatman-accent px-1 text-[10px] font-black text-fatman-900">
+                  {itemCount}
+                </span>
+              ) : null}
+            </Link>
+          ))}
         </nav>
         <div className="hidden items-center gap-3 md:flex">
           <button onClick={toggleTheme} className="rounded-md border border-white/15 px-2.5 py-1.5 text-xs text-white/80 transition hover:bg-white/10">Toggle theme</button>
@@ -51,7 +65,14 @@ export function SiteHeader() {
       {open && (
         <div className="border-t border-white/10 bg-fatman-900 md:hidden">
           <div className="mx-auto max-w-6xl space-y-2 px-6 py-3">
-            {navItems.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="block rounded-md px-2 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white">{item.label}</Link>)}
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className="flex items-center justify-between rounded-md px-2 py-2 text-sm text-white/85 transition hover:bg-white/10 hover:text-white">
+                <span>{item.label}</span>
+                {item.href === "/cart" && cartMounted && itemCount > 0 ? (
+                  <span className="rounded-full bg-fatman-accent px-2 py-0.5 text-xs font-black text-fatman-900">{itemCount}</span>
+                ) : null}
+              </Link>
+            ))}
             <button onClick={toggleTheme} className="w-full rounded-md border border-white/15 px-2 py-2 text-left text-xs text-white/80">Toggle theme</button>
             <div className="rounded-md bg-white/5 px-2 py-2 text-xs text-white/70" title={vehicle ? formatVehicleLabel(vehicle) : undefined}>
               {vehicle ? `Garage: ${formatCompactVehicleLabel(vehicle)}` : "Garage: not selected"}
