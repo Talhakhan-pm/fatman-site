@@ -277,8 +277,15 @@ Current behavior:
 ### Slice 4
 Add homepage **Compatible Products for Your Vehicle** and/or **Shop Categories for Your Vehicle**.
 
+Status: **first homepage module done**
+
+Current behavior:
+- homepage now surfaces **Compatible Products for Your Vehicle**
+- the module only shows confirmed-fit products
+- if no confirmed-fit products exist for the selected vehicle, homepage shows an honest empty state instead of fake fallback matches
+
 ### Slice 5
-Broaden garage-aware merchandising only after the above is solid.
+Add **Shop Categories for Your Vehicle** and broaden homepage garage-aware merchandising only after the above is solid.
 
 ---
 
@@ -296,7 +303,7 @@ Current partial success already achieved:
 - vehicle-aware discovery is now visible in at least one real storefront surface
 
 Still needed to call V1 truly complete:
-- homepage surfaces compatible discovery intentionally
+- homepage discovery broadens beyond a single compatible-products module
 - fitment/discovery gate behavior is tightened further wherever legacy fallback still distorts verdicts
 - the vehicle-aware browsing experience is strong across homepage, category pages, and PDPs together
 
@@ -304,10 +311,10 @@ Still needed to call V1 truly complete:
 
 ## Best immediate next build task
 
-**Add homepage garage-aware discovery.**
+**Add homepage “Shop Categories for Your Vehicle”.**
 
 That is now the cleanest next step because:
 - compatible-product retrieval already exists
 - PDP discovery is already live
 - category pages now have fitment-aware ordering
-- homepage is the next major surface that still needs to react meaningfully to the selected vehicle
+- homepage already has its first compatible-products module and can now be broadened into a more complete vehicle-aware discovery surface

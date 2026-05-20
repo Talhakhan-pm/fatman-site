@@ -69,7 +69,7 @@ Phase 2 has started and already shipped its first slice.
 - placeholder media states made more intentional
 - placeholder eyebrow text like `BLAH BLAH` no longer blindly leaks through on PDP
 
-### New slice now started and effectively implemented
+### New slices now implemented
 - the most obvious fitment/discovery catalog-presence gate has been removed from:
   - `src/lib/discovery-db.ts`
   - `src/lib/fitment-db.ts`
@@ -78,6 +78,10 @@ Phase 2 has started and already shipped its first slice.
   - `verify` second
   - `no-fit` last
 - category UI now communicates that it is showing best matches for the selected vehicle
+- homepage now has a **Compatible Products for Your Vehicle** module driven by the same discovery flow
+- homepage behavior stays honest:
+  - confirmed fits show as product cards
+  - no-fit-data cases show an empty-state message instead of fake fallback matches
 
 ---
 
@@ -93,6 +97,7 @@ Original issue:
 Current state:
 - the most obvious choke point has now been fixed
 - at least one previously failing live DB-compatible case now returns correctly through `/api/discovery/compatible-products`
+- homepage compatible-products behavior is now data-honest, which means some vehicles will still show empty states when live fitment rows are missing for that exact case
 - however, fitment still has hybrid fallback behavior in some verdict paths
 
 So the caveat is smaller now, but not fully gone.
@@ -102,15 +107,13 @@ So the caveat is smaller now, but not fully gone.
 ## 6) Exact next recommended task
 
 ### Next implementation slice
-**Homepage garage-aware discovery**
+**Homepage “Shop Categories for Your Vehicle”**
 
 That means:
-1. use the existing compatible-product retrieval layer on homepage
-2. add a module like:
-   - **Compatible Products for Your Vehicle**
-3. optionally add:
-   - **Shop Categories for Your Vehicle**
-4. keep the homepage honest:
+1. use selected vehicle state to rank or surface relevant categories on homepage
+2. keep homepage discovery fitment-first, not generic-featured-first
+3. decide whether category counts should reflect confirmed-fit products only or a broader relevance mix
+4. keep homepage honest:
    - no selected vehicle → normal merchandising
    - selected vehicle → fitment-aware discovery
    - do not overclaim `verify` as `fits`
@@ -118,7 +121,7 @@ That means:
 ### Why this is next
 - PDP compatible discovery is already shipped
 - category browsing is now fitment-aware
-- homepage is the next major storefront surface that still does not respond strongly enough to selected vehicle state
+- homepage now has its first compatible-products module, so the next logical expansion is category-aware vehicle discovery on that same surface
 
 ---
 
@@ -200,6 +203,7 @@ Every OpenClaw finishing a Fatman task should report back in this format:
 - `76d37b3` `Add garage-aware compatible product discovery`
 - `6d9ceb3` `Polish garage-aware PDP discovery UI`
 - `7b14e67` `Refresh Fatman phase docs`
-- latest: `Add fitment-aware category ordering`
+- `9f431a4` `Add fitment-aware category ordering`
+- latest: `Add homepage compatible products`
 
 Update this list when a new slice materially changes project state.

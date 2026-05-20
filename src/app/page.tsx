@@ -5,6 +5,7 @@
 import Link from "next/link";
 import { HeroRotatingText } from "@/components/hero-rotating-text";
 import { FitmentModuleV2 } from "@/components/fitment-module-v2";
+import { HomepageCompatibleProducts } from "@/components/homepage-compatible-products";
 import { getCategories } from "@/lib/catalog-db";
 import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
 
@@ -137,6 +138,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      <HomepageCompatibleProducts />
       <section className="relative bg-[#111318] py-20 sm:py-28">
         <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
           <div className="mb-14 text-center">
