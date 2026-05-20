@@ -6,20 +6,10 @@ import { FitmentBadge } from "./fitment-badge";
 import { useFitment } from "./use-fitment";
 import { useGarage } from "./garage-provider";
 import type { FitmentState } from "@/lib/fitment";
-import { formatPrice } from "@/lib/catalog";
+import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
-
-type Product = {
-  slug: string;
-  name: string;
-  brand: string;
-  price: number;
-  compareAt?: number;
-  stock: "in-stock" | "low-stock" | "preorder";
-  category: "engines" | "brakes" | "oem-parts" | "drivetrain" | "cooling" | "electrical" | "suspension";
-  imageUrl?: string;
-};
+import { useCart } from "@/components/cart-provider";
 
 function StockBadge({ stock }: { stock: Product["stock"] }) {
   if (stock === "in-stock") {
@@ -39,6 +29,7 @@ export function ProductCard({
   fitmentState?: FitmentState;
 }) {
   const { vehicle } = useGarage();
+  const { addItem } = useCart();
   const fitment = useFitment(product.slug, vehicle, fitmentState);
   const hasSavings = typeof product.compareAt === "number" && product.compareAt > product.price;
   const media = getProductDisplayMedia(product);
@@ -90,7 +81,10 @@ export function ProductCard({
           {hasSavings && <p className="text-xs text-white/55 line-through">{formatPrice(product.compareAt ?? 0)}</p>}
         </div>
         <button
-          onClick={() => track("add_to_cart", { slug: product.slug, price: product.price })}
+          onClick={() => {
+            addItem(product);
+            track("add_to_cart", { slug: product.slug, price: product.price });
+          }}
           className="rounded-lg bg-fatman-accent px-3 py-2 text-xs font-semibold transition hover:bg-fatman-accent-hover"
         >
           Add to Cart

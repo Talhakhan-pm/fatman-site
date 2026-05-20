@@ -10,6 +10,7 @@ import { CompatibleProducts } from "@/components/product/compatible-products";
 import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
+import { useCart } from "@/components/cart-provider";
 
 function getProductEyebrow(product: Product) {
   const brand = product.brand.trim();
@@ -21,6 +22,7 @@ function getProductEyebrow(product: Product) {
 
 export function ProductPageClient({ product }: { product: Product }) {
   const { vehicle } = useGarage();
+  const { addItem } = useCart();
   const fitment = useFitment(product.slug, vehicle);
   const media = getProductDisplayMedia(product);
   const categoryLabel = product.category.replace(/-/g, " ");
@@ -99,7 +101,10 @@ export function ProductPageClient({ product }: { product: Product }) {
           <div className="mt-6 flex items-center gap-3">
             <p className="text-3xl font-black">{formatPrice(product.price)}</p>
             <button
-              onClick={() => track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp" })}
+              onClick={() => {
+                addItem(product);
+                track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp" });
+              }}
               className="rounded-lg bg-fatman-accent px-5 py-3 text-sm font-semibold transition hover:bg-fatman-accent-hover"
             >
               Add to Cart
@@ -134,7 +139,10 @@ export function ProductPageClient({ product }: { product: Product }) {
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <p className="text-lg font-black">{formatPrice(product.price)}</p>
           <button
-            onClick={() => track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp_sticky" })}
+            onClick={() => {
+              addItem(product);
+              track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp_sticky" });
+            }}
             className="rounded-lg bg-fatman-accent px-4 py-2 text-sm font-semibold"
           >
             Add to Cart

@@ -5,6 +5,7 @@ import { GarageProvider } from "@/components/garage-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { CartProvider } from "@/components/cart-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,9 +69,11 @@ export default function RootLayout({
       <body data-theme="dark" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
           <GarageProvider>
-            <SiteHeader />
-            {children}
-            <SiteFooter />
+            <CartProvider>
+              <SiteHeader />
+              {children}
+              <SiteFooter />
+            </CartProvider>
           </GarageProvider>
         </ThemeProvider>
       </body>
