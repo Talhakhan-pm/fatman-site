@@ -1,4 +1,4 @@
-import { InfoCard, InfoGrid, InfoPage, InfoSection } from "@/components/info-page";
+import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
 
 export const metadata = {
   title: "Payment Methods",
@@ -9,31 +9,39 @@ export default function PaymentMethodsPage() {
     <InfoPage
       eyebrow="Checkout"
       title="Payment Methods"
-      description="Checkout should feel boring in the best way: clear totals, secure processing, and no sketchy surprises."
+      description="Fatman Parts LLC supports the common payment methods customers expect in the U.S., with secure processing and clear checkout totals."
       cta={{ href: "/cart", label: "View cart" }}
     >
       <InfoGrid>
-        <InfoCard title="Cards">
+        <InfoCard title="Credit & debit cards">
           <p>
-            We plan to support major credit and debit cards through a secure payment processor. Card details are handled by the payment provider, not stored directly by Fatman Parts.
+            We accept major U.S. card networks including Visa, Mastercard, American Express, and Discover through a secure payment processor.
           </p>
         </InfoCard>
         <InfoCard title="Digital wallets">
           <p>
-            Where available, wallet options such as Apple Pay, Google Pay, or similar accelerated checkout methods may appear based on device, browser, and payment provider support.
+            Where available, Apple Pay, Google Pay, PayPal, and other common accelerated checkout options may appear based on your device, browser, and payment provider support.
           </p>
         </InfoCard>
       </InfoGrid>
 
       <InfoSection title="Payment security">
         <p>
-          Payment information is processed through encrypted checkout flows. We use order and contact details to process transactions, support customers, prevent fraud, and fulfill shipments.
+          Payment information is processed through encrypted checkout flows. Fatman Parts does not directly store full credit card numbers on its own servers.
         </p>
       </InfoSection>
 
-      <InfoSection title="Payment issues">
+      <InfoSection title="Why a payment may fail">
+        <InfoList
+          items={[
+            "Billing address or ZIP code mismatch.",
+            "Bank fraud protection or spending limits.",
+            "Expired card or insufficient funds.",
+            "Browser/device wallet verification failure.",
+          ]}
+        />
         <p>
-          If a payment fails, double-check billing details, card limits, and bank fraud alerts. If the issue continues, contact support with the item you’re trying to order and we’ll help you troubleshoot.
+          If payment keeps failing, contact help@fatmanparts.com with the item you’re trying to order and we’ll help troubleshoot.
         </p>
       </InfoSection>
     </InfoPage>

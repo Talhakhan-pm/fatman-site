@@ -64,12 +64,15 @@ export function SiteFooter() {
             <p className="mt-3 max-w-sm text-sm text-white/70">
               OEM confidence. Fast dispatch. Zero guesswork.
             </p>
+            <p className="mt-3 max-w-sm text-xs leading-5 text-white/45">
+              Fatman Parts LLC · 6779 Beadnell Way, San Diego, CA 92117 · help@fatmanparts.com
+            </p>
 
             <div className="mt-6 grid gap-3">
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">
                 <p className="text-sm font-semibold text-white">Need help choosing a part?</p>
                 <p className="mt-1 text-sm text-white/70">
-                  Use Fitment / VIN Help for quick guidance, or reach us through the contact page.
+                  Use Fitment / VIN Help for quick guidance, or email help@fatmanparts.com.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link
@@ -89,6 +92,7 @@ export function SiteFooter() {
 
               <div className="flex flex-wrap gap-2 text-xs text-white/50">
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Secure checkout</span>
+                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Visa / Mastercard / Amex / Discover</span>
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Fast dispatch</span>
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">Clear fitment states</span>
               </div>
