@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { isAllowedAdminRequest } from "@/lib/admin-api";
-import { upsertLocalCatalogRecord } from "@/lib/admin-catalog-local-store";
+import {
+  listLocalCatalogRecords,
+  upsertLocalCatalogRecord,
+} from "@/lib/admin-catalog-local-store";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
 const FITMENT_CHUNK_SIZE = 500;
@@ -71,6 +74,10 @@ type FitmentInput = {
 };
 
 type Payload = {
+  identity?: {
+    originalSlug?: string | null;
+    originalSku?: string | null;
+  };
   product?: ProductInput;
   category?: CategoryInput;
   fitment?: FitmentInput[];
@@ -116,6 +123,18 @@ type NormalizedFitment = {
   notes: string | null;
 };
 
+type ProductIdentity = {
+  provided: boolean;
+  originalSlug: string | null;
+  originalSku: string | null;
+};
+
+type ExistingProductRow = {
+  id: string;
+  slug: string;
+  sku: string;
+};
+
 type ValidationResult<T> =
   | { ok: true; value: T }
   | { ok: false; error: string };
@@ -126,6 +145,37 @@ function badRequest(error: string, details?: unknown) {
 
 function normalizeString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
+}
+
+function getProductIdentity(body: Payload): ProductIdentity {
+  return {
+    provided: Object.prototype.hasOwnProperty.call(body, "identity"),
+    originalSlug: normalizeString(body.identity?.originalSlug) || null,
+    originalSku: normalizeString(body.identity?.originalSku) || null,
+  };
+}
+
+function isIdentityMatch(row: Pick<ExistingProductRow, "slug" | "sku">, identity: ProductIdentity) {
+  return Boolean(
+    (identity.originalSlug && row.slug === identity.originalSlug) ||
+      (identity.originalSku && row.sku === identity.originalSku),
+  );
+}
+
+function findIdentifierConflict(
+  rows: Array<Pick<ExistingProductRow, "slug" | "sku">>,
+  productInput: NormalizedProduct,
+  identity: ProductIdentity,
+) {
+  if (!identity.provided) return null;
+
+  for (const row of rows) {
+    if (isIdentityMatch(row, identity)) continue;
+    if (row.slug === productInput.slug) return `Slug already exists: ${productInput.slug}`;
+    if (row.sku === productInput.sku) return `SKU already exists: ${productInput.sku}`;
+  }
+
+  return null;
 }
 
 function validateProduct(input: ProductInput | undefined): ValidationResult<NormalizedProduct> {
@@ -251,6 +301,7 @@ async function saveLocalFallback(
   replaceFitment: boolean,
   stage: string,
   error: string,
+  identity: ProductIdentity,
 ) {
   if (!LOCAL_FALLBACK_ENABLED) {
     return NextResponse.json(
@@ -260,6 +311,24 @@ async function saveLocalFallback(
         source: "supabase",
       },
       { status: 503 },
+    );
+  }
+
+  const localRecords = await listLocalCatalogRecords();
+  const localConflict = findIdentifierConflict(
+    localRecords.map((record) => record.product),
+    productInput,
+    identity,
+  );
+
+  if (localConflict) {
+    return NextResponse.json(
+      {
+        error: localConflict,
+        details: "Local development fallback blocked the save before writing because slug/SKU must be unique.",
+        source: "local",
+      },
+      { status: 409 },
     );
   }
 
@@ -321,6 +390,7 @@ export async function POST(req: Request) {
   const productResult = validateProduct(body.product);
   if (!productResult.ok) return badRequest(productResult.error);
   const productInput = productResult.value;
+  const identity = getProductIdentity(body);
 
   const categoryResult = validateCategory(body.category, productInput.category);
   if (!categoryResult.ok) return badRequest(categoryResult.error);
@@ -363,35 +433,94 @@ export async function POST(req: Request) {
           replaceFitment,
           "category_upsert",
           error.message,
+          identity,
         );
       }
     }
 
-    const { data: productRows, error: productError } = await withTimeout(
-      supabase
-        .from("products")
-        .upsert(
+    const productWrite = {
+      sku: productInput.sku,
+      slug: productInput.slug,
+      category_slug: productInput.category,
+      brand: productInput.brand,
+      name: productInput.name,
+      short_description: productInput.shortDescription,
+      price: productInput.price,
+      compare_at: productInput.compareAt,
+      stock_status: productInput.stock,
+      image_url: productInput.imageUrl,
+      shipping_class: productInput.shippingClass,
+      warranty_days: productInput.warrantyDays,
+      oem_part_number: productInput.oemPartNumber,
+      published: productInput.published,
+      metadata: productInput.metadata,
+    };
+
+    let currentProductId: string | null = null;
+
+    if (identity.provided) {
+      const identifierFilters = [
+        `slug.eq.${productInput.slug}`,
+        `sku.eq.${productInput.sku}`,
+        identity.originalSlug ? `slug.eq.${identity.originalSlug}` : null,
+        identity.originalSku ? `sku.eq.${identity.originalSku}` : null,
+      ].filter(Boolean);
+
+      const { data: existingRows, error: existingError } = await withTimeout(
+        supabase.from("products").select("id, slug, sku").or(identifierFilters.join(",")),
+        SUPABASE_TIMEOUT_MS,
+      );
+
+      if (existingError) {
+        return saveLocalFallback(
+          productInput,
+          fitmentInput,
+          replaceFitment,
+          "identifier_check",
+          existingError.message,
+          identity,
+        );
+      }
+
+      const rows = (existingRows ?? []) as ExistingProductRow[];
+      const currentRows = rows.filter((row) => isIdentityMatch(row, identity));
+      const currentIds = new Set(currentRows.map((row) => row.id));
+
+      if (currentIds.size > 1) {
+        return NextResponse.json(
           {
-            sku: productInput.sku,
-            slug: productInput.slug,
-            category_slug: productInput.category,
-            brand: productInput.brand,
-            name: productInput.name,
-            short_description: productInput.shortDescription,
-            price: productInput.price,
-            compare_at: productInput.compareAt,
-            stock_status: productInput.stock,
-            image_url: productInput.imageUrl,
-            shipping_class: productInput.shippingClass,
-            warranty_days: productInput.warrantyDays,
-            oem_part_number: productInput.oemPartNumber,
-            published: productInput.published,
-            metadata: productInput.metadata,
+            error: "Original slug/SKU point to different products",
+            details: "Reload the product before saving so uniqueness checks can exclude the correct current item.",
           },
-          { onConflict: "slug" },
-        )
-        .select("id, slug, published")
-        .limit(1),
+          { status: 409 },
+        );
+      }
+
+      currentProductId = currentRows[0]?.id ?? null;
+      const conflict = rows.find((row) => {
+        if (currentProductId && row.id === currentProductId) return false;
+        return row.slug === productInput.slug || row.sku === productInput.sku;
+      });
+
+      if (conflict) {
+        const field = conflict.slug === productInput.slug ? "Slug" : "SKU";
+        const value = conflict.slug === productInput.slug ? productInput.slug : productInput.sku;
+        return NextResponse.json(
+          {
+            error: `${field} already exists: ${value}`,
+            details: "Pick a unique slug/SKU or load the existing product before editing it.",
+          },
+          { status: 409 },
+        );
+      }
+    }
+
+    const productMutation = currentProductId
+      ? supabase.from("products").update(productWrite).eq("id", currentProductId)
+      : supabase.from("products").upsert(productWrite, { onConflict: "slug" });
+
+    const { data: productRows, error: productError } = await withTimeout(
+      productMutation.select("id, slug, published").limit(1),
       SUPABASE_TIMEOUT_MS,
     );
 
@@ -400,8 +529,9 @@ export async function POST(req: Request) {
         productInput,
         fitmentInput,
         replaceFitment,
-        "product_upsert",
+        currentProductId ? "product_update" : "product_upsert",
         productError.message,
+        identity,
       );
     }
 
@@ -411,8 +541,9 @@ export async function POST(req: Request) {
         productInput,
         fitmentInput,
         replaceFitment,
-        "product_upsert",
-        "Product upsert returned no row",
+        currentProductId ? "product_update" : "product_upsert",
+        "Product save returned no row",
+        identity,
       );
     }
 
@@ -431,6 +562,7 @@ export async function POST(req: Request) {
           replaceFitment,
           "fitment_delete",
           deleteError.message,
+          identity,
         );
       }
     }
@@ -462,6 +594,7 @@ export async function POST(req: Request) {
             replaceFitment,
             "fitment_insert",
             error.message,
+            identity,
           );
         }
         fitmentCount += chunk.length;
@@ -521,6 +654,7 @@ export async function POST(req: Request) {
       replaceFitment,
       "supabase_exception",
       formatSupabaseError(error),
+      identity,
     );
   }
 }

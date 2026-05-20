@@ -25,6 +25,10 @@ type ProductSummary = {
 };
 
 type UpsertPayload = {
+  identity?: {
+    originalSlug?: string | null;
+    originalSku?: string | null;
+  };
   product?: {
     sku?: string;
     slug?: string;
@@ -85,6 +89,8 @@ type FitmentForm = {
 
 type EditorState = {
   product: ProductForm;
+  originalSlug: string | null;
+  originalSku: string | null;
   fitment: FitmentForm[];
   replaceFitment: boolean;
 };
@@ -103,6 +109,62 @@ const ghostButtonClass =
 
 function createFitmentId() {
   return globalThis.crypto?.randomUUID?.() ?? `fitment-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function slugifyIdentifier(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
+function productNameToSlug(name: string) {
+  return slugifyIdentifier(name) || "new-product";
+}
+
+function productToSlugBase(product: ProductForm) {
+  const parts = [product.brand, product.name, product.sku]
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  return slugifyIdentifier(parts.join(" ")) || productNameToSlug(product.name);
+}
+
+function categoryToSkuCode(categorySlug: string) {
+  const category = catalogRegistry.find((item) => item.slug === categorySlug);
+  const source = category?.title || categorySlug || "parts";
+  const words = source.match(/[a-z0-9]+/gi) ?? ["parts"];
+  return words
+    .slice(0, 2)
+    .map((word) => word.slice(0, 3).toUpperCase())
+    .join("")
+    .slice(0, 6) || "PRT";
+}
+
+function productNameToSkuBase(name: string, categorySlug: string) {
+  const code = categoryToSkuCode(categorySlug);
+  const tokens = productNameToSlug(name)
+    .split("-")
+    .filter(Boolean)
+    .slice(0, 4)
+    .map((token) => token.slice(0, 4).toUpperCase());
+  return `FTM-${code}-${tokens.length ? tokens.join("-") : "NEW"}`;
+}
+
+function makeUniqueIdentifier(base: string, taken: Set<string>) {
+  const normalizedBase = base || "new-product";
+  if (!taken.has(normalizedBase.toLowerCase())) return normalizedBase;
+
+  for (let suffix = 2; suffix < 10000; suffix += 1) {
+    const candidate = `${normalizedBase}-${suffix}`;
+    if (!taken.has(candidate.toLowerCase())) return candidate;
+  }
+
+  return `${normalizedBase}-${Date.now().toString(36)}`;
 }
 
 function createBlankFitmentRow(): FitmentForm {
@@ -137,6 +199,8 @@ function createBlankEditor(): EditorState {
       oemPartNumber: "",
       published: true,
     },
+    originalSlug: null,
+    originalSku: null,
     fitment: [createBlankFitmentRow()],
     replaceFitment: true,
   };
@@ -227,6 +291,8 @@ const STARTER_EDITOR: EditorState = {
     oemPartNumber: "OEM-DEMO-9001",
     published: true,
   },
+  originalSlug: "demo-aluminum-radiator",
+  originalSku: "FTM-COL-9001",
   fitment: [
     {
       id: createFitmentId(),
@@ -268,6 +334,10 @@ function editorToPayload(editor: EditorState): UpsertPayload {
   );
 
   return {
+    identity: {
+      originalSlug: editor.originalSlug,
+      originalSku: editor.originalSku,
+    },
     product: {
       sku: product.sku.trim(),
       slug: product.slug.trim(),
@@ -319,6 +389,8 @@ function payloadToEditor(payload: UpsertPayload | null | undefined): EditorState
       oemPartNumber: product?.oemPartNumber ?? "",
       published: product?.published ?? true,
     },
+    originalSlug: product?.slug ?? null,
+    originalSku: product?.sku ?? null,
     fitment:
       fitment.length > 0
         ? fitment.map((row) =>
@@ -348,6 +420,8 @@ export default function AdminCatalogPage() {
   const [sessionError, setSessionError] = useState<string | null>(null);
   const [includeFitment, setIncludeFitment] = useState(true);
   const [editor, setEditor] = useState<EditorState>(STARTER_EDITOR);
+  const [autoSlugEnabled, setAutoSlugEnabled] = useState(false);
+  const [autoSkuEnabled, setAutoSkuEnabled] = useState(false);
   const [seedBusy, setSeedBusy] = useState(false);
   const [saveBusy, setSaveBusy] = useState(false);
   const [result, setResult] = useState<ApiResult | null>(null);
@@ -478,14 +552,88 @@ export default function AdminCatalogPage() {
     };
   }
 
+  function getTakenSlugs(current: EditorState) {
+    return new Set(
+      (products ?? [])
+        .filter((item) => item.slug !== current.originalSlug && item.sku !== current.originalSku)
+        .map((item) => item.slug.toLowerCase()),
+    );
+  }
+
+  function getTakenSkus(current: EditorState) {
+    return new Set(
+      (products ?? [])
+        .filter((item) => item.slug !== current.originalSlug && item.sku !== current.originalSku)
+        .map((item) => item.sku.toLowerCase()),
+    );
+  }
+
+  function buildAutoSlug(product: ProductForm, current: EditorState) {
+    return makeUniqueIdentifier(productToSlugBase(product), getTakenSlugs(current));
+  }
+
+  function buildAutoSku(name: string, category: string, current: EditorState) {
+    return makeUniqueIdentifier(productNameToSkuBase(name, category), getTakenSkus(current));
+  }
+
   function setProductField<K extends keyof ProductForm>(field: K, value: ProductForm[K]) {
+    if (field === "slug") setAutoSlugEnabled(false);
+    if (field === "sku") setAutoSkuEnabled(false);
+
+    setEditor((current) => {
+      const product = {
+        ...current.product,
+        [field]: value,
+      };
+
+      const next: EditorState = {
+        ...current,
+        product,
+      };
+
+      if (field === "name") {
+        const name = String(value);
+        if (autoSkuEnabled) next.product.sku = buildAutoSku(name, product.category, current);
+        if (autoSlugEnabled) next.product.slug = buildAutoSlug(next.product, current);
+      }
+
+      if (field === "brand" && autoSlugEnabled) {
+        next.product.slug = buildAutoSlug(next.product, current);
+      }
+
+      if (field === "category" && autoSkuEnabled) {
+        next.product.sku = buildAutoSku(product.name, String(value), current);
+        if (autoSlugEnabled) next.product.slug = buildAutoSlug(next.product, current);
+      }
+
+      if (field === "sku" && autoSlugEnabled) {
+        next.product.slug = buildAutoSlug(next.product, current);
+      }
+
+      return next;
+    });
+  }
+
+  function enableAutoSlug() {
     setEditor((current) => ({
       ...current,
       product: {
         ...current.product,
-        [field]: value,
+        slug: buildAutoSlug(current.product, current),
       },
     }));
+    setAutoSlugEnabled(true);
+  }
+
+  function enableAutoSku() {
+    setEditor((current) => ({
+      ...current,
+      product: {
+        ...current.product,
+        sku: buildAutoSku(current.product.name, current.product.category, current),
+      },
+    }));
+    setAutoSkuEnabled(true);
   }
 
   function setFitmentField(index: number, field: keyof FitmentForm, value: string) {
@@ -572,7 +720,13 @@ export default function AdminCatalogPage() {
     try {
       const response = await postJSON("/api/admin/catalog/upsert", draftPayload);
       if (response.ok) {
-        setLastLoadedSnapshot(JSON.stringify(editor));
+        const savedEditor: EditorState = {
+          ...editor,
+          originalSlug: editor.product.slug.trim(),
+          originalSku: editor.product.sku.trim(),
+        };
+        setEditor(savedEditor);
+        setLastLoadedSnapshot(JSON.stringify(savedEditor));
       }
     } finally {
       setSaveBusy(false);
@@ -610,7 +764,7 @@ export default function AdminCatalogPage() {
     }
   }
 
-  function maybeReplaceEditor(nextEditor: EditorState) {
+  function maybeReplaceEditor(nextEditor: EditorState, autoIdentifiers = false) {
     if (
       isDirty &&
       !window.confirm("You have unsaved changes. Replace them with the loaded product?")
@@ -619,6 +773,8 @@ export default function AdminCatalogPage() {
     }
 
     setEditor(nextEditor);
+    setAutoSlugEnabled(autoIdentifiers);
+    setAutoSkuEnabled(autoIdentifiers);
     setLastLoadedSnapshot(JSON.stringify(nextEditor));
     setResult(null);
     setError(null);
@@ -630,7 +786,7 @@ export default function AdminCatalogPage() {
   }
 
   function createNewProduct() {
-    maybeReplaceEditor(createBlankEditor());
+    maybeReplaceEditor(createBlankEditor(), true);
   }
 
   async function handleListProducts() {
@@ -927,22 +1083,38 @@ export default function AdminCatalogPage() {
                   />
                 </div>
                 <div>
-                  <label className={labelClass}>SKU</label>
+                  <div className="flex items-center justify-between gap-3">
+                    <label className={labelClass}>SKU</label>
+                    <button type="button" className="text-xs font-semibold text-fatman-accent" onClick={enableAutoSku}>
+                      Auto-generate
+                    </button>
+                  </div>
                   <input
                     className={`${inputClass} mt-1`}
                     value={editor.product.sku}
                     onChange={(event) => setProductField("sku", event.target.value)}
                     placeholder="FTM-BRK-1001"
                   />
+                  <p className="mt-1 text-xs text-white/45">
+                    {autoSkuEnabled ? "Auto-updates from name/category until edited." : "Manual override active."}
+                  </p>
                 </div>
                 <div>
-                  <label className={labelClass}>Slug</label>
+                  <div className="flex items-center justify-between gap-3">
+                    <label className={labelClass}>Slug</label>
+                    <button type="button" className="text-xs font-semibold text-fatman-accent" onClick={enableAutoSlug}>
+                      Auto-generate
+                    </button>
+                  </div>
                   <input
                     className={`${inputClass} mt-1`}
                     value={editor.product.slug}
                     onChange={(event) => setProductField("slug", event.target.value)}
                     placeholder="front-brake-kit"
                   />
+                  <p className="mt-1 text-xs text-white/45">
+                    {autoSlugEnabled ? "Auto-updates from brand/name/SKU until edited." : "Manual override active."}
+                  </p>
                 </div>
                 <div>
                   <label className={labelClass}>Category</label>
