@@ -50,6 +50,11 @@ async function writeStore(store: LocalFitmentRequestStore) {
   await writeFile(STORE_PATH, `${JSON.stringify(store, null, 2)}\n`, "utf8");
 }
 
+export async function listLocalFitmentRequests() {
+  const store = await readStore();
+  return store.requests;
+}
+
 export async function createLocalFitmentRequest(
   request: Omit<LocalFitmentRequest, "id" | "createdAt" | "updatedAt">,
 ) {
