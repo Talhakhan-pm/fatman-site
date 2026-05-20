@@ -1,33 +1,55 @@
+import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+
 export const metadata = {
-  title: "Shipping",
+  title: "Shipping & Delivery",
 };
 
 export default function ShippingPage() {
   return (
-    <div className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto max-w-4xl px-6 py-10">
-        <h1 className="text-3xl font-black">Shipping</h1>
-        <p className="mt-4 text-white/75">
-          We ship from the U.S. and aim to dispatch quickly. Exact rates and delivery
-          timelines depend on your address and the items in your cart.
+    <InfoPage
+      eyebrow="Orders & logistics"
+      title="Shipping & Delivery"
+      description="We keep shipping clear before and after checkout: fast dispatch when inventory is ready, tracking when the carrier has the parcel, and a heads-up if an item needs extra handling."
+      cta={{ href: "/contact", label: "Ask about an order" }}
+    >
+      <InfoGrid>
+        <InfoCard title="Dispatch timing">
+          <p>
+            In-stock items are prepared as quickly as possible. Special-order, oversized, or supplier-sourced parts may need extra processing time before they ship.
+          </p>
+        </InfoCard>
+        <InfoCard title="Tracking">
+          <p>
+            Once an order ships, tracking information is provided so you can follow the package from carrier pickup to delivery.
+          </p>
+        </InfoCard>
+      </InfoGrid>
+
+      <InfoSection title="Large or oversized parts">
+        <p>
+          Some automotive parts are expensive to move because of size, weight, or packaging requirements: body panels, bumpers, wheels, exhaust components, engines, transmissions, glass, and similar items.
         </p>
-        <div className="mt-8 grid gap-4">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <p className="font-semibold">Tracking</p>
-            <p className="mt-1 text-white/70">
-              When your order ships, you’ll receive a tracking link.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <p className="font-semibold">Dispatch</p>
-            <p className="mt-1 text-white/70">
-              Most in-stock items dispatch fast. If something needs extra handling, we’ll
-              email you.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+        <p>
+          If an item requires freight, special handling, or additional carrier charges, we’ll contact you before finalizing that shipment cost.
+        </p>
+      </InfoSection>
+
+      <InfoSection title="Delivery issues or damage">
+        <InfoList
+          items={[
+            "Inspect the package before opening when possible.",
+            "Photograph visible damage, crushed corners, torn boxes, or missing labels.",
+            "Keep the packaging until the issue is resolved.",
+            "Contact us with your order number, photos, and a clear description of the problem.",
+          ]}
+        />
+      </InfoSection>
+
+      <InfoSection title="International orders">
+        <p>
+          Fatman Parts is U.S.-focused. If an international shipment is supported, the buyer may be responsible for import duties, taxes, brokerage fees, or customs delays charged by the destination country or carrier.
+        </p>
+      </InfoSection>
+    </InfoPage>
   );
 }
-

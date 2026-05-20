@@ -1,32 +1,49 @@
+import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+
 export const metadata = {
   title: "Privacy Policy",
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto max-w-4xl px-6 py-10">
-        <h1 className="text-3xl font-black">Privacy Policy</h1>
-        <p className="mt-4 text-white/75">
-          We keep this simple: we use your information to fulfill orders and support you.
-          We don’t sell personal data.
+    <InfoPage
+      eyebrow="Privacy"
+      title="Privacy Policy"
+      description="We collect the information needed to run the store, support customers, process orders, and improve the shopping experience. We don’t need creepy data to sell car parts."
+      cta={{ href: "/contact", label: "Privacy questions" }}
+    >
+      <InfoGrid>
+        <InfoCard title="Information you provide">
+          <InfoList items={["Name and contact details", "Shipping and billing information", "Order details", "Vehicle or VIN details you choose to send for fitment help", "Messages sent through support forms"]} />
+        </InfoCard>
+        <InfoCard title="Technical information">
+          <InfoList items={["Device and browser information", "Site usage data", "Cookies or similar technologies", "Fraud-prevention and security signals"]} />
+        </InfoCard>
+      </InfoGrid>
+
+      <InfoSection title="How we use information">
+        <InfoList
+          items={[
+            "Process orders and payments.",
+            "Ship products and send tracking information.",
+            "Respond to fitment, warranty, return, and support requests.",
+            "Improve product pages, categories, and checkout flows.",
+            "Protect the store from fraud, abuse, or unauthorized access.",
+          ]}
+        />
+      </InfoSection>
+
+      <InfoSection title="Payments and service providers">
+        <p>
+          Payment details are handled by secure payment providers. We may share necessary information with vendors that help operate the store, including payment processors, shipping carriers, hosting services, analytics tools, and customer support systems.
         </p>
-        <div className="mt-8 grid gap-4">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <p className="font-semibold">What we collect</p>
-            <p className="mt-1 text-white/70">
-              Order details, shipping information, and any messages you send us.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <p className="font-semibold">What we use it for</p>
-            <p className="mt-1 text-white/70">
-              Processing orders, providing support, and improving the storefront experience.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+      </InfoSection>
+
+      <InfoSection title="Your choices">
+        <p>
+          You can contact us to ask about personal information tied to your order or support history. Some records may need to be retained for accounting, fraud prevention, legal, or operational reasons.
+        </p>
+      </InfoSection>
+    </InfoPage>
   );
 }
-

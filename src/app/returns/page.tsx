@@ -1,35 +1,52 @@
+import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+
 export const metadata = {
-  title: "Returns",
+  title: "Return Policy",
 };
 
 export default function ReturnsPage() {
   return (
-    <div className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto max-w-4xl px-6 py-10">
-        <h1 className="text-3xl font-black">Returns</h1>
-        <p className="mt-4 text-white/75">
-          Returns are handled case-by-case depending on the item condition and order
-          status. If you think you ordered the wrong part, contact us — we’ll help you
-          get to the right fit.
+    <InfoPage
+      eyebrow="Returns"
+      title="Return Policy"
+      description="Returns are clearest when the part is unused, in original packaging, and the issue is reported quickly. If you’re unsure about fitment, ask before ordering — that is always the cleaner path."
+      cta={{ href: "/contact", label: "Start a return request" }}
+    >
+      <InfoGrid>
+        <InfoCard title="If we helped select the wrong part">
+          <p>
+            If you provided the needed vehicle details and we incorrectly guided you to the wrong part, contact us. We’ll review the case and work toward a replacement, exchange, or refund path.
+          </p>
+        </InfoCard>
+        <InfoCard title="If the part arrives damaged">
+          <p>
+            Keep the packaging, take photos, and contact us quickly. Carrier claims need clear evidence, especially for damaged boxes or missing contents.
+          </p>
+        </InfoCard>
+      </InfoGrid>
+
+      <InfoSection title="Return condition requirements">
+        <InfoList
+          items={[
+            "Parts must be unused and not installed.",
+            "Original manufacturer packaging should be kept intact whenever possible.",
+            "Order number, photos, and a clear issue description are required.",
+            "Electrical, special-order, or opened items may have stricter return limits depending on supplier rules.",
+          ]}
+        />
+      </InfoSection>
+
+      <InfoSection title="If you selected the wrong part">
+        <p>
+          If a customer orders without verifying fitment and the selected part does not match the vehicle, return eligibility may be limited. Use Fitment / VIN Help before checkout when the fitment state is not confirmed.
         </p>
-        <div className="mt-8 grid gap-4">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <p className="font-semibold">Start a return</p>
-            <p className="mt-1 text-white/70">
-              Use the contact page with your order details and what you’re trying to
-              achieve.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <p className="font-semibold">Fitment first</p>
-            <p className="mt-1 text-white/70">
-              If you’re unsure, verify fitment (VIN/trim/engine) before ordering — it
-              reduces delays and return headaches.
-            </p>
-          </div>
-        </div>
-      </section>
-    </div>
+      </InfoSection>
+
+      <InfoSection title="Missed delivery or returned shipments">
+        <p>
+          If a carrier returns an order because delivery could not be completed, reshipment may require additional shipping charges. Contact us quickly so we can help before the carrier closes the shipment window.
+        </p>
+      </InfoSection>
+    </InfoPage>
   );
 }
-

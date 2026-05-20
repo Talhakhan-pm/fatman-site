@@ -1,24 +1,37 @@
+import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+
 export const metadata = {
   title: "Warranty",
 };
 
 export default function WarrantyPage() {
   return (
-    <div className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto max-w-4xl px-6 py-10">
-        <h1 className="text-3xl font-black">Warranty</h1>
-        <p className="mt-4 text-white/75">
-          Warranty coverage depends on the product and manufacturer. If something looks
-          off, reach out — we’ll guide you through the right next step.
+    <InfoPage
+      eyebrow="Support"
+      title="Warranty"
+      description="Warranty coverage depends on the part, manufacturer, supplier, and installation circumstances. If something fails or arrives wrong, document it and contact us quickly."
+      cta={{ href: "/contact", label: "Start warranty support" }}
+    >
+      <InfoGrid>
+        <InfoCard title="What helps a claim">
+          <InfoList items={["Order number", "Part number", "Clear photos or video", "Vehicle details", "Installation notes or technician diagnosis"]} />
+        </InfoCard>
+        <InfoCard title="What can limit coverage">
+          <InfoList items={["Installed or modified parts", "Misuse or incorrect installation", "Incorrect vehicle application", "Missing packaging or documentation", "Normal wear items outside supplier coverage"]} />
+        </InfoCard>
+      </InfoGrid>
+
+      <InfoSection title="Manufacturer and supplier rules">
+        <p>
+          Many automotive parts are covered according to manufacturer or supplier terms. We’ll review your request and help route it through the correct process when coverage is available.
         </p>
-        <div className="mt-8 rounded-xl border border-white/10 bg-white/5 p-5">
-          <p className="font-semibold">Need help?</p>
-          <p className="mt-1 text-white/70">
-            Contact support with your order number, part number, and what you’re seeing.
-          </p>
-        </div>
-      </section>
-    </div>
+      </InfoSection>
+
+      <InfoSection title="Before installation">
+        <p>
+          Compare the new part to the old part, verify part numbers when available, and stop before installation if anything looks wrong. Installed parts are much harder to resolve cleanly.
+        </p>
+      </InfoSection>
+    </InfoPage>
   );
 }
-

@@ -11,6 +11,8 @@ const footerCategoryLinks = catalogRegistry.filter((item) => item.showInFooter);
 const supportLinks = [
   { href: "/contact", label: "Contact" },
   { href: "/shipping", label: "Shipping" },
+  { href: "/payment-methods", label: "Payment Methods" },
+  { href: "/cancellation-policy", label: "Cancellation" },
   { href: "/returns", label: "Returns" },
   { href: "/warranty", label: "Warranty" },
   { href: "/fitment-help", label: "Fitment / VIN Help" },
@@ -137,6 +139,7 @@ export function SiteFooter() {
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/terms" className="hover:text-white">Terms</Link>
             <Link href="/returns" className="hover:text-white">Returns</Link>
+            <Link href="/cancellation-policy" className="hover:text-white">Cancellation</Link>
             <Link href="/shipping" className="hover:text-white">Shipping</Link>
           </div>
         </div>
