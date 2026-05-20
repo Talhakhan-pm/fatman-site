@@ -287,6 +287,15 @@ Current behavior:
 ### Slice 5
 Add **Shop Categories for Your Vehicle** and broaden homepage garage-aware merchandising only after the above is solid.
 
+Status: **first cut done**
+
+Current behavior:
+- new server helper `getCompatibleCategoriesForVehicle` in `src/lib/discovery-db.ts` aggregates per-category `fits` / `verify` counts for the selected vehicle from live Supabase fitment data
+- new API route at `/api/discovery/compatible-categories`
+- new homepage module in `src/components/homepage-compatible-categories.tsx` renders **Categories that fit {vehicle}** ranked by confirmed-fit count, with category iconography reused from the existing registry
+- module is hidden when no vehicle is selected
+- module shows an honest empty state when the selected vehicle has no categories with confirmed-fit parts (does not silently fall back to generic categories or blur `verify` into `fits`)
+
 ---
 
 ## Success criteria
@@ -303,18 +312,18 @@ Current partial success already achieved:
 - vehicle-aware discovery is now visible in at least one real storefront surface
 
 Still needed to call V1 truly complete:
-- homepage discovery broadens beyond a single compatible-products module
 - fitment/discovery gate behavior is tightened further wherever legacy fallback still distorts verdicts
+- homepage `fits`-only vs explicit `verify` fallback strategy is decided intentionally
 - the vehicle-aware browsing experience is strong across homepage, category pages, and PDPs together
 
 ---
 
 ## Best immediate next build task
 
-**Add homepage “Shop Categories for Your Vehicle”.**
+**Tighten fitment/discovery truth paths.**
 
 That is now the cleanest next step because:
 - compatible-product retrieval already exists
-- PDP discovery is already live
-- category pages now have fitment-aware ordering
-- homepage already has its first compatible-products module and can now be broadened into a more complete vehicle-aware discovery surface
+- homepage now has both compatible products and compatible categories
+- category pages already have fitment-aware ordering
+- the main remaining risk is inconsistent truth flowing through legacy verdict/fallback paths, not missing top-level UI modules

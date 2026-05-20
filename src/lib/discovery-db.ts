@@ -19,6 +19,12 @@ export type CompatibleProductsOptions = {
   includeVerify?: boolean;
 };
 
+export type CompatibleCategorySummary = {
+  slug: Product["category"];
+  fitsCount: number;
+  verifyCount: number;
+};
+
 type FitmentRuleRow = {
   product_id: string;
   variant: string | null;
@@ -143,6 +149,78 @@ export async function getCompatibleProductsForVehicle(
     return compatible.slice(0, limit);
   } catch (error) {
     console.warn("Compatible products lookup failed.", error);
+    return [];
+  }
+}
+
+export async function getCompatibleCategoriesForVehicle(
+  vehicle: Vehicle | null | undefined,
+): Promise<CompatibleCategorySummary[]> {
+  const normalized = normalizeVehicle(vehicle);
+  if (!normalized) return [];
+
+  try {
+    const supabase = createSupabaseServerClient();
+
+    const { data: fitmentRows, error: fitmentError } = await supabase
+      .from("fitment_rules")
+      .select("product_id, variant, match_type")
+      .eq("year", normalized.year)
+      .eq("make", normalized.make)
+      .eq("model", normalized.model)
+      .eq("engine", normalized.engine)
+      .in("match_type", ["fits", "verify"]);
+
+    if (fitmentError || !fitmentRows?.length) return [];
+
+    const bestState = new Map<string, FitmentState>();
+    for (const row of fitmentRows as FitmentRuleRow[]) {
+      const variantOk =
+        !row.variant ||
+        (Boolean(normalized.variant) && row.variant === normalized.variant);
+      if (!variantOk) continue;
+
+      const current = bestState.get(row.product_id);
+      if (!current || (current === "verify" && row.match_type === "fits")) {
+        bestState.set(row.product_id, row.match_type);
+      }
+    }
+
+    if (!bestState.size) return [];
+
+    const { data: productRows, error: productError } = await supabase
+      .from("products")
+      .select("id, category_slug")
+      .in("id", [...bestState.keys()])
+      .eq("published", true);
+
+    if (productError || !productRows?.length) return [];
+
+    const counts = new Map<Product["category"], { fits: number; verify: number }>();
+    for (const row of productRows as Array<{ id: string; category_slug: Product["category"] }>) {
+      const state = bestState.get(row.id);
+      if (state !== "fits" && state !== "verify") continue;
+
+      const bucket = counts.get(row.category_slug) ?? { fits: 0, verify: 0 };
+      if (state === "fits") bucket.fits += 1;
+      else bucket.verify += 1;
+      counts.set(row.category_slug, bucket);
+    }
+
+    return [...counts.entries()]
+      .map(([slug, { fits, verify }]) => ({
+        slug,
+        fitsCount: fits,
+        verifyCount: verify,
+      }))
+      .filter((entry) => entry.fitsCount > 0 || entry.verifyCount > 0)
+      .sort((a, b) => {
+        if (a.fitsCount !== b.fitsCount) return b.fitsCount - a.fitsCount;
+        if (a.verifyCount !== b.verifyCount) return b.verifyCount - a.verifyCount;
+        return a.slug.localeCompare(b.slug);
+      });
+  } catch (error) {
+    console.warn("Compatible categories lookup failed.", error);
     return [];
   }
 }

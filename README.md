@@ -119,22 +119,23 @@ Also verified:
 - production admin no longer requires repeated developer-tools header pasting once session unlock is in place
 
 ### Phase 2, underway
-Garage-aware discovery now has three real slices shipped:
+Garage-aware discovery now has four real slices shipped:
 - server-side compatible-product retrieval layer lives in `src/lib/discovery-db.ts`
-- API route lives at `/api/discovery/compatible-products`
+- API routes live at `/api/discovery/compatible-products` and `/api/discovery/compatible-categories`
 - PDPs can now show **Also fits your vehicle** for selected-vehicle matches in the same category
 - if no vehicle is selected, the PDP module stays hidden instead of falling back to generic recommendations
 - the first UI polish pass is also done for that PDP flow (badge contrast, tighter related-products layout, shorter garage labels, better placeholder states)
 - the fitment/discovery gate has been loosened to trust normalized live DB fitment more directly instead of requiring catalog-presence checks first
 - category pages now sort by fitment relevance when a vehicle is selected (`fits` first, then `verify`, then `no-fit`)
 - homepage now shows **Compatible Products for Your Vehicle** when confirmed-fit products exist for the selected vehicle
-- homepage stays honest with an empty state when a selected vehicle has no confirmed fit rows instead of faking fallback matches
+- homepage now also shows **Categories that fit your vehicle** ranked by confirmed-fit category counts
+- homepage stays honest with empty states when a selected vehicle has no confirmed fit rows instead of faking fallback matches
 
 ## Current risks / known gaps
 
 - fitment still has hybrid behavior and fallback logic in some places
 - the biggest catalog-aware discovery choke point is improved, but fitment still has legacy fallback behavior in verdict paths
-- homepage is now garage-aware for compatible products, but still not yet deeply merchandised
+- homepage is now garage-aware for compatible products and compatible categories, but still not yet deeply merchandised
 - category pages are now fitment-aware for ordering, but not yet deeply merchandised
 - catalog quality is still separate from infrastructure quality
 - admin/live-state messaging can still be clearer
@@ -152,29 +153,28 @@ Current principle:
 ## Next recommended work
 
 ### Best next target
-**Homepage “Shop Categories for Your Vehicle” and broader homepage vehicle-aware merchandising**
+**Fitment/discovery truth cleanup, then decide homepage `verify` strategy**
 
 Recommended immediate sequence:
-1. add homepage **Shop Categories for Your Vehicle**
-2. decide whether homepage should ever show a clearly lower-confidence `verify` fallback area when `fits` are empty
-3. deepen homepage vehicle-aware discovery without diluting the fitment-first UX
+1. tighten remaining legacy fitment verdict paths so live DB-backed truth flows more consistently end to end
+2. identify any vehicles/categories that still fail to surface despite real `fitment_rules` coverage
+3. decide whether homepage should ever show a clearly lower-confidence `verify` fallback area when `fits` are empty
 4. after that, broaden into featured/new merchandising only if it still feels subordinate to fitment relevance
 
 Files most worth reviewing next:
-- `src/app/page.tsx`
-- `src/components/homepage-compatible-products.tsx`
 - `src/lib/discovery-db.ts`
-- `src/lib/catalog-db.ts`
+- `src/lib/fitment-db.ts`
+- `src/app/api/fitment/check/route.ts`
+- `src/app/api/fitment/check-batch/route.ts`
 
 Why:
-- PDP discovery is already live
-- category browsing is now fitment-aware
-- homepage now has its first vehicle-aware module, so the next step is to make that homepage discovery system broader and more useful
+- homepage now has both compatible products and compatible categories
+- the next biggest product risk is not missing UI, it is inconsistent truth flow through fitment/discovery paths
 
 ## Phase roadmap from here
 
 ### Remaining Phase 2
-- homepage or category **Shop Categories for Your Vehicle**
+- fitment/discovery cleanup so live DB-backed truth flows consistently across verdict paths
 - possible deeper category filtering / fitment-only browsing controls
 - homepage decisions around `fits`-only vs explicit `verify` fallback states
 - later, broader merchandising modules (featured/new) once vehicle-aware discovery is stronger

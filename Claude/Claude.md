@@ -229,7 +229,8 @@ Verified in recent work:
 - the discovery gate has been tightened so normalized live DB fitment can surface without requiring catalog-presence checks first
 - category pages now sort by fitment relevance when a vehicle is selected (`fits` first, then `verify`, then `no-fit`)
 - homepage now has a vehicle-aware **Compatible Products for Your Vehicle** module driven by the same discovery flow
-- current homepage behavior is intentionally honest: if the selected vehicle has no confirmed fit rows, it shows an empty-state message instead of fake fallback matches
+- homepage now also has a vehicle-aware **Categories that fit your vehicle** module powered by per-category discovery aggregation
+- current homepage behavior is intentionally honest: if the selected vehicle has no confirmed fit rows, it shows empty-state messaging instead of fake fallback matches
 
 Important caveat:
 - browser-created test product had `0 fitment rows` and still saved/published correctly as a product
@@ -282,23 +283,23 @@ Continue **Phase 2**, but do it in the right order.
 - fitment/discovery gate loosened so normalized live DB fitment is trusted more directly in discovery + DB verdict lookups
 - category-page fitment-aware ordering/filtering baseline
 - homepage **Compatible Products for Your Vehicle** module baseline
+- homepage **Categories that fit your vehicle** module baseline
 
 ### Best next target
-**Homepage “Shop Categories for Your Vehicle” and broader homepage vehicle-aware merchandising**
+**Fitment/discovery truth cleanup, then homepage `verify` strategy**
 
 Review next:
-- `src/app/page.tsx`
-- `src/components/homepage-compatible-products.tsx`
 - `src/lib/discovery-db.ts`
-- any new homepage discovery component(s)
+- `src/lib/fitment-db.ts`
+- `src/app/api/fitment/check/route.ts`
+- `src/app/api/fitment/check-batch/route.ts`
 
 Why this should be next:
-- PDP compatible discovery is already real
-- category browsing is now fitment-aware
-- homepage now has its first vehicle-aware module, so the next step is broadening that homepage discovery layer instead of starting from zero
+- homepage now has both core vehicle-aware modules
+- the biggest remaining risk is inconsistent truth flow in verdict/discovery paths, not missing top-level UI
 
 ### Remaining Phase 2 direction
-- homepage or category **Shop Categories for Your Vehicle**
+- fitment/discovery cleanup where legacy fallback still distorts truth
 - possible stronger fitment-only browsing controls on category pages
 - homepage decisions around `fits`-only vs explicit `verify` fallback states
 - only after that, broaden into generic merchandising modules like featured/new
@@ -328,7 +329,9 @@ Recent relevant commits:
 - `89ef5b2` Ignore tmp fitment cache
 - `76d37b3` Add garage-aware compatible product discovery
 - `6d9ceb3` Polish garage-aware PDP discovery UI
-- latest: add fitment-aware category ordering
+- `9f431a4` Add fitment-aware category ordering
+- `052be55` Add homepage compatible products
+- latest: `904f67c` Add homepage compatible categories
 
 ---
 
