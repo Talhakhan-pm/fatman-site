@@ -276,11 +276,15 @@ export default async function Home() {
             <div className="absolute right-0 top-0 h-full w-1/2 opacity-20" style={{ backgroundImage: "linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%)" }} />
             <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
-                <SectionTag>READY TO PUSH IT FURTHER?</SectionTag>
-                <h2 className="max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                <div className="mb-4 inline-flex items-center gap-2 text-white/80">
+                  <span className="h-[2px] w-8 bg-white/35" />
+                  <span className="font-mono text-xs font-bold uppercase tracking-[0.3em]">READY TO PUSH IT FURTHER?</span>
+                  <span className="h-[2px] w-8 bg-white/35" />
+                </div>
+                <h2 className="max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl" style={{ color: "#ffffff" }}>
                   Next UI move should be product and category pages — sharper hierarchy, better fitment cues, less dead space.
                 </h2>
-                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80">
+                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80" style={{ color: "rgba(255,255,255,0.82)" }}>
                   I started by hardening the homepage so it feels more premium and conversion-ready instead of half-finished.
                 </p>
               </div>
@@ -288,7 +292,7 @@ export default async function Home() {
                 <Link href="/category" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-[#111318] transition hover:bg-white/90">
                   Browse categories
                 </Link>
-                <Link href="/fitment-help" className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-white hover:bg-white/10">
+                <Link href="/fitment-help" className="inline-flex items-center justify-center rounded-full border border-white/60 bg-white/10 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-white hover:bg-white/10" style={{ color: "#ffffff" }}>
                   Get fitment help
                 </Link>
               </div>

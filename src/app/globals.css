@@ -525,10 +525,18 @@ body[data-theme="light"] section.cta-orange .from-\[\#ff6a00\].to-\[\#c2410c\] ~
   color: #ffffff !important;
 }
 
-/* Orange CTA full-bleed section — everything inside keeps white (scoped) */
-body[data-theme="light"] section.cta-orange:has(> .bg-gradient-to-br.from-\[\#ff6a00\]) .text-white,
-body[data-theme="light"] section.cta-orange:has(> .bg-gradient-to-br.from-\[\#ff6a00\]) .text-white\/80 {
+/* Orange CTA full-bleed section — keep high contrast in light mode */
+body[data-theme="light"] section.cta-orange .text-white,
+body[data-theme="light"] section.cta-orange .text-white\/80 {
   color: #ffffff !important;
+}
+
+body[data-theme="light"] section.cta-orange .bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+body[data-theme="light"] section.cta-orange .border-white\/60 {
+  border-color: rgba(255, 255, 255, 0.62) !important;
 }
 
 /* ── Header & footer: light mode ── */
@@ -643,17 +651,41 @@ body[data-theme="light"] header .shadow-\[0_28px_90px_rgba\(0\,0\,0\,0\.5\)\] {
 }
 
 body[data-theme="light"] footer {
-  background-color: #1e293b !important;
-  border-top-color: #334155 !important;
+  background-color: #ffffff !important;
+  border-top-color: #d6dee8 !important;
+  box-shadow: inset 0 1px 0 rgba(214, 222, 232, 0.7) !important;
 }
 
-/* Footer stays dark for brand grounding — text remains light */
 body[data-theme="light"] footer .text-white {
-  color: #ffffff !important;
+  color: #0f172a !important;
 }
 
-body[data-theme="light"] footer .text-white\/70 {
-  color: rgba(255, 255, 255, 0.7) !important;
+body[data-theme="light"] footer .text-white\/70,
+body[data-theme="light"] footer .text-white\/50,
+body[data-theme="light"] footer .text-white\/45 {
+  color: #475569 !important;
+}
+
+body[data-theme="light"] footer .border-white\/15,
+body[data-theme="light"] footer .border-white\/10 {
+  border-color: #d6dee8 !important;
+}
+
+body[data-theme="light"] footer .bg-white\/5,
+body[data-theme="light"] footer .bg-white\/0 {
+  background-color: #f8fafc !important;
+}
+
+body[data-theme="light"] footer .hover\:bg-white\/5:hover {
+  background-color: #eef2f7 !important;
+}
+
+body[data-theme="light"] footer .hover\:text-white:hover {
+  color: #0f172a !important;
+}
+
+body[data-theme="light"] footer .rounded-xl.border {
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06) !important;
 }
 
 /* ── Misc: mobile menu in light mode ── */
