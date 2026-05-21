@@ -577,6 +577,14 @@ body[data-theme="light"] header .bg-black\/20 {
   background-color: #eef2f7 !important;
 }
 
+body[data-theme="light"] header .bg-white\/\[0\.035\],
+body[data-theme="light"] header .bg-white\/\[0\.04\],
+body[data-theme="light"] header .bg-white\/\[0\.045\],
+body[data-theme="light"] header .bg-white\/\[0\.055\] {
+  background-color: #f6f8fb !important;
+}
+
+body[data-theme="light"] header .hover\:bg-white\/\[0\.07\]:hover,
 body[data-theme="light"] header .hover\:bg-white\/10:hover {
   background-color: #eef2f7 !important;
 }
@@ -597,14 +605,41 @@ body[data-theme="light"] header .border-fatman-accent\/50 {
 
 body[data-theme="light"] header .text-white\/75,
 body[data-theme="light"] header .text-white\/72,
-body[data-theme="light"] header .text-white\/70 {
+body[data-theme="light"] header .text-white\/70,
+body[data-theme="light"] header .text-white\/64,
+body[data-theme="light"] header .text-white\/55,
+body[data-theme="light"] header .text-white\/50,
+body[data-theme="light"] header .text-white\/45,
+body[data-theme="light"] header .text-white\/42 {
   color: #475569 !important;
+}
+
+body[data-theme="light"] header .text-white\/35,
+body[data-theme="light"] header .text-white\/34,
+body[data-theme="light"] header .text-white\/30,
+body[data-theme="light"] header .text-white\/25 {
+  color: #94a3b8 !important;
+}
+
+body[data-theme="light"] header .placeholder\:text-white\/34::placeholder {
+  color: #94a3b8 !important;
+}
+
+body[data-theme="light"] header .hover\:text-white:hover,
+body[data-theme="light"] header .group:hover .group-hover\:text-white,
+body[data-theme="light"] header .group:hover .group-hover\:text-fatman-accent {
+  color: #0f172a !important;
 }
 
 body[data-theme="light"] main .shadow-\[0_18px_70px_rgba\(0\,0\,0\,0\.32\)\],
 body[data-theme="light"] main .shadow-\[0_28px_90px_rgba\(0\,0\,0\,0\.48\)\],
 body[data-theme="light"] main .shadow-\[0_28px_90px_rgba\(0\,0\,0\,0\.5\)\] {
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.1) !important;
+}
+
+body[data-theme="light"] header .shadow-\[0_28px_90px_rgba\(0\,0\,0\,0\.48\)\],
+body[data-theme="light"] header .shadow-\[0_28px_90px_rgba\(0\,0\,0\,0\.5\)\] {
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12) !important;
 }
 
 body[data-theme="light"] footer {
