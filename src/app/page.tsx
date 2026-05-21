@@ -11,12 +11,6 @@ import { getCategories } from "@/lib/catalog-db";
 import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
 
 const heroRotatingWords = ["ENGINE.", "BRAKES.", "TURBO.", "CLUTCH.", "EXHAUST.", "COILS."];
-const trustBadges = [
-  { icon: "🎯", title: "99.4% Fitment Accuracy", sub: "Verified against 18K+ OEM rules" },
-  { icon: "🚚", title: "Ships in 24–48h", sub: "From U.S. warehouses" },
-  { icon: "↩️", title: "30-Day Easy Returns", sub: "Wrong part? We cover shipping back" },
-  { icon: "🧑‍🔧", title: "Real Human Support", sub: "Call, chat, or email — we answer" },
-];
 const steps = [
   {
     num: "01",
@@ -58,14 +52,20 @@ const testimonials = [
   },
 ];
 
-function CornerBrackets({ color = "white/20" }: { color?: string }) {
-  const c = `border-${color}`;
+function CornerBrackets({ color = "white/20" }: { color?: "white/20" | "white/10" | "white/[0.08]" }) {
+  const borderClassMap = {
+    "white/20": "border-white/20",
+    "white/10": "border-white/10",
+    "white/[0.08]": "border-white/[0.08]",
+  } as const;
+  const c = borderClassMap[color] ?? borderClassMap["white/20"];
+
   return (
     <>
-      <span className={`absolute top-0 left-0 h-4 w-4 border-t-2 border-l-2 ${c}`} />
-      <span className={`absolute top-0 right-0 h-4 w-4 border-t-2 border-r-2 ${c}`} />
+      <span className={`absolute top-0 left-0 h-4 w-4 border-l-2 border-t-2 ${c}`} />
+      <span className={`absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 ${c}`} />
       <span className={`absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 ${c}`} />
-      <span className={`absolute right-0 bottom-0 h-4 w-4 border-r-2 border-b-2 ${c}`} />
+      <span className={`absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 ${c}`} />
     </>
   );
 }
@@ -87,6 +87,16 @@ function SectionTag({ children }: { children: React.ReactNode }) {
       <span className="h-[2px] w-8 bg-[#ff6a00]" />
       <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-[#ff6a00]">{children}</span>
       <span className="h-[2px] w-8 bg-[#ff6a00]" />
+    </div>
+  );
+}
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex items-center gap-1 text-[#ff6a00]" aria-label={`${rating} star rating`}>
+      {Array.from({ length: rating }).map((_, index) => (
+        <span key={index} className="text-sm">★</span>
+      ))}
     </div>
   );
 }
@@ -141,6 +151,56 @@ export default async function Home() {
       </section>
       <HomepageCompatibleProducts />
       <HomepageCompatibleCategories />
+
+      <section className="relative overflow-hidden bg-[#15181f] py-20 sm:py-28">
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+        <div className="absolute left-[-10%] top-12 h-56 w-56 rounded-full bg-[#ff6a00]/[0.08] blur-[120px]" />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+            <div>
+              <SectionTag>WHY FATMAN WORKS</SectionTag>
+              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                Built for people who are tired of <span className="text-[#ff6a00]">guessing at fitment.</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/50">
+                The UI should sell confidence fast: pick the vehicle, see verified paths, and get to the right SKU without digging through generic catalog clutter.
+              </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-5">
+                  <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#ff6a00]">Live catalog</p>
+                  <p className="mt-3 text-3xl font-black text-white">{categories.length}</p>
+                  <p className="mt-2 text-sm text-white/45">Homepage-ready categories already mapped to real catalog sections.</p>
+                </div>
+                <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-5">
+                  <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#ff6a00]">Buyer flow</p>
+                  <p className="mt-3 text-3xl font-black text-white">3-step</p>
+                  <p className="mt-2 text-sm text-white/45">We keep the path tight: vehicle, verified parts, fast checkout.</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              {steps.map((step) => (
+                <div key={step.num} className="group relative overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#1a1d24] p-6 transition hover:border-[#ff6a00]/35 hover:shadow-[0_16px_50px_rgba(255,106,0,0.12)] sm:p-7">
+                  <span className="pointer-events-none absolute right-4 top-2 font-mono text-6xl font-black tracking-[-0.05em] text-white/[0.03] sm:text-7xl">{step.num}</span>
+                  <div className="relative z-10 flex items-start gap-4">
+                    <span className="mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#ff6a00]/20 bg-[#ff6a00]/10 text-sm font-black text-[#ff6a00]">
+                      {step.num}
+                    </span>
+                    <div>
+                      <h3 className="text-xl font-black uppercase tracking-wide text-white">{step.title}</h3>
+                      <p className="mt-3 text-base leading-relaxed text-white/55">{step.desc}</p>
+                      <p className="mt-3 text-sm font-semibold uppercase tracking-[0.18em] text-white/30">{step.detail}</p>
+                    </div>
+                  </div>
+                  <CornerBrackets color="white/[0.08]" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="relative bg-[#111318] py-20 sm:py-28">
         <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
           <div className="mb-14 text-center">
@@ -169,6 +229,70 @@ export default async function Home() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#15181f] py-20 sm:py-28">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 20% 20%, rgba(255,106,0,0.15), transparent 22%), radial-gradient(circle at 80% 0%, rgba(255,255,255,0.08), transparent 18%)" }} />
+        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
+          <div className="mb-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <SectionTag>REAL BUYER PROOF</SectionTag>
+              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                Confidence beats gimmicks.
+              </h2>
+              <p className="mt-3 max-w-2xl text-lg text-white/50">
+                These blocks give the homepage more weight and trust instead of feeling like a pretty shell.
+              </p>
+            </div>
+            <div className="rounded-full border border-[#ff6a00]/20 bg-[#ff6a00]/10 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#ff6a00]">
+              Fast dispatch • Verified fitment • Real support
+            </div>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            {testimonials.map((testimonial) => (
+              <article key={`${testimonial.name}-${testimonial.vehicle}`} className="relative rounded-[1.75rem] border border-white/[0.08] bg-[#1a1d24] p-6 sm:p-7">
+                <CornerBrackets color="white/[0.08]" />
+                <div className="relative z-10">
+                  <StarRating rating={testimonial.rating} />
+                  <p className="mt-5 text-lg leading-relaxed text-white/75">“{testimonial.quote}”</p>
+                  <div className="mt-6 border-t border-white/[0.08] pt-4">
+                    <p className="font-black uppercase tracking-[0.14em] text-white">{testimonial.name}</p>
+                    <p className="mt-1 text-sm text-white/40">{testimonial.vehicle}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="cta-orange relative overflow-hidden bg-[#111318] px-6 pb-24 sm:px-8 sm:pb-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-[2rem] border border-[#ff6a00]/20 bg-[#1a1d24] p-8 sm:p-10 lg:p-12">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#ff6a00] via-[#d45500] to-[#9a3412] opacity-95" />
+            <div className="absolute right-0 top-0 h-full w-1/2 opacity-20" style={{ backgroundImage: "linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%)" }} />
+            <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div>
+                <SectionTag>READY TO PUSH IT FURTHER?</SectionTag>
+                <h2 className="max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+                  Next UI move should be product and category pages — sharper hierarchy, better fitment cues, less dead space.
+                </h2>
+                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80">
+                  I started by hardening the homepage so it feels more premium and conversion-ready instead of half-finished.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 lg:justify-end">
+                <Link href="/category" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-[#111318] transition hover:bg-white/90">
+                  Browse categories
+                </Link>
+                <Link href="/fitment-help" className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-white hover:bg-white/10">
+                  Get fitment help
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
