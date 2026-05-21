@@ -759,3 +759,6 @@ body[data-theme="light"] .via-black\/10,
 body[data-theme="light"] .bg-black\/20 {
   background-color: rgba(15, 23, 42, 0.06) !important;
 }
+/* Theme specific utilities */
+body[data-theme="dark"] .hide-in-dark { display: none !important; }
+body[data-theme="dark"] .cancel-mt-in-dark { margin-top: 0 !important; }

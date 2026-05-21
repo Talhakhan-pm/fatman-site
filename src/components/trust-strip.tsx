@@ -10,13 +10,18 @@ const trustItems = [
 export function TrustStrip() {
   return (
     <section className="border-y border-white/10 py-10">
+      <style>{`
+        body[data-theme="dark"] .trust-strip-image {
+          display: none !important;
+        }
+      `}</style>
       <div className="mx-auto grid max-w-6xl gap-10 px-6 sm:grid-cols-2 lg:grid-cols-4">
         {trustItems.map((item) => (
           <div key={item.text} className="flex flex-col items-center justify-center text-center group">
-            <div className="relative h-28 w-28 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:scale-105">
+            <div className="trust-strip-image relative h-28 w-28 shrink-0 transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:scale-105">
               <Image src={item.icon} alt={item.text} fill className="object-contain" sizes="112px" />
             </div>
-            <span className="font-bold uppercase tracking-[0.15em] text-[11px] text-white/80 -mt-4">{item.text}</span>
+            <span className="font-bold uppercase tracking-[0.15em] text-[11px] text-white/80 -mt-4 cancel-mt-in-dark">{item.text}</span>
           </div>
         ))}
       </div>
