@@ -7,8 +7,8 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto grid max-w-5xl gap-8 px-6 py-12 lg:grid-cols-[1fr_0.8fr]">
+    <main className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
+      <section className="mx-auto grid max-w-5xl gap-8 px-6 pb-12 sm:pb-16 lg:grid-cols-[1fr_0.8fr]">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.28em] text-fatman-accent">Support</p>
           <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-5xl">Contact Fatman Parts</h1>
