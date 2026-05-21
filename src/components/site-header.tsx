@@ -136,24 +136,26 @@ export function SiteHeader() {
           />
         </Link>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          {vehicle && (
-            <div className="hidden max-w-[240px] rounded-full border border-white/10 bg-black/18 px-3 py-2 text-xs text-white/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl md:block" title={formatVehicleLabel(vehicle)}>
-              <span className="block truncate">Garage: {formatCompactVehicleLabel(vehicle)}</span>
-            </div>
-          )}
-
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2 pl-3 sm:gap-3 sm:pl-6 lg:pl-10">
           <button
             type="button"
             onClick={() => setSearchOpen(true)}
-            className="group relative inline-flex h-11 items-center justify-center overflow-hidden rounded-full border border-white/12 bg-white/[0.045] px-3 text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white sm:w-[210px] sm:justify-start sm:gap-2 sm:px-4"
+            className="group relative inline-flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/12 bg-white/[0.045] px-3 text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white sm:h-12 sm:w-full sm:max-w-[820px] sm:flex-1 sm:justify-start sm:gap-3 sm:px-5 lg:max-w-[920px]"
             aria-label="Search products"
           >
             <SearchIcon className="h-5 w-5 shrink-0 transition duration-300 group-hover:scale-110 group-hover:text-fatman-accent" />
-            <span className="hidden text-sm font-semibold text-white/48 transition group-hover:text-white/80 sm:inline">Search parts</span>
+            <span className="hidden min-w-0 flex-1 truncate text-left text-sm font-semibold text-white/48 transition group-hover:text-white/80 sm:inline">
+              Search parts, SKU, OEM number, brand...
+            </span>
             <span className="ml-auto hidden rounded-full border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-[10px] text-white/30 sm:inline">⌘K</span>
-            <span className="pointer-events-none absolute inset-x-4 bottom-0 h-px translate-x-[-120%] bg-gradient-to-r from-transparent via-fatman-accent to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
+            <span className="pointer-events-none absolute inset-x-5 bottom-0 h-px translate-x-[-120%] bg-gradient-to-r from-transparent via-fatman-accent to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
           </button>
+
+          {vehicle && (
+            <div className="hidden max-w-[190px] shrink-0 rounded-full border border-white/10 bg-black/18 px-3 py-2 text-xs text-white/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl xl:block" title={formatVehicleLabel(vehicle)}>
+              <span className="block truncate">Garage: {formatCompactVehicleLabel(vehicle)}</span>
+            </div>
+          )}
 
           <Link
             href="/cart"
