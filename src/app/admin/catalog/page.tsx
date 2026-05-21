@@ -424,6 +424,7 @@ export default function AdminCatalogPage() {
   const [autoSkuEnabled, setAutoSkuEnabled] = useState(false);
   const [seedBusy, setSeedBusy] = useState(false);
   const [saveBusy, setSaveBusy] = useState(false);
+  const [archiveBusy, setArchiveBusy] = useState(false);
   const [result, setResult] = useState<ApiResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [listBusy, setListBusy] = useState(false);
@@ -730,6 +731,29 @@ export default function AdminCatalogPage() {
       }
     } finally {
       setSaveBusy(false);
+    }
+  }
+
+  async function handleArchiveProduct() {
+    const slug = editor.originalSlug ?? editor.product.slug.trim();
+    const sku = editor.originalSku ?? editor.product.sku.trim();
+    if (!slug && !sku) return;
+    if (!window.confirm("Archive this product? It will be unpublished from the storefront but kept in the database.")) return;
+
+    setArchiveBusy(true);
+    try {
+      const response = await postJSON("/api/admin/catalog/archive", { slug, sku });
+      if (response.ok) {
+        const archivedEditor: EditorState = {
+          ...editor,
+          product: { ...editor.product, published: false },
+        };
+        setEditor(archivedEditor);
+        setLastLoadedSnapshot(JSON.stringify(archivedEditor));
+        await handleListProducts();
+      }
+    } finally {
+      setArchiveBusy(false);
     }
   }
 
@@ -1467,14 +1491,24 @@ export default function AdminCatalogPage() {
                       : "Save this product and its fitment to Supabase. In production, a failed save stays failed so you know it is not live yet."}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  className={buttonClass}
-                  onClick={handleSave}
-                  disabled={saveBusy}
-                >
-                  {saveBusy ? "Saving…" : "Save product"}
-                </button>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    className="rounded-lg border border-amber-400/35 px-4 py-2 text-sm font-semibold text-amber-100 hover:bg-amber-400/10 disabled:cursor-not-allowed disabled:opacity-50"
+                    onClick={handleArchiveProduct}
+                    disabled={archiveBusy || (!editor.originalSlug && !editor.product.slug.trim())}
+                  >
+                    {archiveBusy ? "Archiving…" : "Archive product"}
+                  </button>
+                  <button
+                    type="button"
+                    className={buttonClass}
+                    onClick={handleSave}
+                    disabled={saveBusy}
+                  >
+                    {saveBusy ? "Saving…" : "Save product"}
+                  </button>
+                </div>
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3 text-xs text-white/60">
