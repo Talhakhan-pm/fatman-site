@@ -5,6 +5,7 @@ import { GarageProvider } from "@/components/garage-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { CartProvider } from "@/components/cart-provider";
 
 const geistSans = Geist({
@@ -73,6 +74,7 @@ export default function RootLayout({
               <SiteHeader />
               {children}
               <SiteFooter />
+              <ThemeToggleButton />
             </CartProvider>
           </GarageProvider>
         </ThemeProvider>
