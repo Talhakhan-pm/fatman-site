@@ -120,8 +120,7 @@ export function FitmentRequestForm({ product }: { product?: Product | null }) {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-6 pb-14">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
         <form onSubmit={handleSubmit} className="rounded-3xl border border-white/12 bg-white/[0.055] p-5 shadow-2xl shadow-black/20 md:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
@@ -239,7 +238,6 @@ export function FitmentRequestForm({ product }: { product?: Product | null }) {
             VIN decode is not the same as final part compatibility. This flow saves the request; exact fitment logic comes later.
           </div>
         </aside>
-      </div>
-    </section>
+    </div>
   );
 }
