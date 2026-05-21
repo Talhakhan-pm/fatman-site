@@ -47,14 +47,20 @@ export function CheckoutSuccessClient({ sessionId }: { sessionId?: string }) {
     };
   }, [clearCart, sessionId]);
 
+  const isPaid = status?.paymentStatus === "paid";
+
   return (
     <div className="min-h-screen bg-fatman-900 text-white">
       <section className="mx-auto max-w-3xl px-6 py-16">
         <div className="rounded-3xl border border-emerald-400/25 bg-emerald-400/10 p-8 shadow-2xl shadow-black/20">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">Payment received</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-200">
+            {status ? (isPaid ? "Payment received" : "Order received") : "Checking payment"}
+          </p>
           <h1 className="mt-3 text-4xl font-black tracking-tight">Your order is in.</h1>
           <p className="mt-3 text-white/72">
-            Thanks for ordering from Fatman Parts. We’ll send confirmation and status updates once the back office picks this up.
+            {status && !isPaid
+              ? "We received the Stripe return, but payment status is still syncing. Refresh in a few seconds or contact support if your card was charged."
+              : "Thanks for ordering from Fatman Parts. We’ll send confirmation and status updates once the back office picks this up."}
           </p>
 
           {!sessionId && (
