@@ -948,8 +948,8 @@ export default function AdminCatalogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto max-w-6xl px-6 py-10">
+    <div className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
+      <section className="mx-auto max-w-6xl px-6 pb-10">
         <h1 className="text-3xl font-black">Catalog Admin</h1>
         <p className="mt-2 max-w-3xl text-sm text-white/70">
           Built for staff, not developers. Load a product, edit the fields, add fitment rows,
@@ -1494,7 +1494,7 @@ export default function AdminCatalogPage() {
                 <div className="flex flex-wrap gap-2">
                   <button
                     type="button"
-                    className="rounded-lg border border-amber-400/35 px-4 py-2 text-sm font-semibold text-amber-100 hover:bg-amber-400/10 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="rounded-lg border border-red-500/30 px-4 py-2 text-sm font-semibold text-red-200 hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
                     onClick={handleArchiveProduct}
                     disabled={archiveBusy || (!editor.originalSlug && !editor.product.slug.trim())}
                   >

@@ -57,8 +57,8 @@ export function CartPageClient() {
   }
 
   return (
-    <div className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto max-w-6xl px-6 py-10">
+    <div className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
+      <section className="mx-auto max-w-6xl px-6 pb-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-fatman-accent">Fatman checkout</p>

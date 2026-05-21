@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CategoryProductGrid } from "@/components/category-product-grid";
-import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
 import { TrustStrip } from "@/components/trust-strip";
 import { getCategory, getProductsByCategory } from "@/lib/catalog-db";
 
@@ -62,18 +61,8 @@ export default async function CategoryPage({
   };
 
   return (
-    <div className="min-h-screen bg-fatman-900 text-white">
+    <div className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <StickyFitmentBar />
-      <section className="mx-auto max-w-6xl px-6 py-10">
-        <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">
-          <div className="p-8 md:p-10">
-            <p className="text-sm text-white/60">Category</p>
-            <h1 className="mt-1 text-3xl font-black">{category.title}</h1>
-            <p className="mt-2 max-w-2xl text-white/70">{category.description}</p>
-          </div>
-        </div>
-      </section>
 
       <TrustStrip />
 

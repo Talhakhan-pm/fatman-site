@@ -111,10 +111,23 @@ export function ProductPageClient({ product }: { product: Product }) {
             </button>
           </div>
 
-          <div className="mt-8 rounded-xl border border-white/15 bg-white/5 p-4 text-sm text-white/70">
-            <p>• Easy returns on eligible orders</p>
-            <p>• Support that actually responds</p>
-            <p>• Fast U.S. dispatch network</p>
+          <div className="mt-8 grid grid-cols-2 gap-3">
+            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/80 transition hover:bg-white/10">
+              <div className="relative h-6 w-6 shrink-0"><Image src="/trust-icons/fitment.png" alt="Fitment" fill className="object-contain opacity-80" sizes="24px" /></div>
+              <span className="leading-tight">Guaranteed fit</span>
+            </div>
+            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/80 transition hover:bg-white/10">
+              <div className="relative h-6 w-6 shrink-0"><Image src="/trust-icons/shipping.png" alt="Shipping" fill className="object-contain opacity-80" sizes="24px" /></div>
+              <span className="leading-tight">Fast U.S. shipping</span>
+            </div>
+            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/80 transition hover:bg-white/10">
+              <div className="relative h-6 w-6 shrink-0"><Image src="/trust-icons/returns.png" alt="Returns" fill className="object-contain opacity-80" sizes="24px" /></div>
+              <span className="leading-tight">Easy returns</span>
+            </div>
+            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white/80 transition hover:bg-white/10">
+              <div className="relative h-6 w-6 shrink-0"><Image src="/trust-icons/support.png" alt="Support" fill className="object-contain opacity-80" sizes="24px" /></div>
+              <span className="leading-tight">Real support</span>
+            </div>
           </div>
 
           <div className="mt-6 rounded-xl border border-white/15 bg-white/5 p-4">
