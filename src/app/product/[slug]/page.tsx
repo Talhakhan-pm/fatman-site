@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProductPageClient } from "@/components/product/product-page-client";
 import { getProduct } from "@/lib/catalog-db";
+import { cookies } from "next/headers";
+import { getAdminSessionScopeFromCookieValue, ADMIN_SESSION_COOKIE } from "@/lib/admin-session";
 
 const SITE_URL = "https://fatmanparts.com";
 
@@ -42,6 +44,10 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
   const product = await getProduct(slug);
+  
+  const cookieStore = await cookies();
+  const adminCookie = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
+  const isAdmin = process.env.NODE_ENV === "development" || Boolean(getAdminSessionScopeFromCookieValue(adminCookie));
 
   if (!product) notFound();
 
@@ -90,7 +96,7 @@ export default async function ProductPage({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <ProductPageClient product={product} />
+      <ProductPageClient product={product} isAdmin={isAdmin} />
     </>
   );
 }

@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import type { AdminSessionScope, AdminSessionState, ApiResult, EditorState, FitmentForm, ProductForm, ProductSummary, UpsertPayload } from "./types";
 import { autofillFitmentRow, buildAutoSku, buildAutoSlug, createBlankEditor, createBlankFitmentRow, editorToPayload, payloadToEditor, STARTER_EDITOR } from "./helpers";
 
 export function useCatalogEditor() {
+  const searchParams = useSearchParams();
+  const slugFromUrl = searchParams?.get("slug");
+  
   const [adminKey, setAdminKey] = useState("");
   const [sessionPassword, setSessionPassword] = useState("");
   const [sessionState, setSessionState] = useState<AdminSessionState>("checking");
@@ -51,6 +55,15 @@ export function useCatalogEditor() {
     }
     void refreshAdminSession();
   }, [adminSessionRequired]);
+
+  const [loadedSlug, setLoadedSlug] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (sessionState === "unlocked" && slugFromUrl && slugFromUrl !== loadedSlug) {
+      setLoadedSlug(slugFromUrl);
+      void handleLoad(slugFromUrl, true);
+    }
+  }, [sessionState, slugFromUrl, loadedSlug]);
 
   async function refreshAdminSession() {
     setSessionError(null);
@@ -374,8 +387,8 @@ export function useCatalogEditor() {
     }
   }
 
-  function maybeReplaceEditor(nextEditor: EditorState, autoIdentifiers = false) {
-    if (isDirty && !window.confirm("You have unsaved changes. Replace them with the loaded product?")) {
+  function maybeReplaceEditor(nextEditor: EditorState, autoIdentifiers = false, force = false) {
+    if (!force && isDirty && !window.confirm("You have unsaved changes. Replace them with the loaded product?")) {
       return;
     }
 
@@ -421,7 +434,7 @@ export function useCatalogEditor() {
     }
   }
 
-  async function handleLoad(slug: string) {
+  async function handleLoad(slug: string, force = false) {
     setLoadingSlug(slug);
     setListError(null);
     try {
@@ -433,7 +446,7 @@ export function useCatalogEditor() {
         setListError(json?.error || `Failed to load ${slug} (${res.status})`);
         return;
       }
-      maybeReplaceEditor(payloadToEditor(json.payload));
+      maybeReplaceEditor(payloadToEditor(json.payload), false, force);
     } catch (err) {
       setListError(err instanceof Error ? err.message : "Request failed");
     } finally {

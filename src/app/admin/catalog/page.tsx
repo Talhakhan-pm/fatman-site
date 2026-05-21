@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { useCatalogEditor } from "./_components/use-catalog-editor";
 import { AdminAuth } from "./_components/admin-auth";
 import { ProductPicker } from "./_components/product-picker";
@@ -10,6 +11,14 @@ import { DeveloperTools } from "./_components/developer-tools";
 import { buttonClass, ghostButtonClass } from "./_components/ui";
 
 export default function AdminCatalogPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-fatman-900 pt-32 text-center text-white">Loading editor...</div>}>
+      <AdminCatalogContent />
+    </Suspense>
+  );
+}
+
+function AdminCatalogContent() {
   const editor = useCatalogEditor();
   const {
     sessionState,
@@ -29,6 +38,7 @@ export default function AdminCatalogPage() {
     saveBusy,
     handleArchiveProduct,
     archiveBusy,
+    loadingSlug,
   } = editor;
 
   const isArchive = result?.endpoint?.endsWith("/archive");
@@ -46,6 +56,16 @@ export default function AdminCatalogPage() {
           Built for staff, not developers. Load a product, edit the fields, add fitment rows,
           then save. No JSON required.
         </p>
+
+        {loadingSlug && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-fatman-900/80 backdrop-blur-sm">
+            <div className="rounded-2xl border border-fatman-accent/20 bg-fatman-800 p-8 text-center shadow-2xl">
+              <div className="mx-auto mb-4 h-8 w-8 animate-spin rounded-full border-2 border-fatman-accent border-t-transparent"></div>
+              <p className="font-semibold text-white">Loading product data...</p>
+              <p className="mt-1 text-sm text-white/60">Fetching {loadingSlug}</p>
+            </div>
+          </div>
+        )}
 
         {adminSessionRequired && (
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-100">
