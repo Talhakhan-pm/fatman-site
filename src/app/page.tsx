@@ -133,7 +133,7 @@ export default async function Home() {
                 <Link href="/about" className="inline-flex items-center gap-2 border-2 border-white/20 px-8 py-4 text-base font-bold uppercase tracking-wide text-white/60 transition-all duration-200 hover:border-[#ff6a00]/60 hover:text-white sm:text-lg">How It Works</Link>
               </div>
             </div>
-            <div className="animate-[fadeUp_0.8s_ease-out_0.3s_both] lg:col-span-5">
+            <div id="fitment-lookup" className="scroll-mt-28 animate-[fadeUp_0.8s_ease-out_0.3s_both] lg:col-span-5">
               <div className="relative border border-white/[0.08] bg-[#1a1d24] p-1"><CautionStripe /><FitmentModuleV2 /><CornerBrackets color="white/10" /></div>
             </div>
           </div>

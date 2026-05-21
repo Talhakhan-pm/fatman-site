@@ -34,6 +34,17 @@ function CartIcon({ className = "" }: { className?: string }) {
   );
 }
 
+function GarageIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M6.8 16.8h10.4M7.8 18.7h.02M16.2 18.7h.02" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M5.7 16.8l1-4.2a2.2 2.2 0 0 1 2.1-1.7h6.4a2.2 2.2 0 0 1 2.1 1.7l1 4.2" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M8.2 10.9l1-2.1a1.8 1.8 0 0 1 1.6-1h2.4a1.8 1.8 0 0 1 1.6 1l1 2.1" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M4.8 14.4h1.5M17.7 14.4h1.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function SiteHeader() {
   const { vehicle } = useGarage();
   const { itemCount, mounted: cartMounted } = useCart();
@@ -42,7 +53,9 @@ export function SiteHeader() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Product[]>([]);
   const [searchState, setSearchState] = useState<SearchState>("idle");
+  const [garageOpen, setGarageOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement | null>(null);
+  const garageRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -58,7 +71,10 @@ export function SiteHeader() {
         event.preventDefault();
         setSearchOpen(true);
       }
-      if (event.key === "Escape") setSearchOpen(false);
+      if (event.key === "Escape") {
+        setSearchOpen(false);
+        setGarageOpen(false);
+      }
     }
 
     window.addEventListener("keydown", onKeyDown);
@@ -72,17 +88,21 @@ export function SiteHeader() {
   }, [searchOpen]);
 
   useEffect(() => {
-    if (!searchOpen) return;
+    if (!searchOpen && !garageOpen) return;
 
     function onPointerDown(event: PointerEvent) {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
+      const target = event.target as Node;
+      if (searchRef.current && !searchRef.current.contains(target)) {
         setSearchOpen(false);
+      }
+      if (garageRef.current && !garageRef.current.contains(target)) {
+        setGarageOpen(false);
       }
     }
 
     window.addEventListener("pointerdown", onPointerDown);
     return () => window.removeEventListener("pointerdown", onPointerDown);
-  }, [searchOpen]);
+  }, [garageOpen, searchOpen]);
 
   useEffect(() => {
     if (!searchOpen) return;
@@ -120,7 +140,7 @@ export function SiteHeader() {
     <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6">
       <div
         className={`mx-auto flex max-w-7xl items-center gap-3 rounded-full px-3 py-2 transition-all duration-500 sm:gap-4 ${
-          scrolled || searchOpen
+          scrolled || searchOpen || garageOpen
             ? "border border-white/10 bg-[#10141b]/72 shadow-[0_18px_70px_rgba(0,0,0,0.32)] backdrop-blur-2xl"
             : "border border-transparent bg-transparent"
         }`}
@@ -154,6 +174,53 @@ export function SiteHeader() {
           <span className="ml-3 hidden rounded-full border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-[10px] text-white/30 sm:inline">⌘K</span>
           <span className="pointer-events-none absolute inset-x-5 bottom-0 h-px translate-x-[-120%] bg-gradient-to-r from-transparent via-fatman-accent to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
         </button>
+
+        <div ref={garageRef} className="relative shrink-0">
+          <button
+            type="button"
+            onClick={() => setGarageOpen((current) => !current)}
+            className={`relative inline-flex h-11 w-11 items-center justify-center rounded-full border text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white ${
+              garageOpen || vehicle ? "border-fatman-accent/45 bg-fatman-accent/12" : "border-white/12 bg-white/[0.045]"
+            }`}
+            aria-label="Garage fitment"
+            aria-expanded={garageOpen}
+          >
+            <GarageIcon className="h-5 w-5" />
+            {vehicle ? <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-fatman-accent shadow-[0_0_12px_rgba(234,88,12,0.8)]" /> : null}
+          </button>
+
+          <div
+            className={`absolute right-0 top-[calc(100%+0.75rem)] w-80 max-w-[calc(100vw-2rem)] origin-top-right overflow-hidden rounded-3xl border border-white/12 bg-[#10141b]/94 shadow-[0_28px_90px_rgba(0,0,0,0.5)] backdrop-blur-2xl transition-all duration-300 sm:w-96 ${
+              garageOpen ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-2 scale-[0.96] opacity-0"
+            }`}
+          >
+            <div className="relative p-5 sm:p-6">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_0%,rgba(234,88,12,0.22),transparent_42%)]" />
+              <div className="relative">
+                <p className="text-[10px] font-black uppercase tracking-[0.24em] text-fatman-accent">Garage</p>
+                {vehicle ? (
+                  <>
+                    <p className="mt-2 text-2xl font-black leading-tight text-white">{formatCompactVehicleLabel(vehicle)}</p>
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/35">{formatVehicleLabel(vehicle)}</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="mt-2 text-2xl font-black leading-tight text-white">No vehicle selected</p>
+                    <p className="mt-3 text-sm leading-relaxed text-white/55">Add your ride before you shop for smarter fitment warnings.</p>
+                  </>
+                )}
+                <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                  <Link href="/#fitment-lookup" onClick={() => setGarageOpen(false)} className="rounded-2xl bg-fatman-accent px-4 py-3 text-center text-sm font-black text-fatman-900 transition hover:bg-fatman-accent-hover">
+                    {vehicle ? "Update vehicle" : "Select vehicle"}
+                  </Link>
+                  <Link href="/category" onClick={() => setGarageOpen(false)} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-center text-sm font-bold text-white/70 transition hover:bg-white/10 hover:text-white">
+                    Browse parts
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <Link
           href="/cart"
