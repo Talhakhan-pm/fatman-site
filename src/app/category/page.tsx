@@ -18,7 +18,7 @@ export default async function CategoriesIndexPage() {
     const registry = catalogRegistry.find((entry) => entry.slug === category.slug);
     return {
       ...category,
-      Icon: registry ? categoryIconMap[registry.icon] : categoryIconMap.parts,
+      Icon: registry ? categoryIconMap[registry.icon] : categoryIconMap.engine,
     };
   });
 

@@ -210,7 +210,7 @@ export function SiteHeader() {
                   </>
                 )}
                 <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                  <Link href="/#fitment-lookup" onClick={() => setGarageOpen(false)} className="rounded-2xl bg-fatman-accent px-4 py-3 text-center text-sm font-black text-fatman-900 transition hover:bg-fatman-accent-hover">
+                  <Link href="/" onClick={() => setGarageOpen(false)} className="rounded-2xl bg-fatman-accent px-4 py-3 text-center text-sm font-black text-fatman-900 transition hover:bg-fatman-accent-hover">
                     {vehicle ? "Update vehicle" : "Select vehicle"}
                   </Link>
                   <Link href="/category" onClick={() => setGarageOpen(false)} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-center text-sm font-bold text-white/70 transition hover:bg-white/10 hover:text-white">
