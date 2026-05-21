@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
@@ -86,12 +87,13 @@ export function ProductPageClient({ product }: { product: Product }) {
                 ? "This part doesn't match your selected vehicle."
                 : "Close match — verify with VIN before checkout. VIN check beats regret."}
           </p>
-          <button
+          <Link
+            href={`/fitment-help?product=${encodeURIComponent(product.slug)}`}
             onClick={() => track("vin_verify_clicked", { slug: product.slug })}
-            className="mt-3 rounded-lg border border-white/20 px-3 py-2 text-sm text-white/85"
+            className="mt-3 inline-block rounded-lg border border-white/20 px-3 py-2 text-sm text-white/85 hover:bg-white/10"
           >
             Verify with VIN
-          </button>
+          </Link>
 
           <div className="mt-6 rounded-xl border border-white/15 bg-white/5 p-4">
             <p className="text-sm text-white/70">Estimated Dispatch</p>

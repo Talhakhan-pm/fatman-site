@@ -42,5 +42,7 @@ next-env.d.ts
 
 # local admin runtime artifacts
 /data/admin-catalog-local.json
+/data/fitment-requests-local.json
+/data/contact-requests-local.json
 /public/fatman-uploads/
 /tmp/

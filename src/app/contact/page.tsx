@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ContactForm } from "@/components/contact-form";
 
 export const metadata = {
   title: "Contact",
@@ -15,13 +16,7 @@ export default function ContactPage() {
             Need fitment help, order support, or a policy question answered? Send the clearest details you have — VIN, part link, order number, photos, or what you’re trying to fix.
           </p>
 
-          <form className="mt-8 space-y-4 rounded-2xl border border-white/15 bg-white/5 p-5">
-            <input className="w-full rounded-lg border border-white/15 bg-fatman-700 px-3 py-2" placeholder="Name" />
-            <input className="w-full rounded-lg border border-white/15 bg-fatman-700 px-3 py-2" placeholder="Email" />
-            <input className="w-full rounded-lg border border-white/15 bg-fatman-700 px-3 py-2" placeholder="VIN (optional, preferred for fitment)" />
-            <textarea className="h-32 w-full rounded-lg border border-white/15 bg-fatman-700 px-3 py-2" placeholder="Order number, product link, part number, vehicle details, or what part you need" />
-            <button className="rounded-lg bg-fatman-accent px-4 py-2 font-semibold transition hover:bg-fatman-accent-hover">Send</button>
-          </form>
+          <ContactForm />
         </div>
 
         <aside className="space-y-4 lg:pt-20">
