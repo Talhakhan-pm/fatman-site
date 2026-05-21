@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
-import { StickyFitmentBar } from "@/components/sticky-fitment-bar";
 import { useFitment } from "@/components/use-fitment";
 import { CompatibleProducts } from "@/components/product/compatible-products";
 import { formatPrice, type Product } from "@/lib/catalog";
@@ -35,8 +34,7 @@ export function ProductPageClient({ product }: { product: Product }) {
 
   return (
     <div className="min-h-screen bg-fatman-900 text-white">
-      <StickyFitmentBar />
-      <main className="mx-auto grid max-w-6xl gap-8 px-6 py-10 md:grid-cols-2">
+      <main className="mx-auto grid max-w-6xl gap-8 px-6 pb-10 pt-28 md:grid-cols-2 lg:pt-32">
         <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-6">
           <div className="relative h-80 overflow-hidden rounded-xl bg-fatman-700/60">
             {media.src ? (
