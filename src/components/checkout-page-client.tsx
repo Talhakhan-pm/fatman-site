@@ -1,22 +1,80 @@
 "use client";
 
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import { useCart } from "@/components/cart-provider";
+import { FREE_SHIPPING_THRESHOLD_CENTS, getShippingCents, fromCents, toCents } from "@/lib/checkout";
 import { formatPrice } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 
-const STANDARD_SHIPPING = 24.99;
-const FREE_SHIPPING_THRESHOLD = 499;
+type CheckoutResponse = {
+  ok?: boolean;
+  url?: string;
+  orderNumber?: string;
+  error?: string;
+  details?: string;
+  missingSlugs?: string[];
+};
 
-function getShipping(subtotal: number) {
-  if (subtotal <= 0 || subtotal >= FREE_SHIPPING_THRESHOLD) return 0;
-  return STANDARD_SHIPPING;
-}
+type CheckoutForm = {
+  email: string;
+  name: string;
+  phone: string;
+};
+
+const inputClass =
+  "mt-1 w-full rounded-lg border border-white/15 bg-fatman-700 px-3 py-2 text-sm text-white placeholder:text-white/35 focus:outline-none focus:ring-1 focus:ring-fatman-accent";
 
 export function CheckoutPageClient() {
   const { lines, mounted, itemCount, subtotal } = useCart();
-  const shipping = getShipping(subtotal);
-  const total = subtotal + shipping;
+  const [form, setForm] = useState<CheckoutForm>({ email: "", name: "", phone: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const subtotalCents = toCents(subtotal);
+  const shippingCents = getShippingCents(subtotalCents);
+  const total = fromCents(subtotalCents + shippingCents);
+  const freeShippingRemaining = Math.max(0, fromCents(FREE_SHIPPING_THRESHOLD_CENTS - subtotalCents));
+
+  const checkoutLines = useMemo(
+    () => lines.map((line) => ({ slug: line.product.slug, quantity: line.quantity })),
+    [lines],
+  );
+
+  async function startCheckout() {
+    setError(null);
+    setIsSubmitting(true);
+    track("begin_checkout", { item_count: itemCount, total });
+
+    try {
+      const response = await fetch("/api/checkout/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          lines: checkoutLines,
+          customer: {
+            email: form.email,
+            name: form.name,
+            phone: form.phone,
+          },
+        }),
+      });
+
+      const payload = (await response.json().catch(() => ({}))) as CheckoutResponse;
+
+      if (!response.ok || !payload.url) {
+        const missing = payload.missingSlugs?.length
+          ? ` Missing products: ${payload.missingSlugs.join(", ")}.`
+          : "";
+        throw new Error(`${payload.error ?? "Checkout could not start"}${missing}`);
+      }
+
+      window.location.href = payload.url;
+    } catch (checkoutError) {
+      setError(checkoutError instanceof Error ? checkoutError.message : "Checkout could not start");
+      setIsSubmitting(false);
+    }
+  }
 
   if (!mounted) {
     return (
@@ -34,9 +92,9 @@ export function CheckoutPageClient() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-fatman-accent">Checkout</p>
-            <h1 className="mt-2 text-4xl font-black tracking-tight">Secure checkout handoff</h1>
+            <h1 className="mt-2 text-4xl font-black tracking-tight">Secure checkout</h1>
             <p className="mt-2 max-w-2xl text-white/68">
-              Cart is production-ready. This screen is the clean handoff point for Stripe or another payment provider once credentials are connected.
+              Pay safely through Stripe. We verify live product pricing before sending you to payment.
             </p>
           </div>
           <Link href="/cart" className="rounded-lg border border-white/15 px-4 py-2 text-sm font-semibold text-white/85 hover:bg-white/10">
@@ -45,7 +103,7 @@ export function CheckoutPageClient() {
         </div>
 
         <div className="mt-5 flex flex-wrap gap-2 text-xs text-white/70">
-          {["1. Cart", "2. Shipping", "3. Payment", "4. Review"].map((step, index) => (
+          {["1. Cart", "2. Details", "3. Stripe payment", "4. Confirmation"].map((step, index) => (
             <span
               key={step}
               className={`rounded-full border px-3 py-1 ${
@@ -69,33 +127,51 @@ export function CheckoutPageClient() {
           <div className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
             <div className="space-y-6">
               <div className="rounded-3xl border border-white/12 bg-white/[0.055] p-5">
-                <h2 className="text-lg font-black">Shipping contact</h2>
+                <h2 className="text-lg font-black">Contact details</h2>
+                <p className="mt-1 text-sm text-white/60">
+                  Stripe will collect the final shipping address. These details help us attach the order to support and CRM.
+                </p>
                 <div className="mt-4 grid gap-3 md:grid-cols-2">
-                  {[
-                    "Email",
-                    "Phone",
-                    "First name",
-                    "Last name",
-                    "Address",
-                    "City",
-                    "State",
-                    "ZIP code",
-                  ].map((label) => (
-                    <label key={label} className={label === "Address" ? "md:col-span-2" : ""}>
-                      <span className="text-xs font-semibold uppercase tracking-wide text-white/45">{label}</span>
-                      <input
-                        className="mt-1 w-full rounded-lg border border-white/15 bg-fatman-700 px-3 py-2 text-sm text-white placeholder:text-white/35 focus:outline-none focus:ring-1 focus:ring-fatman-accent"
-                        placeholder={label}
-                      />
-                    </label>
-                  ))}
+                  <label>
+                    <span className="text-xs font-semibold uppercase tracking-wide text-white/45">Email</span>
+                    <input
+                      className={inputClass}
+                      type="email"
+                      autoComplete="email"
+                      placeholder="you@example.com"
+                      value={form.email}
+                      onChange={(event) => setForm((current) => ({ ...current, email: event.target.value }))}
+                    />
+                  </label>
+                  <label>
+                    <span className="text-xs font-semibold uppercase tracking-wide text-white/45">Phone</span>
+                    <input
+                      className={inputClass}
+                      type="tel"
+                      autoComplete="tel"
+                      placeholder="(555) 000-0000"
+                      value={form.phone}
+                      onChange={(event) => setForm((current) => ({ ...current, phone: event.target.value }))}
+                    />
+                  </label>
+                  <label className="md:col-span-2">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-white/45">Name</span>
+                    <input
+                      className={inputClass}
+                      autoComplete="name"
+                      placeholder="Full name"
+                      value={form.name}
+                      onChange={(event) => setForm((current) => ({ ...current, name: event.target.value }))}
+                    />
+                  </label>
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-amber-400/25 bg-amber-400/10 p-5">
-                <h2 className="text-lg font-black text-amber-100">Payment provider not connected yet</h2>
-                <p className="mt-2 text-sm leading-relaxed text-amber-50/80">
-                  I’m not faking payment collection. The next real project is connecting Stripe Checkout, creating order records, and sending confirmation emails. This page is ready to hand the cart to that flow.
+              <div className="rounded-3xl border border-emerald-400/25 bg-emerald-400/10 p-5">
+                <h2 className="text-lg font-black text-emerald-100">Production checkout path</h2>
+                <p className="mt-2 text-sm leading-relaxed text-emerald-50/80">
+                  This creates a pending order, sends the customer to Stripe Checkout, and marks payment through a signed Stripe webhook.
+                  CRM sync is intentionally staged next so Rails stays the operations back office.
                 </p>
               </div>
             </div>
@@ -121,23 +197,30 @@ export function CheckoutPageClient() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-white/65">Estimated shipping</span>
-                  <span>{shipping === 0 ? "Free" : formatPrice(shipping)}</span>
+                  <span>{shippingCents === 0 ? "Free" : formatPrice(fromCents(shippingCents))}</span>
                 </div>
+                {freeShippingRemaining > 0 && (
+                  <p className="rounded-lg border border-white/10 bg-black/10 p-3 text-xs text-white/55">
+                    Add {formatPrice(freeShippingRemaining)} more for free shipping.
+                  </p>
+                )}
                 <div className="flex items-center justify-between text-xl font-black">
                   <span>Total</span>
                   <span>{formatPrice(total)}</span>
                 </div>
               </div>
 
+              {error && <div className="mt-4 rounded-xl border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-100">{error}</div>}
+
               <button
-                onClick={() => track("begin_checkout", { item_count: itemCount, total, blocked: "payment_provider_not_connected" })}
-                className="mt-6 w-full cursor-not-allowed rounded-xl bg-white/15 px-5 py-3 text-center text-sm font-black text-white/45"
-                disabled
+                onClick={startCheckout}
+                className="mt-6 w-full rounded-xl bg-fatman-accent px-5 py-3 text-center text-sm font-black text-fatman-900 hover:bg-fatman-accent-hover disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={isSubmitting || lines.length === 0}
               >
-                Connect Stripe to continue
+                {isSubmitting ? "Starting secure checkout…" : "Pay with Stripe"}
               </button>
               <p className="mt-3 text-xs leading-relaxed text-white/50">
-                Cart UX is done; real payment needs provider credentials and order persistence.
+                Final tax, address validation, and payment collection happen inside Stripe Checkout.
               </p>
             </aside>
           </div>
