@@ -62,7 +62,7 @@ function MultiSelectPill({
               onClick={() => toggle(opt)}
               className={`px-2.5 py-1 text-xs rounded-full border transition-colors ${
                 isSelected
-                  ? "bg-fatman-accent text-white border-fatman-accent font-semibold"
+                  ? "bg-fatman-accent text-fatman-900 border-fatman-accent font-semibold"
                   : "bg-white/5 text-white/70 border-white/10 hover:bg-white/10 hover:border-white/20"
               }`}
             >
@@ -182,7 +182,7 @@ export function FitmentCombinator({ editor }: { editor: ReturnType<typeof useCat
   }
 
   return (
-    <div className="rounded-xl border border-fatman-accent/40 bg-black/30 p-5 mb-6 relative overflow-hidden">
+    <div className="rounded-xl border border-fatman-accent/40 bg-fatman-800 p-5 mb-6 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-fatman-accent/0 via-fatman-accent to-fatman-accent/0 opacity-50"></div>
       
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">

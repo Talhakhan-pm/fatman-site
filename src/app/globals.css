@@ -159,6 +159,25 @@ body[data-theme="light"] .border-white\/20 {
 
 /* ── Accents & Alerts ── */
 
+body[data-theme="light"] .bg-emerald-500\/10 {
+  background-color: #ecfdf5 !important;
+}
+
+body[data-theme="light"] .border-emerald-500\/30 {
+  border-color: #a7f3d0 !important;
+}
+
+body[data-theme="light"] .text-emerald-50 {
+  color: #065f46 !important;
+}
+
+body[data-theme="light"] .text-emerald-100,
+body[data-theme="light"] .text-emerald-100\/80 {
+  color: #047857 !important;
+}
+
+/* ── Yellow/Amber ── */
+
 body[data-theme="light"] .bg-amber-400\/10 {
   background-color: #fffbeb !important;
 }
