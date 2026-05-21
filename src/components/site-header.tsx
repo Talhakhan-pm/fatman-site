@@ -119,13 +119,13 @@ export function SiteHeader() {
   return (
     <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6">
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between gap-3 rounded-full px-3 py-2 transition-all duration-500 ${
+        className={`mx-auto flex max-w-7xl items-center gap-3 rounded-full px-3 py-2 transition-all duration-500 sm:gap-4 ${
           scrolled || searchOpen
             ? "border border-white/10 bg-[#10141b]/72 shadow-[0_18px_70px_rgba(0,0,0,0.32)] backdrop-blur-2xl"
             : "border border-transparent bg-transparent"
         }`}
       >
-        <Link href="/" className="flex min-w-0 items-center" aria-label="Fatman Parts home">
+        <Link href="/" className="flex shrink-0 items-center" aria-label="Fatman Parts home">
           <Image
             src={logoSrc}
             alt="Fatman Parts"
@@ -136,40 +136,37 @@ export function SiteHeader() {
           />
         </Link>
 
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-2 pl-3 sm:gap-3 sm:pl-6 lg:pl-10">
-          <button
-            type="button"
-            onClick={() => setSearchOpen(true)}
-            className="group relative inline-flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/12 bg-white/[0.045] px-3 text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white sm:h-12 sm:w-full sm:max-w-[820px] sm:flex-1 sm:justify-start sm:gap-3 sm:px-5 lg:max-w-[920px]"
-            aria-label="Search products"
-          >
-            <SearchIcon className="h-5 w-5 shrink-0 transition duration-300 group-hover:scale-110 group-hover:text-fatman-accent" />
-            <span className="hidden min-w-0 flex-1 truncate text-left text-sm font-semibold text-white/48 transition group-hover:text-white/80 sm:inline">
-              Search parts, SKU, OEM number, brand...
+        <button
+          type="button"
+          onClick={() => setSearchOpen(true)}
+          className="group relative flex h-11 min-w-0 flex-1 items-center overflow-hidden rounded-full border border-white/12 bg-white/[0.055] px-4 text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white sm:h-12 sm:px-5"
+          aria-label="Search products"
+        >
+          <SearchIcon className="h-5 w-5 shrink-0 transition duration-300 group-hover:scale-110 group-hover:text-fatman-accent" />
+          <span className="ml-3 min-w-0 flex-1 truncate text-left text-sm font-semibold text-white/52 transition group-hover:text-white/85">
+            Search parts, SKU, OEM number, brand...
+          </span>
+          {vehicle ? (
+            <span className="ml-3 hidden max-w-[180px] truncate rounded-full border border-white/10 bg-black/20 px-2.5 py-1 text-xs text-white/42 xl:inline" title={formatVehicleLabel(vehicle)}>
+              {formatCompactVehicleLabel(vehicle)}
             </span>
-            <span className="ml-auto hidden rounded-full border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-[10px] text-white/30 sm:inline">⌘K</span>
-            <span className="pointer-events-none absolute inset-x-5 bottom-0 h-px translate-x-[-120%] bg-gradient-to-r from-transparent via-fatman-accent to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
-          </button>
+          ) : null}
+          <span className="ml-3 hidden rounded-full border border-white/10 bg-black/20 px-2 py-0.5 font-mono text-[10px] text-white/30 sm:inline">⌘K</span>
+          <span className="pointer-events-none absolute inset-x-5 bottom-0 h-px translate-x-[-120%] bg-gradient-to-r from-transparent via-fatman-accent to-transparent transition-transform duration-700 group-hover:translate-x-[120%]" />
+        </button>
 
-          {vehicle && (
-            <div className="hidden max-w-[190px] shrink-0 rounded-full border border-white/10 bg-black/18 px-3 py-2 text-xs text-white/58 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl xl:block" title={formatVehicleLabel(vehicle)}>
-              <span className="block truncate">Garage: {formatCompactVehicleLabel(vehicle)}</span>
-            </div>
-          )}
-
-          <Link
-            href="/cart"
-            className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/[0.045] text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white"
-            aria-label="Cart"
-          >
-            <CartIcon className="h-5 w-5" />
-            {cartMounted && itemCount > 0 ? (
-              <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-fatman-accent px-1 text-[10px] font-black text-fatman-900 shadow-[0_0_18px_rgba(234,88,12,0.6)]">
-                {itemCount}
-              </span>
-            ) : null}
-          </Link>
-        </div>
+        <Link
+          href="/cart"
+          className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.045] text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white"
+          aria-label="Cart"
+        >
+          <CartIcon className="h-5 w-5" />
+          {cartMounted && itemCount > 0 ? (
+            <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-fatman-accent px-1 text-[10px] font-black text-fatman-900 shadow-[0_0_18px_rgba(234,88,12,0.6)]">
+              {itemCount}
+            </span>
+          ) : null}
+        </Link>
       </div>
 
       <div
