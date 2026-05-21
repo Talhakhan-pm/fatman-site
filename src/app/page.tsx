@@ -33,19 +33,19 @@ const steps = [
 ];
 const testimonials = [
   {
-    quote: "First time ordering parts online where the part actually fit. No returns, no headaches. These guys know their stuff.",
+    quote: "first time ordering parts online where the part actually fit lol. no returns, no headaches. these guys know their stuff.",
     name: "Marcus T.",
     vehicle: "2019 Silverado 1500",
     rating: 5,
   },
   {
-    quote: "Ordered a turbo kit on Monday, had it by Wednesday. Fitment was dead-on. Will be back for suspension next.",
+    quote: "ordered a turbo kit on monday, had it by wednesday. fitment was dead on... will be back for suspension next fs",
     name: "Jason R.",
     vehicle: "2021 F-150 EcoBoost",
     rating: 5,
   },
   {
-    quote: "Their VIN lookup saved me from ordering the wrong engine block. Saved me $800 and a weekend of frustration.",
+    quote: "vin lookup saved me from ordering the wrong block. saved me like $800 and a weekend of frustration tbh.",
     name: "Dani K.",
     vehicle: "2017 RAM 2500 Cummins",
     rating: 5,
@@ -163,7 +163,7 @@ export default async function Home() {
                 Built for people who are tired of <span className="text-[#ff6a00]">guessing at fitment.</span>
               </h2>
               <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/50">
-                The UI should sell confidence fast: pick the vehicle, see verified paths, and get to the right SKU without digging through generic catalog clutter.
+                We take the guesswork out of buying auto parts. Pick your vehicle, see verified OEM-matched parts, and get exactly what you need without digging through endless pages of generic catalog clutter.
               </p>
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-5">
@@ -243,7 +243,7 @@ export default async function Home() {
                 Confidence beats gimmicks.
               </h2>
               <p className="mt-3 max-w-2xl text-lg text-white/50">
-                These blocks give the homepage more weight and trust instead of feeling like a pretty shell.
+                Don't just take our word for it. See what real builders, mechanics, and gearheads are saying about their Fatman Parts experience.
               </p>
             </div>
             <div className="rounded-full border border-[#ff6a00]/20 bg-[#ff6a00]/10 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#ff6a00]">
@@ -282,10 +282,10 @@ export default async function Home() {
                   <span className="h-[2px] w-8 bg-white/35" />
                 </div>
                 <h2 className="max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl" style={{ color: "#ffffff" }}>
-                  Next UI move should be product and category pages — sharper hierarchy, better fitment cues, less dead space.
+                  Ready to lock in your next build? Start browsing our verified catalog.
                 </h2>
                 <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80" style={{ color: "rgba(255,255,255,0.82)" }}>
-                  I started by hardening the homepage so it feels more premium and conversion-ready instead of half-finished.
+                  Stop guessing at fitment and start building. Join thousands of other gearheads who trust Fatman Parts for their OEM and performance needs.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 lg:justify-end">

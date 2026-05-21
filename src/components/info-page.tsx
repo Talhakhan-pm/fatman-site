@@ -14,8 +14,8 @@ type InfoPageProps = {
 
 export function InfoPage({ eyebrow = "Fatman Parts", title, description, children, cta }: InfoPageProps) {
   return (
-    <main className="min-h-screen bg-fatman-900 text-white">
-      <section className="mx-auto max-w-5xl px-6 py-12 sm:py-16">
+    <main className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
+      <section className="mx-auto max-w-5xl px-6 pb-12 sm:pb-16">
         <div className="max-w-3xl">
           <p className="text-xs font-black uppercase tracking-[0.28em] text-fatman-accent">{eyebrow}</p>
           <h1 className="mt-3 text-3xl font-black tracking-tight sm:text-5xl">{title}</h1>
