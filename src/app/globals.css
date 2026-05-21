@@ -635,6 +635,22 @@ body[data-theme="light"] header .border-fatman-accent\/50 {
   border-color: rgba(234, 88, 12, 0.3) !important;
 }
 
+body[data-theme="light"] button.bg-fatman-accent,
+body[data-theme="light"] a.bg-fatman-accent,
+body[data-theme="light"] button.bg-\[\#ff6a00\],
+body[data-theme="light"] a.bg-\[\#ff6a00\] {
+  color: #ffffff !important;
+}
+
+body[data-theme="light"] button.bg-fatman-accent .text-fatman-900,
+body[data-theme="light"] a.bg-fatman-accent .text-fatman-900,
+body[data-theme="light"] button.bg-fatman-accent span,
+body[data-theme="light"] a.bg-fatman-accent span,
+body[data-theme="light"] button.bg-\[\#ff6a00\] span,
+body[data-theme="light"] a.bg-\[\#ff6a00\] span {
+  color: #ffffff !important;
+}
+
 body[data-theme="light"] header .text-white\/75,
 body[data-theme="light"] header .text-white\/72,
 body[data-theme="light"] header .text-white\/70,
