@@ -30,6 +30,8 @@ export default function AdminCatalogPage() {
     archiveBusy,
   } = editor;
 
+  const isArchive = result?.endpoint?.endsWith("/archive");
+
   // Render the auth wall if required
   if (adminSessionRequired && sessionState !== "unlocked") {
     return <AdminAuth editor={editor} />;
@@ -91,9 +93,9 @@ export default function AdminCatalogPage() {
                     type="button"
                     className="rounded-lg border border-red-500/30 px-4 py-2 text-sm font-semibold text-red-400 hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
                     onClick={() => void handleArchiveProduct()}
-                    disabled={archiveBusy}
+                    disabled={archiveBusy || editor.editor.product.published === false}
                   >
-                    {archiveBusy ? "Archiving…" : "Archive product"}
+                    {archiveBusy ? "Archiving…" : editor.editor.product.published === false ? "Archived" : "Archive product"}
                   </button>
                   <button
                     type="button"
@@ -130,13 +132,13 @@ export default function AdminCatalogPage() {
                 }`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
-                  <strong>{ok ? "Saved successfully" : "Save failed"}</strong>
+                  <strong>{ok ? (isArchive ? "Archived successfully" : "Saved successfully") : (isArchive ? "Archive failed" : "Save failed")}</strong>
                 </div>
 
                 {savedBody?.product?.slug && (
                   <p className="mt-3 text-sm text-white/90">
-                    Saved <strong>{savedBody.product.slug}</strong>
-                    {typeof savedBody.fitmentCount === "number"
+                    {isArchive ? "Archived" : "Saved"} <strong>{savedBody.product.slug}</strong>
+                    {!isArchive && typeof savedBody.fitmentCount === "number"
                       ? ` with ${savedBody.fitmentCount} fitment row${savedBody.fitmentCount === 1 ? "" : "s"}.`
                       : "."}
                   </p>
