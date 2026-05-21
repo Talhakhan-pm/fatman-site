@@ -90,7 +90,7 @@ export function ProductPageClient({ product }: { product: Product }) {
   return (
     <div className="min-h-screen bg-fatman-900 text-white">
       <main className="mx-auto grid max-w-6xl gap-8 px-6 pb-10 pt-28 md:grid-cols-2 lg:pt-32">
-        <div className="space-y-3 rounded-2xl border border-white/15 bg-white/5 p-6">
+        <div className="self-start space-y-3 rounded-2xl border border-white/15 bg-white/5 p-6">
           <div className="relative h-80 overflow-hidden rounded-xl bg-fatman-700/60">
             {media.src ? (
               <>
