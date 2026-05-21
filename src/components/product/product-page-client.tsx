@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
 import { useFitment } from "@/components/use-fitment";
@@ -11,6 +11,21 @@ import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 import { useCart } from "@/components/cart-provider";
+import type { VinDecodeResult } from "@/lib/vin";
+
+function normalizeVin(value: string) {
+  return value.toUpperCase().replace(/[^A-HJ-NPR-Z0-9]/g, "").slice(0, 17);
+}
+
+function vehicleSummary(decoded: VinDecodeResult) {
+  return [decoded.year, decoded.make, decoded.model, decoded.trim].filter(Boolean).join(" ");
+}
+
+type DecodeState =
+  | { status: "idle" }
+  | { status: "decoding" }
+  | { status: "success"; decoded: VinDecodeResult }
+  | { status: "error"; message: string };
 
 function getProductEyebrow(product: Product) {
   const brand = product.brand.trim();
@@ -27,6 +42,46 @@ export function ProductPageClient({ product }: { product: Product }) {
   const media = getProductDisplayMedia(product);
   const categoryLabel = product.category.replace(/-/g, " ");
   const eyebrow = getProductEyebrow(product);
+
+  const [showVinDecoder, setShowVinDecoder] = useState(false);
+  const [vin, setVin] = useState("");
+  const [decodeState, setDecodeState] = useState<DecodeState>({ status: "idle" });
+
+  const vinReady = vin.length === 17;
+  const decoded = decodeState.status === "success" ? decodeState.decoded : null;
+  const decodedLabel = decoded ? vehicleSummary(decoded) : "";
+
+  async function decodeVin() {
+    const cleanVin = normalizeVin(vin);
+    setVin(cleanVin);
+
+    if (cleanVin.length !== 17) {
+      setDecodeState({ status: "error", message: "VIN must be 17 characters." });
+      return;
+    }
+
+    setDecodeState({ status: "decoding" });
+    try {
+      const res = await fetch("/api/fitment/vin/decode", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ vin: cleanVin }),
+      });
+      const json = (await res.json().catch(() => null)) as VinDecodeResult | { error?: string } | null;
+
+      if (!res.ok || !json || !("valid" in json) || !json.valid) {
+        const message = json && "error" in json && json.error ? json.error : "VIN could not be decoded.";
+        setDecodeState({ status: "error", message });
+        return;
+      }
+
+      setDecodeState({ status: "success", decoded: json });
+      track("vin_decoded", { source: "pdp_inline", vin: cleanVin });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "VIN decoder failed.";
+      setDecodeState({ status: "error", message });
+    }
+  }
 
   useEffect(() => {
     track("view_item", { slug: product.slug, price: product.price });
@@ -85,13 +140,65 @@ export function ProductPageClient({ product }: { product: Product }) {
                 ? "This part doesn't match your selected vehicle."
                 : "Close match — verify with VIN before checkout. VIN check beats regret."}
           </p>
-          <Link
-            href={`/fitment-help?product=${encodeURIComponent(product.slug)}`}
-            onClick={() => track("vin_verify_clicked", { slug: product.slug })}
-            className="mt-3 inline-block rounded-lg border border-white/20 px-3 py-2 text-sm text-white/85 hover:bg-white/10"
-          >
-            Verify with VIN
-          </Link>
+          {!showVinDecoder ? (
+            <button
+              onClick={() => {
+                setShowVinDecoder(true);
+                track("vin_verify_clicked", { slug: product.slug });
+              }}
+              className="mt-3 inline-block rounded-lg border border-white/20 px-3 py-2 text-sm text-white/85 hover:bg-white/10 transition-colors"
+            >
+              Verify with VIN
+            </button>
+          ) : (
+            <div className="mt-4 rounded-xl border border-white/15 bg-white/5 p-4">
+              <label className="block">
+                <span className="text-xs font-semibold uppercase tracking-wide text-white/50">Enter VIN</span>
+                <div className="mt-2 flex gap-2">
+                  <input
+                    value={vin}
+                    onChange={(event) => setVin(normalizeVin(event.target.value))}
+                    className="w-full rounded-lg border border-white/15 bg-fatman-700 px-3 py-2 font-mono text-white tracking-wider focus:outline-none focus:ring-1 focus:ring-fatman-accent"
+                    placeholder="17-character VIN"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={decodeVin}
+                    disabled={!vinReady || decodeState.status === "decoding"}
+                    className="rounded-lg bg-fatman-accent px-4 py-2 text-sm font-black text-fatman-900 transition hover:bg-fatman-accent-hover disabled:cursor-not-allowed disabled:opacity-45"
+                  >
+                    {decodeState.status === "decoding" ? "Decoding…" : "Decode"}
+                  </button>
+                </div>
+              </label>
+
+              {decodeState.status === "success" && decoded && (
+                <div className="mt-4 rounded-lg border border-emerald-400/25 bg-emerald-400/10 p-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-100">VIN decoded</p>
+                  <p className="mt-1 text-sm font-black text-white">{decodedLabel || decoded.vin}</p>
+                  <div className="mt-2 grid gap-1 text-xs text-white/72 sm:grid-cols-2">
+                    <p>Engine: {decoded.engine || "N/A"}</p>
+                    <p>Body: {decoded.bodyClass || "N/A"}</p>
+                    <p>Drive: {decoded.driveType || "N/A"}</p>
+                    <p>Plant: {decoded.plantCountry || "N/A"}</p>
+                  </div>
+                  <Link
+                    href={`/fitment-help?product=${encodeURIComponent(product.slug)}`}
+                    className="mt-3 inline-block rounded-md border border-white/20 px-3 py-1.5 text-xs text-white/85 hover:bg-white/10 transition-colors"
+                  >
+                    Submit for manual verification
+                  </Link>
+                </div>
+              )}
+
+              {decodeState.status === "error" && (
+                <div className="mt-4 rounded-lg border border-red-400/25 bg-red-400/10 p-3 text-sm text-red-100">
+                  {decodeState.message}
+                </div>
+              )}
+            </div>
+          )}
 
           <div className="mt-6 rounded-xl border border-white/15 bg-white/5 p-4">
             <p className="text-sm text-white/70">Estimated Dispatch</p>
