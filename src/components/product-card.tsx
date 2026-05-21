@@ -37,15 +37,15 @@ export function ProductCard({
 
   return (
     <article className="rounded-xl border border-white/15 bg-white/5 p-4 transition hover:-translate-y-0.5 hover:border-fatman-accent">
-      <Link href={`/product/${product.slug}`} className="group relative block h-40 overflow-hidden rounded-lg bg-gradient-to-br from-fatman-700/80 via-fatman-800/80 to-fatman-900/90">
+      <Link href={`/product/${product.slug}`} className="group relative block h-40 overflow-hidden rounded-lg bg-fatman-800">
         {media.src ? (
           <>
             <Image src={media.src} alt={media.alt} fill className="object-cover transition duration-500 group-hover:scale-[1.02]" sizes="(max-width: 768px) 100vw, 33vw" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
           </>
         ) : (
-          <div className="absolute inset-0 flex flex-col justify-between bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.25),_transparent_45%),linear-gradient(135deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] p-3">
-            <div className="self-start rounded-full border border-white/15 bg-black/35 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
+          <div className="absolute inset-0 flex flex-col justify-between p-3 bg-fatman-700/30">
+            <div className="self-start rounded-full border border-white/15 bg-black/10 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white/80">
               {categoryLabel}
             </div>
             <div>

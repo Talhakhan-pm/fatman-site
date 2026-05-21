@@ -53,20 +53,20 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
     <>
       <section className="mx-auto max-w-6xl px-6 py-6">
         <div className="flex flex-wrap items-center gap-2 text-xs">
-          <button onClick={() => setInStockOnly((v) => !v)} className={`rounded-full border px-3 py-1.5 transition ${inStockOnly ? "border-fatman-accent bg-fatman-accent/20 text-white" : "border-white/15 bg-white/5 text-white/80"}`}>
+          <button onClick={() => setInStockOnly((v) => !v)} className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px ${inStockOnly ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}>
             In Stock
           </button>
-          <button onClick={() => setOemOnly((v) => !v)} className={`rounded-full border px-3 py-1.5 transition ${oemOnly ? "border-fatman-accent bg-fatman-accent/20 text-white" : "border-white/15 bg-white/5 text-white/80"}`}>
+          <button onClick={() => setOemOnly((v) => !v)} className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px ${oemOnly ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}>
             OEM
           </button>
-          <button onClick={() => setVerifiedFitOnly((v) => !v)} className={`rounded-full border px-3 py-1.5 transition ${verifiedFitOnly ? "border-fatman-accent bg-fatman-accent/20 text-white" : "border-white/15 bg-white/5 text-white/80"}`}>
+          <button onClick={() => setVerifiedFitOnly((v) => !v)} className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px ${verifiedFitOnly ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}>
             Fits Only
           </button>
 
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as "relevance" | "price-asc" | "price-desc")}
-            className="ml-auto rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-white/80"
+            className="ml-auto rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-semibold text-white/80 transition hover:bg-white/10 focus:border-fatman-accent focus:outline-none focus:ring-1 focus:ring-fatman-accent"
           >
             <option value="relevance">Sort: Relevance</option>
             <option value="price-asc">Price: Low to High</option>
