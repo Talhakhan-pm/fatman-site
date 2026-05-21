@@ -60,6 +60,7 @@ This project has completed its Phase 1 (infrastructure) and Phase 2 (garage-awar
 - **Admin Catalog Refactor & Fitment Combinator:**
   - Refactored the `/admin/catalog` page into a modular, component-driven architecture.
   - Built the **Multi-Dimensional Fitment Combinator**, a matrix generator that instantly produces combinatorial rows (Years × Makes × Models × Trims × Engines) to drastically speed up data entry.
+  - Implemented the **Storefront-to-Admin Bridge**: Authorized staff automatically see an "Edit in Admin" button on any public product page. Clicking it performs a direct hard-navigation that securely auto-loads the product into the backend editor, bypassing manual searches.
 - **Production UI Polish:**
   - Standardized max-width containers and fixed grid alignment bugs.
   - Replaced legacy theme toggles with a premium floating frosted-glass toggle.
