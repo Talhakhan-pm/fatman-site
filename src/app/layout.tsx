@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { CartProvider } from "@/components/cart-provider";
+import NextTopLoader from "nextjs-toploader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,6 +69,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body data-theme="dark" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <NextTopLoader color="#ea580c" showSpinner={false} />
         <ThemeProvider>
           <GarageProvider>
             <CartProvider>

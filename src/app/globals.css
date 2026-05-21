@@ -185,6 +185,8 @@ body[data-theme="light"] .text-amber-50\/85 {
   border-width: 1px;
   font-weight: 700;
   letter-spacing: 0.01em;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .fitment-badge {

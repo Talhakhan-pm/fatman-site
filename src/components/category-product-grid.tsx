@@ -16,7 +16,6 @@ const FITMENT_SORT_RANK: Record<FitmentState, number> = {
 export function CategoryProductGrid({ products }: { products: Product[] }) {
   const { vehicle } = useGarage();
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [oemOnly, setOemOnly] = useState(false);
   const [verifiedFitOnly, setVerifiedFitOnly] = useState(false);
   const [sort, setSort] = useState<"relevance" | "price-asc" | "price-desc">("relevance");
 
@@ -27,7 +26,6 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
     let rows = [...products];
 
     if (inStockOnly) rows = rows.filter((p) => p.stock === "in-stock");
-    if (oemOnly) rows = rows.filter((p) => p.brand.toLowerCase().includes("oem"));
     if (verifiedFitOnly) rows = rows.filter((p) => fitments[p.slug] === "fits");
 
     if (sort === "relevance") {
@@ -45,19 +43,16 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
     }
 
     return rows;
-  }, [products, inStockOnly, oemOnly, verifiedFitOnly, sort, fitments, vehicle]);
+  }, [products, inStockOnly, verifiedFitOnly, sort, fitments, vehicle]);
 
   const fitCount = filtered.filter((product) => fitments[product.slug] === "fits").length;
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-6 py-6">
+      <section className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <button onClick={() => setInStockOnly((v) => !v)} className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px ${inStockOnly ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}>
             In Stock
-          </button>
-          <button onClick={() => setOemOnly((v) => !v)} className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px ${oemOnly ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}>
-            OEM
           </button>
           <button onClick={() => setVerifiedFitOnly((v) => !v)} className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px ${verifiedFitOnly ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}>
             Fits Only
@@ -66,7 +61,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value as "relevance" | "price-asc" | "price-desc")}
-            className="ml-auto rounded-full border border-white/15 bg-white/5 px-4 py-1.5 font-semibold text-white/80 transition hover:bg-white/10 focus:border-fatman-accent focus:outline-none focus:ring-1 focus:ring-fatman-accent"
+            className="ml-auto rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/80 transition hover:bg-white/10 focus:border-fatman-accent focus:outline-none focus:ring-1 focus:ring-fatman-accent"
           >
             <option value="relevance">Sort: Relevance</option>
             <option value="price-asc">Price: Low to High</option>
@@ -75,7 +70,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-10">
+      <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
         <div className="mb-3 space-y-1 text-sm text-white/65">
           <div>{filtered.length} products</div>
           {vehicle ? (

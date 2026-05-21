@@ -61,13 +61,13 @@ export default async function CategoryPage({
   };
 
   return (
-    <div className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
+    <div className="min-h-screen bg-fatman-900 text-white pt-24 lg:pt-32">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-      <section className="mx-auto max-w-6xl px-6 pb-2 pt-4">
+      <section className="mx-auto max-w-6xl px-4 pb-2 pt-2 sm:px-6">
         <h1 className="text-3xl font-black tracking-tight sm:text-5xl">{category.title}</h1>
         {category.description && (
-          <p className="mt-4 max-w-2xl text-base leading-7 text-white/70">{category.description}</p>
+          <p className="mt-2 max-w-2xl text-base leading-7 text-white/70">{category.description}</p>
         )}
       </section>
 
