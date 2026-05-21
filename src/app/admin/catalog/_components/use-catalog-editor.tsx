@@ -249,6 +249,18 @@ export function useCatalogEditor() {
     }));
   }
 
+  function addBulkFitment(rows: FitmentForm[]) {
+    setEditor((current) => {
+      // If the only row is blank, replace it
+      const currentRows = current.fitment;
+      const isOnlyBlank = currentRows.length === 1 && !currentRows[0].year && !currentRows[0].make;
+      return {
+        ...current,
+        fitment: isOnlyBlank ? rows : [...currentRows, ...rows],
+      };
+    });
+  }
+
   function removeFitmentRow(index: number) {
     setEditor((current) => ({
       ...current,
@@ -465,7 +477,7 @@ export function useCatalogEditor() {
     // Handlers
     handleUnlockAdmin, handleLockAdmin,
     setProductField, enableAutoSlug, enableAutoSku,
-    setFitmentField, addFitmentRow, removeFitmentRow,
+    setFitmentField, addFitmentRow, addBulkFitment, removeFitmentRow,
     handleSeed, handleSave, handleArchiveProduct, handleImageUpload,
     loadStarter, createNewProduct, handleListProducts, handleLoad
   };

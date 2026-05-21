@@ -5,6 +5,7 @@ import { AdminAuth } from "./_components/admin-auth";
 import { ProductPicker } from "./_components/product-picker";
 import { ProductForm } from "./_components/product-form";
 import { FitmentEditor } from "./_components/fitment-editor";
+import { FitmentCombinator } from "./_components/fitment-combinator";
 import { DeveloperTools } from "./_components/developer-tools";
 import { buttonClass, ghostButtonClass } from "./_components/ui";
 
@@ -75,6 +76,7 @@ export default function AdminCatalogPage() {
 
           <div className="space-y-6">
             <ProductForm editor={editor} />
+            <FitmentCombinator editor={editor} />
             <FitmentEditor editor={editor} />
 
             {/* Save Section */}

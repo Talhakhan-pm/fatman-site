@@ -109,6 +109,48 @@ export function createBlankEditor(): EditorState {
   };
 }
 
+export function generateFitmentMatrix(
+  years: string[],
+  makes: string[],
+  models: string[],
+  variants: string[],
+  engines: string[],
+  matchType: "fits" | "verify" | "no-fit",
+  notes: string
+): FitmentForm[] {
+  const rows: FitmentForm[] = [];
+  
+  const yList = years.length > 0 ? years : [""];
+  const mList = makes.length > 0 ? makes : [""];
+  const moList = models.length > 0 ? models : [""];
+  const vList = variants.length > 0 ? variants : [""];
+  const eList = engines.length > 0 ? engines : [""];
+
+  for (const year of yList) {
+    for (const make of mList) {
+      for (const model of moList) {
+        for (const variant of vList) {
+          for (const engine of eList) {
+            rows.push({
+              id: createFitmentId(),
+              year,
+              make,
+              model,
+              variant: variant === "All Trims" ? "" : variant,
+              engine,
+              matchType,
+              source: "admin-ui-matrix",
+              notes,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return rows.map(autofillFitmentRow);
+}
+
 export function withCurrentOption(options: readonly string[], current: string) {
   if (!current.trim() || options.includes(current)) return [...options];
   return [current, ...options];
