@@ -25,7 +25,13 @@ export function FitmentEditor({ editor }: { editor: ReturnType<typeof useCatalog
         </button>
       </div>
 
-      <div className="mt-4 space-y-3">
+      <div className="mt-4 space-y-3 max-h-[500px] overflow-y-auto pr-2 pb-2 
+        [&::-webkit-scrollbar]:w-2 
+        [&::-webkit-scrollbar-track]:bg-black/20 
+        [&::-webkit-scrollbar-track]:rounded-full
+        [&::-webkit-scrollbar-thumb]:bg-white/10 
+        [&::-webkit-scrollbar-thumb]:rounded-full 
+        hover:[&::-webkit-scrollbar-thumb]:bg-white/20">
         {editorState.fitment.map((row, index) => (
           <div
             key={row.id}
