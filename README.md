@@ -92,6 +92,7 @@ The storefront has now moved into high-fidelity UI and conversion flows:
   - Live Contact form and Admin Inbox (`/admin/contact-requests`)
   - Live VIN/Fitment Request flow (`/fitment-help`) with VIN decoding and Admin Inbox (`/admin/fitment-requests`)
 - **Production UI Polish:** Global container alignment (`max-w-6xl`), inline VIN decoding on product pages, floating sticky theme toggle, and conversion-optimized marketing copy.
+- **Admin Catalog Refactor:** Component-driven modular architecture for easy maintenance, featuring a **Multi-Dimensional Fitment Combinator** that instantly generates massive blocks of fitment matrix rows to accelerate data entry.
 
 ## Current risks / known gaps
 

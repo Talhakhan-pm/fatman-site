@@ -57,6 +57,13 @@ This project has completed its Phase 1 (infrastructure) and Phase 2 (garage-awar
 - **Admin Inbound Request Inboxes:**
   - Contact Requests: built form and admin dashboard (`/admin/contact-requests`, backed by `003_contact_requests.sql`).
   - VIN/Fitment Requests: built `/fitment-help` form with VIN decoding, and admin dashboard (`/admin/fitment-requests`, backed by `002_fitment_requests.sql`).
+- **Admin Catalog Refactor & Fitment Combinator:**
+  - Refactored the `/admin/catalog` page into a modular, component-driven architecture.
+  - Built the **Multi-Dimensional Fitment Combinator**, a matrix generator that instantly produces combinatorial rows (Years × Makes × Models × Trims × Engines) to drastically speed up data entry.
+- **Production UI Polish:**
+  - Standardized max-width containers and fixed grid alignment bugs.
+  - Replaced legacy theme toggles with a premium floating frosted-glass toggle.
+  - Rewrote placeholder copy for high-conversion authentic marketing.
 
 ---
 
