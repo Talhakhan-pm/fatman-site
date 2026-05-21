@@ -213,7 +213,7 @@ Show near the title / fitment summary:
 CTA guidance:
 - keep buy path possible only if business rules allow
 - strongly encourage a confirmation action
-- ideal future CTA: `Verify With VIN`
+- Implemented CTA: Inline VIN Decoder widget allows instant vehicle decoding directly on the product page.
 
 ### Unknown PDP state
 Show near the title / fitment summary:
@@ -307,7 +307,7 @@ No-fit behavior:
 2. standardize fitment badge rendering across product cards and PDPs
 3. decide if category pages should visibly split `fits` and `verify` into separate sections
 4. decide whether homepage should ever expose a clearly labeled `verify` fallback module
-5. add VIN/support-driven confirmation flows for verify and unknown states
+5. **[COMPLETED]** add VIN/support-driven confirmation flows for verify and unknown states (Inline VIN Decoder on PDP, `/fitment-help` flow)
 
 ## 13. Acceptance test examples
 

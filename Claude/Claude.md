@@ -53,6 +53,8 @@ Recent additions:
 ## 6) Conversion & Checkout (Phase 3)
 - **Search:** Live `Cmd+K` command palette implemented in the new floating header, matching parts via `/api/products` for instant results.
 - **Checkout:** Stripe Hosted Checkout is wired up via `/api/checkout/session`. Webhooks (`/api/stripe/webhook`) sync payment statuses back into a new Supabase `orders` table.
+- **Production UI Polish:** Global container layout alignments, inline VIN decoding on product pages, sticky floating theme toggle, and conversion-optimized marketing copy throughout the site.
+- **Admin Catalog Refactor:** The massive `/admin/catalog` page has been cleanly modularized into smaller focused components for significant maintainability improvements.
 
 ---
 

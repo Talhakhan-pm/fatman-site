@@ -38,7 +38,7 @@ Current rule:
 
 ### 2. Admin catalog layer
 Admin UI:
-- `/admin/catalog`
+- `/admin/catalog` (Modular, component-driven architecture)
 - `/admin/contact-requests`
 - `/admin/fitment-requests`
 
@@ -91,6 +91,7 @@ The storefront has now moved into high-fidelity UI and conversion flows:
 - **Inbound Requests:** 
   - Live Contact form and Admin Inbox (`/admin/contact-requests`)
   - Live VIN/Fitment Request flow (`/fitment-help`) with VIN decoding and Admin Inbox (`/admin/fitment-requests`)
+- **Production UI Polish:** Global container alignment (`max-w-6xl`), inline VIN decoding on product pages, floating sticky theme toggle, and conversion-optimized marketing copy.
 
 ## Current risks / known gaps
 
