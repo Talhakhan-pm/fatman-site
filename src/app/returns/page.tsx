@@ -1,7 +1,12 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Return Policy",
+  description: "Find out how to return or exchange parts, condition requirements, return timeframes, and what happens if we sent the wrong part.",
+  alternates: {
+    canonical: "/returns",
+  },
 };
 
 export default function ReturnsPage() {

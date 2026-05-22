@@ -1,12 +1,33 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "About",
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Fatman Parts is built by mechanics and gearheads for auto parts shopping without the guesswork. Learn about our OEM-verified fitment guarantee, real U.S. support, and shipping.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {
+  const aboutPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Fatman Parts",
+    "description": "Fatman Parts is built for gearheads, mechanics, and everyday drivers who need the right automotive part without fighting a messy catalog.",
+    "url": "https://fatmanparts.com/about",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Fatman Parts",
+      "url": "https://fatmanparts.com",
+      "logo": "https://fatmanparts.com/brand/fatman-fp-shield.png"
+    }
+  };
+
   return (
-    <InfoPage
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }} />
+      <InfoPage
       eyebrow="About Fatman Parts"
       title="Parts shopping without the guesswork"
       description="Fatman Parts is built for gearheads, mechanics, and everyday drivers who need the right automotive part without fighting a messy catalog. Our core operating principle is simple: fitment clarity, real support, and clean product information."
@@ -45,5 +66,6 @@ export default function AboutPage() {
         </p>
       </InfoSection>
     </InfoPage>
+    </>
   );
 }

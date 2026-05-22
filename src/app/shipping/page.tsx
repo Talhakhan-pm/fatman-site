@@ -1,7 +1,12 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Shipping & Delivery",
+  description: "Learn about Fatman Parts delivery times, shipping carriers, handling of oversized packages, international duties, and reporting shipping damage.",
+  alternates: {
+    canonical: "/shipping",
+  },
 };
 
 export default function ShippingPage() {

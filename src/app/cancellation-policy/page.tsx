@@ -1,7 +1,12 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Cancellation Policy",
+  description: "Understand our cancellation policies, timeframes, refunds, supplier fees, and how to cancel your order before it ships.",
+  alternates: {
+    canonical: "/cancellation-policy",
+  },
 };
 
 export default function CancellationPolicyPage() {

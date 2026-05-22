@@ -1,7 +1,4 @@
-/**
- * Homepage — Gritty Performance Garage Aesthetic (V2)
- */
-
+import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroRotatingText } from "@/components/hero-rotating-text";
 import { FitmentModuleV2 } from "@/components/fitment-module-v2";
@@ -9,6 +6,20 @@ import { HomepageCompatibleProducts } from "@/components/homepage-compatible-pro
 import { HomepageCompatibleCategories } from "@/components/homepage-compatible-categories";
 import { getCategories } from "@/lib/catalog-db";
 import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
+
+export const metadata: Metadata = {
+  title: "OEM Parts with Guaranteed Fitment | Fatman Parts",
+  description: "Stop guessing compatibility. Browse and search OEM-verified automotive parts with 18,000+ fitment rules and exact VIN lookups. Fast 24–48 hour U.S. shipping and guaranteed fit.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "OEM Parts with Guaranteed Fitment | Fatman Parts",
+    description: "Stop guessing compatibility. Browse and search OEM-verified automotive parts with 18,000+ fitment rules and exact VIN lookups. Fast 24–48 hour U.S. shipping and guaranteed fit.",
+    url: "https://fatmanparts.com",
+    type: "website",
+  },
+};
 
 const heroRotatingWords = ["ENGINE.", "BRAKES.", "TURBO.", "CLUTCH.", "EXHAUST.", "COILS."];
 const steps = [
@@ -117,8 +128,42 @@ export default async function Home() {
     }];
   });
 
+  const storeSchema = {
+    "@context": "https://schema.org",
+    "@type": "AutoPartsStore",
+    "name": "Fatman Parts",
+    "image": "https://fatmanparts.com/brand/fatman-primary-horizontal.png",
+    "description": "OEM parts with verified fitment, clear pricing, and fast U.S. shipping.",
+    "priceRange": "$$",
+    "email": "help@fatmanparts.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "6779 Beadnell Way",
+      "addressLocality": "San Diego",
+      "addressRegion": "CA",
+      "postalCode": "92117",
+      "addressCountry": "US"
+    },
+    "url": "https://fatmanparts.com",
+    "logo": "https://fatmanparts.com/brand/fatman-fp-shield.png"
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Fatman Parts",
+    "url": "https://fatmanparts.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://fatmanparts.com/category?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <main className="relative overflow-hidden bg-[#111318] text-white">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(storeSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundRepeat: "repeat", backgroundSize: "200px 200px" }} />
       <section className="relative flex min-h-[100vh] items-center overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M20 0L25 10L20 20L15 10Z'/%3E%3Cpath d='M0 20L5 30L0 40L-5 30Z'/%3E%3Cpath d='M40 20L45 30L40 40L35 30Z'/%3E%3C/g%3E%3C/svg%3E")` }} />

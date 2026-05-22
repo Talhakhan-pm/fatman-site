@@ -1,7 +1,12 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Privacy Policy",
+  description: "Learn how Fatman Parts LLC collects, uses, and secures your information when processing orders and providing vehicle fitment support.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

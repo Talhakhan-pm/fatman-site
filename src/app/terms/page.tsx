@@ -1,7 +1,12 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Terms & Conditions",
+  description: "Review terms of use, pricing, order policies, fitment responsibility, and liability limitations for Fatman Parts LLC.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {

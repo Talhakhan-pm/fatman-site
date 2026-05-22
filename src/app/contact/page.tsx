@@ -1,13 +1,44 @@
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Contact",
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with Fatman Parts. Send us your VIN, year/make/model details, or order information for guaranteed fitment help and expert support.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 export default function ContactPage() {
+  const contactPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Fatman Parts",
+    "description": "Need fitment help, order support, or a policy question answered? Get in touch with us.",
+    "url": "https://fatmanparts.com/contact",
+    "mainEntity": {
+      "@type": "AutoPartsStore",
+      "name": "Fatman Parts",
+      "url": "https://fatmanparts.com",
+      "logo": "https://fatmanparts.com/brand/fatman-fp-shield.png",
+      "image": "https://fatmanparts.com/brand/fatman-primary-horizontal.png",
+      "email": "help@fatmanparts.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "6779 Beadnell Way",
+        "addressLocality": "San Diego",
+        "addressRegion": "CA",
+        "postalCode": "92117",
+        "addressCountry": "US"
+      }
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageSchema) }} />
+      <main className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
       <section className="mx-auto grid max-w-5xl gap-8 px-6 pb-12 sm:pb-16 lg:grid-cols-[1fr_0.8fr]">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.28em] text-fatman-accent">Support</p>
@@ -41,5 +72,6 @@ export default function ContactPage() {
         </aside>
       </section>
     </main>
+    </>
   );
 }

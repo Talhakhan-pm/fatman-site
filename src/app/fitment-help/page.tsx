@@ -1,9 +1,14 @@
 import { FitmentRequestForm } from "@/components/fitment-request-form";
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
 import { getProduct } from "@/lib/catalog-db";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Fitment / VIN Help",
+  description: "Need help verifying if a part fits your vehicle? Send us your VIN and target part details. Our experts will decode it and confirm fitment for free.",
+  alternates: {
+    canonical: "/fitment-help",
+  },
 };
 
 export default async function FitmentHelpPage({

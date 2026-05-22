@@ -1,7 +1,12 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Warranty",
+export const metadata: Metadata = {
+  title: "Warranty Support",
+  description: "Learn about product warranty coverage, manufacturer terms, and how to file a warranty claim for replacement auto parts.",
+  alternates: {
+    canonical: "/warranty",
+  },
 };
 
 export default function WarrantyPage() {

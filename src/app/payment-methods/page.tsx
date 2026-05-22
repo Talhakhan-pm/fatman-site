@@ -1,7 +1,12 @@
 import { InfoCard, InfoGrid, InfoList, InfoPage, InfoSection } from "@/components/info-page";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Payment Methods",
+  description: "Secure payment processing at Fatman Parts. We accept major credit/debit cards and popular digital wallets.",
+  alternates: {
+    canonical: "/payment-methods",
+  },
 };
 
 export default function PaymentMethodsPage() {
