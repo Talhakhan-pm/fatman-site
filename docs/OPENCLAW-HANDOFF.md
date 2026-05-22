@@ -65,12 +65,19 @@ This project has completed its Phase 1 (infrastructure) and Phase 2 (garage-awar
   - Standardized max-width containers and fixed grid alignment bugs.
   - Replaced legacy theme toggles with a premium floating frosted-glass toggle.
   - Rewrote placeholder copy for high-conversion authentic marketing.
+- **SEO & Google Visibility:**
+  - Integrated Google Analytics (GA4) with a fallback tag of `G-XY67JLB385`.
+  - Added unique meta tags and canonical self-references across all static, dynamic, and policy pages.
+  - Added `AutoPartsStore` (Organization/LocalBusiness) and `WebSite` (with Searchbox) schemas to the homepage.
+  - Built custom schemas for About (`AboutPage`), Contact (`ContactPage`), and Blog (`Blog` + `BlogPosting` list).
+  - Enriched the product page catalog schema with dynamic images, SKU/MPN codes, NewCondition, price valid dates, return policy links, and delivery rates for rich merchant listing snippets.
+  - Submitted and verified `https://fatmanparts.com/sitemap.xml` (processed with 240 indexable pages).
 
 ---
 
 ## 5) Important current caveat
 
-- **Data Quality:** The frontend UI is highly advanced (floating navbar, live search, Stripe checkout), but the underlying catalog data still relies heavily on the baseline data imports. Do not confuse the polished UI with a finished, robust database of parts.
+- **Data Quality:** The frontend UI and SEO setups are highly advanced (floating navbar, live search, Stripe checkout, rich schemas), but the underlying catalog data still relies heavily on the baseline data imports. Do not confuse the polished UI with a finished, robust database of parts.
 - **Fitment Fallbacks:** While discovery flows read from Supabase, there are still some legacy fitment check paths that have fallback behavior. 
 
 ---
@@ -78,7 +85,8 @@ This project has completed its Phase 1 (infrastructure) and Phase 2 (garage-awar
 ## 6) Exact next recommended task
 
 ### Next implementation slice
-Coordinate with Khan to determine if we are expanding catalog data next, refining the new Stripe checkout flow, or building additional Admin UX modules for order fulfillment.
+1. **Catalog Scaling:** Build import pipelines/scripts to load real auto parts database data into Supabase (replacing the default fallback seed data).
+2. **Order Fulfillment:** Refine the admin flow to handle Stripe paid orders and order state tracking.
 
 ---
 

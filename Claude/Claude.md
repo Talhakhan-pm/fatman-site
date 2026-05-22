@@ -63,21 +63,25 @@ Recent additions:
 - Storefront reads live Supabase products
 - Phase 2 garage-aware discovery is active (PDPs, Homepage, Categories).
 - **Phase 3 components (Search, Stripe Checkout, Request Inboxes, Premium Navbar) have been successfully merged into `master`.**
+- **SEO & Google Visibility optimizations are fully implemented and verified** (Sitemap submitted and processed with 240 indexable pages; Google Analytics tracking is verified and collecting hits in real-time).
 
 ---
 
 ## 8) Known Gaps / Current Risks
 - **Fitment/discovery still has hybrid behavior:** While discovery relies on DB data, some backend check paths still use legacy mechanisms.
-- **Catalog Scaling:** The site UI is now highly advanced, but the actual catalog data scaling (high quality titles, proper images, huge coverage) is still pending large-scale data imports.
+- **Catalog Scaling:** The site UI and SEO optimizations are now highly advanced, but the actual catalog data scaling (high quality titles, proper images, huge coverage) is still pending large-scale data imports (currently running on seeded demo data).
 
 ---
 
 ## 9) Recommended Next Work
 The project is currently in **Phase 3: Storefront Shell & Conversion**.
-With the premium UI and Stripe checkout foundation laid, the next focus should be on refining the post-purchase experience (order fulfillment admin UX) and scaling real catalog data to match the high-end UI.
+With checkout, contact pipelines, and search engine optimizations in place, the next focus should be on:
+1. Scaling catalog imports (importing real auto parts data into Supabase).
+2. Refining order fulfillment admin flows.
 
 ---
 
 ## 10) Useful Recent Commits
 - `43fd8a1` `Merge remote-tracking branch 'origin/ui/premium-navbar-search'` (Floating navbar, ⌘K search, integrated garage)
 - `c35e788` `Merge remote-tracking branch 'origin/phase3/storefront-shell'` (Stripe checkout, Contact + Fitment Admin inboxes)
+- `seo-opt` (approximate) - SEO optimization commit (Google Analytics tag G-XY67JLB385, rich JSON-LD store/product schemas, sitemap, meta updates).

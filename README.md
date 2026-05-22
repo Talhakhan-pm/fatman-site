@@ -55,6 +55,18 @@ Legacy/generated baseline catalog + fitment data still exists in:
 - `src/lib/generated-data.ts`
 (Fallback layer for dev only)
 
+### 4. SEO & Google Visibility layer
+All pages are fully optimized for organic crawl indexing:
+- **Global Analytics:** Conditional GA4/GTM script injection in `src/app/layout.tsx` using `NEXT_PUBLIC_GA_ID` (defaults to `G-XY67JLB385` fallback) and `NEXT_PUBLIC_GTM_ID`.
+- **Dynamic Sitemaps & Robots:** Automated crawling config (`src/app/sitemap.ts` and `src/app/robots.ts`) with custom categories and product mappings.
+- **Rich JSON-LD Schemas:** 
+  - Homepage: `AutoPartsStore` (LocalBusiness) and `WebSite` (with Sitelinks Searchbox action).
+  - About & Contact: `AboutPage` and `ContactPage` schemas referencing the physical store address.
+  - Blog: `Blog` & `BlogPosting` schemas for post discoverability.
+  - Product Pages: Rich `Product` and `Offer` schema including SKU/MPN mappings, item condition, price validity dates, and nested merchant return policies/shipping details to satisfy GSC Merchant Listings.
+- **Canonical Meta Polish:** Unique descriptive meta tags and canonical self-references on all static, dynamic, and policy/auxiliary pages.
+
+
 ## Environment variables
 
 Required:
