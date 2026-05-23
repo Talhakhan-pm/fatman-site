@@ -124,7 +124,7 @@ const categories = categoryRegistry.map((entry) => ({
   slug: entry.slug,
   title: entry.title,
   description: entry.description,
-  productCount: entry.productCount || categoryCounts[entry.slug] || 0,
+  productCount: categoryCounts[entry.slug] || 0,
   realImageCount: realImageCounts[entry.slug] ?? 0,
 }));
 

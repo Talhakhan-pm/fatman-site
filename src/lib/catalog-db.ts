@@ -68,12 +68,11 @@ const toCategories = (
   rows.map((row) => {
     const categoryProducts = products.filter((product) => product.category === row.slug);
     const realImageCount = categoryProducts.filter((product) => Boolean(product.imageUrl)).length;
-    const registryEntry = catalogRegistry.find((item) => item.slug === row.slug);
     return {
       slug: row.slug as Category["slug"],
       title: row.title,
       description: row.description ?? row.short_description ?? "",
-      productCount: registryEntry?.productCount ?? categoryProducts.length,
+      productCount: categoryProducts.length,
       realImageCount,
     };
   });
@@ -124,6 +123,10 @@ const readPublishedCatalogFromSupabase = cache(async (): Promise<CatalogData | n
 });
 
 export const getCatalogData = cache(async (): Promise<CatalogData> => {
+  if (process.env.NODE_ENV !== "production") {
+    return getFallbackCatalogData();
+  }
+
   const liveCatalog = await readPublishedCatalogFromSupabase();
   if (liveCatalog) return liveCatalog;
 

@@ -158,6 +158,7 @@ export const categories: Category[] = (generatedCategories as unknown as Categor
     ? {
         ...category,
         description: "Complete crate engines, cylinder heads, water pumps, radiators, fan assemblies, mufflers, catalytic converters, and exhaust manifolds.",
+        productCount: category.productCount + curatedCoolingProducts.length,
         realImageCount: category.realImageCount + curatedCoolingProducts.length,
       }
     : category,

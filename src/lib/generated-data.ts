@@ -3517,119 +3517,119 @@ export const generatedCategories = [
     "slug": "transmission-drivetrain",
     "title": "Transmission and Drivetrain",
     "description": "Automatic and manual transmissions, torque converters, driveshafts, differentials, axles, and transfer cases.",
-    "productCount": 54285,
+    "productCount": 33,
     "realImageCount": 0
   },
   {
     "slug": "engine-cooling-exhaust",
     "title": "Engine, Cooling and Exhaust",
     "description": "Complete crate engines, cylinder heads, water pumps, radiators, mufflers, catalytic converters, and exhaust manifolds.",
-    "productCount": 9895,
+    "productCount": 67,
     "realImageCount": 14
   },
   {
     "slug": "powertrain-management",
     "title": "Powertrain Management",
     "description": "Engine control modules (ECM), fuel injectors, throttle bodies, ignition coils, spark plugs, and emission control systems.",
-    "productCount": 9759,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "steering-suspension",
     "title": "Steering and Suspension",
     "description": "Shocks, struts, control arms, ball joints, tie rod ends, power steering pumps, and rack and pinion assemblies.",
-    "productCount": 9357,
+    "productCount": 33,
     "realImageCount": 6
   },
   {
     "slug": "brakes-traction-control",
     "title": "Brakes and Traction Control",
     "description": "Ceramic and semi-metallic pads, vented rotors, loaded calipers, master cylinders, brake hoses, and ABS sensors.",
-    "productCount": 4929,
+    "productCount": 34,
     "realImageCount": 8
   },
   {
     "slug": "starting-charging",
     "title": "Starting and Charging",
     "description": "High-output alternators, starter motors, batteries, cables, and charging system components.",
-    "productCount": 4595,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "maintenance",
     "title": "Maintenance",
     "description": "Oil filters, cabin air filters, spark plugs, fluids, belts, hoses, and routine service items.",
-    "productCount": 3561,
+    "productCount": 34,
     "realImageCount": 34
   },
   {
     "slug": "sensors-switches",
     "title": "Sensors and Switches",
     "description": "Oxygen sensors, mass airflow sensors (MAF), coolant temp sensors, oil pressure switches, and window switches.",
-    "productCount": 3555,
+    "productCount": 33,
     "realImageCount": 0
   },
   {
     "slug": "body-frame",
     "title": "Body and Frame",
     "description": "Hoods, fenders, bumpers, grilles, mirrors, door handles, lift supports, and structural frame components.",
-    "productCount": 3470,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "heating-air-conditioning",
     "title": "Heating and Air Conditioning",
     "description": "A/C compressors, condensers, evaporators, blower motors, heater cores, and climate control switches.",
-    "productCount": 2680,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "instrument-panel-gauges",
     "title": "Instrument Panel, Gauges and Warning Indicators",
     "description": "Instrument clusters, speedometers, tachometers, oil pressure gauges, warning lights, and senders.",
-    "productCount": 2228,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "lighting-horns",
     "title": "Lighting and Horns",
     "description": "Headlights, tail lights, fog lights, turn signals, replacement bulbs, horns, and relays.",
-    "productCount": 1837,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "windows-glass",
     "title": "Windows and Glass",
     "description": "Windshields, door glass, window regulators, power window motors, and weatherstripping.",
-    "productCount": 1208,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "wiper-washer",
     "title": "Wiper and Washer Systems",
     "description": "Wiper blades, wiper motors, windshield washer pumps, reservoirs, and linkages.",
-    "productCount": 1068,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "relays-modules",
     "title": "Relays and Modules",
     "description": "Fuses, relays, fuse blocks, body control modules (BCM), and power distribution modules.",
-    "productCount": 994,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "cruise-control",
     "title": "Cruise Control",
     "description": "Cruise control switches, actuators, distance sensors, and control modules.",
-    "productCount": 639,
+    "productCount": 0,
     "realImageCount": 0
   },
   {
     "slug": "accessories-optional-equipment",
     "title": "Accessories and Optional Equipment",
     "description": "Floor mats, cargo liners, roof racks, trailer hitches, car covers, and cosmetic upgrades.",
-    "productCount": 246,
+    "productCount": 0,
     "realImageCount": 0
   }
 ] as const;

@@ -8,8 +8,7 @@
     "tag": "BEST SELLER",
     "showInHeader": true,
     "showInFooter": true,
-    "showOnHomepage": true,
-    "productCount": 54285
+    "showOnHomepage": true
   },
   {
     "slug": "engine-cooling-exhaust",
@@ -20,8 +19,7 @@
     "tag": "POPULAR",
     "showInHeader": true,
     "showInFooter": true,
-    "showOnHomepage": true,
-    "productCount": 9895
+    "showOnHomepage": true
   },
   {
     "slug": "powertrain-management",
@@ -32,8 +30,7 @@
     "tag": null,
     "showInHeader": true,
     "showInFooter": false,
-    "showOnHomepage": true,
-    "productCount": 9759
+    "showOnHomepage": true
   },
   {
     "slug": "steering-suspension",
@@ -44,8 +41,7 @@
     "tag": null,
     "showInHeader": true,
     "showInFooter": false,
-    "showOnHomepage": true,
-    "productCount": 9357
+    "showOnHomepage": true
   },
   {
     "slug": "brakes-traction-control",
@@ -56,8 +52,7 @@
     "tag": "POPULAR",
     "showInHeader": true,
     "showInFooter": true,
-    "showOnHomepage": true,
-    "productCount": 4929
+    "showOnHomepage": true
   },
   {
     "slug": "starting-charging",
@@ -68,8 +63,7 @@
     "tag": null,
     "showInHeader": true,
     "showInFooter": false,
-    "showOnHomepage": true,
-    "productCount": 4595
+    "showOnHomepage": true
   },
   {
     "slug": "maintenance",
@@ -80,8 +74,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": true,
-    "productCount": 3561
+    "showOnHomepage": true
   },
   {
     "slug": "sensors-switches",
@@ -92,8 +85,7 @@
     "tag": "NEW",
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": true,
-    "productCount": 3555
+    "showOnHomepage": true
   },
   {
     "slug": "body-frame",
@@ -104,8 +96,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": true,
-    "productCount": 3470
+    "showOnHomepage": true
   },
   {
     "slug": "heating-air-conditioning",
@@ -116,8 +107,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": true,
-    "productCount": 2680
+    "showOnHomepage": true
   },
   {
     "slug": "instrument-panel-gauges",
@@ -128,8 +118,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": false,
-    "productCount": 2228
+    "showOnHomepage": false
   },
   {
     "slug": "lighting-horns",
@@ -140,8 +129,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": false,
-    "productCount": 1837
+    "showOnHomepage": false
   },
   {
     "slug": "windows-glass",
@@ -152,8 +140,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": false,
-    "productCount": 1208
+    "showOnHomepage": false
   },
   {
     "slug": "wiper-washer",
@@ -164,8 +151,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": false,
-    "productCount": 1068
+    "showOnHomepage": false
   },
   {
     "slug": "relays-modules",
@@ -176,8 +162,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": false,
-    "productCount": 994
+    "showOnHomepage": false
   },
   {
     "slug": "cruise-control",
@@ -188,8 +173,7 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": false,
-    "productCount": 639
+    "showOnHomepage": false
   },
   {
     "slug": "accessories-optional-equipment",
@@ -200,7 +184,6 @@
     "tag": null,
     "showInHeader": false,
     "showInFooter": false,
-    "showOnHomepage": false,
-    "productCount": 246
+    "showOnHomepage": false
   }
 ]
