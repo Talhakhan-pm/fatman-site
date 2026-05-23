@@ -11,6 +11,7 @@ import {
   type Category,
   type Product,
 } from "@/lib/catalog";
+import { catalogRegistry } from "@/lib/catalog-registry";
 
 type SupabaseCategoryRow = {
   slug: string;
@@ -67,11 +68,12 @@ const toCategories = (
   rows.map((row) => {
     const categoryProducts = products.filter((product) => product.category === row.slug);
     const realImageCount = categoryProducts.filter((product) => Boolean(product.imageUrl)).length;
+    const registryEntry = catalogRegistry.find((item) => item.slug === row.slug);
     return {
       slug: row.slug as Category["slug"],
       title: row.title,
       description: row.description ?? row.short_description ?? "",
-      productCount: categoryProducts.length,
+      productCount: registryEntry?.productCount ?? categoryProducts.length,
       realImageCount,
     };
   });

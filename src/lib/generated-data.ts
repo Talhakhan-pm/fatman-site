@@ -3,7 +3,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0001",
     "slug": "eng-1",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Performance Crate Engine - Black Valve Cover Setup",
     "shortDescription": "Complete crate-style V8 assembly with black valve covers, serpentine front drive, and machined accessory hardware. Clean performance-oriented presentation for swap and replacement inventory.",
@@ -18,7 +18,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0002",
     "slug": "oem-2",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Nippon OEM",
     "name": "120A OEM Replacement Alternator - 6-Groove Pulley",
     "shortDescription": "Direct-fit charging-system replacement with factory-style housing, internal regulator, and installed pulley for quick service-bay turnaround. Built for stock-output applications where clean fitment and dependable voltage control matter more than show-piece styling.",
@@ -33,7 +33,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0003",
     "slug": "drv-3",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 3",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -48,7 +48,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0004",
     "slug": "col-4",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore cooling component 4",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -63,7 +63,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0005",
     "slug": "elc-5",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 5",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -78,7 +78,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0006",
     "slug": "sus-6",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "DriveCore",
     "name": "Performance Coilover Kit - Blue Spring Assembly",
     "shortDescription": "Coilover suspension kit with blue springs, threaded shock bodies, and matched upper hardware visible in the assembly. Fits performance suspension merchandising without inventing chassis-specific fitment.",
@@ -93,7 +93,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0007",
     "slug": "eng-7",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "6.2L Long Block Engine - Natural Aluminum Finish",
     "shortDescription": "Complete long block assembly with natural cast aluminum surfaces, visible gaskets, and front dress hardware. Better suited for replacement or rebuild-ready engine listings than generic performance copy.",
@@ -108,7 +108,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0008",
     "slug": "oem-8",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "ThermaFlow",
     "name": "320mm Vented Front Brake Rotor - OE Spec Finish",
     "shortDescription": "OE-spec front rotor with ventilated core, machined braking surfaces, and a corrosion-resistant hub hat finish for daily-driver service work. Suited to stock-caliper replacement jobs where consistent pedal feel and straightforward installation are the priority.",
@@ -123,7 +123,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0009",
     "slug": "drv-9",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "ThermaFlow",
     "name": "ThermaFlow drivetrain component 9",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -138,7 +138,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0010",
     "slug": "col-10",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct cooling component 10",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -153,7 +153,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0011",
     "slug": "elc-11",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "OEM Direct",
     "name": "OEM Direct electrical component 11",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -168,7 +168,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0012",
     "slug": "sus-12",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Performance Shock Absorber - Monotube Style Unit",
     "shortDescription": "Single performance shock absorber with red body finish, polished shaft, and installed bushings. Appropriate for suspension replacement listings where a full kit image would be misleading.",
@@ -183,7 +183,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0013",
     "slug": "eng-13",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "Turbo Inline-6 Engine - Polished Charge Setup",
     "shortDescription": "Turbocharged inline-6 engine configuration with polished charge piping, mounted accessories, and finished hose routing. Fits a premium swap-package or performance replacement presentation without overclaiming specs.",
@@ -198,7 +198,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0014",
     "slug": "oem-14",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "OEM Direct",
     "name": "Spin-On Engine Oil Filter - Anti-Drainback Valve",
     "shortDescription": "Standard-service spin-on oil filter with metal canister construction, internal anti-drainback valve, and factory-style sealing gasket. A sensible OEM-style maintenance item for routine service intervals and fleet replenishment.",
@@ -213,7 +213,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0015",
     "slug": "drv-15",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "ThermaFlow",
     "name": "ThermaFlow drivetrain component 15",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -228,7 +228,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0016",
     "slug": "col-16",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct cooling component 16",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -243,7 +243,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0017",
     "slug": "elc-17",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Powerline",
     "name": "Powerline electrical component 17",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -258,7 +258,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0018",
     "slug": "sus-18",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "OEM Direct",
     "name": "OEM Strut Assembly - Complete Front Unit",
     "shortDescription": "Complete strut assembly with coil spring, upper mount, and integrated damper in an OEM-style layout. Best used on stock-replacement suspension surfaces rather than performance kit placements.",
@@ -273,7 +273,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0019",
     "slug": "eng-19",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "6.7L Diesel Engine - Complete Assembly",
     "shortDescription": "Robust diesel engine assembly with cast block construction, fuel system hardware, and front accessory mounting already in place. Best aligned with commercial replacement and work-truck engine inventory.",
@@ -288,7 +288,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0020",
     "slug": "oem-20",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "OEM Direct",
     "name": "Composite Air Intake Duct - Factory Replacement",
     "shortDescription": "Molded intake duct assembly with OEM-style mounting points and sensor provisions for restoring sealed airflow between the box and throttle body. Best used for stock repair work where cracked plastic or loose couplers cause drivability complaints.",
@@ -303,7 +303,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0021",
     "slug": "drv-21",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 21",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -318,7 +318,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0022",
     "slug": "col-22",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Nippon OEM cooling component 22",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -333,7 +333,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0023",
     "slug": "elc-23",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "DriveCore",
     "name": "DriveCore electrical component 23",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -348,7 +348,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0024",
     "slug": "sus-24",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "DriveCore",
     "name": "Front Lower Control Arm - Pressed Steel Replacement",
     "shortDescription": "Direct-replacement lower control arm with factory-style ball joint pocket and bushing locations. Built for everyday suspension service where OE geometry and predictable alignment recovery matter.",
@@ -363,7 +363,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0025",
     "slug": "eng-25",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Performance V8 Engine - Red Valve Cover Assembly",
     "shortDescription": "High-performance V8 engine assembly with red valve covers, detailed front accessories, and a clean crate-style presentation. Suits premium street-performance inventory without drifting into generic seed copy.",
@@ -378,7 +378,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0026",
     "slug": "oem-26",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "TrueDrive",
     "name": "Iridium Spark Plug Set - Heat Range OE Equivalent",
     "shortDescription": "OE-equivalent spark plug set with fine-wire iridium tips and factory-reach dimensions for stable cold starts and long service life. A clean catalog fit for tune-up surfaces without claiming engine-specific calibration.",
@@ -393,7 +393,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0027",
     "slug": "drv-27",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 27",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -408,7 +408,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0028",
     "slug": "col-28",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive cooling component 28",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -423,7 +423,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0029",
     "slug": "elc-29",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "ThermaFlow",
     "name": "ThermaFlow electrical component 29",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -438,7 +438,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0030",
     "slug": "sus-30",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "DriveCore",
     "name": "Rear Upper Control Arm - Adjustable Street Series",
     "shortDescription": "Adjustable rear upper control arm for correcting camber on lowered or refreshed street setups. Tubular construction and serviceable hardware make it a practical upgrade for alignment-focused builds.",
@@ -453,7 +453,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0031",
     "slug": "eng-31",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Restoration V8 Engine - Polished Carb Setup",
     "shortDescription": "Classic carbureted V8 engine with a polished air cleaner, visible fuel routing, and restoration-style top-end layout. Better matched to vintage replacement or project-build catalog inventory.",
@@ -468,7 +468,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0032",
     "slug": "oem-32",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "DriveCore",
     "name": "Cast Aluminum Piston Kit - Standard Bore Service Set",
     "shortDescription": "Service-grade piston kit with cast aluminum construction, machined ring lands, and stock-style skirt profile for rebuild-ready short blocks. Works well on OEM replacement engine internals where durability and proper clearances matter.",
@@ -483,7 +483,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0033",
     "slug": "drv-33",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Powerline",
     "name": "Powerline drivetrain component 33",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -498,7 +498,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0034",
     "slug": "col-34",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive cooling component 34",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -513,7 +513,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0035",
     "slug": "elc-35",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "ThermaFlow",
     "name": "ThermaFlow electrical component 35",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -528,7 +528,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0036",
     "slug": "sus-36",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Gas-Charged Front Strut - Quick Install Replacement",
     "shortDescription": "Gas-charged front strut tuned for stable ride control and stock-height replacement work. A straightforward service part for worn dampers, floaty front ends, and uneven rebound response.",
@@ -543,7 +543,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0037",
     "slug": "eng-37",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "Twin-Turbo V6 Engine - Complete Assembly",
     "shortDescription": "Complete modern V6 engine assembly with twin-turbo hardware, composite intake components, and factory-style accessory packaging. Best used for premium replacement or late-model performance-oriented engine inventory.",
@@ -558,7 +558,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0038",
     "slug": "oem-38",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Powerline",
     "name": "Pre-Bent Steel Brake Line Kit - OE Routing",
     "shortDescription": "Pre-formed steel brake line set with factory-style bends, flare ends, and routing that matches common stock replacement work. Appropriate for restoration and repair listings where universal line stock would feel misleading.",
@@ -573,7 +573,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0039",
     "slug": "drv-39",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Powerline",
     "name": "Powerline drivetrain component 39",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -588,7 +588,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0040",
     "slug": "col-40",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive cooling component 40",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -603,7 +603,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0041",
     "slug": "elc-41",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "ThermaFlow",
     "name": "ThermaFlow electrical component 41",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -618,7 +618,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0042",
     "slug": "sus-42",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Nippon OEM",
     "name": "Front Stabilizer Bar Link Kit - OE Replacement Pair",
     "shortDescription": "Factory-style sway bar link kit for restoring roll-control response and reducing front-end clunk over broken pavement. Designed around routine maintenance rather than aggressive lowering setups.",
@@ -633,7 +633,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0043",
     "slug": "eng-43",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "V6 Long Block Engine - FWD Configuration",
     "shortDescription": "Clean V6 long block assembly with compact front dress, cast aluminum surfaces, and a transverse-ready layout. Good fit for mainstream passenger-car and crossover replacement-engine inventory.",
@@ -648,7 +648,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0044",
     "slug": "oem-44",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "OEM Direct",
     "name": "130A Heavy-Duty Alternator - OEM Housing Style",
     "shortDescription": "Higher-output alternator in an OEM-style case with serpentine pulley installed and electrical connections positioned for direct service replacement. Strong fit for trucks, vans, and accessory-loaded daily-use applications.",
@@ -663,7 +663,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0045",
     "slug": "drv-45",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 45",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -678,7 +678,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0046",
     "slug": "col-46",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct cooling component 46",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -693,7 +693,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0047",
     "slug": "elc-47",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 47",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -708,7 +708,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0048",
     "slug": "sus-48",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Rear Coil Spring Set - Variable Rate Load Support",
     "shortDescription": "Rear coil spring set with variable-rate winding for balanced unloaded comfort and better load support. Useful for tired rear suspensions that sag under cargo or passengers.",
@@ -723,7 +723,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0049",
     "slug": "eng-49",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Supercharged V8 Engine - Complete Assembly",
     "shortDescription": "Complete supercharged V8 assembly with a roots-style top-mount blower, full accessory drive, and factory-inspired wiring layout. Best reserved for premium performance or late-model muscle engine listings.",
@@ -738,7 +738,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0050",
     "slug": "oem-50",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "ThermaFlow",
     "name": "Rear Brake Rotor Pair - Solid Hat OE Replacement",
     "shortDescription": "Stock-replacement rear rotor pair with uniform machined faces and balanced cast construction for smooth everyday braking response. Good match for standard service listings that need cleaner copy than generic demo filler.",
@@ -753,7 +753,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0051",
     "slug": "drv-51",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 51",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -768,7 +768,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0052",
     "slug": "col-52",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive cooling component 52",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -783,7 +783,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0053",
     "slug": "elc-53",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "ThermaFlow",
     "name": "ThermaFlow electrical component 53",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -798,7 +798,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0054",
     "slug": "sus-54",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Nippon OEM",
     "name": "Front Strut Mount and Bearing Kit",
     "shortDescription": "Replacement upper strut mount set with bearing plates for smoother steering rotation and quieter suspension travel. Ideal when struts are being serviced and the original mounts are noisy or cracked.",
@@ -813,7 +813,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0055",
     "slug": "eng-55",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "Turbo Inline-4 Engine - Complete Assembly",
     "shortDescription": "Compact turbocharged inline-4 engine assembly with visible turbo hardware, aluminum block detail, and modern intake routing. Useful for smaller passenger-car or crossover replacement-engine listings.",
@@ -828,7 +828,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0056",
     "slug": "oem-56",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Powerline",
     "name": "High-Capacity Oil Filter Cartridge - Service Interval Spec",
     "shortDescription": "OEM-style replacement filter cartridge designed for full-flow filtration, clean cap engagement, and dependable sealing during scheduled maintenance. Suited to premium service kits and shop reorder surfaces.",
@@ -843,7 +843,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0057",
     "slug": "drv-57",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 57",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -858,7 +858,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0058",
     "slug": "col-58",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow cooling component 58",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -873,7 +873,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0059",
     "slug": "elc-59",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Powerline",
     "name": "Powerline electrical component 59",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -888,7 +888,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0060",
     "slug": "sus-60",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Heavy-Duty Rear Shock Absorber - Twin-Tube Design",
     "shortDescription": "Twin-tube rear shock absorber with firmer damping control for trucks, vans, and heavier daily-duty applications. A sensible option for restoring stability without jumping to a harsh race tune.",
@@ -903,7 +903,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0061",
     "slug": "eng-61",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Flat-Plane V8 Engine - Premium Intake Assembly",
     "shortDescription": "High-end V8 engine assembly with an exotic-style intake plenum, carbon-look top-side detailing, and accessory-ready packaging. Best suited to premium crate-engine or special-performance catalog presentation.",
@@ -918,7 +918,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0062",
     "slug": "oem-62",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "TrueDrive",
     "name": "Resonated Intake Tube Assembly - OE Layout",
     "shortDescription": "Factory-layout intake tube with molded resonator chamber, clamp lands, and connection points intended to restore stock airflow characteristics. Useful on repair-driven catalog pages where aftermarket open-intake imagery would be off-message.",
@@ -933,7 +933,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0063",
     "slug": "drv-63",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 63",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -948,7 +948,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0064",
     "slug": "col-64",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline cooling component 64",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -963,7 +963,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0065",
     "slug": "elc-65",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "DriveCore",
     "name": "DriveCore electrical component 65",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -978,7 +978,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0066",
     "slug": "sus-66",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "TrueDrive",
     "name": "Front Ball Joint Kit - Service Grade Replacement",
     "shortDescription": "Service-grade front ball joint kit for correcting looseness, tire wear, and vague steering feel. Intended for standard suspension refresh jobs where dependable fit and greaseable service life matter.",
@@ -993,7 +993,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0067",
     "slug": "eng-67",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "Pushrod V8 Engine - Orange Valve Cover Assembly",
     "shortDescription": "U.S.-style pushrod V8 engine assembly with orange valve covers, a carb-style intake setup, and a straightforward accessory layout. Fits muscle-era replacement or street-performance engine inventory without overclaiming specs.",
@@ -1008,7 +1008,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0068",
     "slug": "oem-68",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "OEM Direct",
     "name": "Platinum Spark Plug - OEM Service Replacement",
     "shortDescription": "Single platinum service plug with factory-style insulator length and electrode profile for routine ignition maintenance. Positioned as a dependable OEM replacement rather than a performance-upgrade claim piece.",
@@ -1023,7 +1023,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0069",
     "slug": "drv-69",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "DriveCore",
     "name": "DriveCore drivetrain component 69",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1038,7 +1038,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0070",
     "slug": "col-70",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore cooling component 70",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1053,7 +1053,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0071",
     "slug": "elc-71",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Nippon OEM",
     "name": "Nippon OEM electrical component 71",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1068,7 +1068,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0072",
     "slug": "sus-72",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "DriveCore",
     "name": "Tubular Front Control Arm Set - Performance Street",
     "shortDescription": "Tubular front control arm set built for improved rigidity and cleaner alignment retention on street-performance builds. Suits upgraded suspension packages without claiming track-only intent.",
@@ -1083,7 +1083,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0073",
     "slug": "eng-73",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "Big Block V8 Engine - Polished Chrome Top End",
     "shortDescription": "Classic big-block V8 assembly with polished valve covers, chrome air-cleaner hardware, and restoration-friendly top-end presentation. Better matched to vintage muscle or collector-engine catalog pages.",
@@ -1098,7 +1098,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0074",
     "slug": "oem-74",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "TrueDrive",
     "name": "Hypereutectic Replacement Piston - Service Grade",
     "shortDescription": "Service-grade replacement piston with machined crown, controlled expansion characteristics, and stock-style wrist-pin bore layout. Better aligned with rebuild inventory than vague placeholder engine-internal copy.",
@@ -1113,7 +1113,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0075",
     "slug": "drv-75",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 75",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1128,7 +1128,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0076",
     "slug": "col-76",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive cooling component 76",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1143,7 +1143,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0077",
     "slug": "elc-77",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "DriveCore",
     "name": "DriveCore electrical component 77",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1158,7 +1158,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0078",
     "slug": "sus-78",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Rear Sway Bar Bushing Set - Polyurethane Upgrade",
     "shortDescription": "Polyurethane rear sway bar bushings that tighten roll response and reduce mush from worn rubber mounts. Good for maintenance-minded drivers who want a sharper rear chassis feel.",
@@ -1173,7 +1173,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0079",
     "slug": "eng-79",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "Industrial Gas V8 Engine - Heavy-Duty Assembly",
     "shortDescription": "Industrial-duty gas V8 engine assembly with a work-use accessory layout, cast-metal surfaces, and utility-focused packaging. Best aligned with fleet, commercial, or stationary-equipment replacement inventory.",
@@ -1188,7 +1188,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0080",
     "slug": "oem-80",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Nippon OEM",
     "name": "Front-to-Rear Brake Line Set - Corrosion-Resistant Steel",
     "shortDescription": "Vehicle-service brake line kit formed from corrosion-resistant steel tubing with OE-style end fittings for cleaner underbody routing. Best used on stock hydraulic repair surfaces and rust-belt replacement jobs.",
@@ -1203,7 +1203,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0081",
     "slug": "drv-81",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 81",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1218,7 +1218,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0082",
     "slug": "col-82",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow cooling component 82",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1233,7 +1233,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0083",
     "slug": "elc-83",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 83",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1248,7 +1248,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0084",
     "slug": "sus-84",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Nippon OEM",
     "name": "Front Complete Strut and Spring Assembly",
     "shortDescription": "Pre-assembled front strut unit with coil spring, mount, and isolators installed for faster service-bay replacement. Targets stock ride height restoration and reduced installation labor.",
@@ -1263,7 +1263,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0085",
     "slug": "eng-85",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow engines component 85",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1278,7 +1278,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0086",
     "slug": "oem-86",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "ThermaFlow",
     "name": "Remanufactured Alternator Assembly - Bench-Tested Output",
     "shortDescription": "Bench-tested replacement alternator with OEM-style fan, pulley, and mounting ears for quick swap-in service. Good catalog language for repair shops looking for a direct charging-system replacement option.",
@@ -1293,7 +1293,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0087",
     "slug": "drv-87",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 87",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1308,7 +1308,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0088",
     "slug": "col-88",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore cooling component 88",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1323,7 +1323,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0089",
     "slug": "elc-89",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 89",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1338,7 +1338,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0090",
     "slug": "sus-90",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Adjustable Rear Toe Link Set - Street Alignment",
     "shortDescription": "Adjustable rear toe link set for restoring alignment range after suspension wear or mild ride-height changes. Built for stable tracking and predictable tire life on street cars.",
@@ -1353,7 +1353,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0091",
     "slug": "eng-91",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore engines component 91",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1368,7 +1368,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0092",
     "slug": "oem-92",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "DriveCore",
     "name": "Coated Front Brake Rotor Set - Daily Driver Spec",
     "shortDescription": "Coated front rotor set built around OE-style vane geometry and stock-diameter service replacement dimensions. Intended for reliable commuter braking repairs rather than track-oriented merchandising.",
@@ -1383,7 +1383,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0093",
     "slug": "drv-93",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "ThermaFlow",
     "name": "ThermaFlow drivetrain component 93",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1398,7 +1398,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0094",
     "slug": "col-94",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow cooling component 94",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1413,7 +1413,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0095",
     "slug": "elc-95",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Nippon OEM",
     "name": "Nippon OEM electrical component 95",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1428,7 +1428,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0096",
     "slug": "sus-96",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Front Air Suspension Compressor Dryer Kit",
     "shortDescription": "Replacement compressor dryer service kit for air-suspension systems that need moisture control and cleaner compressor operation. Best suited to maintenance over full system conversion work.",
@@ -1443,7 +1443,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0097",
     "slug": "eng-97",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct engines component 97",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1458,7 +1458,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0098",
     "slug": "oem-98",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "ThermaFlow",
     "name": "Threaded Engine Oil Filter - OEM Bypass Valve Spec",
     "shortDescription": "Threaded oil filter with factory-style bypass calibration and anti-drainback design to support consistent cold-start lubrication. Clean fit for preventive-maintenance PDPs and quick-lube reorder pages.",
@@ -1473,7 +1473,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0099",
     "slug": "drv-99",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "ThermaFlow",
     "name": "ThermaFlow drivetrain component 99",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1488,7 +1488,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0100",
     "slug": "col-100",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline cooling component 100",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1503,7 +1503,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0101",
     "slug": "elc-101",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 101",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1518,7 +1518,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0102",
     "slug": "sus-102",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Electronic Strut Assembly - Adaptive Damping Replacement",
     "shortDescription": "Electronic strut assembly for vehicles equipped with adaptive damping hardware from the factory. Meant to restore stock ride-control behavior without forcing a delete module workaround.",
@@ -1533,7 +1533,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0103",
     "slug": "eng-103",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Nippon OEM engines component 103",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1548,7 +1548,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0104",
     "slug": "oem-104",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "DriveCore",
     "name": "Fresh-Air Intake Elbow - Sensor Port Ready",
     "shortDescription": "Replacement intake elbow with molded sensor-port provisions and OE-style coupler geometry for restoring sealed induction routing. Appropriate for routine under-hood repair listings where exact-look replacement matters.",
@@ -1563,7 +1563,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0105",
     "slug": "drv-105",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Powerline",
     "name": "Powerline drivetrain component 105",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1578,7 +1578,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0106",
     "slug": "col-106",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline cooling component 106",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1593,7 +1593,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0107",
     "slug": "elc-107",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Powerline",
     "name": "Powerline electrical component 107",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1608,7 +1608,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0108",
     "slug": "sus-108",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Rear Leaf Spring Shackle Kit - Corrosion Resistant",
     "shortDescription": "Rear leaf spring shackle kit with coated brackets and hardware for worn or seized original mounts. Useful during rear suspension rebuilds where ride height is staying near stock.",
@@ -1623,7 +1623,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0109",
     "slug": "eng-109",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct engines component 109",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1638,7 +1638,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0110",
     "slug": "oem-110",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "DriveCore",
     "name": "Double-Platinum Spark Plug Set - Long-Life Tune-Up",
     "shortDescription": "Long-life ignition service set using double-platinum electrodes and factory-style shell dimensions for stable mileage-driven maintenance intervals. Gives the OEM category a believable tune-up item instead of seed text.",
@@ -1653,7 +1653,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0111",
     "slug": "drv-111",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "ThermaFlow",
     "name": "ThermaFlow drivetrain component 111",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1668,7 +1668,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0112",
     "slug": "col-112",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct cooling component 112",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1683,7 +1683,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0113",
     "slug": "elc-113",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "ThermaFlow",
     "name": "ThermaFlow electrical component 113",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1698,7 +1698,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0114",
     "slug": "sus-114",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Front Coil Spring Isolator Set - Noise Control Service",
     "shortDescription": "Upper and lower spring isolators designed to reduce squeaks, minor vibration, and metal-to-metal contact in aging front suspensions. Small part, but it cleans up a lot of nuisance noise.",
@@ -1713,7 +1713,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0115",
     "slug": "eng-115",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Nippon OEM engines component 115",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1728,7 +1728,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0116",
     "slug": "oem-116",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "TrueDrive",
     "name": "Standard Bore Piston and Pin Assembly - OE Replacement",
     "shortDescription": "OEM-style piston and pin assembly sized for standard-bore rebuild work, with machined grooves and service-ready skirt coating. Suits replacement-engine internals without overreaching into race-engine language.",
@@ -1743,7 +1743,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0117",
     "slug": "drv-117",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 117",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1758,7 +1758,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0118",
     "slug": "col-118",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline cooling component 118",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1773,7 +1773,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0119",
     "slug": "elc-119",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 119",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1788,7 +1788,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0120",
     "slug": "sus-120",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Ride Height Sensor Linkage Kit - Air Suspension",
     "shortDescription": "Ride-height sensor linkage kit for air-suspension systems that need accurate level inputs after age-related wear. A practical repair part for keeping factory leveling logic consistent.",
@@ -1803,7 +1803,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0121",
     "slug": "eng-121",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore engines component 121",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1818,7 +1818,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0122",
     "slug": "oem-122",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Nippon OEM",
     "name": "ABS-Compatible Steel Brake Line Replacement Set",
     "shortDescription": "Pre-flared steel brake lines configured for stock hydraulic layouts, including ABS-equipped repair paths where routing accuracy matters. Built for real-world service work, not decorative category filler.",
@@ -1833,7 +1833,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0123",
     "slug": "drv-123",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 123",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1848,7 +1848,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0124",
     "slug": "col-124",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct cooling component 124",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1863,7 +1863,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0125",
     "slug": "elc-125",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "DriveCore",
     "name": "DriveCore electrical component 125",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1878,7 +1878,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0126",
     "slug": "sus-126",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Nippon OEM",
     "name": "Rear Trailing Arm Bushing Kit - OE Rubber Compound",
     "shortDescription": "Rear trailing arm bushing set molded in OE-style rubber for stable road manners and reduced harshness. A good fit for stock-oriented suspension rebuilds and alignment corrections.",
@@ -1893,7 +1893,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0127",
     "slug": "eng-127",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive engines component 127",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1908,7 +1908,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0128",
     "slug": "oem-128",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "TrueDrive",
     "name": "OEM-Style Charging Alternator - Internal Regulator Unit",
     "shortDescription": "Direct-replacement alternator with integrated regulator, stock-case finish, and pulley alignment intended for no-drama installation. Best suited to practical charging-system repairs and fleet upkeep.",
@@ -1923,7 +1923,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0129",
     "slug": "drv-129",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Powerline",
     "name": "Powerline drivetrain component 129",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1938,7 +1938,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0130",
     "slug": "col-130",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline cooling component 130",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1953,7 +1953,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0131",
     "slug": "elc-131",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 131",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1968,7 +1968,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0132",
     "slug": "sus-132",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "OEM Direct",
     "name": "Front Loaded Knuckle and Hub Assembly",
     "shortDescription": "Loaded front knuckle and hub assembly combining core suspension and wheel-end service parts into one replacement unit. Best used where speed of repair matters more than piecemeal rebuilds.",
@@ -1983,7 +1983,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0133",
     "slug": "eng-133",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Nippon OEM engines component 133",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -1998,7 +1998,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0134",
     "slug": "oem-134",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "DriveCore",
     "name": "OE Equivalent Brake Rotor - Balanced Cast Iron",
     "shortDescription": "Balanced cast-iron rotor built to OE replacement expectations, with clean machined faces and stock-hub alignment. Good fit for straightforward service-bay brake jobs and online category cards.",
@@ -2013,7 +2013,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0135",
     "slug": "drv-135",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 135",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2028,7 +2028,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0136",
     "slug": "col-136",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline cooling component 136",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2043,7 +2043,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0137",
     "slug": "elc-137",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "OEM Direct",
     "name": "OEM Direct electrical component 137",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2058,7 +2058,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0138",
     "slug": "sus-138",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Coil Spring Spacer Kit - Leveling Pair",
     "shortDescription": "Front coil spring spacer pair for mild leveling corrections without replacing the full spring package. Suited to conservative stance changes and light-duty tire clearance needs.",
@@ -2073,7 +2073,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0139",
     "slug": "eng-139",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct engines component 139",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2088,7 +2088,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0140",
     "slug": "oem-140",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Powerline",
     "name": "Premium Spin-On Oil Filter - Synthetic Media Blend",
     "shortDescription": "Spin-on service filter using a synthetic-blend media pack, nitrile sealing gasket, and OEM-style can dimensions for fast replacement. Written to read like a real maintenance SKU, not a generated placeholder.",
@@ -2103,7 +2103,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0141",
     "slug": "drv-141",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 141",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2118,7 +2118,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0142",
     "slug": "col-142",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore cooling component 142",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2133,7 +2133,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0143",
     "slug": "elc-143",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Nippon OEM",
     "name": "Nippon OEM electrical component 143",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2148,7 +2148,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0144",
     "slug": "sus-144",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Rear Air Spring Bag - Direct Replacement Bellows",
     "shortDescription": "Direct-replacement rear air spring bellows for factory air-ride systems with leaking or cracked bags. Intended to restore normal load leveling and ride support, not to lower the vehicle.",
@@ -2163,7 +2163,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0145",
     "slug": "eng-145",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Nippon OEM engines component 145",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2178,7 +2178,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0146",
     "slug": "oem-146",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "DriveCore",
     "name": "Air Intake Hose Assembly - Stock Replacement Mold",
     "shortDescription": "Stock-replacement intake hose with molded bends, reinforced wall sections, and clamp-ready ends for restoring sealed induction flow. Useful where cracked factory ducting causes lean codes or rough-idle complaints.",
@@ -2193,7 +2193,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0147",
     "slug": "drv-147",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "OEM Direct",
     "name": "OEM Direct drivetrain component 147",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2208,7 +2208,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0148",
     "slug": "col-148",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Nippon OEM",
     "name": "Nippon OEM cooling component 148",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2223,7 +2223,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0149",
     "slug": "elc-149",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Nippon OEM",
     "name": "Nippon OEM electrical component 149",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2238,7 +2238,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0150",
     "slug": "sus-150",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Front Sway Bar - Solid Performance Upgrade",
     "shortDescription": "Solid front sway bar built to cut body roll and sharpen turn-in on street-driven performance setups. A common next step when stock bars feel soft during cornering transitions.",
@@ -2253,7 +2253,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0151",
     "slug": "eng-151",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow engines component 151",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2268,7 +2268,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0152",
     "slug": "oem-152",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "ThermaFlow",
     "name": "Copper-Core Spark Plug - OEM Gap Spec",
     "shortDescription": "Copper-core replacement spark plug with OEM gap specification and standard thread reach for scheduled ignition service. Appropriate for value-focused maintenance kits and older daily-driver applications.",
@@ -2283,7 +2283,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0153",
     "slug": "drv-153",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 153",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2298,7 +2298,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0154",
     "slug": "col-154",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow cooling component 154",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2313,7 +2313,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0155",
     "slug": "elc-155",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "ThermaFlow",
     "name": "ThermaFlow electrical component 155",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2328,7 +2328,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0156",
     "slug": "sus-156",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Rear Shock Mount Kit - Hardware and Isolators",
     "shortDescription": "Rear shock mount hardware kit with bushings and isolators for cleaner damper installation and reduced mount noise. Useful when replacing shocks on high-mileage suspension systems.",
@@ -2343,7 +2343,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0157",
     "slug": "eng-157",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow engines component 157",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2358,7 +2358,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0158",
     "slug": "oem-158",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Powerline",
     "name": "Engine Rebuild Piston Set - Factory Compression Profile",
     "shortDescription": "Replacement piston set with factory-style crown profile and machined ring grooves for stock-compression rebuilds. Better catalog realism for OEM internal components than generic component naming.",
@@ -2373,7 +2373,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0159",
     "slug": "drv-159",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "DriveCore",
     "name": "DriveCore drivetrain component 159",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2388,7 +2388,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0160",
     "slug": "col-160",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore cooling component 160",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2403,7 +2403,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0161",
     "slug": "elc-161",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "DriveCore",
     "name": "DriveCore electrical component 161",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2418,7 +2418,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0162",
     "slug": "sus-162",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Front Active Suspension Accumulator",
     "shortDescription": "Replacement hydraulic accumulator for active suspension systems that have lost pressure reserve and ride compliance. Intended for restoring factory system behavior, not custom tuning.",
@@ -2433,7 +2433,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0163",
     "slug": "eng-163",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline engines component 163",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2448,7 +2448,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0164",
     "slug": "oem-164",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "ThermaFlow",
     "name": "Replacement Brake Tube Kit - Factory Flare Ends",
     "shortDescription": "Stock-service brake tube kit with formed sections, factory flare ends, and routing intended to reduce custom bending during installation. Strong fit for repair-first PDPs and restoration work.",
@@ -2463,7 +2463,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0165",
     "slug": "drv-165",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "TrueDrive",
     "name": "TrueDrive drivetrain component 165",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2478,7 +2478,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0166",
     "slug": "col-166",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "DriveCore",
     "name": "DriveCore cooling component 166",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2493,7 +2493,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0167",
     "slug": "elc-167",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 167",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2508,7 +2508,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0168",
     "slug": "sus-168",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Rear Coilover Sleeve Conversion Kit",
     "shortDescription": "Rear coilover sleeve conversion kit for builders moving from separate spring-and-shock layouts to a more adjustable package. Sized for fabrication-minded street and weekend performance projects.",
@@ -2523,7 +2523,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0169",
     "slug": "eng-169",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive engines component 169",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2538,7 +2538,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0170",
     "slug": "oem-170",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Powerline",
     "name": "Serpentine Pulley Alternator - Direct Bolt-In",
     "shortDescription": "OEM-format alternator with serpentine pulley, service-ready mounting ears, and stock electrical clocking for direct bolt-in replacement. Designed for everyday charging-system repairs where speed and compatibility matter.",
@@ -2553,7 +2553,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0171",
     "slug": "drv-171",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "DriveCore",
     "name": "DriveCore drivetrain component 171",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2568,7 +2568,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0172",
     "slug": "col-172",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow cooling component 172",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2583,7 +2583,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0173",
     "slug": "elc-173",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "TrueDrive",
     "name": "TrueDrive electrical component 173",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2598,7 +2598,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0174",
     "slug": "sus-174",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Nippon OEM",
     "name": "Front Torsion Bar Key and Adjuster Set",
     "shortDescription": "Front torsion bar key and adjuster hardware set for worn adjustment points or modest ride-height correction on torsion-bar trucks. Focused on serviceability and consistent preload adjustment.",
@@ -2613,7 +2613,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0175",
     "slug": "eng-175",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "TrueDrive",
     "name": "TrueDrive engines component 175",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2628,7 +2628,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0176",
     "slug": "oem-176",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Nippon OEM",
     "name": "OE Service Brake Rotor - Corrosion-Guard Coating",
     "shortDescription": "Brake rotor with OE service dimensions, machined braking surface, and hub-area coating to slow cosmetic corrosion after installation. Positions cleanly on both category cards and PDP hero media.",
@@ -2643,7 +2643,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0177",
     "slug": "drv-177",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "DriveCore",
     "name": "DriveCore drivetrain component 177",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2658,7 +2658,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0178",
     "slug": "col-178",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct cooling component 178",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2673,7 +2673,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0179",
     "slug": "elc-179",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "DriveCore",
     "name": "DriveCore electrical component 179",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2688,7 +2688,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0180",
     "slug": "sus-180",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "Powerline",
     "name": "Adjustable Panhard Bar - Street and Tow",
     "shortDescription": "Adjustable panhard bar that recenters the rear axle after suspension sag, refresh work, or mild ride-height changes. Tuned more for stable road manners than extreme articulation.",
@@ -2703,7 +2703,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0181",
     "slug": "eng-181",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline engines component 181",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2718,7 +2718,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0182",
     "slug": "oem-182",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "Nippon OEM",
     "name": "Long-Life Oil Filter - OEM Thread and Seal Spec",
     "shortDescription": "Maintenance-grade oil filter with OEM thread pitch, sealing profile, and bypass configuration for dependable routine servicing. A believable consumable SKU for fleet, shop, and retail maintenance orders.",
@@ -2733,7 +2733,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0183",
     "slug": "drv-183",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Nippon OEM",
     "name": "Nippon OEM drivetrain component 183",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2748,7 +2748,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0184",
     "slug": "col-184",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline cooling component 184",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2763,7 +2763,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0185",
     "slug": "elc-185",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Nippon OEM",
     "name": "Nippon OEM electrical component 185",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2778,7 +2778,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0186",
     "slug": "sus-186",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "ThermaFlow",
     "name": "Rear Self-Leveling Shock - OE Function Replacement",
     "shortDescription": "Self-leveling rear shock absorber for restoring factory load-control behavior on vehicles originally equipped with automatic leveling. Useful for wagons, SUVs, and cargo-heavy daily drivers.",
@@ -2793,7 +2793,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0187",
     "slug": "eng-187",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct engines component 187",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2808,7 +2808,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0188",
     "slug": "oem-188",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "OEM Direct",
     "name": "Factory-Style Intake Air Tube - Reinforced Polymer",
     "shortDescription": "Reinforced-polymer intake air tube with molded ribs, stock-style sensor accommodations, and OEM replacement geometry. Ideal for clean under-hood repair cataloging without aftermarket styling cues.",
@@ -2823,7 +2823,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0189",
     "slug": "drv-189",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "ThermaFlow",
     "name": "ThermaFlow drivetrain component 189",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2838,7 +2838,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0190",
     "slug": "col-190",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "OEM Direct",
     "name": "OEM Direct cooling component 190",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2853,7 +2853,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0191",
     "slug": "elc-191",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "Powerline",
     "name": "Powerline electrical component 191",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2868,7 +2868,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0192",
     "slug": "sus-192",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "OEM Direct",
     "name": "Front Suspension Rebuild Kit - Bushings and Joints",
     "shortDescription": "Front-end rebuild kit bundling common wear items for a cleaner suspension refresh cycle. Intended for restoring tight steering feel and reducing piecemeal parts sourcing during service.",
@@ -2883,7 +2883,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0193",
     "slug": "eng-193",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "Powerline",
     "name": "Powerline engines component 193",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2898,7 +2898,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0194",
     "slug": "oem-194",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "OEM Direct",
     "name": "Iridium OEM Replacement Spark Plug - Fine Wire Tip",
     "shortDescription": "Fine-wire iridium service plug engineered around OEM-style heat range and reach for long-interval maintenance. Keeps the ignition portion of the OEM catalog looking credible and parts-driven.",
@@ -2913,7 +2913,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-DRV-0195",
     "slug": "drv-195",
-    "category": "drivetrain",
+    "category": "transmission-drivetrain",
     "brand": "Powerline",
     "name": "Powerline drivetrain component 195",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2928,7 +2928,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-COL-0196",
     "slug": "col-196",
-    "category": "cooling",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow cooling component 196",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2943,7 +2943,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ELC-0197",
     "slug": "elc-197",
-    "category": "electrical",
+    "category": "sensors-switches",
     "brand": "ThermaFlow",
     "name": "ThermaFlow electrical component 197",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2958,7 +2958,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-SUS-0198",
     "slug": "sus-198",
-    "category": "suspension",
+    "category": "steering-suspension",
     "brand": "DriveCore",
     "name": "Lowering Spring Set - Street Sport Drop",
     "shortDescription": "Street-sport lowering spring set for a moderate drop with firmer response and OEM-friendly drivability. Positioned as a practical cosmetic-and-handling upgrade rather than an extreme stance setup.",
@@ -2973,7 +2973,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-ENG-0199",
     "slug": "eng-199",
-    "category": "engines",
+    "category": "engine-cooling-exhaust",
     "brand": "ThermaFlow",
     "name": "ThermaFlow engines component 199",
     "shortDescription": "High-confidence mock product for demo catalog",
@@ -2988,7 +2988,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-OEM-0200",
     "slug": "oem-200",
-    "category": "oem-parts",
+    "category": "maintenance",
     "brand": "DriveCore",
     "name": "Standard Compression Service Piston - Machined Ring Lands",
     "shortDescription": "Service replacement piston with standard-compression crown design, machined ring lands, and stock-style pin bore sizing for rebuild applications. Appropriate for engine-internal listings that need grounded, technical copy.",
@@ -3003,7 +3003,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0002",
     "slug": "brk-2",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Nippon OEM",
     "name": "Front Ceramic Brake Pad Set - OE Shimmed Daily Driver",
     "shortDescription": "Front ceramic pad set with noise-dampening shims, chamfered friction material, and wear-sensor provisions for quiet OE-style service on commuter sedans and crossovers.",
@@ -3018,7 +3018,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0008",
     "slug": "brk-8",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "ThermaFlow",
     "name": "320mm Vented Front Brake Rotor - Corrosion Guard",
     "shortDescription": "OE-diameter vented front rotor with mill-balanced casting and corrosion-resistant hat coating for dependable stock-caliper replacement work.",
@@ -3033,7 +3033,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0014",
     "slug": "brk-14",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "OEM Direct",
     "name": "Rear Solid Brake Rotor Pair - Stock Replacement",
     "shortDescription": "Rear solid rotor pair sized for factory rear-disc service where smooth braking and straightforward fitment matter more than drilled or slotted styling.",
@@ -3048,7 +3048,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0020",
     "slug": "brk-20",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "OEM Direct",
     "name": "Front Semi-Metallic Brake Pad Set - Fleet Service",
     "shortDescription": "Semi-metallic front pads tuned for light-truck and fleet use, balancing cold-stop bite, predictable wear, and stable pedal response under repeated city braking.",
@@ -3063,7 +3063,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0026",
     "slug": "brk-26",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "TrueDrive",
     "name": "Loaded Front Brake Caliper - Hardware Included",
     "shortDescription": "Loaded front caliper assembly supplied with bracket hardware and installed slider pins for time-saving replacement on seized or uneven-wear brake jobs.",
@@ -3078,7 +3078,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0032",
     "slug": "brk-32",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "DriveCore",
     "name": "Rear Brake Caliper with Parking Brake Actuator",
     "shortDescription": "Reman-style rear caliper configured for integrated parking brake applications, restoring rear stopping power without guessing at lever geometry.",
@@ -3093,7 +3093,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0038",
     "slug": "brk-38",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Powerline",
     "name": "Front Brake Hose Pair - DOT-Compliant Rubber",
     "shortDescription": "Direct-fit front flex hose pair with crimped end fittings and OE-style bracket tabs for restoring hydraulic pressure on aging rubber lines.",
@@ -3108,7 +3108,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0044",
     "slug": "brk-44",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "OEM Direct",
     "name": "Stainless Braided Front Brake Hose Upgrade Set",
     "shortDescription": "Braided stainless front hose set with protective sheathing and plated banjo hardware for firmer pedal feel on street-performance builds.",
@@ -3123,7 +3123,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0050",
     "slug": "brk-50",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "ThermaFlow",
     "name": "Front Pad and Rotor Kit - Ceramic Daily Driver",
     "shortDescription": "Matched front service kit combining ceramic pads and coated vented rotors for an easy all-in-one brake refresh on late-model daily drivers.",
@@ -3138,7 +3138,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0056",
     "slug": "brk-56",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Powerline",
     "name": "Rear Pad and Rotor Kit - Quiet Street Spec",
     "shortDescription": "Rear disc service bundle with low-dust pads and mill-finished rotors aimed at restoring balanced braking without aggressive friction noise.",
@@ -3153,7 +3153,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0062",
     "slug": "brk-62",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "TrueDrive",
     "name": "Brake Pad Hardware Kit - Stainless Abutment Clips",
     "shortDescription": "Service hardware kit with abutment clips, anti-rattle springs, and guide-pin boots to finish a pad job correctly instead of reusing tired hardware.",
@@ -3168,7 +3168,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0068",
     "slug": "brk-68",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "OEM Direct",
     "name": "Front-to-Rear Steel Brake Line Set - OE Routing",
     "shortDescription": "Pre-bent steel hard-line set with flare ends and factory-style routing for full hydraulic refresh work on rust-belt vehicles.",
@@ -3183,7 +3183,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0074",
     "slug": "brk-74",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "TrueDrive",
     "name": "ABS-Compatible Rear Brake Line Replacement Set",
     "shortDescription": "Rear hydraulic line replacement set laid out for common ABS-equipped chassis where stock routing and proper flare-seat fitment are critical.",
@@ -3198,7 +3198,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0080",
     "slug": "brk-80",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Nippon OEM",
     "name": "Brake Master Cylinder - Aluminum OE Replacement",
     "shortDescription": "New aluminum master cylinder with reservoir ports and factory-style bore sizing for restoring proper hydraulic pressure after internal seal failure.",
@@ -3213,7 +3213,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0086",
     "slug": "brk-86",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "ThermaFlow",
     "name": "Power Brake Booster - Vacuum Assist Service Unit",
     "shortDescription": "Vacuum-assist brake booster built as a stock-style replacement for hard-pedal complaints and weakened assist on older gas-powered applications.",
@@ -3228,7 +3228,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0092",
     "slug": "brk-92",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "DriveCore",
     "name": "Rear Drum Brake Shoe Set - Bonded Lining",
     "shortDescription": "Rear drum shoe set with bonded friction lining and OE arc profile for compact cars and utility trailers that still use drum rear brakes.",
@@ -3243,7 +3243,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0098",
     "slug": "brk-98",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "ThermaFlow",
     "name": "Rear Drum Hardware Kit - Springs and Retainers",
     "shortDescription": "Rear drum hardware assortment including hold-down pins, return springs, and adjuster hardware for proper drum-brake service completion.",
@@ -3258,7 +3258,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0104",
     "slug": "brk-104",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "DriveCore",
     "name": "Parking Brake Shoe Set - Hat-in-Rotor Style",
     "shortDescription": "Parking brake shoe set sized for disc-brake-in-hat rear assemblies, restoring mechanical hold without replacing the full service brake package.",
@@ -3273,7 +3273,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0110",
     "slug": "brk-110",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "DriveCore",
     "name": "Brake Caliper Guide Pin Kit - Boots Included",
     "shortDescription": "Guide pin service kit with high-temp sleeves, rubber boots, and lubricant pockets to correct uneven pad wear caused by sticking caliper slides.",
@@ -3288,7 +3288,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0116",
     "slug": "brk-116",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "TrueDrive",
     "name": "Rear Wheel Cylinder Pair - Drum Brake Service",
     "shortDescription": "Rear wheel cylinder pair with bleeder screws and inlet ports installed for dependable drum-brake hydraulic repair on older domestic and import vehicles.",
@@ -3303,7 +3303,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0122",
     "slug": "brk-122",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Nippon OEM",
     "name": "Front Disc Brake Hardware Kit - Noise Control Clips",
     "shortDescription": "Front disc hardware set with stainless abutment clips and pad support springs used to eliminate chatter on OE-style front brake services.",
@@ -3318,7 +3318,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0128",
     "slug": "brk-128",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "TrueDrive",
     "name": "Performance Street Brake Rotor Pair - Slotted Vented",
     "shortDescription": "Slotted vented rotor pair aimed at street trucks and sport coupes needing improved heat evacuation without drifting into full race-brake claims.",
@@ -3333,7 +3333,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0134",
     "slug": "brk-134",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "DriveCore",
     "name": "Severe Duty Front Brake Pad Set - Tow Package",
     "shortDescription": "Higher-friction front pad set for SUVs and tow-package trucks, built around heavier thermal loads and repeated downhill braking.",
@@ -3348,7 +3348,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0140",
     "slug": "brk-140",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Powerline",
     "name": "Brake Fluid Reservoir Cap with Diaphragm Seal",
     "shortDescription": "Replacement reservoir cap and diaphragm seal for service-bay fixes where the original cap is cracked, leaking, or missing its moisture barrier.",
@@ -3363,7 +3363,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0146",
     "slug": "brk-146",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "DriveCore",
     "name": "Brake Proportioning Valve - OE Pressure Balance",
     "shortDescription": "Stock-style proportioning valve intended to restore front-to-rear hydraulic bias after corrosion or contamination in the original valve body.",
@@ -3378,7 +3378,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0152",
     "slug": "brk-152",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "ThermaFlow",
     "name": "Front Loaded Brake Caliper Pair - Premium Reman",
     "shortDescription": "Loaded reman front caliper pair supplied with pads and brackets for higher-mileage rebuild work where both sides should be serviced together.",
@@ -3393,7 +3393,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0158",
     "slug": "brk-158",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Powerline",
     "name": "Disc Brake Anti-Rattle Clip Set - Front Axle",
     "shortDescription": "Front axle anti-rattle clip set for disc brake service, preventing pad chatter and movement inside worn caliper brackets.",
@@ -3408,7 +3408,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0164",
     "slug": "brk-164",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "ThermaFlow",
     "name": "Rear Ceramic Brake Pad Set - Low-Dust OE Formula",
     "shortDescription": "Low-dust rear ceramic pad set designed for quiet operation and smooth rear-disc engagement on family crossovers and midsize sedans.",
@@ -3423,7 +3423,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0170",
     "slug": "brk-170",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Powerline",
     "name": "Brake Bleeder Screw Set - Rust Service Replacement",
     "shortDescription": "Replacement bleeder screw set for corroded calipers and wheel cylinders, useful when basic brake service is blocked by seized hardware.",
@@ -3438,7 +3438,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0176",
     "slug": "brk-176",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Nippon OEM",
     "name": "Hydraulic Brake Hose Kit - Rear Axle Service",
     "shortDescription": "Rear axle hose kit with center hose and retaining clips for trucks and solid-axle applications that need renewed hydraulic flex at the differential.",
@@ -3453,7 +3453,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0182",
     "slug": "brk-182",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "Nippon OEM",
     "name": "Disc Brake Shim Kit - Multi-Layer Noise Dampers",
     "shortDescription": "Multi-layer shim kit for disc pads, restoring OE-style noise damping when original shims are missing or distorted during brake service.",
@@ -3468,7 +3468,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0188",
     "slug": "brk-188",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "OEM Direct",
     "name": "Front Brake Rotor and Pad Kit - Truck Duty",
     "shortDescription": "Front service kit pairing thicker vented rotors with truck-duty friction pads for half-ton pickups and body-on-frame SUVs.",
@@ -3483,7 +3483,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0194",
     "slug": "brk-194",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "OEM Direct",
     "name": "Parking Brake Cable - Direct Fit Rear",
     "shortDescription": "Direct-fit rear parking brake cable with sheath, end fittings, and chassis clips for restoring mechanical hold after stretched or seized cables.",
@@ -3498,7 +3498,7 @@ export const generatedProducts = [
   {
     "sku": "FTM-BRK-0200",
     "slug": "brk-200",
-    "category": "brakes",
+    "category": "brakes-traction-control",
     "brand": "DriveCore",
     "name": "Rear Brake Adjuster Kit - Drum Self-Adjusting Hardware",
     "shortDescription": "Rear drum adjuster kit with star wheels and lever hardware for restoring proper self-adjust function after a full drum-brake refresh.",
@@ -3514,52 +3514,122 @@ export const generatedProducts = [
 
 export const generatedCategories = [
   {
-    "slug": "engines",
-    "title": "Engines",
-    "description": "Long blocks, heads, and complete assemblies.",
-    "productCount": 34,
+    "slug": "transmission-drivetrain",
+    "title": "Transmission and Drivetrain",
+    "description": "Automatic and manual transmissions, torque converters, driveshafts, differentials, axles, and transfer cases.",
+    "productCount": 54285,
+    "realImageCount": 0
+  },
+  {
+    "slug": "engine-cooling-exhaust",
+    "title": "Engine, Cooling and Exhaust",
+    "description": "Complete crate engines, cylinder heads, water pumps, radiators, mufflers, catalytic converters, and exhaust manifolds.",
+    "productCount": 9895,
     "realImageCount": 14
   },
   {
-    "slug": "brakes",
-    "title": "Brakes",
-    "description": "Pads, rotors, calipers, lines, and hydraulic service parts.",
-    "productCount": 34,
-    "realImageCount": 8
+    "slug": "powertrain-management",
+    "title": "Powertrain Management",
+    "description": "Engine control modules (ECM), fuel injectors, throttle bodies, ignition coils, spark plugs, and emission control systems.",
+    "productCount": 9759,
+    "realImageCount": 0
   },
   {
-    "slug": "oem-parts",
-    "title": "OEM Parts",
-    "description": "Core OEM-style replacement parts across braking, ignition, filtration, intake, and charging systems.",
-    "productCount": 34,
-    "realImageCount": 34
-  },
-  {
-    "slug": "suspension",
-    "title": "Suspension",
-    "description": "Shocks, struts, and ride-control parts.",
-    "productCount": 33,
+    "slug": "steering-suspension",
+    "title": "Steering and Suspension",
+    "description": "Shocks, struts, control arms, ball joints, tie rod ends, power steering pumps, and rack and pinion assemblies.",
+    "productCount": 9357,
     "realImageCount": 6
   },
   {
-    "slug": "cooling",
-    "title": "Cooling",
-    "description": "Radiators, thermostats, and flow components.",
-    "productCount": 33,
+    "slug": "brakes-traction-control",
+    "title": "Brakes and Traction Control",
+    "description": "Ceramic and semi-metallic pads, vented rotors, loaded calipers, master cylinders, brake hoses, and ABS sensors.",
+    "productCount": 4929,
+    "realImageCount": 8
+  },
+  {
+    "slug": "starting-charging",
+    "title": "Starting and Charging",
+    "description": "High-output alternators, starter motors, batteries, cables, and charging system components.",
+    "productCount": 4595,
     "realImageCount": 0
   },
   {
-    "slug": "electrical",
-    "title": "Electrical",
-    "description": "Sensors, harnesses, and charging parts.",
-    "productCount": 33,
+    "slug": "maintenance",
+    "title": "Maintenance",
+    "description": "Oil filters, cabin air filters, spark plugs, fluids, belts, hoses, and routine service items.",
+    "productCount": 3561,
+    "realImageCount": 34
+  },
+  {
+    "slug": "sensors-switches",
+    "title": "Sensors and Switches",
+    "description": "Oxygen sensors, mass airflow sensors (MAF), coolant temp sensors, oil pressure switches, and window switches.",
+    "productCount": 3555,
     "realImageCount": 0
   },
   {
-    "slug": "drivetrain",
-    "title": "Drivetrain",
-    "description": "Trans, mounts, and support systems.",
-    "productCount": 33,
+    "slug": "body-frame",
+    "title": "Body and Frame",
+    "description": "Hoods, fenders, bumpers, grilles, mirrors, door handles, lift supports, and structural frame components.",
+    "productCount": 3470,
+    "realImageCount": 0
+  },
+  {
+    "slug": "heating-air-conditioning",
+    "title": "Heating and Air Conditioning",
+    "description": "A/C compressors, condensers, evaporators, blower motors, heater cores, and climate control switches.",
+    "productCount": 2680,
+    "realImageCount": 0
+  },
+  {
+    "slug": "instrument-panel-gauges",
+    "title": "Instrument Panel, Gauges and Warning Indicators",
+    "description": "Instrument clusters, speedometers, tachometers, oil pressure gauges, warning lights, and senders.",
+    "productCount": 2228,
+    "realImageCount": 0
+  },
+  {
+    "slug": "lighting-horns",
+    "title": "Lighting and Horns",
+    "description": "Headlights, tail lights, fog lights, turn signals, replacement bulbs, horns, and relays.",
+    "productCount": 1837,
+    "realImageCount": 0
+  },
+  {
+    "slug": "windows-glass",
+    "title": "Windows and Glass",
+    "description": "Windshields, door glass, window regulators, power window motors, and weatherstripping.",
+    "productCount": 1208,
+    "realImageCount": 0
+  },
+  {
+    "slug": "wiper-washer",
+    "title": "Wiper and Washer Systems",
+    "description": "Wiper blades, wiper motors, windshield washer pumps, reservoirs, and linkages.",
+    "productCount": 1068,
+    "realImageCount": 0
+  },
+  {
+    "slug": "relays-modules",
+    "title": "Relays and Modules",
+    "description": "Fuses, relays, fuse blocks, body control modules (BCM), and power distribution modules.",
+    "productCount": 994,
+    "realImageCount": 0
+  },
+  {
+    "slug": "cruise-control",
+    "title": "Cruise Control",
+    "description": "Cruise control switches, actuators, distance sensors, and control modules.",
+    "productCount": 639,
+    "realImageCount": 0
+  },
+  {
+    "slug": "accessories-optional-equipment",
+    "title": "Accessories and Optional Equipment",
+    "description": "Floor mats, cargo liners, roof racks, trailer hitches, car covers, and cosmetic upgrades.",
+    "productCount": 246,
     "realImageCount": 0
   }
 ] as const;

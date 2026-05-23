@@ -29,7 +29,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2001",
     slug: "aluminum-radiator-oe-2-row",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "DriveCore",
     name: "2-Row Aluminum Radiator with OE-Style Side Tanks",
     shortDescription: "Direct-fit replacement radiator with aluminum core, crimped composite side tanks, and factory-mount geometry for daily-driver cooling repairs.",
@@ -44,7 +44,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2002",
     slug: "dual-electric-fan-shroud-assembly",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "Powerline",
     name: "Dual Electric Radiator Fan and Shroud Assembly",
     shortDescription: "Complete dual-fan module with molded shroud, factory-style motor mounts, and connector-ready layout for late-model radiator service jobs.",
@@ -59,7 +59,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2003",
     slug: "cast-aluminum-water-pump",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "Nippon OEM",
     name: "Cast Aluminum Engine Water Pump with Hub",
     shortDescription: "New replacement water pump with cast housing, pressed bearing assembly, and pulley-mount hub for stock belt-drive cooling systems.",
@@ -74,7 +74,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2004",
     slug: "thermostat-housing-gasket-kit",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "OEM Direct",
     name: "Thermostat Housing Kit with Thermostat and Gasket",
     shortDescription: "Service kit combining cast thermostat housing, installed thermostat, and sealing gasket for common leak and overheating repairs.",
@@ -89,7 +89,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2005",
     slug: "coolant-overflow-reservoir-tank",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "TrueDrive",
     name: "Coolant Overflow Reservoir Tank with Cap",
     shortDescription: "Translucent recovery tank with installed cap and molded mounting ears, built to restore coolant overflow capacity on cracked or stained originals.",
@@ -104,7 +104,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2006",
     slug: "upper-lower-radiator-hose-set",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "ThermaFlow",
     name: "Molded Upper and Lower Radiator Hose Set",
     shortDescription: "Pre-formed radiator hose pair with molded bends and clamp-ready ends for stock replacement cooling-system refresh work.",
@@ -119,7 +119,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2007",
     slug: "compact-heater-core-aluminum-brass",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "DriveCore",
     name: "Compact Heater Core, Aluminum and Brass Construction",
     shortDescription: "Replacement heater core with dense fin pack and formed inlet tubes for restoring cabin heat and defrost performance without dash-side improvisation.",
@@ -134,7 +134,7 @@ const curatedCoolingProducts: Product[] = [
   {
     sku: "FTM-COL-2008",
     slug: "heavy-duty-fan-clutch",
-    category: "cooling",
+    category: "engine-cooling-exhaust",
     brand: "Powerline",
     name: "Heavy-Duty Engine Cooling Fan Clutch",
     shortDescription: "Thermal fan clutch built for truck and SUV mechanical fan systems where worn engagement causes idle heat soak and towing-temp spikes.",
@@ -149,17 +149,16 @@ const curatedCoolingProducts: Product[] = [
 ];
 
 export const products: Product[] = [
-  ...((generatedProducts as unknown as Product[]).filter((item) => item.category !== "cooling")),
+  ...((generatedProducts as unknown as Product[]).filter((item) => item.category !== "engine-cooling-exhaust")),
   ...curatedCoolingProducts,
 ];
 
 export const categories: Category[] = (generatedCategories as unknown as Category[]).map((category) =>
-  category.slug === "cooling"
+  category.slug === "engine-cooling-exhaust"
     ? {
         ...category,
-        description: "Radiators, fan assemblies, water pumps, thermostats, hoses, reservoirs, and heater cores.",
-        productCount: curatedCoolingProducts.length,
-        realImageCount: curatedCoolingProducts.length,
+        description: "Complete crate engines, cylinder heads, water pumps, radiators, fan assemblies, mufflers, catalytic converters, and exhaust manifolds.",
+        realImageCount: category.realImageCount + curatedCoolingProducts.length,
       }
     : category,
 );

@@ -77,20 +77,31 @@ const registryBySlug = Object.fromEntries(categoryRegistry.map((entry) => [entry
 const categoryCounts = {};
 const realImageCounts = {};
 
+const categoryMapping = {
+  "engines": "engine-cooling-exhaust",
+  "cooling": "engine-cooling-exhaust",
+  "brakes": "brakes-traction-control",
+  "suspension": "steering-suspension",
+  "electrical": "sensors-switches",
+  "drivetrain": "transmission-drivetrain",
+  "oem-parts": "maintenance"
+};
+
 const products = productsRaw.map((p) => {
-  if (!registryBySlug[p.category]) {
-    throw new Error(`products.csv contains unknown category slug: ${p.category}`);
+  const finalCategory = categoryMapping[p.category] || p.category;
+  if (!registryBySlug[finalCategory]) {
+    throw new Error(`products.csv contains unknown category slug: ${p.category} (mapped to ${finalCategory})`);
   }
 
-  categoryCounts[p.category] = (categoryCounts[p.category] ?? 0) + 1;
+  categoryCounts[finalCategory] = (categoryCounts[finalCategory] ?? 0) + 1;
   if (isValidImageUrl(p.image_url) && !isPlaceholderImage(p.image_url)) {
-    realImageCounts[p.category] = (realImageCounts[p.category] ?? 0) + 1;
+    realImageCounts[finalCategory] = (realImageCounts[finalCategory] ?? 0) + 1;
   }
 
   return {
     sku: p.sku,
     slug: p.slug,
-    category: p.category,
+    category: finalCategory,
     brand: p.brand,
     name: p.name,
     shortDescription: p.short_description,
@@ -109,15 +120,13 @@ const products = productsRaw.map((p) => {
   };
 });
 
-const categories = categoryRegistry
-  .filter((entry) => categoryCounts[entry.slug])
-  .map((entry) => ({
-    slug: entry.slug,
-    title: entry.title,
-    description: entry.description,
-    productCount: categoryCounts[entry.slug] ?? 0,
-    realImageCount: realImageCounts[entry.slug] ?? 0,
-  }));
+const categories = categoryRegistry.map((entry) => ({
+  slug: entry.slug,
+  title: entry.title,
+  description: entry.description,
+  productCount: entry.productCount || categoryCounts[entry.slug] || 0,
+  realImageCount: realImageCounts[entry.slug] ?? 0,
+}));
 
 const grouped = {};
 for (const row of fitmentRaw) {

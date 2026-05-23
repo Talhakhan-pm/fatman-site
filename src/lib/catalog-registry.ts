@@ -9,6 +9,23 @@ import {
 } from "@/components/category-icons";
 
 export type CategorySlug =
+  | "transmission-drivetrain"
+  | "engine-cooling-exhaust"
+  | "powertrain-management"
+  | "steering-suspension"
+  | "brakes-traction-control"
+  | "starting-charging"
+  | "maintenance"
+  | "sensors-switches"
+  | "body-frame"
+  | "heating-air-conditioning"
+  | "instrument-panel-gauges"
+  | "lighting-horns"
+  | "windows-glass"
+  | "wiper-washer"
+  | "relays-modules"
+  | "cruise-control"
+  | "accessories-optional-equipment"
   | "engines"
   | "brakes"
   | "oem-parts"
@@ -29,6 +46,7 @@ export type CatalogRegistryEntry = {
   showInHeader: boolean;
   showInFooter: boolean;
   showOnHomepage: boolean;
+  productCount?: number;
 };
 
 export const catalogRegistry = registry as CatalogRegistryEntry[];
