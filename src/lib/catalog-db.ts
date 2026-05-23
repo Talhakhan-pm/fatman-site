@@ -69,12 +69,38 @@ const toProduct = (row: SupabaseProductRow): Product => {
   };
 };
 
+const CATEGORY_DESCENDANT_PREFIXES: Record<string, string[]> = {
+  "transmission-drivetrain": ["transmission-and-drivetrain"],
+  "engine-cooling-exhaust": ["engine-cooling-and-exhaust"],
+  "steering-suspension": ["steering-and-suspension"],
+  "brakes-traction-control": ["brakes-and-traction-control"],
+  "starting-charging": ["starting-and-charging"],
+  "sensors-switches": ["sensors-and-switches"],
+  "body-frame": ["body-and-frame"],
+  "heating-air-conditioning": ["heating-and-air-conditioning"],
+  "instrument-panel-gauges": ["instrument-panel-gauges-and-warning-indicators"],
+  "wiper-washer": ["wiper-and-washer-systems"],
+};
+
+const categoryTreePrefixes = (slug: string) => [
+  slug,
+  ...(CATEGORY_DESCENDANT_PREFIXES[slug] ?? []),
+];
+
+const isCategoryOrDescendant = (categorySlug: string, parentSlug: string) =>
+  categoryTreePrefixes(parentSlug).some(
+    (prefix) => categorySlug === prefix || categorySlug.startsWith(`${prefix}-`),
+  );
+
+const productsForCategoryTree = (products: Product[], slug: string) =>
+  products.filter((product) => isCategoryOrDescendant(product.category, slug));
+
 const toCategories = (
   rows: SupabaseCategoryRow[],
   products: Product[],
 ): Category[] =>
   rows.map((row) => {
-    const categoryProducts = products.filter((product) => product.category === row.slug);
+    const categoryProducts = productsForCategoryTree(products, row.slug);
     const realImageCount = categoryProducts.filter((product) => Boolean(product.imageUrl)).length;
     return {
       slug: row.slug as Category["slug"],
@@ -164,7 +190,7 @@ export async function getCategory(slug: string) {
 
 export async function getProductsByCategory(slug: string) {
   const catalog = await getCatalogData();
-  const liveProducts = catalog.products.filter((item) => item.category === slug);
+  const liveProducts = productsForCategoryTree(catalog.products, slug);
 
   if (liveProducts.length || catalog.categories.some((item) => item.slug === slug)) {
     return liveProducts;

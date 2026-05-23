@@ -1,0 +1,209 @@
+{
+  "version": 1,
+  "defaultImageStatus": "catalog_studio",
+  "defaultImageType": "category_reference",
+  "defaultImageTextTemplate": "Catalog image for Ford part #{part_number}. Match fitment details before purchase.",
+  "altTextTemplate": "Used OEM Ford {product_name} part #{part_number}",
+  "assets": [
+    {
+      "key": "brake_rotor",
+      "url": "/ai-product-images/brake-rotor-representative.png",
+      "label": "Brake rotor catalog image"
+    },
+    {
+      "key": "alternator",
+      "url": "/ai-product-images/alternator-representative.png",
+      "label": "Alternator catalog image"
+    },
+    {
+      "key": "water_pump",
+      "url": "/ai-product-images/water-pump-representative.png",
+      "label": "Water pump catalog image"
+    },
+    {
+      "key": "wheel_cylinder",
+      "url": "/ai-product-images/wheel-cylinder-representative.png",
+      "label": "Wheel cylinder catalog image"
+    },
+    {
+      "key": "starter_motor",
+      "url": "/ai-product-images/starter-motor-representative.png",
+      "label": "Starter motor catalog image"
+    },
+    {
+      "key": "brake_caliper",
+      "url": "/ai-product-images/white-bg/brake-caliper-representative-white.png",
+      "label": "Brake caliper catalog image"
+    },
+    {
+      "key": "control_arm",
+      "url": "/ai-product-images/white-bg/control-arm-representative-white.png",
+      "label": "Control arm catalog image"
+    },
+    {
+      "key": "fuel_pump",
+      "url": "/ai-product-images/white-bg/fuel-pump-representative-white.png",
+      "label": "Fuel pump catalog image"
+    },
+    {
+      "key": "ignition_coil",
+      "url": "/ai-product-images/white-bg/ignition-coil-representative-white.png",
+      "label": "Ignition coil catalog image"
+    },
+    {
+      "key": "mass_air_flow_sensor",
+      "url": "/ai-product-images/white-bg/mass-air-flow-sensor-representative-white.png",
+      "label": "Mass air flow sensor catalog image"
+    },
+    {
+      "key": "oxygen_sensor",
+      "url": "/ai-product-images/white-bg/oxygen-sensor-representative-white.png",
+      "label": "Oxygen sensor catalog image"
+    },
+    {
+      "key": "radiator_fan_motor",
+      "url": "/ai-product-images/white-bg/radiator-fan-motor-representative-white.png",
+      "label": "Radiator fan motor catalog image"
+    },
+    {
+      "key": "thermostat_housing",
+      "url": "/ai-product-images/white-bg/thermostat-housing-representative-white.png",
+      "label": "Thermostat housing catalog image"
+    },
+    {
+      "key": "tie_rod_end",
+      "url": "/ai-product-images/white-bg/tie-rod-end-representative-white.png",
+      "label": "Tie rod end catalog image"
+    },
+    {
+      "key": "wheel_hub_bearing",
+      "url": "/ai-product-images/white-bg/wheel-hub-bearing-representative-white.png",
+      "label": "Wheel hub bearing catalog image"
+    },
+    {
+      "key": "suspension_strut_shock",
+      "url": "/ai-product-images/white-bg/suspension-strut-shock-representative-white.png",
+      "label": "Suspension strut / shock absorber catalog image"
+    },
+    {
+      "key": "carburetor",
+      "url": "/ai-product-images/white-bg/carburetor-representative-white.png",
+      "label": "Carburetor catalog image"
+    },
+    {
+      "key": "engine_mount",
+      "url": "/ai-product-images/white-bg/engine-mount-representative-white.png",
+      "label": "Engine mount catalog image"
+    },
+    {
+      "key": "axle_shaft",
+      "url": "/ai-product-images/white-bg/axle-shaft-representative-white.png",
+      "label": "Axle shaft catalog image"
+    },
+    {
+      "key": "window_regulator",
+      "url": "/ai-product-images/white-bg/window-regulator-representative-white.png",
+      "label": "Window regulator catalog image"
+    },
+    {
+      "key": "fuel_gauge_sender",
+      "url": "/ai-product-images/white-bg/fuel-gauge-sender-representative-white.png",
+      "label": "Fuel gauge sender catalog image"
+    },
+    {
+      "key": "forward_clutch",
+      "url": "/ai-product-images/white-bg/forward-clutch-representative-white.png",
+      "label": "Forward clutch catalog image"
+    },
+    {
+      "key": "radiator_hose",
+      "url": "/ai-product-images/white-bg/radiator-hose-representative-white.png",
+      "label": "Radiator hose catalog image"
+    },
+    {
+      "key": "stabilizer_bar",
+      "url": "/ai-product-images/white-bg/stabilizer-bar-representative-white.png",
+      "label": "Stabilizer bar catalog image"
+    },
+    {
+      "key": "air_injection_control_valve",
+      "url": "/ai-product-images/white-bg/air-injection-control-valve-representative-white.png",
+      "label": "Air injection control valve catalog image"
+    },
+    {
+      "key": "steering_knuckle_spindle",
+      "url": "/ai-product-images/white-bg/steering-knuckle-spindle-representative-white.png",
+      "label": "Steering knuckle / spindle catalog image"
+    },
+    {
+      "key": "egr_valve",
+      "url": "/ai-product-images/white-bg/egr-valve-representative-white.png",
+      "label": "EGR valve catalog image"
+    },
+    {
+      "key": "ignition_distributor",
+      "url": "/ai-product-images/white-bg/ignition-distributor-representative-white.png",
+      "label": "Ignition distributor catalog image"
+    },
+    {
+      "key": "engine_valves",
+      "url": "/ai-product-images/white-bg/engine-valves-representative-white.png",
+      "label": "Engine valves catalog image"
+    },
+    {
+      "key": "transmission_valve_body",
+      "url": "/ai-product-images/white-bg/transmission-valve-body-representative-white.png",
+      "label": "Transmission valve body catalog image"
+    },
+    {
+      "key": "reverse_clutch",
+      "url": "/ai-product-images/white-bg/reverse-clutch-representative-white.png",
+      "label": "Reverse clutch catalog image"
+    },
+    {
+      "key": "seals_gaskets",
+      "url": "/ai-product-images/white-bg/seals-gaskets-representative-white.png",
+      "label": "Seals and gaskets catalog image"
+    },
+    {
+      "key": "speedometer_cable",
+      "url": "/ai-product-images/white-bg/speedometer-cable-representative-white.png",
+      "label": "Speedometer cable catalog image"
+    },
+    {
+      "key": "brake_hose_line",
+      "url": "/ai-product-images/white-bg/brake-hose-line-representative-white.png",
+      "label": "Brake hose / line catalog image"
+    },
+    {
+      "key": "parking_brake_cable",
+      "url": "/ai-product-images/white-bg/parking-brake-cable-representative-white.png",
+      "label": "Parking brake cable catalog image"
+    },
+    {
+      "key": "exhaust_manifold",
+      "url": "/ai-product-images/white-bg/exhaust-manifold-representative-white.png",
+      "label": "Exhaust manifold catalog image"
+    },
+    {
+      "key": "radiator",
+      "url": "/ai-product-images/white-bg/radiator-representative-white.png",
+      "label": "Radiator catalog image"
+    },
+    {
+      "key": "cylinder_head",
+      "url": "/ai-product-images/white-bg/cylinder-head-representative-white.png",
+      "label": "Cylinder head catalog image"
+    },
+    {
+      "key": "steering_gear_box",
+      "url": "/ai-product-images/white-bg/steering-gear-box-representative-white.png",
+      "label": "Steering gear box catalog image"
+    },
+    {
+      "key": "air_injection_pump",
+      "url": "/ai-product-images/white-bg/air-injection-pump-representative-white.png",
+      "label": "Air injection pump catalog image"
+    }
+  ]
+}
