@@ -28,29 +28,29 @@ If working from another machine or VPS:
 
 ---
 
-## 3) Current phase
+## 3) Current status
 
-**Phase 3: Storefront Shell & Conversion**
+**Live in Production (master branch)**
 
-This project has completed its Phase 1 (infrastructure) and Phase 2 (garage-aware discovery) milestones and is now deeply into Phase 3, which focuses on high-fidelity user experience, premium UI, and real conversion pipelines.
+This project has completed its Phase 1 (infrastructure), Phase 2 (garage-aware discovery), and Phase 3 (storefront shell & conversion) milestones. It is currently live in production at `fatmanparts.com` on the `master` branch, fully integrated with Google Analytics and Google Search Console.
 
 ---
 
 ## 4) What is already shipped
 
-### Phase 1 & 2, Foundation & Garage-Aware Discovery
+### Production Foundation
 - live admin auth/session works (Supabase)
 - storefront reads live Supabase products correctly
 - PDP compatible-products module ("Also fits your vehicle")
 - Category pages use fitment-aware relevance ordering
 - Homepage has "Compatible Products for Your Vehicle" and "Categories that fit"
 
-### Phase 3, Storefront Shell & Conversion (RECENTLY SHIPPED)
-- **Premium Navbar & Search (`ui/premium-navbar-search` branch):**
+### Core Conversion & UI (Now in master)
+- **Premium Navbar & Search:**
   - Replaced static header with a floating pill-shaped navbar.
   - Implemented ⌘K live search dropdown that queries `/api/products` for instant results (with images, prices, SKUs).
   - Integrated the Garage fitment toggle directly into the navbar.
-- **Stripe Checkout Integration (`phase3/storefront-shell` branch):**
+- **Stripe Checkout Integration:**
   - Created `/api/checkout/session` and `/api/stripe/webhook`.
   - Added a `004_storefront_orders.sql` table in Supabase.
   - Created success/cancel pages with Stripe session sync.
