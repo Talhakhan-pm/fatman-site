@@ -10,15 +10,39 @@ import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 import { useCart } from "@/components/cart-provider";
+import { ProductAttributeBadges } from "@/components/product-attribute-badges";
 
 function StockBadge({ stock }: { stock: Product["stock"] }) {
   if (stock === "in-stock") {
-    return <span className="stock-badge stock-badge--success">In Stock</span>;
+    return (
+      <span className="stock-badge stock-badge--success">
+        <span className="relative flex h-1.5 w-1.5 mr-1.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+        </span>
+        In Stock
+      </span>
+    );
   }
   if (stock === "low-stock") {
-    return <span className="stock-badge stock-badge--warning">Low Stock</span>;
+    return (
+      <span className="stock-badge stock-badge--warning">
+        <span className="relative flex h-1.5 w-1.5 mr-1.5">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
+        </span>
+        Low Stock
+      </span>
+    );
   }
-  return <span className="stock-badge stock-badge--info">Preorder</span>;
+  return (
+    <span className="stock-badge stock-badge--info">
+      <span className="relative flex h-1.5 w-1.5 mr-1.5">
+        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-sky-500"></span>
+      </span>
+      Preorder
+    </span>
+  );
 }
 
 export function ProductCard({
@@ -65,10 +89,17 @@ export function ProductCard({
       <div className="mt-3 flex items-center gap-2">
         <StockBadge stock={product.stock} />
         {hasSavings && (
-          <span className="rounded-full border border-fatman-accent/40 bg-fatman-accent/20 px-2 py-1 text-[10px] font-semibold text-orange-100">
+          <span className="inline-flex items-center rounded-full border border-fatman-accent/40 bg-fatman-accent/20 px-2.5 py-1 text-[10px] font-bold text-orange-100 uppercase tracking-wider">
+            <svg className="w-3 h-3 mr-1 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.5 8.167a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.25 3.75H4.75a1 1 0 00-1 1v5.5a1 1 0 00.293.707l9.5 9.5a1 1 0 001.414 0l5.5-5.5a1 1 0 000-1.414l-9.5-9.5a1 1 0 00-.707-.293z" />
+            </svg>
             Save {formatPrice((product.compareAt ?? 0) - product.price)}
           </span>
         )}
+      </div>
+      <div className="mt-2">
+        <ProductAttributeBadges product={product} />
       </div>
       <p className="mt-2 text-xs uppercase tracking-wider text-white/60">{product.brand}</p>
       <Link href={`/product/${product.slug}`}>

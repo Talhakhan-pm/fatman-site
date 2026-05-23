@@ -11,7 +11,7 @@ import {
   type Category,
   type Product,
 } from "@/lib/catalog";
-import { catalogRegistry } from "@/lib/catalog-registry";
+import { getProductBadgeMetadata } from "@/lib/product-badges";
 
 type SupabaseCategoryRow = {
   slug: string;
@@ -35,6 +35,7 @@ type SupabaseProductRow = {
   shipping_class: string | null;
   warranty_days: number | null;
   oem_part_number: string | null;
+  metadata: Record<string, unknown> | null;
   published: boolean;
 };
 
@@ -45,21 +46,28 @@ type CatalogData = {
 
 const ALLOW_SOURCE_FALLBACK = process.env.NODE_ENV !== "production";
 
-const toProduct = (row: SupabaseProductRow): Product => ({
-  sku: row.sku,
-  slug: row.slug,
-  category: row.category_slug,
-  brand: row.brand,
-  name: row.name,
-  shortDescription: row.short_description ?? "",
-  price: Number(row.price),
-  compareAt: row.compare_at == null ? undefined : Number(row.compare_at),
-  stock: row.stock_status,
-  imageUrl: row.image_url ?? undefined,
-  shippingClass: row.shipping_class ?? undefined,
-  warrantyDays: row.warranty_days ?? undefined,
-  oemPartNumber: row.oem_part_number ?? undefined,
-});
+const toProduct = (row: SupabaseProductRow): Product => {
+  const metadata = row.metadata ?? {};
+  const badges = getProductBadgeMetadata({ metadata });
+
+  return {
+    sku: row.sku,
+    slug: row.slug,
+    category: row.category_slug,
+    brand: row.brand,
+    name: row.name,
+    shortDescription: row.short_description ?? "",
+    price: Number(row.price),
+    compareAt: row.compare_at == null ? undefined : Number(row.compare_at),
+    stock: row.stock_status,
+    imageUrl: row.image_url ?? undefined,
+    shippingClass: row.shipping_class ?? undefined,
+    warrantyDays: row.warranty_days ?? undefined,
+    oemPartNumber: row.oem_part_number ?? undefined,
+    metadata,
+    ...badges,
+  };
+};
 
 const toCategories = (
   rows: SupabaseCategoryRow[],
@@ -90,7 +98,7 @@ const readPublishedCatalogFromSupabase = cache(async (): Promise<CatalogData | n
         supabase
           .from("products")
           .select(
-            "sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, published",
+            "sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata, published",
           )
           .eq("published", true)
           .order("name", { ascending: true }),
@@ -123,10 +131,6 @@ const readPublishedCatalogFromSupabase = cache(async (): Promise<CatalogData | n
 });
 
 export const getCatalogData = cache(async (): Promise<CatalogData> => {
-  if (process.env.NODE_ENV !== "production") {
-    return getFallbackCatalogData();
-  }
-
   const liveCatalog = await readPublishedCatalogFromSupabase();
   if (liveCatalog) return liveCatalog;
 

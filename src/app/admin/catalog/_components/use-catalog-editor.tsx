@@ -3,6 +3,20 @@ import { useSearchParams } from "next/navigation";
 import type { AdminSessionScope, AdminSessionState, ApiResult, EditorState, FitmentForm, ProductForm, ProductSummary, UpsertPayload } from "./types";
 import { autofillFitmentRow, buildAutoSku, buildAutoSlug, createBlankEditor, createBlankFitmentRow, editorToPayload, payloadToEditor, STARTER_EDITOR } from "./helpers";
 
+type SavedCatalogBody = {
+  product?: {
+    slug?: string;
+  };
+  fitmentCount?: number;
+  source?: string;
+};
+
+function isSavedCatalogBody(value: unknown): value is SavedCatalogBody {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return false;
+  const record = value as Record<string, unknown>;
+  return "product" in record || "fitmentCount" in record || "source" in record;
+}
+
 export function useCatalogEditor() {
   const searchParams = useSearchParams();
   const slugFromUrl = searchParams?.get("slug");
@@ -317,15 +331,64 @@ export function useCatalogEditor() {
     }
   }
 
+  function getRequiredProductFieldErrors(product: ProductForm) {
+    const requiredFields: Array<[keyof ProductForm, string]> = [
+      ["sku", "SKU"],
+      ["slug", "URL slug"],
+      ["category", "Category"],
+      ["brand", "Brand"],
+      ["name", "Name"],
+    ];
+
+    return requiredFields
+      .filter(([field]) => !String(product[field] ?? "").trim())
+      .map(([, label]) => label);
+  }
+
+  function prepareEditorForSave(current: EditorState): EditorState {
+    const product: ProductForm = { ...current.product };
+
+    if (!product.sku.trim() && product.name.trim() && product.category.trim()) {
+      product.sku = buildAutoSku(product.name, product.category, current, getTakenSkus(current));
+    }
+
+    if (!product.slug.trim() && product.name.trim()) {
+      product.slug = buildAutoSlug(product, current, getTakenSlugs(current));
+    }
+
+    return { ...current, product };
+  }
+
   async function handleSave() {
     setSaveBusy(true);
     try {
-      const response = await postJSON("/api/admin/catalog/upsert", draftPayload);
+      const editorForSave = prepareEditorForSave(editor);
+      const missingFields = getRequiredProductFieldErrors(editorForSave.product);
+      const payload = editorToPayload(editorForSave);
+
+      if (missingFields.length > 0) {
+        setEditor(editorForSave);
+        setResult({
+          endpoint: "/api/admin/catalog/upsert",
+          status: 400,
+          body: {
+            error: `Missing required product fields: ${missingFields.join(", ")}`,
+            details: "Fill the missing fields. SKU and URL slug auto-fill when name/category are present.",
+          },
+        });
+        return;
+      }
+
+      if (editorForSave !== editor) {
+        setEditor(editorForSave);
+      }
+
+      const response = await postJSON("/api/admin/catalog/upsert", payload);
       if (response.ok) {
         const savedEditor: EditorState = {
-          ...editor,
-          originalSlug: editor.product.slug.trim(),
-          originalSku: editor.product.sku.trim(),
+          ...editorForSave,
+          originalSlug: editorForSave.product.slug.trim(),
+          originalSku: editorForSave.product.sku.trim(),
         };
         setEditor(savedEditor);
         setLastLoadedSnapshot(JSON.stringify(savedEditor));
@@ -454,19 +517,22 @@ export function useCatalogEditor() {
     }
   }
 
-  const savedBody =
-    result && typeof result.body !== "string" && result.body && "product" in (result.body as object)
-      ? (result.body as any)
+  const resultBody = result?.body;
+  const resultRecord =
+    resultBody && typeof resultBody === "object" && !Array.isArray(resultBody)
+      ? (resultBody as Record<string, unknown>)
       : null;
 
+  const savedBody = isSavedCatalogBody(resultBody) ? resultBody : null;
+
   const resultError =
-    result && typeof result.body !== "string" && result.body && "error" in (result.body as object)
-      ? (result.body as any).error ?? null
+    resultRecord && "error" in resultRecord && typeof resultRecord.error === "string"
+      ? resultRecord.error
       : null;
 
   const resultErrorDetails =
-    result && typeof result.body !== "string" && result.body && "details" in (result.body as object)
-      ? (result.body as any).details ?? null
+    resultRecord && "details" in resultRecord && typeof resultRecord.details === "string"
+      ? resultRecord.details
       : null;
 
   return {

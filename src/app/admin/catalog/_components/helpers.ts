@@ -1,5 +1,6 @@
 import { catalogRegistry } from "@/lib/catalog-registry";
 import { charmFitmentCatalog } from "@/lib/fitment-catalog";
+import { getProductBadgeMetadata, mergeProductBadgeMetadata } from "@/lib/product-badges";
 import type { EditorState, FitmentForm, ProductForm, UpsertPayload } from "./types";
 
 export function buildAutoSlug(product: ProductForm, current: EditorState, takenSlugs: Set<string>) {
@@ -100,6 +101,8 @@ export function createBlankEditor(): EditorState {
       shippingClass: "ground",
       warrantyDays: "",
       oemPartNumber: "",
+      condition: "new",
+      partSource: "aftermarket",
       published: true,
     },
     originalSlug: null,
@@ -234,6 +237,8 @@ export const STARTER_EDITOR: EditorState = {
     shippingClass: "ground",
     warrantyDays: "180",
     oemPartNumber: "OEM-DEMO-9001",
+    condition: "new",
+    partSource: "aftermarket",
     published: true,
   },
   originalSlug: "demo-aluminum-radiator",
@@ -297,6 +302,12 @@ export function editorToPayload(editor: EditorState): UpsertPayload {
       shippingClass: product.shippingClass.trim() || null,
       warrantyDays: toOptionalNumber(product.warrantyDays),
       oemPartNumber: product.oemPartNumber.trim() || null,
+      condition: product.condition,
+      partSource: product.partSource,
+      metadata: mergeProductBadgeMetadata(product.metadata, {
+        condition: product.condition,
+        partSource: product.partSource,
+      }),
       published: product.published,
     },
     fitment: fitmentRows.map((row) => ({
@@ -316,6 +327,13 @@ export function editorToPayload(editor: EditorState): UpsertPayload {
 export function payloadToEditor(payload: UpsertPayload | null | undefined): EditorState {
   const product = payload?.product;
   const fitment = payload?.fitment ?? [];
+  const badges = getProductBadgeMetadata({
+    metadata: {
+      ...(product?.metadata ?? {}),
+      condition: product?.condition ?? product?.metadata?.condition,
+      partSource: product?.partSource ?? product?.metadata?.partSource,
+    },
+  });
 
   return {
     product: {
@@ -332,6 +350,9 @@ export function payloadToEditor(payload: UpsertPayload | null | undefined): Edit
       shippingClass: product?.shippingClass ?? "ground",
       warrantyDays: product?.warrantyDays == null ? "" : String(product.warrantyDays),
       oemPartNumber: product?.oemPartNumber ?? "",
+      condition: badges.condition ?? "",
+      partSource: badges.partSource ?? "",
+      metadata: product?.metadata ?? {},
       published: product?.published ?? true,
     },
     originalSlug: product?.slug ?? null,

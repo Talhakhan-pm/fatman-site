@@ -11,6 +11,7 @@ import { formatPrice, type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 import { useCart } from "@/components/cart-provider";
+import { ProductAttributeBadges } from "@/components/product-attribute-badges";
 import type { VinDecodeResult } from "@/lib/vin";
 
 function normalizeVin(value: string) {
@@ -141,6 +142,9 @@ export function ProductPageClient({ product, isAdmin }: { product: Product; isAd
             )}
           </div>
           <h1 className="mt-2 text-3xl font-black">{product.name}</h1>
+          <div className="mt-3">
+            <ProductAttributeBadges product={product} />
+          </div>
           <p className="mt-2 text-white/70">{product.shortDescription}</p>
           <div className="mt-4">
             <FitmentBadge state={fitment} />

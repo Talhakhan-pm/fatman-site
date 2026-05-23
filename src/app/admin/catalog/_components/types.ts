@@ -18,6 +18,9 @@ export type ProductSummary = {
   published: boolean;
 };
 
+export type ProductCondition = "" | "new" | "used" | "remanufactured";
+export type ProductPartSource = "" | "oem" | "aftermarket";
+
 export type UpsertPayload = {
   identity?: {
     originalSlug?: string | null;
@@ -37,6 +40,9 @@ export type UpsertPayload = {
     shippingClass?: string | null;
     warrantyDays?: number | null;
     oemPartNumber?: string | null;
+    condition?: ProductCondition;
+    partSource?: ProductPartSource;
+    metadata?: Record<string, unknown>;
     published?: boolean;
   };
   fitment?: Array<{
@@ -66,6 +72,9 @@ export type ProductForm = {
   shippingClass: string;
   warrantyDays: string;
   oemPartNumber: string;
+  condition: ProductCondition;
+  partSource: ProductPartSource;
+  metadata?: Record<string, unknown>;
   published: boolean;
 };
 

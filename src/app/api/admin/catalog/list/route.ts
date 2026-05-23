@@ -12,6 +12,7 @@ import {
   type Product as FallbackProduct,
 } from "@/lib/catalog";
 import { fitmentRules } from "@/lib/fitment";
+import { getProductBadgeMetadata } from "@/lib/product-badges";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
 type ProductRow = {
@@ -88,6 +89,8 @@ function formatSupabaseError(error: unknown) {
 }
 
 function toUpsertPayload(product: ProductRow, fitment: FitmentRow[]) {
+  const badges = getProductBadgeMetadata({ metadata: product.metadata });
+
   return {
     product: {
       sku: product.sku,
@@ -103,6 +106,7 @@ function toUpsertPayload(product: ProductRow, fitment: FitmentRow[]) {
       shippingClass: product.shipping_class,
       warrantyDays: product.warranty_days,
       oemPartNumber: product.oem_part_number,
+      ...badges,
       published: product.published,
       metadata: product.metadata ?? {},
     },

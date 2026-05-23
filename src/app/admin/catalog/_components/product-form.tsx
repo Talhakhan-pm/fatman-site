@@ -91,6 +91,31 @@ export function ProductForm({ editor }: { editor: ReturnType<typeof useCatalogEd
               placeholder="DriveCore"
             />
           </div>
+          <div>
+            <label className={labelClass}>Condition badge</label>
+            <select
+              className={`${inputClass} mt-1`}
+              value={editorState.product.condition}
+              onChange={(event) => setProductField("condition", event.target.value as typeof editorState.product.condition)}
+            >
+              <option value="">No condition badge</option>
+              <option value="new">New</option>
+              <option value="used">Used</option>
+              <option value="remanufactured">Remanufactured</option>
+            </select>
+          </div>
+          <div>
+            <label className={labelClass}>Part type badge</label>
+            <select
+              className={`${inputClass} mt-1`}
+              value={editorState.product.partSource}
+              onChange={(event) => setProductField("partSource", event.target.value as typeof editorState.product.partSource)}
+            >
+              <option value="">No type badge</option>
+              <option value="oem">OEM</option>
+              <option value="aftermarket">Aftermarket</option>
+            </select>
+          </div>
         </div>
 
         <div className="mt-4">

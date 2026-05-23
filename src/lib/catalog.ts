@@ -1,5 +1,6 @@
 import { generatedCategories, generatedProducts } from "@/lib/generated-data";
 import type { CategorySlug } from "@/lib/catalog-registry";
+import type { ProductCondition, ProductPartSource } from "@/lib/product-badges";
 
 export type Product = {
   sku: string;
@@ -15,6 +16,9 @@ export type Product = {
   shippingClass?: string;
   warrantyDays?: number;
   oemPartNumber?: string;
+  metadata?: Record<string, unknown>;
+  condition?: ProductCondition;
+  partSource?: ProductPartSource;
 };
 
 export type Category = {

@@ -176,6 +176,44 @@ body[data-theme="light"] .text-emerald-100\/80 {
   color: #047857 !important;
 }
 
+body[data-theme="light"] .bg-emerald-400\/15 {
+  background-color: #ecfdf5 !important;
+}
+
+body[data-theme="light"] .border-emerald-400\/35 {
+  border-color: #a7f3d0 !important;
+}
+
+/* ── Sky/Blue (OEM) ── */
+
+body[data-theme="light"] .bg-sky-400\/15 {
+  background-color: #f0f9ff !important;
+}
+
+body[data-theme="light"] .border-sky-400\/35 {
+  border-color: #bae6fd !important;
+}
+
+body[data-theme="light"] .text-sky-100,
+body[data-theme="light"] .text-sky-100\/80 {
+  color: #0369a1 !important;
+}
+
+/* ── Orange/Accent (Save) ── */
+
+body[data-theme="light"] .bg-fatman-accent\/20 {
+  background-color: #fff7ed !important;
+}
+
+body[data-theme="light"] .border-fatman-accent\/40 {
+  border-color: #ffedd5 !important;
+}
+
+body[data-theme="light"] .text-orange-100,
+body[data-theme="light"] .text-orange-100\/80 {
+  color: #c2410c !important;
+}
+
 /* ── Yellow/Amber ── */
 
 body[data-theme="light"] .bg-amber-400\/10 {

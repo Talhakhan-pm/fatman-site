@@ -4,6 +4,7 @@ import {
   listLocalCatalogRecords,
   upsertLocalCatalogRecord,
 } from "@/lib/admin-catalog-local-store";
+import { mergeProductBadgeMetadata } from "@/lib/product-badges";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
 const FITMENT_CHUNK_SIZE = 500;
@@ -48,6 +49,8 @@ type ProductInput = {
   shippingClass?: string | null;
   warrantyDays?: number | null;
   oemPartNumber?: string | null;
+  condition?: string;
+  partSource?: string;
   published?: boolean;
   metadata?: Record<string, unknown>;
 };
@@ -207,11 +210,27 @@ function validateProduct(input: ProductInput | undefined): ValidationResult<Norm
         ? input.oemPartNumber.trim()
         : null,
     published: Boolean(input.published),
-    metadata: input.metadata ?? {},
+    metadata: mergeProductBadgeMetadata(input.metadata, {
+      condition: input.condition,
+      partSource: input.partSource,
+    }),
   };
 
-  if (!product.sku || !product.slug || !product.category || !product.brand || !product.name) {
-    return { ok: false, error: "Product requires sku, slug, category, brand, and name" };
+  const missingRequiredFields = [
+    ["sku", product.sku],
+    ["slug", product.slug],
+    ["category", product.category],
+    ["brand", product.brand],
+    ["name", product.name],
+  ]
+    .filter(([, value]) => !value)
+    .map(([field]) => field);
+
+  if (missingRequiredFields.length > 0) {
+    return {
+      ok: false,
+      error: `Missing required product fields: ${missingRequiredFields.join(", ")}`,
+    };
   }
 
   if (Number.isNaN(product.price)) {

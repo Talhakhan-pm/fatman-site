@@ -7,6 +7,7 @@ import {
   type Vehicle,
 } from "@/lib/fitment";
 import type { Product } from "@/lib/catalog";
+import { getProductBadgeMetadata } from "@/lib/product-badges";
 
 export type CompatibleProduct = Product & {
   fitment: Exclude<FitmentState, "no-fit">;
@@ -46,6 +47,7 @@ type ProductRow = {
   shipping_class: string | null;
   warranty_days: number | null;
   oem_part_number: string | null;
+  metadata: Record<string, unknown> | null;
 };
 
 const DEFAULT_LIMIT = 12;
@@ -55,6 +57,9 @@ function toCompatibleProduct(
   row: ProductRow,
   fitment: CompatibleProduct["fitment"],
 ): CompatibleProduct {
+  const metadata = row.metadata ?? {};
+  const badges = getProductBadgeMetadata({ metadata });
+
   return {
     sku: row.sku,
     slug: row.slug,
@@ -69,6 +74,8 @@ function toCompatibleProduct(
     shippingClass: row.shipping_class ?? undefined,
     warrantyDays: row.warranty_days ?? undefined,
     oemPartNumber: row.oem_part_number ?? undefined,
+    metadata,
+    ...badges,
     fitment,
   };
 }
@@ -118,7 +125,7 @@ export async function getCompatibleProductsForVehicle(
     let productQuery = supabase
       .from("products")
       .select(
-        "id, sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number",
+        "id, sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata",
       )
       .in("id", [...bestState.keys()])
       .eq("published", true);
