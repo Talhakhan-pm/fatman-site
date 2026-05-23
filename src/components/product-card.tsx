@@ -80,11 +80,6 @@ export function ProductCard({
             </div>
           </div>
         )}
-        {media.src ? (
-          <span className="absolute left-3 top-3 rounded-full border border-white/10 bg-black/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-white/90 backdrop-blur-md">
-            {categoryLabel}
-          </span>
-        ) : null}
       </Link>
       <div className="mt-3 flex items-center gap-2">
         <StockBadge stock={product.stock} />
