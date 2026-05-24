@@ -160,10 +160,55 @@ export default async function Home() {
     }
   };
 
+  const faqItems = [
+    {
+      question: "How does Fatman Parts guarantee fitment?",
+      answer: "We match your vehicle's exact year, make, model, and engine against our database of 18,000+ verified OEM fitment rules. If a part you verified with our tools doesn't fit, we will cover the return shipping and make it right immediately.",
+    },
+    {
+      question: "Can I use my VIN to find parts?",
+      answer: "Yes. Entering your 17-digit VIN (Vehicle Identification Number) in our lookup tool is the most accurate way to decode your vehicle's trim, options, and engine package. This ensures you only see parts that match your exact vehicle build.",
+    },
+    {
+      question: "Do you sell both new and used auto parts?",
+      answer: "Yes, we sell both brand-new and high-quality, inspected used auto parts. Each listing is clearly marked so you know the exact condition and source of the item before adding it to your cart.",
+    },
+    {
+      question: "Are these parts OEM or aftermarket?",
+      answer: "We offer both original equipment manufacturer (OEM) parts and premium aftermarket replacements. Every product card is clearly badged with its condition (New/Used) and source (OEM/Aftermarket) so you can make an informed choice.",
+    },
+    {
+      question: "Are the product images exact representations of the parts?",
+      answer: "No. Because we manage a massive database of fast-moving inventory coming and going daily, product images are representative. The part number listed on the product card is the exact part you will receive.",
+    },
+    {
+      question: "How long does processing and shipping take?",
+      answer: "Orders are processed at our U.S. warehouses within 24 to 48 hours. Shipping typically takes 2 to 5 business days depending on your location. Standard shipping is free on orders over $99.",
+    },
+    {
+      question: "What is your return policy if a part doesn't fit?",
+      answer: "We offer a 30-day return policy on all uninstalled, clean parts in their original packaging. If you used our fitment verification tools before buying and the part still does not fit, we cover the return shipping label costs 100%.",
+    },
+  ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map((item) => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer,
+      },
+    })),
+  };
+
   return (
     <main className="relative overflow-hidden bg-[#111318] text-white">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(storeSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundRepeat: "repeat", backgroundSize: "200px 200px" }} />
       <section className="relative flex min-h-[100vh] items-center overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M20 0L25 10L20 20L15 10Z'/%3E%3Cpath d='M0 20L5 30L0 40L-5 30Z'/%3E%3Cpath d='M40 20L45 30L40 40L35 30Z'/%3E%3C/g%3E%3C/svg%3E")` }} />
@@ -310,6 +355,40 @@ export default async function Home() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#15181f] py-20 sm:py-28 border-t border-white/[0.04]">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+        <div className="relative z-10 mx-auto max-w-4xl px-6 sm:px-8">
+          <div className="mb-14 text-center">
+            <SectionTag>FAQ</SectionTag>
+            <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Frequently Asked <span className="text-[#ff6a00]">Questions</span>
+            </h2>
+            <p className="mt-4 text-base text-white/50">Got questions about compatibility, shipping, or returns? We've got answers.</p>
+          </div>
+          
+          <div className="rounded-[2.5rem] border border-white/[0.08] bg-[#1a1d24] p-6 sm:p-10 relative shadow-2xl shadow-black/40 overflow-hidden">
+            <CornerBrackets color="white/[0.08]" />
+            <div className="divide-y divide-white/[0.08]">
+              {faqItems.map((item, idx) => (
+                <details key={idx} className="group py-5 first:pt-0 last:pb-0">
+                  <summary className="flex cursor-pointer items-center justify-between text-left font-black uppercase tracking-wide text-white transition-colors duration-300 hover:text-[#ff6a00] [&::-webkit-details-marker]:hidden list-none">
+                    <span className="text-base sm:text-lg pr-4">{item.question}</span>
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/40 transition-transform duration-300 group-open:rotate-180 group-open:border-[#ff6a00]/30 group-open:text-[#ff6a00]">
+                      <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="mt-4 text-sm sm:text-base leading-relaxed text-white/60">
+                    {item.answer}
+                  </div>
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </section>
