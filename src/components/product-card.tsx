@@ -140,7 +140,7 @@ export function ProductCard({
           <ProductAttributeBadges product={product} />
         </div>
 
-        <p className="mt-3 line-clamp-2 min-h-[2.5rem] text-sm leading-5 text-white/58">{product.shortDescription}</p>
+        <p className="mt-3 line-clamp-2 min-h-[2.5rem] text-sm leading-5 text-white/60">{product.shortDescription}</p>
 
         <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
           <PartNumberBlock value={partNumber} />
