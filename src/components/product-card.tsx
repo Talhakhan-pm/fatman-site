@@ -111,9 +111,11 @@ export function ProductCard({
           </div>
         )}
 
-        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
-          <StockBadge stock={product.stock} />
-        </div>
+        {product.stock !== "in-stock" && (
+          <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+            <StockBadge stock={product.stock} />
+          </div>
+        )}
 
         {hasSavings && (
           <div className="absolute bottom-3 left-3 rounded-full border border-fatman-accent/40 bg-fatman-accent/90 px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-white shadow-lg">
