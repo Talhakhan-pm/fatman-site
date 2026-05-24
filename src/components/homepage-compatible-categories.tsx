@@ -6,18 +6,16 @@ import { useGarage } from "@/components/garage-provider";
 import {
   catalogRegistry,
   categoryIconMap,
-  type CategorySlug,
   type RegistryIconKey,
 } from "@/lib/catalog-registry";
+import { getIconForCategorySlug, humanizeCategorySlug } from "@/lib/category-display";
 import { formatCompactVehicleLabel } from "@/lib/fitment";
 
 type CompatibleCategory = {
-  slug: CategorySlug;
+  slug: string;
   fitsCount: number;
   verifyCount: number;
 };
-
-type Status = "idle" | "loading" | "done";
 
 const SECTION_LIMIT = 6;
 
@@ -27,31 +25,27 @@ type ResolvedCategory = CompatibleCategory & {
   icon: RegistryIconKey;
 };
 
-function resolveCategory(entry: CompatibleCategory): ResolvedCategory | null {
+function resolveCategory(entry: CompatibleCategory): ResolvedCategory {
   const registry = catalogRegistry.find((item) => item.slug === entry.slug);
-  if (!registry) return null;
   return {
     ...entry,
-    title: registry.title,
-    shortDescription: registry.shortDescription,
-    icon: registry.icon,
+    title: registry?.title ?? humanizeCategorySlug(entry.slug),
+    shortDescription:
+      registry?.shortDescription ?? "Confirmed-fit parts for your selected vehicle in this live catalog section.",
+    icon: registry?.icon ?? getIconForCategorySlug(entry.slug),
   };
 }
 
 export function HomepageCompatibleCategories() {
   const { vehicle } = useGarage();
   const [categories, setCategories] = useState<CompatibleCategory[]>([]);
-  const [status, setStatus] = useState<Status>("idle");
+  const [loadedVehicleKey, setLoadedVehicleKey] = useState("");
+  const vehicleKey = vehicle ? JSON.stringify(vehicle) : "";
 
   useEffect(() => {
-    if (!vehicle) {
-      setCategories([]);
-      setStatus("idle");
-      return;
-    }
+    if (!vehicle) return;
 
     const controller = new AbortController();
-    setStatus("loading");
 
     fetch("/api/discovery/compatible-categories", {
       method: "POST",
@@ -63,24 +57,24 @@ export function HomepageCompatibleCategories() {
       .then((payload: { categories?: CompatibleCategory[] } | null) => {
         if (controller.signal.aborted) return;
         setCategories(payload?.categories ?? []);
-        setStatus("done");
+        setLoadedVehicleKey(vehicleKey);
       })
       .catch((error: unknown) => {
         if ((error as { name?: string } | null)?.name === "AbortError") return;
         setCategories([]);
-        setStatus("done");
+        setLoadedVehicleKey(vehicleKey);
       });
 
     return () => controller.abort();
-  }, [vehicle]);
+  }, [vehicle, vehicleKey]);
 
   if (!vehicle) return null;
 
   const vehicleLabel = formatCompactVehicleLabel(vehicle);
+  const isLoading = loadedVehicleKey !== vehicleKey;
   const resolved = categories
     .filter((entry) => entry.fitsCount > 0)
     .map(resolveCategory)
-    .filter((entry): entry is ResolvedCategory => entry !== null)
     .slice(0, SECTION_LIMIT);
 
   return (
@@ -105,7 +99,7 @@ export function HomepageCompatibleCategories() {
             </div>
           </div>
 
-          {status === "loading" ? (
+          {isLoading ? (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div

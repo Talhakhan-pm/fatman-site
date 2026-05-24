@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import { catalogRegistry } from "@/lib/catalog-registry";
+import { humanizeCategorySlug } from "@/lib/category-display";
 import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment";
 import type { Product } from "@/lib/catalog";
 
@@ -12,28 +13,22 @@ type CompatibleProduct = Product & {
   fitment: Exclude<FitmentState, "no-fit">;
 };
 
-type Status = "idle" | "loading" | "done";
-
 const SECTION_LIMIT = 6;
 
 function resolveCategoryTitle(slug: string) {
-  return catalogRegistry.find((entry) => entry.slug === slug)?.title ?? slug.replace(/-/g, " ");
+  return catalogRegistry.find((entry) => entry.slug === slug)?.title ?? humanizeCategorySlug(slug);
 }
 
 export function HomepageCompatibleProducts() {
   const { vehicle } = useGarage();
   const [products, setProducts] = useState<CompatibleProduct[]>([]);
-  const [status, setStatus] = useState<Status>("idle");
+  const [loadedVehicleKey, setLoadedVehicleKey] = useState("");
+  const vehicleKey = vehicle ? JSON.stringify(vehicle) : "";
 
   useEffect(() => {
-    if (!vehicle) {
-      setProducts([]);
-      setStatus("idle");
-      return;
-    }
+    if (!vehicle) return;
 
     const controller = new AbortController();
-    setStatus("loading");
 
     fetch("/api/discovery/compatible-products", {
       method: "POST",
@@ -45,16 +40,16 @@ export function HomepageCompatibleProducts() {
       .then((payload: { products?: CompatibleProduct[] } | null) => {
         if (controller.signal.aborted) return;
         setProducts((payload?.products ?? []).filter((product) => product.fitment === "fits"));
-        setStatus("done");
+        setLoadedVehicleKey(vehicleKey);
       })
       .catch((error: unknown) => {
         if ((error as { name?: string } | null)?.name === "AbortError") return;
         setProducts([]);
-        setStatus("done");
+        setLoadedVehicleKey(vehicleKey);
       });
 
     return () => controller.abort();
-  }, [vehicle]);
+  }, [vehicle, vehicleKey]);
 
   const categoryLinks = useMemo(() => {
     const counts = new Map<string, number>();
@@ -71,6 +66,7 @@ export function HomepageCompatibleProducts() {
   if (!vehicle) return null;
 
   const vehicleLabel = formatCompactVehicleLabel(vehicle);
+  const isLoading = loadedVehicleKey !== vehicleKey;
 
   return (
     <section className="relative bg-[#15181f] py-16 sm:py-20">
@@ -104,7 +100,7 @@ export function HomepageCompatibleProducts() {
             ) : null}
           </div>
 
-          {status === "loading" ? (
+          {isLoading ? (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div key={index} className="h-72 animate-pulse rounded-xl border border-white/10 bg-white/[0.04]" />
