@@ -45,12 +45,14 @@ function StockBadge({ stock }: { stock: Product["stock"] }) {
 
 function ConfirmedFitBadge() {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 py-1 pl-1 pr-2.5 text-[10px] font-black uppercase tracking-[0.13em] text-emerald-100 shadow-[0_0_18px_rgba(16,185,129,0.14)]">
-      <span className="relative h-5 w-5 overflow-hidden rounded-full bg-fatman-900 ring-1 ring-emerald-300/25">
-        <Image src="/trust-icons/confirmed-fit-check.png" alt="" fill className="object-cover" sizes="20px" />
-      </span>
-      Confirmed Fit
-    </span>
+    <Image
+      src="/trust-icons/confirmed-fit-pill-green.png"
+      alt="Confirmed Fit"
+      width={966}
+      height={317}
+      className="h-8 w-auto shrink-0"
+      sizes="132px"
+    />
   );
 }
 
@@ -140,9 +142,15 @@ export function ProductCard({
 
         <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
           <PartNumberBlock value={partNumber} />
-          <div className="flex items-center rounded-xl border border-white/10 bg-white/[0.035] px-3 py-2">
-            {showConfirmedFit ? <ConfirmedFitBadge /> : <FitmentBadge state={fitment} />}
-          </div>
+          {showConfirmedFit ? (
+            <div className="flex items-center justify-center shrink-0">
+              <ConfirmedFitBadge />
+            </div>
+          ) : (
+            <div className="flex items-center rounded-xl border border-white/10 bg-white/[0.035] px-3 py-2">
+              <FitmentBadge state={fitment} />
+            </div>
+          )}
         </div>
 
         <div className="mt-4 flex flex-1 flex-col justify-end">
