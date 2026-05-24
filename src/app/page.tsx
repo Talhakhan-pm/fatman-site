@@ -136,6 +136,7 @@ export default async function Home() {
     "description": "OEM parts with verified fitment, clear pricing, and fast U.S. shipping.",
     "priceRange": "$$",
     "email": "help@fatmanparts.com",
+    "telephone": "+1-844-737-1463",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "6779 Beadnell Way",

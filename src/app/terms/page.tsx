@@ -19,7 +19,7 @@ export default function TermsPage() {
     >
       <InfoSection title="Company information">
         <p>
-          These Terms & Conditions apply to Fatman Parts LLC, 6779 Beadnell Way, San Diego, CA 92117. Contact: help@fatmanparts.com.
+          These Terms & Conditions apply to Fatman Parts LLC, 6779 Beadnell Way, San Diego, CA 92117. Contact: (844) 737-1463 · help@fatmanparts.com.
         </p>
       </InfoSection>
 

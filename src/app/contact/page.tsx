@@ -24,6 +24,7 @@ export default function ContactPage() {
       "logo": "https://fatmanparts.com/brand/fatman-fp-shield.png",
       "image": "https://fatmanparts.com/brand/fatman-primary-horizontal.png",
       "email": "help@fatmanparts.com",
+      "telephone": "+1-844-737-1463",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "6779 Beadnell Way",
@@ -55,6 +56,12 @@ export default function ContactPage() {
             <h2 className="font-black">Email</h2>
             <Link href="mailto:help@fatmanparts.com" className="mt-2 block text-white/72 hover:text-white">
               help@fatmanparts.com
+            </Link>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+            <h2 className="font-black">Phone</h2>
+            <Link href="tel:+18447371463" className="mt-2 block text-white/72 hover:text-white">
+              (844) 737-1463
             </Link>
           </div>
           <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">

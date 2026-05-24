@@ -64,7 +64,7 @@ export default function ShippingPage() {
 
       <InfoSection title="Business details">
         <p>
-          Fatman Parts LLC · 6779 Beadnell Way, San Diego, CA 92117 · help@fatmanparts.com
+          Fatman Parts LLC · 6779 Beadnell Way, San Diego, CA 92117 · (844) 737-1463 · help@fatmanparts.com
         </p>
       </InfoSection>
     </InfoPage>
