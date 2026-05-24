@@ -3,6 +3,8 @@ import "server-only";
 import { createSupabaseServerClient } from "@/lib/supabase";
 import {
   getFitmentState as getLegacyFitmentState,
+  getLiveFitmentModelCandidates,
+  liveFitmentVariantMatches,
   normalizeVehicle,
   type FitmentState,
   type Vehicle,
@@ -55,13 +57,14 @@ export async function getFitmentStatesFromDb(
     const products = productRows as ProductRow[];
     const productIds = products.map((row) => row.id);
 
+    const modelCandidates = getLiveFitmentModelCandidates(normalized);
     const { data: fitmentRows, error: fitmentError } = await supabase
       .from("fitment_rules")
       .select("product_id, variant, match_type")
       .in("product_id", productIds)
       .eq("year", normalized.year)
       .eq("make", normalized.make)
-      .eq("model", normalized.model)
+      .in("model", modelCandidates)
       .eq("engine", normalized.engine);
 
     if (fitmentError) return fallback;
@@ -84,7 +87,7 @@ export async function getFitmentStatesFromDb(
       for (const candidate of candidates) {
         const variantRank = !candidate.variant
           ? 1
-          : normalized.variant && candidate.variant === normalized.variant
+          : liveFitmentVariantMatches(candidate.variant, normalized)
             ? 2
             : 0;
 

@@ -2,6 +2,8 @@ import "server-only";
 
 import { createSupabaseServerClient } from "@/lib/supabase";
 import {
+  getLiveFitmentModelCandidates,
+  liveFitmentVariantMatches,
   normalizeVehicle,
   type FitmentState,
   type Vehicle,
@@ -52,6 +54,15 @@ type ProductRow = {
 
 const DEFAULT_LIMIT = 12;
 const MAX_LIMIT = 48;
+const PRODUCT_ID_CHUNK_SIZE = 100;
+
+function chunkValues<T>(values: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let index = 0; index < values.length; index += size) {
+    chunks.push(values.slice(index, index + size));
+  }
+  return chunks;
+}
 
 function toCompatibleProduct(
   row: ProductRow,
@@ -96,12 +107,13 @@ export async function getCompatibleProductsForVehicle(
   try {
     const supabase = createSupabaseServerClient();
 
+    const modelCandidates = getLiveFitmentModelCandidates(normalized);
     const { data: fitmentRows, error: fitmentError } = await supabase
       .from("fitment_rules")
       .select("product_id, variant, match_type")
       .eq("year", normalized.year)
       .eq("make", normalized.make)
-      .eq("model", normalized.model)
+      .in("model", modelCandidates)
       .eq("engine", normalized.engine)
       .in("match_type", allowedStates);
 
@@ -109,9 +121,7 @@ export async function getCompatibleProductsForVehicle(
 
     const bestState = new Map<string, FitmentState>();
     for (const row of fitmentRows as FitmentRuleRow[]) {
-      const variantOk =
-        !row.variant ||
-        (Boolean(normalized.variant) && row.variant === normalized.variant);
+      const variantOk = liveFitmentVariantMatches(row.variant, normalized);
       if (!variantOk) continue;
 
       const current = bestState.get(row.product_id);
@@ -122,25 +132,31 @@ export async function getCompatibleProductsForVehicle(
 
     if (!bestState.size) return [];
 
-    let productQuery = supabase
-      .from("products")
-      .select(
-        "id, sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata",
-      )
-      .in("id", [...bestState.keys()])
-      .eq("published", true);
+    const productRows: ProductRow[] = [];
+    for (const productIds of chunkValues([...bestState.keys()], PRODUCT_ID_CHUNK_SIZE)) {
+      let productQuery = supabase
+        .from("products")
+        .select(
+          "id, sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata",
+        )
+        .in("id", productIds)
+        .eq("published", true);
 
-    if (options.categorySlug) {
-      productQuery = productQuery.eq("category_slug", options.categorySlug);
+      if (options.categorySlug) {
+        productQuery = productQuery.eq("category_slug", options.categorySlug);
+      }
+      if (options.excludeSlug) {
+        productQuery = productQuery.neq("slug", options.excludeSlug);
+      }
+
+      const { data: chunkRows, error: productError } = await productQuery;
+      if (productError) return [];
+      productRows.push(...((chunkRows ?? []) as ProductRow[]));
     }
-    if (options.excludeSlug) {
-      productQuery = productQuery.neq("slug", options.excludeSlug);
-    }
 
-    const { data: productRows, error: productError } = await productQuery;
-    if (productError || !productRows?.length) return [];
+    if (!productRows.length) return [];
 
-    const compatible = (productRows as ProductRow[])
+    const compatible = productRows
       .map((row) => {
         const state = bestState.get(row.id);
         if (state !== "fits" && state !== "verify") return null;
@@ -169,12 +185,13 @@ export async function getCompatibleCategoriesForVehicle(
   try {
     const supabase = createSupabaseServerClient();
 
+    const modelCandidates = getLiveFitmentModelCandidates(normalized);
     const { data: fitmentRows, error: fitmentError } = await supabase
       .from("fitment_rules")
       .select("product_id, variant, match_type")
       .eq("year", normalized.year)
       .eq("make", normalized.make)
-      .eq("model", normalized.model)
+      .in("model", modelCandidates)
       .eq("engine", normalized.engine)
       .in("match_type", ["fits", "verify"]);
 
@@ -182,9 +199,7 @@ export async function getCompatibleCategoriesForVehicle(
 
     const bestState = new Map<string, FitmentState>();
     for (const row of fitmentRows as FitmentRuleRow[]) {
-      const variantOk =
-        !row.variant ||
-        (Boolean(normalized.variant) && row.variant === normalized.variant);
+      const variantOk = liveFitmentVariantMatches(row.variant, normalized);
       if (!variantOk) continue;
 
       const current = bestState.get(row.product_id);
@@ -195,16 +210,22 @@ export async function getCompatibleCategoriesForVehicle(
 
     if (!bestState.size) return [];
 
-    const { data: productRows, error: productError } = await supabase
-      .from("products")
-      .select("id, category_slug")
-      .in("id", [...bestState.keys()])
-      .eq("published", true);
+    const productRows: Array<{ id: string; category_slug: Product["category"] }> = [];
+    for (const productIds of chunkValues([...bestState.keys()], PRODUCT_ID_CHUNK_SIZE)) {
+      const { data: chunkRows, error: productError } = await supabase
+        .from("products")
+        .select("id, category_slug")
+        .in("id", productIds)
+        .eq("published", true);
 
-    if (productError || !productRows?.length) return [];
+      if (productError) return [];
+      productRows.push(...((chunkRows ?? []) as Array<{ id: string; category_slug: Product["category"] }>));
+    }
+
+    if (!productRows.length) return [];
 
     const counts = new Map<Product["category"], { fits: number; verify: number }>();
-    for (const row of productRows as Array<{ id: string; category_slug: Product["category"] }>) {
+    for (const row of productRows) {
       const state = bestState.get(row.id);
       if (state !== "fits" && state !== "verify") continue;
 

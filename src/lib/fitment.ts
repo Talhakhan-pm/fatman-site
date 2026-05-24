@@ -46,6 +46,23 @@ export function normalizeVehicle(vehicle?: Vehicle | null): Vehicle | null {
   };
 }
 
+export function getLiveFitmentModelCandidates(vehicle: Vehicle): string[] {
+  const candidates = [vehicle.model];
+  const variant = vehicle.variant?.trim();
+
+  if (variant && variant.toLowerCase() !== "base") {
+    candidates.push(`${vehicle.model} ${variant}`);
+  }
+
+  return [...new Set(candidates.filter(Boolean))];
+}
+
+export function liveFitmentVariantMatches(rowVariant: string | null | undefined, vehicle: Vehicle) {
+  if (!rowVariant) return true;
+  if (!vehicle.variant || vehicle.variant === "Base") return false;
+  return rowVariant === vehicle.variant;
+}
+
 export function isVehicleInCatalog(vehicle?: Vehicle | null): boolean {
   const normalized = normalizeVehicle(vehicle);
   if (!normalized) return false;
