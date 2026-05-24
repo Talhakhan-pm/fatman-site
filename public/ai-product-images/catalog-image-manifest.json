@@ -204,6 +204,286 @@
       "key": "air_injection_pump",
       "url": "/ai-product-images/white-bg/air-injection-pump-representative-white.png",
       "label": "Air injection pump catalog image"
+    },
+    {
+      "key": "harmonic_balancer",
+      "url": "/ai-product-images/white-bg/harmonic-balancer-representative-white.png",
+      "label": "Harmonic balancer / crankshaft pulley catalog image"
+    },
+    {
+      "key": "camshaft_bearing",
+      "url": "/ai-product-images/white-bg/camshaft-bearing-representative-white.png",
+      "label": "Camshaft bearing catalog image"
+    },
+    {
+      "key": "crankshaft_main_bearing",
+      "url": "/ai-product-images/white-bg/crankshaft-main-bearing-representative-white.png",
+      "label": "Crankshaft main bearing catalog image"
+    },
+    {
+      "key": "oil_pan",
+      "url": "/ai-product-images/white-bg/oil-pan-representative-white.png",
+      "label": "Oil pan catalog image"
+    },
+    {
+      "key": "cylinder_block",
+      "url": "/ai-product-images/white-bg/cylinder-block-representative-white.png",
+      "label": "Cylinder block catalog image"
+    },
+    {
+      "key": "camshaft",
+      "url": "/ai-product-images/white-bg/camshaft-representative-white.png",
+      "label": "Camshaft catalog image"
+    },
+    {
+      "key": "oil_pump",
+      "url": "/ai-product-images/white-bg/oil-pump-representative-white.png",
+      "label": "Oil pump catalog image"
+    },
+    {
+      "key": "piston",
+      "url": "/ai-product-images/white-bg/piston-representative-white.png",
+      "label": "Piston catalog image"
+    },
+    {
+      "key": "valve_spring_retainer",
+      "url": "/ai-product-images/white-bg/valve-spring-retainer-representative-white.png",
+      "label": "Valve spring retainer catalog image"
+    },
+    {
+      "key": "drive_belt",
+      "url": "/ai-product-images/white-bg/drive-belt-representative-white.png",
+      "label": "Drive belt catalog image"
+    },
+    {
+      "key": "fan_blade",
+      "url": "/ai-product-images/white-bg/fan-blade-representative-white.png",
+      "label": "Fan blade catalog image"
+    },
+    {
+      "key": "air_filter_element",
+      "url": "/ai-product-images/white-bg/air-filter-element-representative-white.png",
+      "label": "Air filter element catalog image"
+    },
+    {
+      "key": "differential_case",
+      "url": "/ai-product-images/white-bg/differential-case-representative-white.png",
+      "label": "Differential case catalog image"
+    },
+    {
+      "key": "manual_transmission_case",
+      "url": "/ai-product-images/white-bg/manual-transmission-case-representative-white.png",
+      "label": "Manual transmission case catalog image"
+    },
+    {
+      "key": "countershaft",
+      "url": "/ai-product-images/white-bg/countershaft-representative-white.png",
+      "label": "Countershaft catalog image"
+    },
+    {
+      "key": "pinion_gears",
+      "url": "/ai-product-images/white-bg/pinion-gears-representative-white.png",
+      "label": "Pinion gears catalog image"
+    },
+    {
+      "key": "torque_converter",
+      "url": "/ai-product-images/white-bg/torque-converter-representative-white.png",
+      "label": "Torque converter catalog image"
+    },
+    {
+      "key": "input_shaft",
+      "url": "/ai-product-images/white-bg/input-shaft-representative-white.png",
+      "label": "Input shaft catalog image"
+    },
+    {
+      "key": "output_shaft",
+      "url": "/ai-product-images/white-bg/output-shaft-representative-white.png",
+      "label": "Output shaft catalog image"
+    },
+    {
+      "key": "direct_clutch",
+      "url": "/ai-product-images/white-bg/direct-clutch-representative-white.png",
+      "label": "Direct clutch catalog image"
+    },
+    {
+      "key": "flywheel",
+      "url": "/ai-product-images/white-bg/flywheel-representative-white.png",
+      "label": "Flywheel catalog image"
+    },
+    {
+      "key": "dipstick_tube",
+      "url": "/ai-product-images/white-bg/dipstick-tube-representative-white.png",
+      "label": "Dipstick tube catalog image"
+    },
+    {
+      "key": "fan_clutch",
+      "url": "/ai-product-images/white-bg/fan-clutch-representative-white.png",
+      "label": "Fan clutch catalog image"
+    },
+    {
+      "key": "coil_spring",
+      "url": "/ai-product-images/white-bg/coil-spring-representative-white.png",
+      "label": "Coil spring catalog image"
+    },
+    {
+      "key": "stabilizer_link",
+      "url": "/ai-product-images/white-bg/stabilizer-link-representative-white.png",
+      "label": "Stabilizer link catalog image"
+    },
+    {
+      "key": "sector_shaft",
+      "url": "/ai-product-images/white-bg/sector-shaft-representative-white.png",
+      "label": "Sector shaft catalog image"
+    },
+    {
+      "key": "pitman_arm",
+      "url": "/ai-product-images/white-bg/pitman-arm-representative-white.png",
+      "label": "Pitman arm catalog image"
+    },
+    {
+      "key": "wiper_motor",
+      "url": "/ai-product-images/white-bg/wiper-motor-representative-white.png",
+      "label": "Wiper motor catalog image"
+    },
+    {
+      "key": "steering_column_bearing",
+      "url": "/ai-product-images/white-bg/steering-column-bearing-representative-white.png",
+      "label": "Steering column bearing catalog image"
+    },
+    {
+      "key": "leaf_spring_shackle",
+      "url": "/ai-product-images/white-bg/leaf-spring-shackle-representative-white.png",
+      "label": "Leaf spring shackle catalog image"
+    },
+    {
+      "key": "stabilizer_bushing",
+      "url": "/ai-product-images/white-bg/stabilizer-bushing-representative-white.png",
+      "label": "Stabilizer bushing catalog image"
+    },
+    {
+      "key": "center_link",
+      "url": "/ai-product-images/white-bg/center-link-representative-white.png",
+      "label": "Center link catalog image"
+    },
+    {
+      "key": "steering_shaft",
+      "url": "/ai-product-images/white-bg/steering-shaft-representative-white.png",
+      "label": "Steering shaft catalog image"
+    },
+    {
+      "key": "wiper_gear_box",
+      "url": "/ai-product-images/white-bg/wiper-gear-box-representative-white.png",
+      "label": "Wiper gear box catalog image"
+    },
+    {
+      "key": "wiper_pivot",
+      "url": "/ai-product-images/white-bg/wiper-pivot-representative-white.png",
+      "label": "Wiper pivot catalog image"
+    },
+    {
+      "key": "power_steering_pump",
+      "url": "/ai-product-images/white-bg/power-steering-pump-representative-white.png",
+      "label": "Power steering pump catalog image"
+    },
+    {
+      "key": "radius_arm",
+      "url": "/ai-product-images/white-bg/radius-arm-representative-white.png",
+      "label": "Radius arm catalog image"
+    },
+    {
+      "key": "wiper_control_module",
+      "url": "/ai-product-images/white-bg/wiper-control-module-representative-white.png",
+      "label": "Wiper control module catalog image"
+    },
+    {
+      "key": "wiper_arm",
+      "url": "/ai-product-images/white-bg/wiper-arm-representative-white.png",
+      "label": "Wiper arm catalog image"
+    },
+    {
+      "key": "axle_beam",
+      "url": "/ai-product-images/white-bg/axle-beam-representative-white.png",
+      "label": "Axle beam catalog image"
+    },
+    {
+      "key": "headlamp",
+      "url": "/ai-product-images/white-bg/headlamp-representative-white.png",
+      "label": "Headlamp catalog image"
+    },
+    {
+      "key": "horn",
+      "url": "/ai-product-images/white-bg/horn-representative-white.png",
+      "label": "Horn catalog image"
+    },
+    {
+      "key": "flasher_relay",
+      "url": "/ai-product-images/white-bg/flasher-relay-representative-white.png",
+      "label": "Flasher relay catalog image"
+    },
+    {
+      "key": "king_pin",
+      "url": "/ai-product-images/white-bg/king-pin-representative-white.png",
+      "label": "King pin catalog image"
+    },
+    {
+      "key": "windshield_washer_pump",
+      "url": "/ai-product-images/white-bg/windshield-washer-pump-representative-white.png",
+      "label": "Windshield washer pump catalog image"
+    },
+    {
+      "key": "power_steering_cooler",
+      "url": "/ai-product-images/white-bg/power-steering-cooler-representative-white.png",
+      "label": "Power steering fluid cooler catalog image"
+    },
+    {
+      "key": "ball_joint",
+      "url": "/ai-product-images/white-bg/ball-joint-representative-white.png",
+      "label": "Ball joint catalog image"
+    },
+    {
+      "key": "idler_arm",
+      "url": "/ai-product-images/white-bg/idler-arm-representative-white.png",
+      "label": "Idler arm catalog image"
+    },
+    {
+      "key": "transmission_drivetrain_assortment",
+      "url": "/ai-product-images/white-bg/transmission-drivetrain-assortment-white.png",
+      "label": "Transmission and drivetrain catalog image"
+    },
+    {
+      "key": "engine_internal_assortment",
+      "url": "/ai-product-images/white-bg/engine-internal-assortment-white.png",
+      "label": "Engine internal parts catalog image"
+    },
+    {
+      "key": "body_hardware_assortment",
+      "url": "/ai-product-images/white-bg/body-hardware-assortment-white.png",
+      "label": "Body hardware catalog image"
+    },
+    {
+      "key": "hvac_assortment",
+      "url": "/ai-product-images/white-bg/hvac-assortment-white.png",
+      "label": "HVAC parts catalog image"
+    },
+    {
+      "key": "brake_hydraulic_assortment",
+      "url": "/ai-product-images/white-bg/brake-hydraulic-assortment-white.png",
+      "label": "Brake hydraulic parts catalog image"
+    },
+    {
+      "key": "fuel_emissions_assortment",
+      "url": "/ai-product-images/white-bg/fuel-emissions-assortment-white.png",
+      "label": "Fuel and emissions parts catalog image"
+    },
+    {
+      "key": "exhaust_assortment",
+      "url": "/ai-product-images/white-bg/exhaust-assortment-white.png",
+      "label": "Exhaust parts catalog image"
+    },
+    {
+      "key": "electrical_switch_assortment",
+      "url": "/ai-product-images/white-bg/electrical-switch-assortment-white.png",
+      "label": "Electrical and switch parts catalog image"
     }
   ]
 }
