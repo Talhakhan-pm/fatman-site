@@ -162,8 +162,8 @@
     },
     {
       "key": "seals_gaskets",
-      "url": "/ai-product-images/white-bg/seals-gaskets-representative-white.png",
-      "label": "Seals and gaskets catalog image"
+      "url": "/ai-product-images/white-bg/seals-gaskets-detailed-white.png",
+      "label": "Seals and gaskets detailed catalog image"
     },
     {
       "key": "speedometer_cable",
@@ -416,6 +416,11 @@
       "label": "Horn catalog image"
     },
     {
+      "key": "heated_glass_relay",
+      "url": "/ai-product-images/white-bg/heated-glass-relay-representative-white.png",
+      "label": "Heated glass relay catalog image"
+    },
+    {
       "key": "flasher_relay",
       "url": "/ai-product-images/white-bg/flasher-relay-representative-white.png",
       "label": "Flasher relay catalog image"
@@ -447,8 +452,8 @@
     },
     {
       "key": "transmission_drivetrain_assortment",
-      "url": "/ai-product-images/white-bg/transmission-drivetrain-assortment-white.png",
-      "label": "Transmission and drivetrain catalog image"
+      "url": "/ai-product-images/white-bg/transmission-drivetrain-detailed-white.png",
+      "label": "Transmission and drivetrain detailed catalog image"
     },
     {
       "key": "engine_internal_assortment",
@@ -462,8 +467,8 @@
     },
     {
       "key": "hvac_assortment",
-      "url": "/ai-product-images/white-bg/hvac-assortment-white.png",
-      "label": "HVAC parts catalog image"
+      "url": "/ai-product-images/white-bg/hvac-controls-detailed-white.png",
+      "label": "HVAC controls detailed catalog image"
     },
     {
       "key": "brake_hydraulic_assortment",
@@ -472,8 +477,8 @@
     },
     {
       "key": "fuel_emissions_assortment",
-      "url": "/ai-product-images/white-bg/fuel-emissions-assortment-white.png",
-      "label": "Fuel and emissions parts catalog image"
+      "url": "/ai-product-images/white-bg/fuel-emissions-detailed-white.png",
+      "label": "Fuel and emissions detailed catalog image"
     },
     {
       "key": "exhaust_assortment",
@@ -482,8 +487,8 @@
     },
     {
       "key": "electrical_switch_assortment",
-      "url": "/ai-product-images/white-bg/electrical-switch-assortment-white.png",
-      "label": "Electrical and switch parts catalog image"
+      "url": "/ai-product-images/white-bg/electrical-switch-relay-detailed-white.png",
+      "label": "Electrical switches and relays detailed catalog image"
     }
   ]
 }

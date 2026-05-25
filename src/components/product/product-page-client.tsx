@@ -7,11 +7,12 @@ import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
 import { useFitment } from "@/components/use-fitment";
 import { CompatibleProducts } from "@/components/product/compatible-products";
-import { formatPrice, type Product } from "@/lib/catalog";
+import { type Product } from "@/lib/catalog";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 import { useCart } from "@/components/cart-provider";
 import { ProductAttributeBadges } from "@/components/product-attribute-badges";
+import { canAddProductToCart, formatProductPrice, isQuoteRequired } from "@/lib/product-pricing";
 import type { VinDecodeResult } from "@/lib/vin";
 
 function normalizeVin(value: string) {
@@ -43,6 +44,8 @@ export function ProductPageClient({ product, isAdmin }: { product: Product; isAd
   const media = getProductDisplayMedia(product);
   const categoryLabel = product.category.replace(/-/g, " ");
   const eyebrow = getProductEyebrow(product);
+  const quoteRequired = isQuoteRequired(product);
+  const canAddToCart = canAddProductToCart(product);
 
   const [showVinDecoder, setShowVinDecoder] = useState(false);
   const [vin, setVin] = useState("");
@@ -219,20 +222,32 @@ export function ProductPageClient({ product, isAdmin }: { product: Product; isAd
 
           <div className="mt-6 rounded-xl border border-white/15 bg-white/5 p-4">
             <p className="text-sm text-white/70">Estimated Dispatch</p>
-            <p className="mt-1 text-lg font-bold">Ships in 24–48 hours</p>
+            <p className="mt-1 text-lg font-bold">{quoteRequired ? "Confirm availability with support" : "Ships in 24–48 hours"}</p>
           </div>
 
           <div className="mt-6 flex items-center gap-3">
-            <p className="text-3xl font-black">{formatPrice(product.price)}</p>
-            <button
-              onClick={() => {
-                addItem(product);
-                track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp" });
-              }}
-              className="rounded-lg bg-fatman-accent px-5 py-3 text-sm font-semibold transition hover:bg-fatman-accent-hover"
-            >
-              Add to Cart
-            </button>
+            <div>
+              <p className="text-3xl font-black">{formatProductPrice(product)}</p>
+              {quoteRequired && <p className="mt-1 text-sm text-white/60">Price and availability need confirmation before checkout.</p>}
+            </div>
+            {canAddToCart ? (
+              <button
+                onClick={() => {
+                  addItem(product);
+                  track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp" });
+                }}
+                className="rounded-lg bg-fatman-accent px-5 py-3 text-sm font-semibold transition hover:bg-fatman-accent-hover"
+              >
+                Add to Cart
+              </button>
+            ) : (
+              <Link
+                href={`/fitment-help?product=${encodeURIComponent(product.slug)}`}
+                className="rounded-lg border border-white/20 px-5 py-3 text-sm font-semibold text-white/85 transition hover:bg-white/10"
+              >
+                Ask for Quote
+              </Link>
+            )}
           </div>
 
           <div className="mt-8 grid grid-cols-2 gap-3">
@@ -274,16 +289,25 @@ export function ProductPageClient({ product, isAdmin }: { product: Product; isAd
 
       <div className="sticky bottom-0 border-t border-white/10 bg-fatman-900/95 p-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <p className="text-lg font-black">{formatPrice(product.price)}</p>
-          <button
-            onClick={() => {
-              addItem(product);
-              track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp_sticky" });
-            }}
-            className="rounded-lg bg-fatman-accent px-4 py-2 text-sm font-semibold"
-          >
-            Add to Cart
-          </button>
+          <p className="text-lg font-black">{formatProductPrice(product)}</p>
+          {canAddToCart ? (
+            <button
+              onClick={() => {
+                addItem(product);
+                track("add_to_cart", { slug: product.slug, price: product.price, source: "pdp_sticky" });
+              }}
+              className="rounded-lg bg-fatman-accent px-4 py-2 text-sm font-semibold"
+            >
+              Add to Cart
+            </button>
+          ) : (
+            <Link
+              href={`/fitment-help?product=${encodeURIComponent(product.slug)}`}
+              className="rounded-lg border border-white/20 px-4 py-2 text-sm font-semibold text-white/85"
+            >
+              Ask for Quote
+            </Link>
+          )}
         </div>
       </div>
     </div>

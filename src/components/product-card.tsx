@@ -11,6 +11,7 @@ import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 import { useCart } from "@/components/cart-provider";
 import { ProductAttributeBadges } from "@/components/product-attribute-badges";
+import { canAddProductToCart, formatProductPrice, isQuoteRequired } from "@/lib/product-pricing";
 
 function StockBadge({ stock }: { stock: Product["stock"] }) {
   if (stock === "in-stock") {
@@ -82,6 +83,8 @@ export function ProductCard({
   const categoryLabel = product.category.replace(/-/g, " ");
   const partNumber = product.oemPartNumber || product.sku;
   const showConfirmedFit = fitment === "fits";
+  const quoteRequired = isQuoteRequired(product);
+  const canAddToCart = canAddProductToCart(product);
 
   return (
     <article className="group/card relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-xl shadow-black/10 transition-all duration-500 hover:-translate-y-1 hover:border-emerald-400/35 hover:bg-white/10 hover:shadow-2xl hover:shadow-black/20">
@@ -158,19 +161,32 @@ export function ProductCard({
         <div className="mt-4 flex flex-1 flex-col justify-end">
           <div className="flex items-end justify-between gap-3 border-t border-white/10 pt-4">
             <div>
-              <span className="text-2xl font-black text-white drop-shadow-sm">{formatPrice(product.price)}</span>
-              {hasSavings && <p className="text-[11px] font-medium text-white/45 line-through">{formatPrice(product.compareAt ?? 0)}</p>}
+              <span className="text-2xl font-black text-white drop-shadow-sm">{formatProductPrice(product)}</span>
+              {quoteRequired ? (
+                <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-white/45">Quote required</p>
+              ) : (
+                hasSavings && <p className="text-[11px] font-medium text-white/45 line-through">{formatPrice(product.compareAt ?? 0)}</p>
+              )}
             </div>
-            <button
-              onClick={() => {
-                addItem(product);
-                track("add_to_cart", { slug: product.slug, price: product.price });
-              }}
-              className="group/btn relative overflow-hidden rounded-xl bg-fatman-accent px-4 py-3 text-xs font-black uppercase tracking-[0.08em] text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-fatman-accent-hover hover:shadow-[0_0_20px_rgba(234,88,12,0.5)]"
-            >
-              <span className="relative z-10">Add</span>
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
-            </button>
+            {canAddToCart ? (
+              <button
+                onClick={() => {
+                  addItem(product);
+                  track("add_to_cart", { slug: product.slug, price: product.price });
+                }}
+                className="group/btn relative overflow-hidden rounded-xl bg-fatman-accent px-4 py-3 text-xs font-black uppercase tracking-[0.08em] text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-fatman-accent-hover hover:shadow-[0_0_20px_rgba(234,88,12,0.5)]"
+              >
+                <span className="relative z-10">Add</span>
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover/btn:translate-x-full" />
+              </button>
+            ) : (
+              <Link
+                href={`/fitment-help?product=${encodeURIComponent(product.slug)}`}
+                className="rounded-xl border border-white/15 px-4 py-3 text-center text-xs font-black uppercase tracking-[0.08em] text-white/85 transition hover:bg-white/10"
+              >
+                Ask
+              </Link>
+            )}
           </div>
         </div>
       </div>

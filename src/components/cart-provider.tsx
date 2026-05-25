@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { formatPrice, type Product } from "@/lib/catalog";
+import { canAddProductToCart } from "@/lib/product-pricing";
 
 const CART_STORAGE_KEY = "fatman-cart-v1";
 
@@ -47,6 +48,7 @@ function parseStoredCart(value: string | null): CartLine[] {
 
     return parsed
       .filter((line): line is CartLine => Boolean(line?.product?.slug && line.product.name))
+      .filter((line) => canAddProductToCart(line.product))
       .map((line) => ({
         product: line.product,
         quantity: normalizeQuantity(Number(line.quantity ?? 1)),
@@ -83,6 +85,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [lastAdded]);
 
   const addItem = useCallback((product: Product, quantity = 1) => {
+    if (!canAddProductToCart(product)) return;
+
     const safeQuantity = normalizeQuantity(quantity);
     const addedAt = new Date().toISOString();
 
