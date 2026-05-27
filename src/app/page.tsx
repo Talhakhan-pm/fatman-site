@@ -128,6 +128,8 @@ export default async function Home() {
     }];
   });
 
+
+
   const storeSchema = {
     "@context": "https://schema.org",
     "@type": "AutoPartsStore",

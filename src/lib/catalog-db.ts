@@ -116,40 +116,58 @@ const getFallbackCatalogData = (): CatalogData => ({
   categories: fallbackCategories,
 });
 
+async function fetchAllSupabaseRows<T>(
+  queryFn: (from: number, to: number) => Promise<{ data: T[] | null; error: any }>
+): Promise<T[]> {
+  let allRows: T[] = [];
+  let from = 0;
+  const batchSize = 1000;
+
+  while (true) {
+    const to = from + batchSize - 1;
+    const { data, error } = await queryFn(from, to);
+    if (error) {
+      throw error;
+    }
+    if (!data || data.length === 0) {
+      break;
+    }
+    allRows.push(...data);
+    if (data.length < batchSize) {
+      break;
+    }
+    from += batchSize;
+  }
+  return allRows;
+}
+
 const readPublishedCatalogFromSupabase = cache(async (): Promise<CatalogData | null> => {
   try {
     const supabase = createSupabaseServerClient();
-    const [{ data: productRows, error: productsError }, { data: categoryRows, error: categoriesError }] =
-      await Promise.all([
+    const [products, categories] = await Promise.all([
+      fetchAllSupabaseRows<SupabaseProductRow>((from, to) =>
         supabase
           .from("products")
           .select(
             "sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata, published",
           )
           .eq("published", true)
-          .order("name", { ascending: true }),
+          .order("name", { ascending: true })
+          .range(from, to)
+      ).then(rows => rows.map(toProduct)),
+      fetchAllSupabaseRows<SupabaseCategoryRow>((from, to) =>
         supabase
           .from("categories")
           .select("slug, title, description, short_description, published")
           .eq("published", true)
-          .order("sort_order", { ascending: true }),
-      ]);
+          .order("sort_order", { ascending: true })
+          .range(from, to)
+      ),
+    ]);
 
-    if (productsError || categoriesError) {
-      console.warn("Supabase catalog read failed.", {
-        productsError,
-        categoriesError,
-      });
-      return null;
-    }
+    const mappedCategories = toCategories(categories, products);
 
-    const products = (productRows as SupabaseProductRow[] | null | undefined)?.map(toProduct) ?? [];
-    const categories = toCategories(
-      (categoryRows as SupabaseCategoryRow[] | null | undefined) ?? [],
-      products,
-    );
-
-    return { products, categories };
+    return { products, categories: mappedCategories };
   } catch (error) {
     console.warn("Supabase catalog unavailable.", error);
     return null;
