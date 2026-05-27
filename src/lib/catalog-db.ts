@@ -117,7 +117,7 @@ const getFallbackCatalogData = (): CatalogData => ({
 });
 
 async function fetchAllSupabaseRows<T>(
-  queryFn: (from: number, to: number) => Promise<{ data: T[] | null; error: any }>
+  queryFn: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: any }>
 ): Promise<T[]> {
   let allRows: T[] = [];
   let from = 0;
