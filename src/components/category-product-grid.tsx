@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import { useFitmentBatch } from "@/components/use-fitment";
@@ -18,6 +18,14 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [verifiedFitOnly, setVerifiedFitOnly] = useState(false);
   const [sort, setSort] = useState<"relevance" | "price-asc" | "price-desc">("relevance");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 60;
+
+  // Reset page when filters or sorting change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [inStockOnly, verifiedFitOnly, sort, vehicle]);
 
   const slugs = useMemo(() => products.map((p) => p.slug), [products]);
   const fitments = useFitmentBatch(slugs, vehicle);
@@ -47,6 +55,37 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
 
   const fitCount = filtered.filter((product) => fitments[product.slug] === "fits").length;
 
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filtered.slice(start, start + ITEMS_PER_PAGE);
+  }, [filtered, currentPage]);
+
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    const delta = 1;
+
+    for (let i = 1; i <= totalPages; i++) {
+      if (
+        i === 1 ||
+        i === totalPages ||
+        (i >= currentPage - delta && i <= currentPage + delta)
+      ) {
+        pages.push(i);
+      } else if (i === 2 || i === totalPages - 1) {
+        pages.push("...");
+      }
+    }
+
+    return pages.filter((item, index) => {
+      if (item === "...") {
+        return pages[index - 1] !== "...";
+      }
+      return true;
+    });
+  };
+
   return (
     <>
       <section className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
@@ -72,7 +111,17 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
 
       <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
         <div className="mb-3 space-y-1 text-sm text-white/65">
-          <div>{filtered.length} products</div>
+          <div className="flex items-center justify-between">
+            <div>
+              Showing {filtered.length === 0 ? 0 : (currentPage - 1) * ITEMS_PER_PAGE + 1}–
+              {Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length} products
+            </div>
+            {totalPages > 1 && (
+              <div className="text-xs text-white/40">
+                Page {currentPage} of {totalPages}
+              </div>
+            )}
+          </div>
           {vehicle ? (
             <div className="text-xs text-white/60">
               Showing best matches for {formatCompactVehicleLabel(vehicle)}. {fitCount} confirmed fits in this view.
@@ -80,7 +129,7 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
           ) : null}
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((product) => (
+          {paginatedProducts.map((product) => (
             <ProductCard
               key={product.slug}
               product={product}
@@ -88,6 +137,54 @@ export function CategoryProductGrid({ products }: { products: Product[] }) {
             />
           ))}
         </div>
+
+        {totalPages > 1 && (
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-2 border-t border-white/[0.05] pt-8">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="flex h-10 items-center justify-center border border-white/10 bg-white/5 px-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/20 disabled:opacity-20 disabled:pointer-events-none active:scale-95"
+            >
+              ← Prev
+            </button>
+
+            <div className="flex items-center gap-1.5">
+              {getPageNumbers().map((pageNum, index) => {
+                if (pageNum === "...") {
+                  return (
+                    <span
+                      key={`ellipsis-${index}`}
+                      className="flex h-10 w-10 items-center justify-center font-mono text-sm text-white/30"
+                    >
+                      ...
+                    </span>
+                  );
+                }
+
+                return (
+                  <button
+                    key={pageNum}
+                    onClick={() => setCurrentPage(Number(pageNum))}
+                    className={`flex h-10 w-10 items-center justify-center border font-mono text-sm transition-all active:scale-90 ${currentPage === pageNum
+                        ? "border-[#ff6a00] bg-[#ff6a00] text-white font-black shadow-[0_0_20px_rgba(255,106,0,0.25)]"
+                        : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
+                      }`}
+                  >
+                    {pageNum}
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="flex h-10 items-center justify-center border border-white/10 bg-white/5 px-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/20 disabled:opacity-20 disabled:pointer-events-none active:scale-95"
+            >
+              Next →
+            </button>
+          </div>
+        )}
       </section>
     </>
   );

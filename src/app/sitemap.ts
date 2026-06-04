@@ -1,10 +1,15 @@
 import type { MetadataRoute } from "next";
 import { getCategories, getProducts } from "@/lib/catalog-db";
+import { getPublishedBlogPosts } from "@/lib/blog-db";
 
 const SITE_URL = "https://fatmanparts.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [categories, products] = await Promise.all([getCategories(), getProducts()]);
+  const [categories, products, blogPosts] = await Promise.all([
+    getCategories(),
+    getProducts(),
+    getPublishedBlogPosts(500),
+  ]);
 
   const staticPages: MetadataRoute.Sitemap = [
     "",
@@ -42,5 +47,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.9,
   }));
 
-  return [...staticPages, ...categoryPages, ...productPages];
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: "weekly",
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...categoryPages, ...productPages, ...blogPages];
 }
