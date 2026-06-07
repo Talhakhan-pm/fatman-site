@@ -4,6 +4,9 @@ import { getPublishedBlogPosts } from "@/lib/blog-db";
 
 const SITE_URL = "https://fatmanparts.com";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export const metadata: Metadata = {
   title: "Fatman Garage Blog",
   description: "Funny tone. Useful info. Zero fluff. Get expert tips on buying auto parts, OEM vs aftermarket, VIN fitment decoding, and DIY garage projects.",

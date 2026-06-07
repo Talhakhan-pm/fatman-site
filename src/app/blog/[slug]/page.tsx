@@ -5,6 +5,9 @@ import { getPublishedBlogPost } from "@/lib/blog-db";
 
 const SITE_URL = "https://fatmanparts.com";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function generateMetadata({
   params,
 }: {
