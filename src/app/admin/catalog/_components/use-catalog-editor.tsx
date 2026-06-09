@@ -20,6 +20,7 @@ function isSavedCatalogBody(value: unknown): value is SavedCatalogBody {
 export function useCatalogEditor() {
   const searchParams = useSearchParams();
   const slugFromUrl = searchParams?.get("slug");
+  const hasSlug = !!slugFromUrl;
   
   const [adminKey, setAdminKey] = useState("");
   const [sessionPassword, setSessionPassword] = useState("");
@@ -29,9 +30,9 @@ export function useCatalogEditor() {
   const [sessionError, setSessionError] = useState<string | null>(null);
   
   const [includeFitment, setIncludeFitment] = useState(true);
-  const [editor, setEditor] = useState<EditorState>(STARTER_EDITOR);
-  const [autoSlugEnabled, setAutoSlugEnabled] = useState(false);
-  const [autoSkuEnabled, setAutoSkuEnabled] = useState(false);
+  const [editor, setEditor] = useState<EditorState>(() => createBlankEditor());
+  const [autoSlugEnabled, setAutoSlugEnabled] = useState(!hasSlug);
+  const [autoSkuEnabled, setAutoSkuEnabled] = useState(!hasSlug);
   
   const [seedBusy, setSeedBusy] = useState(false);
   const [saveBusy, setSaveBusy] = useState(false);
@@ -46,7 +47,7 @@ export function useCatalogEditor() {
   const [search, setSearch] = useState("");
   const [loadingSlug, setLoadingSlug] = useState<string | null>(null);
   
-  const [lastLoadedSnapshot, setLastLoadedSnapshot] = useState(JSON.stringify(STARTER_EDITOR));
+  const [lastLoadedSnapshot, setLastLoadedSnapshot] = useState(() => JSON.stringify(createBlankEditor()));
   const [showDeveloperTools, setShowDeveloperTools] = useState(false);
   
   const [imageUploadBusy, setImageUploadBusy] = useState(false);
@@ -464,10 +465,6 @@ export function useCatalogEditor() {
     setImageUploadError(null);
   }
 
-  function loadStarter() {
-    maybeReplaceEditor(STARTER_EDITOR);
-  }
-
   function createNewProduct() {
     maybeReplaceEditor(createBlankEditor(), true);
   }
@@ -558,6 +555,6 @@ export function useCatalogEditor() {
     setProductField, enableAutoSlug, enableAutoSku,
     setFitmentField, addFitmentRow, addBulkFitment, removeFitmentRow,
     handleSeed, handleSave, handleArchiveProduct, handleImageUpload,
-    loadStarter, createNewProduct, handleListProducts, handleLoad
+    createNewProduct, handleListProducts, handleLoad
   };
 }

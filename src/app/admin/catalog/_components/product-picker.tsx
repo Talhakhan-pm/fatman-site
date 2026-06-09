@@ -10,7 +10,6 @@ export function ProductPicker({ editor }: { editor: ReturnType<typeof useCatalog
     search,
     setSearch,
     createNewProduct,
-    loadStarter,
     listError,
     handleLoad,
     loadingSlug,
@@ -25,26 +24,20 @@ export function ProductPicker({ editor }: { editor: ReturnType<typeof useCatalog
   useEffect(() => {
     const timer = setTimeout(() => {
       void handleListProducts();
-    }, 250);
+    }, 300);
     return () => clearTimeout(timer);
   }, [search]);
 
   return (
-    <div className="space-y-3 rounded-xl border border-white/15 bg-white/5 p-5">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="text-lg font-bold">Pick a product</h2>
-        <button
-          type="button"
-          className={ghostButtonClass}
-          onClick={handleListProducts}
-          disabled={listBusy}
-        >
-          {listBusy ? "Loading…" : "Refresh"}
-        </button>
+    <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 shadow-inner space-y-4">
+      <div>
+        <h3 className="text-xs font-black uppercase tracking-wider text-white/40 mb-1 flex items-center gap-1.5">
+          Pick a product
+        </h3>
+        <p className="text-xs text-white/60">
+          Type to search existing products, then click <strong className="text-white">Load</strong> to bring it in.
+        </p>
       </div>
-      <p className="text-xs text-white/50">
-        Type to search existing products, then click <strong>Load</strong> to bring it in.
-      </p>
       
       <div className="relative">
         <input
@@ -66,13 +59,6 @@ export function ProductPicker({ editor }: { editor: ReturnType<typeof useCatalog
           onClick={createNewProduct}
         >
           + New Product
-        </button>
-        <button
-          type="button"
-          className="rounded-lg border border-white/10 px-3 py-1.5 text-xs font-bold text-white/80 hover:bg-white/5 transition"
-          onClick={loadStarter}
-        >
-          Load Starter
         </button>
       </div>
 
