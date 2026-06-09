@@ -1,0 +1,95 @@
+{
+  "ok": true,
+  "mode": "drafts_created",
+  "account_ids": [
+    "672011_instagram",
+    "672011_facebook"
+  ],
+  "accounts": [
+    {
+      "id": "672011_instagram",
+      "platform": "instagram",
+      "display_name": "fatmanparts"
+    },
+    {
+      "id": "672011_facebook",
+      "platform": "facebook",
+      "display_name": "Fatman Parts"
+    }
+  ],
+  "input_images": 32,
+  "normalized_images": 32,
+  "uploaded_media": 32,
+  "albums": [
+    {
+      "album": 1,
+      "post_id": "36834874",
+      "status": "draft",
+      "media_count": 8,
+      "media_ids": [
+        "51504",
+        "51505",
+        "51506",
+        "51507",
+        "51508",
+        "51509",
+        "51510",
+        "51511"
+      ],
+      "caption_chars": 381
+    },
+    {
+      "album": 2,
+      "post_id": "72320017",
+      "status": "draft",
+      "media_count": 8,
+      "media_ids": [
+        "51512",
+        "51513",
+        "51514",
+        "51515",
+        "51516",
+        "51517",
+        "51518",
+        "51519"
+      ],
+      "caption_chars": 393
+    },
+    {
+      "album": 3,
+      "post_id": "72885738",
+      "status": "draft",
+      "media_count": 8,
+      "media_ids": [
+        "51520",
+        "51521",
+        "51522",
+        "51523",
+        "51524",
+        "51525",
+        "51526",
+        "51527"
+      ],
+      "caption_chars": 392
+    },
+    {
+      "album": 4,
+      "post_id": "63737319",
+      "status": "draft",
+      "media_count": 8,
+      "media_ids": [
+        "51530",
+        "51531",
+        "51532",
+        "51533",
+        "51534",
+        "51535",
+        "51536",
+        "51537"
+      ],
+      "caption_chars": 363
+    }
+  ],
+  "normalized_dir": "/Users/macbook/Projects/fatman-site/docs/social-mockups/download-album-posts",
+  "note": "Created 4 draft carousel posts of 8 images each. Not published live."
+}

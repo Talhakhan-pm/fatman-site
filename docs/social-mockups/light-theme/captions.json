@@ -1,0 +1,17 @@
+{
+  "01-wrong-fitment-light.png": {
+    "bucket": "problem-solution",
+    "caption_default": "Wrong fitment costs more than the part. Check bumper details before paint, labor, and delivery time get wasted. Start with fitment confidence at FatmanParts.com.",
+    "caption_x": "Wrong fitment costs more than the part. Check bumper details before paint and labor get wasted. FatmanParts.com"
+  },
+  "02-prepaint-checklist-light.png": {
+    "bucket": "buyer checklist",
+    "caption_default": "Before paint or install, check fitment, openings, surface condition, and delivery damage. Save this checklist before your next body-part order.",
+    "caption_x": "Before paint or install: check fitment, openings, surface condition, and delivery damage. Save this body-part checklist."
+  },
+  "03-bumpers-category-light.png": {
+    "bucket": "promotional",
+    "caption_default": "Replacement bumpers without the junkyard run. Search by vehicle, review fitment details, and get clear pricing from Fatman Parts.",
+    "caption_x": "Replacement bumpers without the junkyard run. Search by vehicle, check fitment details, and shop Fatman Parts."
+  }
+}
