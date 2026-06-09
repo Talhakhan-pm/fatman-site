@@ -46,3 +46,7 @@ next-env.d.ts
 /data/contact-requests-local.json
 /public/fatman-uploads/
 /tmp/
+
+# local social/media generation artifacts (do not commit)
+/docs/social-mockups/
+/scripts/upload_downloads_album_posts.py

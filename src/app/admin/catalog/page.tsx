@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { useCatalogEditor } from "./_components/use-catalog-editor";
 import { AdminAuth } from "./_components/admin-auth";
 import { ProductPicker } from "./_components/product-picker";
@@ -8,7 +8,32 @@ import { ProductForm } from "./_components/product-form";
 import { FitmentEditor } from "./_components/fitment-editor";
 import { FitmentCombinator } from "./_components/fitment-combinator";
 import { DeveloperTools } from "./_components/developer-tools";
-import { buttonClass, ghostButtonClass } from "./_components/ui";
+import { ghostButtonClass } from "./_components/ui";
+import { ProductCard } from "@/components/product-card";
+import type { Product } from "@/lib/catalog";
+import type { CategorySlug } from "@/lib/catalog-registry";
+import type { ProductForm as ProductFormType } from "./_components/types";
+
+function formToProduct(form: ProductFormType): Product {
+  return {
+    sku: form.sku || "FTM-TEMP-SKU",
+    slug: form.slug || "temp-slug",
+    category: (form.category || "cooling") as CategorySlug,
+    brand: form.brand || "Brand",
+    name: form.name || "Product Name Placeholder",
+    shortDescription: form.shortDescription || "No description provided yet.",
+    price: Number(form.price) || 0,
+    compareAt: form.compareAt ? Number(form.compareAt) : undefined,
+    stock: form.stock || "in-stock",
+    imageUrl: form.imageUrl || undefined,
+    shippingClass: form.shippingClass || undefined,
+    warrantyDays: form.warrantyDays ? Number(form.warrantyDays) : undefined,
+    oemPartNumber: form.oemPartNumber || undefined,
+    condition: form.condition || undefined,
+    partSource: form.partSource || undefined,
+    metadata: form.metadata,
+  };
+}
 
 export default function AdminCatalogPage() {
   return (
@@ -20,6 +45,8 @@ export default function AdminCatalogPage() {
 
 function AdminCatalogContent() {
   const editor = useCatalogEditor();
+  const [activeTab, setActiveTab] = useState<"general" | "pricing" | "fitment">("general");
+
   const {
     sessionState,
     sessionScope,
@@ -33,7 +60,6 @@ function AdminCatalogContent() {
     savedBody,
     resultError,
     resultErrorDetails,
-    devLocalFallbackEnabled,
     handleSave,
     saveBusy,
     handleArchiveProduct,
@@ -50,12 +76,63 @@ function AdminCatalogContent() {
 
   return (
     <div className="min-h-screen bg-fatman-900 text-white pt-28 lg:pt-32">
-      <section className="mx-auto max-w-6xl px-6 pb-10">
-        <h1 className="text-3xl font-black">Catalog Admin</h1>
-        <p className="mt-2 max-w-3xl text-sm text-white/70">
-          Built for staff, not developers. Load a product, edit the fields, add fitment rows,
-          then save. No JSON required.
-        </p>
+      <section className="mx-auto max-w-7xl px-6 pb-20">
+        
+        {/* Sticky Workspace Status Bar */}
+        <div className="sticky top-20 z-40 mb-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/10 bg-fatman-900/90 p-4 shadow-xl backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <div className={`h-2.5 w-2.5 rounded-full ${isDirty ? "bg-amber-500 animate-pulse" : "bg-emerald-500"}`} />
+            <div>
+              <h2 className="text-sm font-black text-white">
+                {editor.editor.product.name ? `Editing: ${editor.editor.product.name}` : "New Product Draft"}
+              </h2>
+              <p className="font-mono text-[10px] text-white/50">
+                {editor.editor.product.sku || "No SKU"} · {editor.editor.product.slug || "No Slug"}
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            {isDirty && (
+              <span className="text-xs font-bold text-amber-400 mr-2 animate-pulse">Unsaved Changes</span>
+            )}
+            <button
+              type="button"
+              className="rounded-lg border border-red-500/30 px-3.5 py-1.5 text-xs font-semibold text-red-455 hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
+              onClick={() => void handleArchiveProduct()}
+              disabled={archiveBusy || editor.editor.product.published === false}
+            >
+              {archiveBusy ? "Archiving…" : editor.editor.product.published === false ? "Archived" : "Archive"}
+            </button>
+            <button
+              type="button"
+              className="rounded-lg bg-fatman-accent px-5 py-1.5 text-xs font-black text-fatman-900 hover:bg-fatman-accent-hover transition disabled:cursor-not-allowed disabled:opacity-50 shadow-[0_0_15px_rgba(234,88,12,0.3)]"
+              onClick={() => void handleSave()}
+              disabled={saveBusy}
+            >
+              {saveBusy ? "Saving…" : "Save Product"}
+            </button>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <h1 className="text-3xl font-black">Catalog Admin</h1>
+            <p className="mt-1 text-sm text-white/70">
+              Built for staff, not developers. No JSON required.
+            </p>
+          </div>
+          {adminSessionRequired && (
+            <button
+              type="button"
+              className={ghostButtonClass}
+              onClick={() => void handleLockAdmin()}
+              disabled={sessionBusy}
+            >
+              {sessionBusy ? "Locking…" : "Lock Admin"}
+            </button>
+          )}
+        </div>
 
         {loadingSlug && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-fatman-900/80 backdrop-blur-sm">
@@ -67,75 +144,63 @@ function AdminCatalogContent() {
           </div>
         )}
 
-        {adminSessionRequired && (
-          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm text-emerald-100">
-            <div>
-              <strong className="block text-emerald-50">Admin session active</strong>
-              <span className="text-emerald-100/80">
-                {sessionScope === "seed"
-                  ? "Seed-level session is unlocked for catalog admin and setup tools."
-                  : "Catalog admin is unlocked with a secure cookie session."}
-              </span>
-            </div>
-            <button
-              type="button"
-              className={ghostButtonClass}
-              onClick={() => void handleLockAdmin()}
-              disabled={sessionBusy}
-            >
-              {sessionBusy ? "Locking…" : "Lock admin"}
-            </button>
-          </div>
-        )}
-
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.1fr_1.9fr]">
+        <div className="grid gap-8 lg:grid-cols-[330px_1fr] xl:grid-cols-[360px_1fr]">
+          {/* Left Column: Selectors, Live Card Preview, Dev Tools */}
           <div className="space-y-6">
             <ProductPicker editor={editor} />
+
+            {/* Storefront Card Preview Container */}
+            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-5 shadow-inner">
+              <h3 className="text-xs font-black uppercase tracking-wider text-white/40 mb-4 flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-fatman-accent" />
+                Live Card Preview
+              </h3>
+              <div className="mx-auto w-full max-w-[340px] pointer-events-none select-none origin-top transition-transform duration-300">
+                <ProductCard product={formToProduct(editor.editor.product)} />
+              </div>
+            </div>
+
             <DeveloperTools editor={editor} />
           </div>
 
+          {/* Right Column: Tabbed Editor Content */}
           <div className="space-y-6">
-            <ProductForm editor={editor} />
-            <FitmentCombinator editor={editor} />
-            <FitmentEditor editor={editor} />
-
-            {/* Save Section */}
-            <div className="rounded-xl border border-white/15 bg-white/5 p-5">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h2 className="text-lg font-bold">Save changes</h2>
-                  <p className="mt-1 text-sm text-white/60">
-                    {devLocalFallbackEnabled
-                      ? "Save this product and its fitment to Supabase. In local development only, drafts can fall back to the local safety store."
-                      : "Save this product and its fitment directly to Supabase."}
-                  </p>
-                </div>
-                <div className="flex gap-3">
-                  <button
-                    type="button"
-                    className="rounded-lg border border-red-500/30 px-4 py-2 text-sm font-semibold text-red-400 hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
-                    onClick={() => void handleArchiveProduct()}
-                    disabled={archiveBusy || editor.editor.product.published === false}
-                  >
-                    {archiveBusy ? "Archiving…" : editor.editor.product.published === false ? "Archived" : "Archive product"}
-                  </button>
-                  <button
-                    type="button"
-                    className={buttonClass}
-                    onClick={() => void handleSave()}
-                    disabled={saveBusy}
-                  >
-                    {saveBusy ? "Saving…" : "Save product"}
-                  </button>
-                </div>
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-3 text-xs text-white/60">
-                <span className="rounded-full border border-white/10 px-3 py-1">
-                  {isDirty ? "Unsaved changes" : "All changes saved or loaded"}
-                </span>
-              </div>
+            
+            {/* Horizontal Tabs Navigation */}
+            <div className="flex border-b border-white/10 gap-2 overflow-x-auto">
+              {[
+                { id: "general", label: "1. General Info" },
+                { id: "pricing", label: "2. Pricing & Specs" },
+                { id: "fitment", label: "3. Vehicle Fitment" },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`px-5 py-3 text-sm font-black transition-all border-b-2 -mb-[2px] whitespace-nowrap ${
+                    activeTab === tab.id
+                      ? "border-fatman-accent text-fatman-accent"
+                      : "border-transparent text-white/50 hover:text-white/85"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
+
+            {/* Conditionally rendered form groups */}
+            {activeTab === "general" && (
+              <ProductForm editor={editor} tab="general" />
+            )}
+            {activeTab === "pricing" && (
+              <ProductForm editor={editor} tab="pricing" />
+            )}
+            {activeTab === "fitment" && (
+              <div className="space-y-6">
+                <FitmentCombinator editor={editor} />
+                <FitmentEditor editor={editor} />
+              </div>
+            )}
 
             {/* Error / Result Display */}
             {error && (
