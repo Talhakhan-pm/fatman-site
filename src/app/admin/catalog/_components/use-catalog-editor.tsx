@@ -47,7 +47,7 @@ export function useCatalogEditor() {
   const [search, setSearch] = useState("");
   const [loadingSlug, setLoadingSlug] = useState<string | null>(null);
   
-  const [lastLoadedSnapshot, setLastLoadedSnapshot] = useState(() => JSON.stringify(createBlankEditor()));
+  const [lastLoadedSnapshot, setLastLoadedSnapshot] = useState<string | null>(null);
   const [showDeveloperTools, setShowDeveloperTools] = useState(false);
   
   const [imageUploadBusy, setImageUploadBusy] = useState(false);
@@ -56,11 +56,18 @@ export function useCatalogEditor() {
   const draftPayload = useMemo(() => editorToPayload(editor), [editor]);
   const imagePreviewUrl = editor.product.imageUrl.trim();
   const currentSnapshot = useMemo(() => JSON.stringify(editor), [editor]);
-  const isDirty = currentSnapshot !== lastLoadedSnapshot;
+  const isDirty = lastLoadedSnapshot !== null && currentSnapshot !== lastLoadedSnapshot;
   const ok = result && result.status >= 200 && result.status < 300;
   
   const devLocalFallbackEnabled = process.env.NODE_ENV === "development";
   const adminSessionRequired = process.env.NODE_ENV === "production";
+
+  // Initialize snapshot on mount using the exact initial editor instance
+  useEffect(() => {
+    if (lastLoadedSnapshot === null) {
+      setLastLoadedSnapshot(JSON.stringify(editor));
+    }
+  }, []);
 
   useEffect(() => {
     if (!adminSessionRequired) {
