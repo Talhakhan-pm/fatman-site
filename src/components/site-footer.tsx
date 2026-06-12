@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTheme } from "./theme-provider";
 import { catalogRegistry } from "@/lib/catalog-registry";
+import { socialIconMap } from "@/components/social-icons";
+import { socialLinks } from "@/lib/social-links";
 
 const footerCategoryLinks = catalogRegistry.filter((item) => item.showInFooter);
 
@@ -41,7 +43,10 @@ export function SiteFooter() {
   const [mounted, setMounted] = useState(false);
   const isDark = theme === "dark";
 
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => setMounted(true));
+    return () => window.cancelAnimationFrame(frameId);
+  }, []);
 
   const footerLogoSrc = !mounted ? "/brand/fatman-compact-horizontal-dark.png" : isDark ? "/brand/fatman-compact-horizontal.png" : "/brand/fatman-compact-horizontal-dark.png";
 
@@ -67,6 +72,29 @@ export function SiteFooter() {
             <p className="mt-3 max-w-sm text-xs leading-5 text-white/45">
               Fatman Parts LLC · 6779 Beadnell Way, San Diego, CA 92117 · (844) 737-1463 · help@fatmanparts.com
             </p>
+
+            <div className="mt-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/40">Follow Fatman</p>
+              <div className="mt-2 flex items-center gap-2">
+                {socialLinks.map((item) => {
+                  const SocialIcon = socialIconMap[item.id];
+
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Follow Fatman Parts on ${item.label}`}
+                      title={item.label}
+                      className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:border-fatman-accent/60 hover:bg-fatman-accent/10 hover:text-white"
+                    >
+                      <SocialIcon className="h-5 w-5" />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
 
             <div className="mt-6 grid gap-3">
               <div className="rounded-xl border border-white/10 bg-white/5 p-4">

@@ -6,6 +6,7 @@ import { HomepageCompatibleProducts } from "@/components/homepage-compatible-pro
 import { HomepageCompatibleCategories } from "@/components/homepage-compatible-categories";
 import { getCategories } from "@/lib/catalog-db";
 import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
+import { socialProfileUrls } from "@/lib/social-links";
 
 export const metadata: Metadata = {
   title: "OEM Parts with Guaranteed Fitment | Fatman Parts",
@@ -139,6 +140,7 @@ export default async function Home() {
     "priceRange": "$$",
     "email": "help@fatmanparts.com",
     "telephone": "+1-844-737-1463",
+    "sameAs": socialProfileUrls,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "6779 Beadnell Way",
@@ -336,7 +338,7 @@ export default async function Home() {
                 Confidence beats gimmicks.
               </h2>
               <p className="mt-3 max-w-2xl text-lg text-white/50">
-                Don't just take our word for it. See what real builders, mechanics, and gearheads are saying about their Fatman Parts experience.
+                Don&apos;t just take our word for it. See what real builders, mechanics, and gearheads are saying about their Fatman Parts experience.
               </p>
             </div>
             <div className="rounded-full border border-[#ff6a00]/20 bg-[#ff6a00]/10 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#ff6a00]">
@@ -370,7 +372,7 @@ export default async function Home() {
             <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
               Frequently Asked <span className="text-[#ff6a00]">Questions</span>
             </h2>
-            <p className="mt-4 text-base text-white/50">Got questions about compatibility, shipping, or returns? We've got answers.</p>
+            <p className="mt-4 text-base text-white/50">Got questions about compatibility, shipping, or returns? We&apos;ve got answers.</p>
           </div>
           
           <div className="rounded-[2.5rem] border border-white/[0.08] bg-[#1a1d24] p-6 sm:p-10 relative shadow-2xl shadow-black/40 overflow-hidden">
