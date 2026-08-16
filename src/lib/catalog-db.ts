@@ -226,3 +226,82 @@ export async function getProduct(slug: string) {
   if (ALLOW_SOURCE_FALLBACK) return getFallbackProduct(slug);
   return undefined;
 }
+
+const SEARCHABLE_PRODUCT_COLUMNS = [
+  "name",
+  "brand",
+  "sku",
+  "slug",
+  "short_description",
+  "oem_part_number",
+  "category_slug",
+] as const;
+
+// PostgREST or() filters parse commas/parens/wildcards specially, so tokens are
+// reduced to characters that cannot break out of the ilike pattern.
+const sanitizeSearchToken = (token: string) => token.replace(/[^a-zA-Z0-9-]/g, "");
+
+export async function searchProducts(
+  query: string,
+  limit: number,
+): Promise<{ products: Product[]; count: number }> {
+  const tokens = query
+    .split(/\s+/)
+    .map(sanitizeSearchToken)
+    .filter(Boolean)
+    .slice(0, 8);
+
+  if (!tokens.length) {
+    return { products: [], count: 0 };
+  }
+
+  try {
+    const supabase = createSupabaseServerClient();
+    let builder = supabase
+      .from("products")
+      .select(
+        "sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata, published",
+        { count: "exact" },
+      )
+      .eq("published", true);
+
+    // Each or() group is ANDed with the previous ones: every token must match
+    // at least one searchable column, in any order.
+    for (const token of tokens) {
+      builder = builder.or(
+        SEARCHABLE_PRODUCT_COLUMNS.map((column) => `${column}.ilike.%${token}%`).join(","),
+      );
+    }
+
+    const { data, error, count } = await builder
+      .order("name", { ascending: true })
+      .limit(limit);
+    if (error) throw error;
+
+    return {
+      products: (data as SupabaseProductRow[]).map(toProduct),
+      count: count ?? data.length,
+    };
+  } catch (error) {
+    console.warn("Supabase product search unavailable.", error);
+    if (!ALLOW_SOURCE_FALLBACK) return { products: [], count: 0 };
+
+    const haystacks = (product: Product) =>
+      [
+        product.name,
+        product.brand,
+        product.sku,
+        product.slug,
+        product.shortDescription,
+        product.oemPartNumber ?? "",
+        product.category,
+      ]
+        .join(" ")
+        .toLowerCase();
+    const matches = fallbackProducts.filter((product) => {
+      const haystack = haystacks(product);
+      return tokens.every((token) => haystack.includes(token.toLowerCase()));
+    });
+    return { products: matches.slice(0, limit), count: matches.length };
+  }
+}
