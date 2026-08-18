@@ -2,6 +2,7 @@ import "server-only";
 
 import { cache } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase";
+import { isCategoryOrDescendant } from "@/lib/category-taxonomy";
 import {
   categories as fallbackCategories,
   getCategory as getFallbackCategory,
@@ -68,29 +69,6 @@ const toProduct = (row: SupabaseProductRow): Product => {
     ...badges,
   };
 };
-
-const CATEGORY_DESCENDANT_PREFIXES: Record<string, string[]> = {
-  "transmission-drivetrain": ["transmission-and-drivetrain"],
-  "engine-cooling-exhaust": ["engine-cooling-and-exhaust"],
-  "steering-suspension": ["steering-and-suspension"],
-  "brakes-traction-control": ["brakes-and-traction-control"],
-  "starting-charging": ["starting-and-charging"],
-  "sensors-switches": ["sensors-and-switches"],
-  "body-frame": ["body-and-frame"],
-  "heating-air-conditioning": ["heating-and-air-conditioning"],
-  "instrument-panel-gauges": ["instrument-panel-gauges-and-warning-indicators"],
-  "wiper-washer": ["wiper-and-washer-systems"],
-};
-
-const categoryTreePrefixes = (slug: string) => [
-  slug,
-  ...(CATEGORY_DESCENDANT_PREFIXES[slug] ?? []),
-];
-
-const isCategoryOrDescendant = (categorySlug: string, parentSlug: string) =>
-  categoryTreePrefixes(parentSlug).some(
-    (prefix) => categorySlug === prefix || categorySlug.startsWith(`${prefix}-`),
-  );
 
 const productsForCategoryTree = (products: Product[], slug: string) =>
   products.filter((product) => isCategoryOrDescendant(product.category, slug));

@@ -8,6 +8,7 @@ import {
   type FitmentState,
   type Vehicle,
 } from "@/lib/fitment";
+import { resolveTopLevelCategorySlug } from "@/lib/category-taxonomy";
 import type { Product } from "@/lib/catalog";
 import { getProductBadgeMetadata } from "@/lib/product-badges";
 
@@ -229,10 +230,13 @@ export async function getCompatibleCategoriesForVehicle(
       const state = bestState.get(row.id);
       if (state !== "fits" && state !== "verify") continue;
 
-      const bucket = counts.get(row.category_slug) ?? { fits: 0, verify: 0 };
+      // Products are stored against granular CHARM slugs; the storefront shows
+      // the approved top-level categories, so roll each product up before counting.
+      const topLevelSlug = resolveTopLevelCategorySlug(row.category_slug) as Product["category"];
+      const bucket = counts.get(topLevelSlug) ?? { fits: 0, verify: 0 };
       if (state === "fits") bucket.fits += 1;
       else bucket.verify += 1;
-      counts.set(row.category_slug, bucket);
+      counts.set(topLevelSlug, bucket);
     }
 
     return [...counts.entries()]
