@@ -1,15 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   FitmentSelector,
   type FitmentSelectorClassNames,
   type Vehicle,
 } from "@fatman/fitment-react";
 import { useGarage } from "@/components/garage-provider";
+import { useLazyFitmentCatalog } from "@/components/use-lazy-fitment-catalog";
 import { track } from "@/lib/analytics";
-import { charmFitmentCatalog } from "@/lib/fitment-catalog";
 import { buildFitsHref } from "@/lib/fits-link";
 import { matchVinToCatalog, type DecodedVin } from "@/lib/vin-catalog-match";
 
@@ -101,25 +101,35 @@ function useLivePartCounts() {
   );
 }
 
-async function decodeVinToVehicle(vin: string): Promise<Vehicle | null> {
-  try {
-    const res = await fetch("/api/fitment/vin/decode", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ vin }),
-    });
-    if (!res.ok) return null;
-    const decoded = (await res.json()) as DecodedVin & { valid?: boolean };
-    if (!decoded.valid) return null;
-    return matchVinToCatalog(decoded, charmFitmentCatalog);
-  } catch {
-    return null;
-  }
-}
-
 export function FitmentModuleV2() {
   const { vehicle, setVehicle } = useGarage();
+  const { catalog, loadYear, getSnapshot } = useLazyFitmentCatalog();
   const resolvePartCount = useLivePartCounts();
+
+  // Prefetch the saved vehicle's year so its dropdowns populate immediately.
+  useEffect(() => {
+    if (vehicle?.year) void loadYear(vehicle.year);
+  }, [vehicle?.year, loadYear]);
+
+  const decodeVinToVehicle = useCallback(
+    async (vin: string): Promise<Vehicle | null> => {
+      try {
+        const res = await fetch("/api/fitment/vin/decode", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ vin }),
+        });
+        if (!res.ok) return null;
+        const decoded = (await res.json()) as DecodedVin & { valid?: boolean };
+        if (!decoded.valid || !decoded.year) return null;
+        await loadYear(decoded.year);
+        return matchVinToCatalog(decoded, getSnapshot());
+      } catch {
+        return null;
+      }
+    },
+    [loadYear, getSnapshot],
+  );
 
   const labels = useMemo(
     () => ({
@@ -127,7 +137,9 @@ export function FitmentModuleV2() {
       vinDecodeError:
         "Couldn't match this VIN to our catalog — pick your vehicle manually below.",
       searchReady: (_v: Vehicle, partCount: number | null) =>
-        `🔍 SEARCH ${partCount ?? "VERIFIED"} VERIFIED PARTS`,
+        partCount == null
+          ? "🔍 SEARCH VERIFIED PARTS"
+          : `🔍 SEARCH ${partCount} VERIFIED PARTS`,
       searchIdle: "🔍 SELECT VEHICLE TO SEARCH",
       confirmation: (v: Vehicle, partCount: number | null) => {
         const label = [
@@ -167,7 +179,7 @@ export function FitmentModuleV2() {
 
   return (
     <FitmentSelector
-      catalog={charmFitmentCatalog}
+      catalog={catalog}
       initialVehicle={vehicle ?? null}
       classNames={SELECTOR_CLASSES}
       labels={labels}
