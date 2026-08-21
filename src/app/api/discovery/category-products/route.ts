@@ -36,10 +36,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "invalid json" }, { status: 400 });
   }
 
-  const slug = body.slug?.trim();
-  if (!slug) {
-    return NextResponse.json({ error: "slug is required" }, { status: 400 });
-  }
+  const slug = body.slug?.trim() || null;
 
   const options = {
     page: body.page,
@@ -52,6 +49,11 @@ export async function POST(req: Request) {
   // variant "Pickup"); the candidate list is what actually matches
   // fitment_rules.model, which stores the joined string.
   const normalized: Vehicle | null = body.fitsOnly ? normalizeVehicle(body.vehicle) : null;
+
+  if (!slug && !normalized) {
+    // Without a category, the query only makes sense narrowed to a vehicle.
+    return NextResponse.json({ error: "slug or vehicle is required" }, { status: 400 });
+  }
 
   if (normalized) {
     const result = await getCategoryProductsForVehicle(
@@ -68,6 +70,8 @@ export async function POST(req: Request) {
     return NextResponse.json(result);
   }
 
-  const result = await getProductsByCategory(slug, options);
+  // Reached only with a slug: the slug-less case without a vehicle 400s above,
+  // and with a vehicle it returns from the branch before this.
+  const result = await getProductsByCategory(slug as string, options);
   return NextResponse.json({ ...result, fitments: {} });
 }

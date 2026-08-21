@@ -108,11 +108,17 @@ const emptyPage = (page: number, perPage: number): ProductPage => ({
 export const getCategories = cache(async (): Promise<Category[]> => {
   try {
     const supabase = createSupabaseServerClient();
+    // Query the storefront slugs explicitly: the table also holds ~2,400
+    // granular CHARM source categories (still growing with imports), and an
+    // unfiltered read stops at PostgREST's 1,000-row cap — which silently
+    // dropped most storefront categories once the granular rows outnumbered it.
+    const registrySlugList = catalogRegistry.map((entry) => entry.slug);
     const [{ data: rows, error }, { data: counts, error: countError }] = await Promise.all([
       supabase
         .from("categories")
         .select("slug, title, description, short_description, published")
         .eq("published", true)
+        .in("slug", registrySlugList)
         .order("sort_order", { ascending: true }),
       supabase.rpc("category_product_counts"),
     ]);

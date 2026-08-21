@@ -6,7 +6,9 @@ import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import { catalogRegistry } from "@/lib/catalog-registry";
 import { humanizeCategorySlug } from "@/lib/category-display";
+import { resolveTopLevelCategorySlug } from "@/lib/category-taxonomy";
 import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment";
+import { buildFitsHref } from "@/lib/fits-link";
 import type { Product } from "@/lib/catalog";
 
 type CompatibleProduct = Product & {
@@ -52,9 +54,12 @@ export function HomepageCompatibleProducts() {
   }, [vehicle, vehicleKey]);
 
   const categoryLinks = useMemo(() => {
+    // Products carry granular CHARM slugs; the storefront only has pages for
+    // the 17 top-level categories, so roll up before linking.
     const counts = new Map<string, number>();
     for (const product of products) {
-      counts.set(product.category, (counts.get(product.category) ?? 0) + 1);
+      const topLevel = resolveTopLevelCategorySlug(product.category);
+      counts.set(topLevel, (counts.get(topLevel) ?? 0) + 1);
     }
 
     return [...counts.entries()]
@@ -85,19 +90,23 @@ export function HomepageCompatibleProducts() {
                 Confirmed-fit products for your selected vehicle, pulled from the live catalog instead of generic homepage filler.
               </p>
             </div>
-            {categoryLinks.length ? (
-              <div className="flex flex-wrap gap-2">
-                {categoryLinks.map((category) => (
-                  <Link
-                    key={category.slug}
-                    href={`/category/${category.slug}`}
-                    className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-white/80 transition hover:border-[#ff6a00]/35 hover:text-white"
-                  >
-                    {category.title} · {category.count}
-                  </Link>
-                ))}
-              </div>
-            ) : null}
+            <div className="flex flex-wrap items-center gap-2">
+              {categoryLinks.map((category) => (
+                <Link
+                  key={category.slug}
+                  href={`/category/${category.slug}?fitsOnly=1`}
+                  className="rounded-full border border-white/15 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-white/80 transition hover:border-[#ff6a00]/35 hover:text-white"
+                >
+                  {category.title} · {category.count}
+                </Link>
+              ))}
+              <Link
+                href={buildFitsHref(vehicle)}
+                className="rounded-full border border-[#ff6a00]/40 bg-[#ff6a00]/10 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-[#ff6a00] transition hover:bg-[#ff6a00]/20"
+              >
+                See all parts that fit →
+              </Link>
+            </div>
           </div>
 
           {isLoading ? (

@@ -153,16 +153,13 @@ export default async function Home() {
     "logo": "https://fatmanparts.com/brand/fatman-fp-shield.png"
   };
 
+  // No SearchAction: /category ignores ?q=, so advertising it to crawlers
+  // pointed sitelinks search at a URL that doesn't actually search.
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Fatman Parts",
-    "url": "https://fatmanparts.com",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://fatmanparts.com/category?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
+    "url": "https://fatmanparts.com"
   };
 
   const faqItems = [

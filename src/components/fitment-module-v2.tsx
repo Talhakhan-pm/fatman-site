@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo } from "react";
+import Link from "next/link";
+import { useCallback, useMemo, useRef, useState } from "react";
 import {
   FitmentSelector,
   type FitmentSelectorClassNames,
@@ -9,6 +10,7 @@ import {
 import { useGarage } from "@/components/garage-provider";
 import { track } from "@/lib/analytics";
 import { charmFitmentCatalog } from "@/lib/fitment-catalog";
+import { buildFitsHref } from "@/lib/fits-link";
 
 const SELECTOR_CLASSES: FitmentSelectorClassNames = {
   root: "p-6 sm:p-8 space-y-5",
@@ -52,14 +54,50 @@ const SELECTOR_CLASSES: FitmentSelectorClassNames = {
   },
 };
 
-function syntheticPartCount(vehicle: Vehicle): number {
-  const base =
-    400 +
-    vehicle.year.charCodeAt(3) * 12 +
-    vehicle.make.length * 31 +
-    vehicle.model.length * 17 +
-    (vehicle.variant?.length ?? 0) * 11;
-  return Math.min(base, 1200);
+const vehicleKey = (v: Vehicle) =>
+  [v.year, v.make, v.model, v.variant ?? "", v.engine].join("|");
+
+/**
+ * Live confirmed-fit counts, cached per vehicle. FitmentSelector's
+ * partCountResolver is synchronous, so the first call for a vehicle returns
+ * null (rendered as a "checking" state) and kicks off the fetch; the state
+ * update re-renders the selector with the real number.
+ */
+function useLivePartCounts() {
+  const [counts, setCounts] = useState<Record<string, number>>({});
+  const pending = useRef<Set<string>>(new Set());
+
+  return useCallback(
+    (v: Vehicle): number | null => {
+      if (!v.year || !v.make || !v.model || !v.engine) return null;
+      const key = vehicleKey(v);
+      const cached = counts[key];
+      if (cached != null) return cached;
+
+      if (!pending.current.has(key)) {
+        pending.current.add(key);
+        // Deferred: the resolver runs during render, so the fetch (and its
+        // eventual setState) must start outside of it.
+        setTimeout(() => {
+          fetch("/api/discovery/vehicle-part-count", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ vehicle: v }),
+          })
+            .then((res) => (res.ok ? res.json() : null))
+            .then((payload: { fits?: number | null } | null) => {
+              if (typeof payload?.fits === "number") {
+                setCounts((prev) => ({ ...prev, [key]: payload.fits as number }));
+              }
+            })
+            .catch(() => {})
+            .finally(() => pending.current.delete(key));
+        }, 0);
+      }
+      return null;
+    },
+    [counts],
+  );
 }
 
 const VIN_DECODE_PLACEHOLDER: Vehicle = {
@@ -72,27 +110,46 @@ const VIN_DECODE_PLACEHOLDER: Vehicle = {
 
 export function FitmentModuleV2() {
   const { vehicle, setVehicle } = useGarage();
+  const resolvePartCount = useLivePartCounts();
 
   const labels = useMemo(
     () => ({
-      source: `${charmFitmentCatalog.metadata.source ?? "Charm"} Data Loaded`,
+      source: "",
       searchReady: (_v: Vehicle, partCount: number | null) =>
         `🔍 SEARCH ${partCount ?? "VERIFIED"} VERIFIED PARTS`,
       searchIdle: "🔍 SELECT VEHICLE TO SEARCH",
-      confirmation: (v: Vehicle, partCount: number | null) => (
-        <>
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          {partCount ?? syntheticPartCount(v)} parts verified for {[
-            v.year,
-            v.make,
-            v.model,
-            v.variant && v.variant !== "Base" ? v.variant : "",
-            v.engine,
-          ]
-            .filter(Boolean)
-            .join(" ")}
-        </>
-      ),
+      confirmation: (v: Vehicle, partCount: number | null) => {
+        const label = [
+          v.year,
+          v.make,
+          v.model,
+          v.variant && v.variant !== "Base" ? v.variant : "",
+          v.engine,
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        return (
+          <>
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            {partCount == null ? (
+              <>Checking live catalog for {label}…</>
+            ) : (
+              <>
+                {partCount} parts verified for {label}
+                {partCount > 0 ? (
+                  <Link
+                    href={buildFitsHref(v)}
+                    className="ml-auto shrink-0 font-bold text-emerald-300 underline underline-offset-2 hover:text-emerald-200"
+                  >
+                    See all →
+                  </Link>
+                ) : null}
+              </>
+            )}
+          </>
+        );
+      },
     }),
     [],
   );
@@ -103,7 +160,7 @@ export function FitmentModuleV2() {
       initialVehicle={vehicle ?? null}
       classNames={SELECTOR_CLASSES}
       labels={labels}
-      partCountResolver={syntheticPartCount}
+      partCountResolver={resolvePartCount}
       onConfirm={(confirmed, source) => {
         setVehicle(confirmed);
         track(source === "vin" ? "vin_decoded" : "fitment_confirmed", { ...confirmed });
@@ -112,9 +169,6 @@ export function FitmentModuleV2() {
       renderHeader={() => (
         <div className={SELECTOR_CLASSES.header}>
           <h2 className={SELECTOR_CLASSES.headerTitle}>▶ FITMENT LOOKUP</h2>
-          <span className={SELECTOR_CLASSES.headerSource}>
-            {charmFitmentCatalog.metadata.source ?? "Charm"} Data Loaded
-          </span>
         </div>
       )}
     />
