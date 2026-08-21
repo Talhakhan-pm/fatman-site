@@ -36,15 +36,35 @@ export async function generateMetadata({
 
 export default async function CategoryPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { slug } = await params;
   const category = await getCategory(slug);
 
   if (!category) notFound();
 
-  const categoryProducts = await getProductsByCategory(slug);
+  const sp = await searchParams;
+  const pageParam = Number(Array.isArray(sp?.page) ? sp.page[0] : sp?.page);
+  const sortParam = (Array.isArray(sp?.sort) ? sp.sort[0] : sp?.sort) as
+    | "relevance"
+    | "price-asc"
+    | "price-desc"
+    | undefined;
+  // Set by links that arrive with fit context (e.g. the homepage "categories
+  // that fit your vehicle" tiles). The vehicle itself lives in localStorage,
+  // so the grid applies the filter client-side after hydration.
+  const fitsOnlyParam = Array.isArray(sp?.fitsOnly) ? sp.fitsOnly[0] : sp?.fitsOnly;
+  const initialFitsOnly = fitsOnlyParam === "1" || fitsOnlyParam === "true";
+
+  // First paint is the unfiltered page: fast, cacheable and crawlable. The grid
+  // re-queries client-side once a vehicle-dependent filter is applied.
+  const initialPage = await getProductsByCategory(slug, {
+    page: Number.isFinite(pageParam) && pageParam > 0 ? pageParam : 1,
+    sort: sortParam ?? "name",
+  });
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -71,7 +91,11 @@ export default async function CategoryPage({
         )}
       </section>
 
-      <CategoryProductGrid products={categoryProducts} />
+      <CategoryProductGrid
+        categorySlug={slug}
+        initialPage={initialPage}
+        initialFitsOnly={initialFitsOnly}
+      />
 
       <div className="mt-12">
         <TrustStrip />

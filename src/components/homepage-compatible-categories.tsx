@@ -115,7 +115,7 @@ export function HomepageCompatibleCategories() {
                 return (
                   <Link
                     key={category.slug}
-                    href={`/category/${category.slug}`}
+                    href={`/category/${category.slug}?fitsOnly=1`}
                     className="group relative flex items-start gap-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#1a1d24] p-5 transition hover:-translate-y-[2px] hover:border-[#ff6a00]/40 hover:shadow-[0_12px_40px_rgba(255,106,0,0.12)]"
                   >
                     <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.04] text-white/40 transition group-hover:border-[#ff6a00]/30 group-hover:bg-[#ff6a00]/15 group-hover:text-[#ff6a00]">

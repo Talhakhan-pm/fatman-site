@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getCategories, getProducts } from "@/lib/catalog-db";
+import { getCategories, getProductSlugs } from "@/lib/catalog-db";
 import { getPublishedBlogPosts } from "@/lib/blog-db";
 
 const SITE_URL = "https://fatmanparts.com";
@@ -7,7 +7,7 @@ const SITE_URL = "https://fatmanparts.com";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [categories, products, blogPosts] = await Promise.all([
     getCategories(),
-    getProducts(),
+    getProductSlugs(),
     getPublishedBlogPosts(500),
   ]);
 

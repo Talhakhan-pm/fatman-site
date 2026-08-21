@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getProducts, searchProducts } from "@/lib/catalog-db";
+import { getProductSample, searchProducts } from "@/lib/catalog-db";
 
 export async function GET(req: NextRequest) {
   const url = new URL(req.url);
@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ products, count });
   }
 
-  const products = await getProducts();
-  return NextResponse.json({ products: products.slice(0, limit), count: products.length });
+  // No query: return a small sample rather than the whole catalog.
+  const products = await getProductSample(limit);
+  return NextResponse.json({ products, count: products.length });
 }

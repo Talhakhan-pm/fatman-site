@@ -2,17 +2,24 @@ import "server-only";
 
 import { cache } from "react";
 import { createSupabaseServerClient } from "@/lib/supabase";
-import { isCategoryOrDescendant } from "@/lib/category-taxonomy";
-import {
-  categories as fallbackCategories,
-  getCategory as getFallbackCategory,
-  getProduct as getFallbackProduct,
-  getProductsByCategory as getFallbackProductsByCategory,
-  products as fallbackProducts,
-  type Category,
-  type Product,
-} from "@/lib/catalog";
+import { type Category, type Product } from "@/lib/catalog";
 import { getProductBadgeMetadata } from "@/lib/product-badges";
+import { catalogRegistry } from "@/lib/catalog-registry";
+
+/**
+ * Catalog access.
+ *
+ * Every function here issues a targeted query. This file previously loaded the
+ * entire published catalog into memory (paging Supabase 1,000 rows at a time)
+ * and filtered in JavaScript, which cost ~19 sequential round-trips per render
+ * at 18k products — and would have been ~300 at the 300k the pipeline is
+ * heading for.
+ *
+ * Category filtering relies on `products.top_level_category_slug`, a generated
+ * column that mirrors resolveTopLevelCategorySlug() from category-taxonomy.ts.
+ * Backed by idx_products_toplevel_name, a category page is an index scan
+ * (26 buffers / ~27 ms) instead of a sequential scan (4,884 buffers / 3,355 ms).
+ */
 
 type SupabaseCategoryRow = {
   slug: string;
@@ -40,14 +47,33 @@ type SupabaseProductRow = {
   published: boolean;
 };
 
-type CatalogData = {
-  products: Product[];
-  categories: Category[];
+const PRODUCT_COLUMNS =
+  "sku, slug, category_slug, brand, name, short_description, price, compare_at, " +
+  "stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata, published";
+
+export const DEFAULT_PER_PAGE = 60;
+const MAX_PER_PAGE = 120;
+
+export type ProductSort = "relevance" | "price-asc" | "price-desc" | "name";
+
+export type ProductQueryOptions = {
+  page?: number;
+  perPage?: number;
+  sort?: ProductSort;
+  inStockOnly?: boolean;
+  /** Restrict to these product slugs (used by the fits-my-vehicle filter). */
+  slugs?: string[];
 };
 
-const ALLOW_SOURCE_FALLBACK = process.env.NODE_ENV !== "production";
+export type ProductPage = {
+  products: Product[];
+  total: number;
+  page: number;
+  perPage: number;
+  totalPages: number;
+};
 
-const toProduct = (row: SupabaseProductRow): Product => {
+export const toProduct = (row: SupabaseProductRow): Product => {
   const metadata = row.metadata ?? {};
   const badges = getProductBadgeMetadata({ metadata });
 
@@ -70,139 +96,290 @@ const toProduct = (row: SupabaseProductRow): Product => {
   };
 };
 
-const productsForCategoryTree = (products: Product[], slug: string) =>
-  products.filter((product) => isCategoryOrDescendant(product.category, slug));
+const emptyPage = (page: number, perPage: number): ProductPage => ({
+  products: [],
+  total: 0,
+  page,
+  perPage,
+  totalPages: 0,
+});
 
-const toCategories = (
-  rows: SupabaseCategoryRow[],
-  products: Product[],
-): Category[] =>
-  rows.map((row) => {
-    const categoryProducts = productsForCategoryTree(products, row.slug);
-    const realImageCount = categoryProducts.filter((product) => Boolean(product.imageUrl)).length;
+/** Categories with their product counts. 17 rows; one query plus one grouped count. */
+export const getCategories = cache(async (): Promise<Category[]> => {
+  try {
+    const supabase = createSupabaseServerClient();
+    const [{ data: rows, error }, { data: counts, error: countError }] = await Promise.all([
+      supabase
+        .from("categories")
+        .select("slug, title, description, short_description, published")
+        .eq("published", true)
+        .order("sort_order", { ascending: true }),
+      supabase.rpc("category_product_counts"),
+    ]);
+
+    if (error) throw error;
+    if (countError) throw countError;
+
+    const byslug = new Map<string, { product_count: number; real_image_count: number }>(
+      ((counts ?? []) as Array<{
+        category_slug: string;
+        product_count: number;
+        real_image_count: number;
+      }>).map((row) => [
+        row.category_slug,
+        { product_count: Number(row.product_count), real_image_count: Number(row.real_image_count) },
+      ]),
+    );
+
+    // Only the approved storefront categories are surfaced; the catalog also
+    // holds ~1,700 granular source categories that products roll up from.
+    const registrySlugs = new Set<string>(catalogRegistry.map((entry) => entry.slug));
+
+    return ((rows ?? []) as unknown as SupabaseCategoryRow[])
+      .filter((row) => registrySlugs.has(row.slug))
+      .map((row) => {
+        const tally = byslug.get(row.slug);
+        return {
+          slug: row.slug as Category["slug"],
+          title: row.title,
+          description: row.description ?? row.short_description ?? "",
+          productCount: tally?.product_count ?? 0,
+          realImageCount: tally?.real_image_count ?? 0,
+        };
+      });
+  } catch (error) {
+    console.error("Supabase categories unavailable.", error);
+    return [];
+  }
+});
+
+export const getCategory = cache(async (slug: string): Promise<Category | undefined> => {
+  try {
+    const supabase = createSupabaseServerClient();
+    const { data, error } = await supabase
+      .from("categories")
+      .select("slug, title, description, short_description, published")
+      .eq("slug", slug)
+      .eq("published", true)
+      .maybeSingle();
+
+    if (error) throw error;
+    if (!data) return undefined;
+
+    const row = data as unknown as SupabaseCategoryRow;
+    const { count } = await supabase
+      .from("products")
+      .select("sku", { count: "exact", head: true })
+      .eq("published", true)
+      .eq("top_level_category_slug", slug);
+
     return {
       slug: row.slug as Category["slug"],
       title: row.title,
       description: row.description ?? row.short_description ?? "",
-      productCount: categoryProducts.length,
-      realImageCount,
+      productCount: count ?? 0,
+      realImageCount: 0,
     };
-  });
-
-const getFallbackCatalogData = (): CatalogData => ({
-  products: fallbackProducts,
-  categories: fallbackCategories,
+  } catch (error) {
+    console.error(`Supabase category lookup failed for "${slug}".`, error);
+    return undefined;
+  }
 });
 
-async function fetchAllSupabaseRows<T>(
-  queryFn: (from: number, to: number) => PromiseLike<{ data: T[] | null; error: any }>
-): Promise<T[]> {
-  let allRows: T[] = [];
-  let from = 0;
-  const batchSize = 1000;
+/**
+ * One page of products in a storefront category.
+ *
+ * `slugs` narrows to a specific set (the fits-your-vehicle filter resolves
+ * matching product slugs from fitment_rules first, then passes them here).
+ */
+export async function getProductsByCategory(
+  slug: string,
+  options: ProductQueryOptions = {},
+): Promise<ProductPage> {
+  const page = Math.max(1, options.page ?? 1);
+  const perPage = Math.min(MAX_PER_PAGE, Math.max(1, options.perPage ?? DEFAULT_PER_PAGE));
+  const from = (page - 1) * perPage;
 
-  while (true) {
-    const to = from + batchSize - 1;
-    const { data, error } = await queryFn(from, to);
-    if (error) {
-      throw error;
-    }
-    if (!data || data.length === 0) {
-      break;
-    }
-    allRows.push(...data);
-    if (data.length < batchSize) {
-      break;
-    }
-    from += batchSize;
-  }
-  return allRows;
-}
+  if (options.slugs && options.slugs.length === 0) return emptyPage(page, perPage);
 
-const readPublishedCatalogFromSupabase = cache(async (): Promise<CatalogData | null> => {
   try {
     const supabase = createSupabaseServerClient();
-    const [products, categories] = await Promise.all([
-      fetchAllSupabaseRows<SupabaseProductRow>((from, to) =>
-        supabase
-          .from("products")
-          .select(
-            "sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata, published",
-          )
-          .eq("published", true)
-          .order("name", { ascending: true })
-          .range(from, to)
-      ).then(rows => rows.map(toProduct)),
-      fetchAllSupabaseRows<SupabaseCategoryRow>((from, to) =>
-        supabase
-          .from("categories")
-          .select("slug, title, description, short_description, published")
-          .eq("published", true)
-          .order("sort_order", { ascending: true })
-          .range(from, to)
-      ),
-    ]);
+    let builder = supabase
+      .from("products")
+      .select(PRODUCT_COLUMNS, { count: "exact" })
+      .eq("published", true)
+      .eq("top_level_category_slug", slug);
 
-    const mappedCategories = toCategories(categories, products);
+    if (options.inStockOnly) builder = builder.eq("stock_status", "in-stock");
+    if (options.slugs) builder = builder.in("slug", options.slugs);
 
-    return { products, categories: mappedCategories };
+    switch (options.sort) {
+      case "price-asc":
+        builder = builder.order("price", { ascending: true });
+        break;
+      case "price-desc":
+        builder = builder.order("price", { ascending: false });
+        break;
+      default:
+        // Matches idx_products_toplevel_name, so no sort step is needed.
+        builder = builder.order("name", { ascending: true });
+    }
+
+    const { data, error, count } = await builder.range(from, from + perPage - 1);
+    if (error) throw error;
+
+    const total = count ?? 0;
+    return {
+      products: ((data ?? []) as unknown as SupabaseProductRow[]).map(toProduct),
+      total,
+      page,
+      perPage,
+      totalPages: Math.max(1, Math.ceil(total / perPage)),
+    };
   } catch (error) {
-    console.warn("Supabase catalog unavailable.", error);
-    return null;
+    console.error(`Supabase product page failed for category "${slug}".`, error);
+    return emptyPage(page, perPage);
+  }
+}
+
+export type VehicleFilter = {
+  year: string;
+  make: string;
+  /**
+   * Model candidates, not one model: CHARM splits "F 150 2WD Pickup" into
+   * model "F 150 2WD" + variant "Pickup", while fitment_rules stores the full
+   * string. Callers build this with getLiveFitmentModelCandidates() so the
+   * SQL matches the same rows the fit badges do.
+   */
+  models: string[];
+  engine: string;
+  variant?: string | null;
+};
+
+/**
+ * One page of products that fit a specific vehicle, optionally narrowed to a
+ * storefront category (slug null = across the whole catalog).
+ *
+ * The join runs in Postgres (category_products_for_vehicle) rather than the
+ * browser, so "Fits Only" stays correct across every page instead of only
+ * filtering what happened to be loaded.
+ */
+export async function getCategoryProductsForVehicle(
+  slug: string | null,
+  vehicle: VehicleFilter,
+  options: ProductQueryOptions = {},
+): Promise<ProductPage & { fitsTotal: number; fitments: Record<string, "fits" | "verify"> }> {
+  const page = Math.max(1, options.page ?? 1);
+  const perPage = Math.min(MAX_PER_PAGE, Math.max(1, options.perPage ?? DEFAULT_PER_PAGE));
+
+  try {
+    const supabase = createSupabaseServerClient();
+    const { data, error } = await supabase.rpc("category_products_for_vehicle", {
+      p_category: slug,
+      p_year: vehicle.year,
+      p_make: vehicle.make,
+      p_models: vehicle.models,
+      p_engine: vehicle.engine,
+      p_variant: vehicle.variant ?? null,
+      p_in_stock: Boolean(options.inStockOnly),
+      p_sort: options.sort ?? "relevance",
+      p_limit: perPage,
+      p_offset: (page - 1) * perPage,
+    });
+
+    if (error) throw error;
+
+    const rows = (data ?? []) as unknown as Array<SupabaseProductRow & {
+      match_type: "fits" | "verify";
+      total_count: number;
+      fits_count: number;
+    }>;
+    const total = rows.length ? Number(rows[0].total_count) : 0;
+    const fitsTotal = rows.length ? Number(rows[0].fits_count) : 0;
+    const fitments: Record<string, "fits" | "verify"> = {};
+    for (const row of rows) fitments[row.slug] = row.match_type;
+
+    return {
+      products: rows.map(toProduct),
+      total,
+      page,
+      perPage,
+      totalPages: Math.max(1, Math.ceil(total / perPage)),
+      fitsTotal,
+      fitments,
+    };
+  } catch (error) {
+    console.error(`Vehicle-filtered category query failed for "${slug}".`, error);
+    return { ...emptyPage(page, perPage), fitsTotal: 0, fitments: {} };
+  }
+}
+
+export const getProduct = cache(async (slug: string): Promise<Product | undefined> => {
+  try {
+    const supabase = createSupabaseServerClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select(PRODUCT_COLUMNS)
+      .eq("slug", slug)
+      .eq("published", true)
+      .maybeSingle();
+
+    if (error) throw error;
+    return data ? toProduct(data as unknown as SupabaseProductRow) : undefined;
+  } catch (error) {
+    console.error(`Supabase product lookup failed for "${slug}".`, error);
+    return undefined;
   }
 });
 
-export const getCatalogData = cache(async (): Promise<CatalogData> => {
-  const liveCatalog = await readPublishedCatalogFromSupabase();
-  if (liveCatalog) return liveCatalog;
+/**
+ * Every published product slug, for the sitemap. Paged deliberately: this is
+ * the one place that legitimately needs the whole catalog, and it needs only
+ * one column.
+ */
+export async function getProductSlugs(): Promise<Array<{ slug: string; updatedAt?: string }>> {
+  const pageSize = 1000;
+  const slugs: Array<{ slug: string; updatedAt?: string }> = [];
 
-  if (ALLOW_SOURCE_FALLBACK) {
-    console.warn("Using source-file catalog fallback because Supabase live catalog was unavailable.");
-    return getFallbackCatalogData();
+  try {
+    const supabase = createSupabaseServerClient();
+    for (let from = 0; ; from += pageSize) {
+      const { data, error } = await supabase
+        .from("products")
+        .select("slug, updated_at")
+        .eq("published", true)
+        .order("slug", { ascending: true })
+        .range(from, from + pageSize - 1);
+
+      if (error) throw error;
+      const rows = (data ?? []) as Array<{ slug: string; updated_at: string | null }>;
+      slugs.push(...rows.map((row) => ({ slug: row.slug, updatedAt: row.updated_at ?? undefined })));
+      if (rows.length < pageSize) break;
+    }
+  } catch (error) {
+    console.error("Supabase product slug listing failed.", error);
   }
 
-  console.error(
-    "Supabase live catalog was unavailable in production. Returning empty live catalog instead of source-file fallback.",
-  );
-  return { products: [], categories: [] };
-});
-
-export async function getCategories() {
-  return (await getCatalogData()).categories;
+  return slugs;
 }
 
-export async function getProducts() {
-  return (await getCatalogData()).products;
-}
+/** A small sample of products, for surfaces that just need "some products". */
+export async function getProductSample(limit = 12): Promise<Product[]> {
+  try {
+    const supabase = createSupabaseServerClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select(PRODUCT_COLUMNS)
+      .eq("published", true)
+      .order("name", { ascending: true })
+      .limit(limit);
 
-export async function getCategory(slug: string) {
-  const catalog = await getCatalogData();
-  const liveCategory = catalog.categories.find((item) => item.slug === slug);
-
-  if (liveCategory) return liveCategory;
-  if (ALLOW_SOURCE_FALLBACK) return getFallbackCategory(slug);
-  return undefined;
-}
-
-export async function getProductsByCategory(slug: string) {
-  const catalog = await getCatalogData();
-  const liveProducts = productsForCategoryTree(catalog.products, slug);
-
-  if (liveProducts.length || catalog.categories.some((item) => item.slug === slug)) {
-    return liveProducts;
+    if (error) throw error;
+    return ((data ?? []) as unknown as SupabaseProductRow[]).map(toProduct);
+  } catch (error) {
+    console.error("Supabase product sample failed.", error);
+    return [];
   }
-
-  if (ALLOW_SOURCE_FALLBACK) return getFallbackProductsByCategory(slug);
-  return [];
-}
-
-export async function getProduct(slug: string) {
-  const catalog = await getCatalogData();
-  const liveProduct = catalog.products.find((item) => item.slug === slug);
-
-  if (liveProduct) return liveProduct;
-  if (ALLOW_SOURCE_FALLBACK) return getFallbackProduct(slug);
-  return undefined;
 }
 
 const SEARCHABLE_PRODUCT_COLUMNS = [
@@ -235,12 +412,11 @@ export async function searchProducts(
 
   try {
     const supabase = createSupabaseServerClient();
+    // "planned" uses the planner's estimate: an exact count would evaluate every
+    // ILIKE match across the table just to render a number nobody displays.
     let builder = supabase
       .from("products")
-      .select(
-        "sku, slug, category_slug, brand, name, short_description, price, compare_at, stock_status, image_url, shipping_class, warranty_days, oem_part_number, metadata, published",
-        { count: "exact" },
-      )
+      .select(PRODUCT_COLUMNS, { count: "planned" })
       .eq("published", true);
 
     // Each or() group is ANDed with the previous ones: every token must match
@@ -257,29 +433,11 @@ export async function searchProducts(
     if (error) throw error;
 
     return {
-      products: (data as SupabaseProductRow[]).map(toProduct),
-      count: count ?? data.length,
+      products: ((data ?? []) as unknown as SupabaseProductRow[]).map(toProduct),
+      count: count ?? (data?.length ?? 0),
     };
   } catch (error) {
-    console.warn("Supabase product search unavailable.", error);
-    if (!ALLOW_SOURCE_FALLBACK) return { products: [], count: 0 };
-
-    const haystacks = (product: Product) =>
-      [
-        product.name,
-        product.brand,
-        product.sku,
-        product.slug,
-        product.shortDescription,
-        product.oemPartNumber ?? "",
-        product.category,
-      ]
-        .join(" ")
-        .toLowerCase();
-    const matches = fallbackProducts.filter((product) => {
-      const haystack = haystacks(product);
-      return tokens.every((token) => haystack.includes(token.toLowerCase()));
-    });
-    return { products: matches.slice(0, limit), count: matches.length };
+    console.error("Supabase product search unavailable.", error);
+    return { products: [], count: 0 };
   }
 }
