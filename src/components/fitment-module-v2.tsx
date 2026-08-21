@@ -11,6 +11,7 @@ import { useGarage } from "@/components/garage-provider";
 import { track } from "@/lib/analytics";
 import { charmFitmentCatalog } from "@/lib/fitment-catalog";
 import { buildFitsHref } from "@/lib/fits-link";
+import { matchVinToCatalog, type DecodedVin } from "@/lib/vin-catalog-match";
 
 const SELECTOR_CLASSES: FitmentSelectorClassNames = {
   root: "p-6 sm:p-8 space-y-5",
@@ -100,13 +101,21 @@ function useLivePartCounts() {
   );
 }
 
-const VIN_DECODE_PLACEHOLDER: Vehicle = {
-  year: "2012",
-  make: "Ford",
-  model: "F 150",
-  variant: "4WD",
-  engine: "V8-6.2L",
-};
+async function decodeVinToVehicle(vin: string): Promise<Vehicle | null> {
+  try {
+    const res = await fetch("/api/fitment/vin/decode", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ vin }),
+    });
+    if (!res.ok) return null;
+    const decoded = (await res.json()) as DecodedVin & { valid?: boolean };
+    if (!decoded.valid) return null;
+    return matchVinToCatalog(decoded, charmFitmentCatalog);
+  } catch {
+    return null;
+  }
+}
 
 export function FitmentModuleV2() {
   const { vehicle, setVehicle } = useGarage();
@@ -115,6 +124,8 @@ export function FitmentModuleV2() {
   const labels = useMemo(
     () => ({
       source: "",
+      vinDecodeError:
+        "Couldn't match this VIN to our catalog — pick your vehicle manually below.",
       searchReady: (_v: Vehicle, partCount: number | null) =>
         `🔍 SEARCH ${partCount ?? "VERIFIED"} VERIFIED PARTS`,
       searchIdle: "🔍 SELECT VEHICLE TO SEARCH",
@@ -165,7 +176,7 @@ export function FitmentModuleV2() {
         setVehicle(confirmed);
         track(source === "vin" ? "vin_decoded" : "fitment_confirmed", { ...confirmed });
       }}
-      onVinSubmit={() => VIN_DECODE_PLACEHOLDER}
+      onVinSubmit={decodeVinToVehicle}
       renderHeader={() => (
         <div className={SELECTOR_CLASSES.header}>
           <h2 className={SELECTOR_CLASSES.headerTitle}>▶ FITMENT LOOKUP</h2>
