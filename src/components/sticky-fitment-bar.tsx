@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { formatCompactVehicleLabel, formatVehicleLabel } from "@/lib/fitment";
+import { formatCompactVehicleLabel, formatVehicleLabel } from "@/lib/fitment-lite";
 import { useGarage } from "./garage-provider";
 
 export function StickyFitmentBar() {

@@ -1,33 +1,10 @@
 import { generatedCategories, generatedProducts } from "@/lib/generated-data";
-import type { CategorySlug } from "@/lib/catalog-registry";
-import type { ProductCondition, ProductPartSource } from "@/lib/product-badges";
 
-export type Product = {
-  sku: string;
-  slug: string;
-  category: CategorySlug;
-  brand: string;
-  name: string;
-  shortDescription: string;
-  price: number;
-  compareAt?: number;
-  stock: "in-stock" | "low-stock" | "preorder";
-  imageUrl?: string;
-  shippingClass?: string;
-  warrantyDays?: number;
-  oemPartNumber?: string;
-  metadata?: Record<string, unknown>;
-  condition?: ProductCondition;
-  partSource?: ProductPartSource;
-};
-
-export type Category = {
-  slug: CategorySlug;
-  title: string;
-  description: string;
-  productCount: number;
-  realImageCount: number;
-};
+// Types and formatPrice moved to catalog-types.ts (safe for client bundles);
+// re-exported here so server code keeps its import path. Everything below
+// pulls generated-data at module scope — server-side use only.
+export { formatPrice, type Category, type Product } from "@/lib/catalog-types";
+import type { Category, Product } from "@/lib/catalog-types";
 
 const curatedCoolingProducts: Product[] = [
   {
@@ -167,10 +144,6 @@ export const categories: Category[] = (generatedCategories as unknown as Categor
       }
     : category,
 );
-
-export function formatPrice(value: number) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
-}
 
 export function getCategory(slug: string) {
   return categories.find((item) => item.slug === slug);

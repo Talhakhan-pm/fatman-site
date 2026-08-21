@@ -10,7 +10,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { formatPrice, type Product } from "@/lib/catalog";
+import { formatPrice, type Product } from "@/lib/catalog-types";
 import { canAddProductToCart } from "@/lib/product-pricing";
 
 const CART_STORAGE_KEY = "fatman-cart-v1";

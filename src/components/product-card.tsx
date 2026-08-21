@@ -6,7 +6,7 @@ import { FitmentBadge } from "./fitment-badge";
 import { useFitment } from "./use-fitment";
 import { useGarage } from "./garage-provider";
 import type { FitmentState } from "@/lib/fitment";
-import { formatPrice, type Product } from "@/lib/catalog";
+import { formatPrice, type Product } from "@/lib/catalog-types";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
 import { useCart } from "@/components/cart-provider";

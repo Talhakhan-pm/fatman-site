@@ -1,8 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { getFitmentState, type FitmentState, type Vehicle } from "@/lib/fitment";
+import type { FitmentState, Vehicle } from "@/lib/fitment-lite";
 
+/**
+ * Fit verdicts come from the server (/api/fitment/check*), which resolves
+ * against the live fitment_rules table. Until the response lands the verdict
+ * is "verify" — the safe default. The in-browser fallback that scanned the
+ * bundled generated rules is gone; it forced ~1.2 MB of data into every page
+ * and disagreed with the database anyway.
+ */
 function vehicleKey(vehicle?: Vehicle | null): string {
   if (!vehicle) return "";
   return [vehicle.year, vehicle.make, vehicle.model, vehicle.variant ?? "", vehicle.engine].join("|");
@@ -13,12 +20,16 @@ export function useFitment(
   vehicle?: Vehicle | null,
   resolvedVerdict?: FitmentState,
 ): FitmentState {
-  const legacy = useMemo(() => getFitmentState(productSlug, vehicle), [productSlug, vehicle]);
-  const initialVerdict = resolvedVerdict ?? legacy;
-  const [verdict, setVerdict] = useState<FitmentState>(initialVerdict);
+  const initialVerdict = resolvedVerdict ?? "verify";
+  const key = `${productSlug}|${vehicleKey(vehicle)}|${resolvedVerdict ?? ""}`;
+
+  // Keyed state: when the inputs change, the stored verdict belongs to the
+  // previous product/vehicle and is discarded during render instead of in an
+  // effect (the React "adjust state when props change" pattern).
+  const [entry, setEntry] = useState({ key, verdict: initialVerdict });
+  if (entry.key !== key) setEntry({ key, verdict: initialVerdict });
 
   useEffect(() => {
-    setVerdict(initialVerdict);
     if (resolvedVerdict || !vehicle) return;
 
     let ignore = false;
@@ -30,38 +41,34 @@ export function useFitment(
       .then((res) => (res.ok ? res.json() : null))
       .then((payload: { fitment?: FitmentState } | null) => {
         if (ignore || !payload?.fitment) return;
-        setVerdict(payload.fitment);
+        setEntry({ key, verdict: payload.fitment });
       })
       .catch(() => {
-        // keep legacy verdict on error
+        // keep the pending verdict on error
       });
 
     return () => {
       ignore = true;
     };
-  }, [productSlug, initialVerdict, resolvedVerdict, vehicle]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
-  return verdict;
+  return entry.key === key ? entry.verdict : initialVerdict;
 }
 
 export function useFitmentBatch(
   productSlugs: string[],
   vehicle?: Vehicle | null,
 ): Record<string, FitmentState> {
-  const slugKey = productSlugs.join(",");
-  const vKey = vehicleKey(vehicle);
+  const key = `${productSlugs.join(",")}|${vehicleKey(vehicle)}`;
 
-  const legacyMap = useMemo(() => {
-    const out: Record<string, FitmentState> = {};
-    for (const slug of productSlugs) out[slug] = getFitmentState(slug, vehicle);
-    return out;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slugKey, vKey]);
-
-  const [verdicts, setVerdicts] = useState<Record<string, FitmentState>>(legacyMap);
+  const [entry, setEntry] = useState<{ key: string; verdicts: Record<string, FitmentState> }>({
+    key,
+    verdicts: {},
+  });
+  if (entry.key !== key) setEntry({ key, verdicts: {} });
 
   useEffect(() => {
-    setVerdicts(legacyMap);
     if (!vehicle || !productSlugs.length) return;
 
     let ignore = false;
@@ -73,17 +80,26 @@ export function useFitmentBatch(
       .then((res) => (res.ok ? res.json() : null))
       .then((payload: { fitments?: Record<string, FitmentState> } | null) => {
         if (ignore || !payload?.fitments) return;
-        setVerdicts({ ...legacyMap, ...payload.fitments });
+        setEntry({ key, verdicts: payload.fitments });
       })
       .catch(() => {
-        // keep legacy verdicts on error
+        // keep the pending verdicts on error
       });
 
     return () => {
       ignore = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slugKey, vKey, legacyMap]);
+  }, [key]);
 
-  return verdicts;
+  // Every requested slug gets a verdict ("verify" until the batch lands), so
+  // consumers passing map entries as resolved verdicts never hand ProductCard
+  // an undefined state — which would trigger a per-card fallback fetch.
+  return useMemo(() => {
+    const resolved = entry.key === key ? entry.verdicts : {};
+    const out: Record<string, FitmentState> = {};
+    for (const slug of productSlugs) out[slug] = resolved[slug] ?? "verify";
+    return out;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entry, key]);
 }

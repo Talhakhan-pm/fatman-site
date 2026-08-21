@@ -1,9 +1,13 @@
+// Server-side fitment logic. This module pulls the CHARM vehicle tree
+// (~5.6 MB) and the generated rules at module scope — client components must
+// import from "@/lib/fitment-lite" (helpers/types) instead.
 export type { Vehicle } from "@fatman/fitment-react";
 import { formatVehicleLabel, type Vehicle } from "@fatman/fitment-react";
 import { generatedFitmentRules } from "@/lib/generated-data";
 import { charmFitmentCatalog } from "@/lib/fitment-catalog";
 
-export type FitmentState = "fits" | "verify" | "no-fit";
+export type { FitmentState } from "@/lib/fitment-types";
+import type { FitmentState } from "@/lib/fitment-types";
 
 export type ProductFitmentVehicle = Vehicle & {
   variant?: string;
@@ -19,12 +23,7 @@ export const fitmentRules: ProductFitmentRule[] =
   generatedFitmentRules as unknown as ProductFitmentRule[];
 
 export { formatVehicleLabel };
-
-export function formatCompactVehicleLabel(vehicle?: Vehicle | null) {
-  if (!vehicle) return "";
-
-  return [vehicle.year, vehicle.make, vehicle.model].filter(Boolean).join(" ");
-}
+export { formatCompactVehicleLabel } from "@/lib/fitment-lite";
 
 function isUsableEngine(engine?: string | null) {
   if (!engine) return false;

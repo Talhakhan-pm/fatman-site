@@ -9,7 +9,7 @@ import {
   type RegistryIconKey,
 } from "@/lib/catalog-registry";
 import { getIconForCategorySlug, humanizeCategorySlug } from "@/lib/category-display";
-import { formatCompactVehicleLabel } from "@/lib/fitment";
+import { formatCompactVehicleLabel } from "@/lib/fitment-lite";
 
 type CompatibleCategory = {
   slug: string;

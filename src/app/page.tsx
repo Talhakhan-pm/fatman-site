@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HeroRotatingText } from "@/components/hero-rotating-text";
-import { FitmentModuleV2 } from "@/components/fitment-module-v2";
+import { FitmentModuleLazy } from "@/components/fitment-module-lazy";
 import { HomepageCompatibleProducts } from "@/components/homepage-compatible-products";
 import { HomepageCompatibleCategories } from "@/components/homepage-compatible-categories";
 import { getCategories } from "@/lib/catalog-db";
@@ -236,7 +236,7 @@ export default async function Home() {
               </div>
             </div>
             <div id="fitment-lookup" className="scroll-mt-28 animate-[fadeUp_0.8s_ease-out_0.3s_both] lg:col-span-5">
-              <div className="relative border border-white/[0.08] bg-[#1a1d24] p-1"><CautionStripe /><FitmentModuleV2 /><CornerBrackets color="white/10" /></div>
+              <div className="relative border border-white/[0.08] bg-[#1a1d24] p-1"><CautionStripe /><FitmentModuleLazy /><CornerBrackets color="white/10" /></div>
             </div>
           </div>
         </div>

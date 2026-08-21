@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { track } from "@/lib/analytics";
-import type { Product } from "@/lib/catalog";
-import { formatPrice } from "@/lib/catalog";
+import type { Product } from "@/lib/catalog-types";
+import { formatPrice } from "@/lib/catalog-types";
 import type { VinDecodeResult } from "@/lib/vin";
 
 type SubmitState =

@@ -1,4 +1,4 @@
-import { formatPrice, type Product } from "@/lib/catalog";
+import { formatPrice, type Product } from "@/lib/catalog-types";
 
 function metadataFlag(product: Product, key: string) {
   return product.metadata?.[key] === true || product.metadata?.[key] === "true";

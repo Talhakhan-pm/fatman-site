@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useCart } from "@/components/cart-provider";
 import { FREE_SHIPPING_THRESHOLD_CENTS, getShippingCents, fromCents, toCents } from "@/lib/checkout";
-import { formatPrice } from "@/lib/catalog";
+import { formatPrice } from "@/lib/catalog-types";
 import { track } from "@/lib/analytics";
 
 type CheckoutResponse = {

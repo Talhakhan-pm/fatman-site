@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import { useFitmentBatch } from "@/components/use-fitment";
 import type { Product } from "@/lib/catalog";
-import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment";
+import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment-lite";
 
 /**
  * Category grid.

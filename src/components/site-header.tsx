@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useGarage } from "./garage-provider";
 import { useCart } from "./cart-provider";
-import { formatCompactVehicleLabel, formatVehicleLabel } from "@/lib/fitment";
-import { formatPrice, type Product } from "@/lib/catalog";
+import { formatCompactVehicleLabel, formatVehicleLabel } from "@/lib/fitment-lite";
+import { formatPrice, type Product } from "@/lib/catalog-types";
 
 type SearchState = "idle" | "loading" | "ready" | "error";
 

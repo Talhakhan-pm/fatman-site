@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useMemo } from "react";
 import { useCart } from "@/components/cart-provider";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
-import { formatPrice } from "@/lib/catalog";
+import { formatPrice } from "@/lib/catalog-types";
 import { track } from "@/lib/analytics";
 
 const FREE_SHIPPING_THRESHOLD = 499;

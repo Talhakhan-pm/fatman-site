@@ -7,7 +7,7 @@ import { useGarage } from "@/components/garage-provider";
 import { catalogRegistry } from "@/lib/catalog-registry";
 import { humanizeCategorySlug } from "@/lib/category-display";
 import { resolveTopLevelCategorySlug } from "@/lib/category-taxonomy";
-import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment";
+import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment-lite";
 import { buildFitsHref } from "@/lib/fits-link";
 import type { Product } from "@/lib/catalog";
 
