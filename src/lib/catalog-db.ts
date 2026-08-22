@@ -105,6 +105,18 @@ const emptyPage = (page: number, perPage: number): ProductPage => ({
   totalPages: 0,
 });
 
+/**
+ * Category pages exist at two granularities: the 17 storefront slugs
+ * (matched via the generated top_level_category_slug column) and the granular
+ * source slugs the subcategory chips link to (matched via category_slug).
+ * PostgREST or() filters parse commas/dots specially, so only kebab-case
+ * slugs — the only kind that exists — may be interpolated.
+ */
+const isSafeSlug = (slug: string) => /^[a-z0-9-]+$/.test(slug);
+
+const categoryMatchFilter = (slug: string) =>
+  `top_level_category_slug.eq.${slug},category_slug.eq.${slug}`;
+
 /** Categories with their product counts. 17 rows; one query plus one grouped count. */
 export const getCategories = cache(async (): Promise<Category[]> => {
   try {
@@ -161,6 +173,8 @@ export const getCategories = cache(async (): Promise<Category[]> => {
 });
 
 export const getCategory = cache(async (slug: string): Promise<Category | undefined> => {
+  if (!isSafeSlug(slug)) return undefined;
+
   try {
     const supabase = createSupabaseServerClient();
     const { data, error } = await supabase
@@ -178,7 +192,7 @@ export const getCategory = cache(async (slug: string): Promise<Category | undefi
       .from("products")
       .select("sku", { count: "exact", head: true })
       .eq("published", true)
-      .eq("top_level_category_slug", slug);
+      .or(categoryMatchFilter(slug));
 
     return {
       slug: row.slug as Category["slug"],
@@ -208,6 +222,7 @@ export async function getProductsByCategory(
   const from = (page - 1) * perPage;
 
   if (options.slugs && options.slugs.length === 0) return emptyPage(page, perPage);
+  if (!isSafeSlug(slug)) return emptyPage(page, perPage);
 
   try {
     const supabase = createSupabaseServerClient();
@@ -215,7 +230,7 @@ export async function getProductsByCategory(
       .from("products")
       .select(PRODUCT_COLUMNS, { count: "exact" })
       .eq("published", true)
-      .eq("top_level_category_slug", slug);
+      .or(categoryMatchFilter(slug));
 
     if (options.inStockOnly) builder = builder.eq("stock_status", "in-stock");
     if (options.slugs) builder = builder.in("slug", options.slugs);
@@ -458,37 +473,29 @@ export type CategoryFacet = {
 /**
  * Top granular subcategories inside a storefront category, for the hero chips.
  *
- * One narrow-column query (category_slug only) over the category's products;
- * counting happens in JS. Deduped per request via cache(). Labels come from
- * humanizeCategorySlug so CHARM slugs read like people talk.
+ * Counted in SQL (category_subcategory_counts RPC, index-only scan, ~9 ms).
+ * The previous JS count fetched rows and was silently capped at 1,000 by
+ * PostgREST, so big categories showed sampled — wrong — numbers. Labels come
+ * from humanizeCategorySlug so source slugs read like people talk.
  */
 export const getTopSubcategories = cache(
   async (slug: string, limit = 8): Promise<CategoryFacet[]> => {
     try {
       const supabase = createSupabaseServerClient();
-      const { data, error } = await supabase
-        .from("products")
-        .select("category_slug")
-        .eq("published", true)
-        .eq("top_level_category_slug", slug)
-        .limit(4000);
+      const { data, error } = await supabase.rpc("category_subcategory_counts", {
+        p_category: slug,
+        p_limit: limit,
+      });
 
       if (error) throw error;
 
-      const counts = new Map<string, number>();
-      for (const row of (data ?? []) as Array<{ category_slug: string }>) {
-        counts.set(row.category_slug, (counts.get(row.category_slug) ?? 0) + 1);
-      }
-
-      return [...counts.entries()]
-        .filter(([facetSlug]) => facetSlug !== slug)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, limit)
-        .map(([facetSlug, count]) => ({
-          slug: facetSlug,
-          label: humanizeCategorySlug(facetSlug),
-          count,
-        }));
+      return ((data ?? []) as Array<{ category_slug: string; product_count: number }>).map(
+        (row) => ({
+          slug: row.category_slug,
+          label: humanizeCategorySlug(row.category_slug),
+          count: Number(row.product_count),
+        }),
+      );
     } catch (error) {
       console.error(`Subcategory facets unavailable for "${slug}".`, error);
       return [];
