@@ -13,7 +13,6 @@ type Tree = {
   modelsByYearMake: Record<string, Record<string, string[]>>;
   variantsByYearMakeModel: Record<string, Record<string, string[]>>;
   enginesByYearMakeModelVariant: Record<string, Record<string, string[]>>;
-  metadata?: { generatedAt?: string; source?: string };
 };
 
 const tree = charmFitmentTree as unknown as Tree;
@@ -28,11 +27,11 @@ export function GET(req: Request) {
   const year = new URL(req.url).searchParams.get("year");
 
   if (!year) {
+    // Deliberately no data-source metadata: vendor details stay server-side.
     return NextResponse.json(
       {
         years: tree.years,
         defaultVariant: "Base",
-        source: tree.metadata?.source ?? "Charm",
       },
       { headers: CACHE_HEADERS },
     );

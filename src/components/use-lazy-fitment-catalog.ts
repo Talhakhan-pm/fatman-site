@@ -37,7 +37,7 @@ function buildCatalog(years: string[], slices: Record<string, YearSlice>): Fitme
   const catalog = {
     years,
     defaultVariant: DEFAULT_VARIANT,
-    metadata: { source: "Charm" },
+    metadata: {},
     requestYear: undefined as ((year: string) => void) | undefined,
 
     getMakes(year: string): string[] {
