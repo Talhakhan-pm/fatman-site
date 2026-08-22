@@ -5,6 +5,7 @@ import { createSupabaseServerClient } from "@/lib/supabase";
 import { type Category, type Product } from "@/lib/catalog";
 import { getProductBadgeMetadata } from "@/lib/product-badges";
 import { catalogRegistry } from "@/lib/catalog-registry";
+import { humanizeCategorySlug } from "@/lib/category-display";
 
 /**
  * Catalog access.
@@ -447,3 +448,50 @@ export async function searchProducts(
     return { products: [], count: 0 };
   }
 }
+
+export type CategoryFacet = {
+  slug: string;
+  label: string;
+  count: number;
+};
+
+/**
+ * Top granular subcategories inside a storefront category, for the hero chips.
+ *
+ * One narrow-column query (category_slug only) over the category's products;
+ * counting happens in JS. Deduped per request via cache(). Labels come from
+ * humanizeCategorySlug so CHARM slugs read like people talk.
+ */
+export const getTopSubcategories = cache(
+  async (slug: string, limit = 8): Promise<CategoryFacet[]> => {
+    try {
+      const supabase = createSupabaseServerClient();
+      const { data, error } = await supabase
+        .from("products")
+        .select("category_slug")
+        .eq("published", true)
+        .eq("top_level_category_slug", slug)
+        .limit(4000);
+
+      if (error) throw error;
+
+      const counts = new Map<string, number>();
+      for (const row of (data ?? []) as Array<{ category_slug: string }>) {
+        counts.set(row.category_slug, (counts.get(row.category_slug) ?? 0) + 1);
+      }
+
+      return [...counts.entries()]
+        .filter(([facetSlug]) => facetSlug !== slug)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, limit)
+        .map(([facetSlug, count]) => ({
+          slug: facetSlug,
+          label: humanizeCategorySlug(facetSlug),
+          count,
+        }));
+    } catch (error) {
+      console.error(`Subcategory facets unavailable for "${slug}".`, error);
+      return [];
+    }
+  },
+);

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo, Geist, Geist_Mono, IBM_Plex_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { GarageProvider } from "@/components/garage-provider";
 import { SiteHeader } from "@/components/site-header";
@@ -21,6 +21,24 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Category v2 display stack — Archivo for display, Manrope for body, Plex Mono
+// for spec-sheet labels. Declared here so every route can opt in via CSS vars.
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800", "900"],
+});
+const manrope = Manrope({
+  variable: "--font-manrope",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+});
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://fatmanparts.com"),
   title: {
@@ -30,6 +48,9 @@ export const metadata: Metadata = {
   description: "OEM parts with verified fitment, clear pricing, and fast U.S. shipping.",
   alternates: {
     canonical: "/",
+  },
+  verification: {
+    google: "Ip7j7Iu1pnDoL_-il68ROJrjBaYUUmKBr9Q-g7J929I",
   },
   openGraph: {
     title: "Fatman Parts",
@@ -73,7 +94,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body data-theme="dark" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body data-theme="dark" className={`${geistSans.variable} ${geistMono.variable} ${archivo.variable} ${manrope.variable} ${plexMono.variable} antialiased`}>
         {gtmId && (
           <Script id="google-tag-manager" strategy="afterInteractive">
             {`

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
@@ -41,7 +42,7 @@ export function CategoryProductGrid({
   initialPage: CategoryPage;
   initialFitsOnly?: boolean;
 }) {
-  const { vehicle } = useGarage();
+  const { vehicle, setVehicle } = useGarage();
   const [inStockOnly, setInStockOnly] = useState(false);
   const [verifiedFitOnly, setVerifiedFitOnly] = useState(initialFitsOnly);
   const [sort, setSort] = useState<Sort>("relevance");
@@ -138,104 +139,133 @@ export function CategoryProductGrid({
 
   return (
     <>
-      <section className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
-        <div className="flex flex-wrap items-center gap-2 text-xs">
-          <button onClick={() => setInStockOnly((v) => !v)} className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px ${inStockOnly ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}>
+      <section className="fm-toolbar">
+        <div className="mx-auto max-w-6xl px-4 fm-toolbar-in sm:px-6">
+          {vehicle && (
+            <span className="fm-vehicle">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 13l1.7-4.6A2 2 0 0 1 6.6 7h10.8a2 2 0 0 1 1.9 1.4L21 13" />
+                <path d="M3 13h18v5a1 1 0 0 1-1 1h-1.5a1 1 0 0 1-1-1v-1H6.5v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
+              </svg>
+              {formatCompactVehicleLabel(vehicle)}
+              <Link href="/fits" className="chg">CHANGE</Link>
+              <button
+                className="vh-x"
+                onClick={() => setVehicle(null)}
+                aria-label="Clear garage vehicle"
+                title="Clear vehicle"
+              >
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+              </button>
+            </span>
+          )}
+
+          <button
+            onClick={() => setInStockOnly((v) => !v)}
+            aria-pressed={inStockOnly}
+            className="fm-toggle"
+          >
+            <span className="fm-dot pulse" aria-hidden="true" />
             In Stock
           </button>
+
           <button
             onClick={() => setVerifiedFitOnly((v) => !v)}
+            aria-pressed={fitsActive}
             disabled={!vehicle}
             title={vehicle ? undefined : "Select your vehicle to filter by fit"}
-            className={`rounded-full border px-4 py-1.5 font-semibold transition hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-40 ${fitsActive ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent" : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"}`}
+            className="fm-toggle"
           >
             Fits Only
+            {data.fitsTotal != null && fitsActive ? (
+              <span className="cnt">({data.fitsTotal.toLocaleString()})</span>
+            ) : null}
           </button>
 
-          <select
-            value={sort}
-            onChange={(e) => setSort(e.target.value as Sort)}
-            className="ml-auto rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/80 transition hover:bg-white/10 focus:border-fatman-accent focus:outline-none focus:ring-1 focus:ring-fatman-accent"
-          >
-            <option value="relevance">Sort: Relevance</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-          </select>
+          <label className="fm-sort">
+            Sort
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as Sort)}
+              aria-label="Sort products"
+            >
+              <option value="relevance">Relevance</option>
+              <option value="price-asc">Price · Low → High</option>
+              <option value="price-desc">Price · High → Low</option>
+            </select>
+          </label>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
-        <div className="mb-3 space-y-1 text-sm text-white/65">
-          <div className="flex items-center justify-between">
-            <div>
-              Showing {firstShown}–{lastShown} of {total} products
-              {loading && <span className="ml-2 text-white/40">updating…</span>}
-            </div>
-            {totalPages > 1 && (
-              <div className="text-xs text-white/40">
-                Page {currentPage} of {totalPages}
-              </div>
-            )}
-          </div>
+        <p className="fm-result" aria-live="polite">
+          <span>
+            Showing {firstShown}–{lastShown} of {total.toLocaleString()} products
+          </span>
+          {loading && <span className="updating">updating…</span>}
           {vehicle ? (
-            <div className="text-xs text-white/60">
+            <span className="vh-note">
               {fitsActive
-                ? `Showing only parts that fit ${formatCompactVehicleLabel(vehicle)}. ${data.fitsTotal ?? total} confirmed${
+                ? `Only parts confirmed to fit your ${formatCompactVehicleLabel(vehicle)}${
                     data.fitsTotal != null && total > data.fitsTotal
-                      ? `, ${total - data.fitsTotal} need VIN verification`
+                      ? ` · ${total - data.fitsTotal} need VIN verification`
                       : ""
-                  }.`
-                : `Showing best matches for ${formatCompactVehicleLabel(vehicle)}. ${fitCountOnPage} confirmed fits on this page.`}
-            </div>
-          ) : null}
-        </div>
+                  }`
+                : `Best matches for ${formatCompactVehicleLabel(vehicle)} · ${fitCountOnPage} confirmed fits on this page`}
+            </span>
+          ) : (
+            <span>
+              Select a vehicle to unlock confirmed-fit filtering ·{" "}
+              <Link href="/fits" className="underline decoration-dotted underline-offset-4 hover:text-[var(--fm-accent)]">
+                open garage
+              </Link>
+            </span>
+          )}
+        </p>
 
-        <div className={`grid gap-4 md:grid-cols-2 lg:grid-cols-3 ${loading ? "opacity-60 transition-opacity" : ""}`}>
+        <div className={`fm-grid ${loading ? "opacity-60 transition-opacity" : ""}`}>
           {products.map((product) => (
             <ProductCard key={product.slug} product={product} fitmentState={fitments[product.slug]} />
           ))}
         </div>
 
         {products.length === 0 && !loading && (
-          <p className="py-12 text-center text-sm text-white/50">
-            No products match these filters.
+          <p className="fm-empty">
+            <b>No products match these filters.</b>
+            Try clearing a filter — or send us your VIN and we&apos;ll find the part.
           </p>
         )}
 
         {totalPages > 1 && (
-          <div className="mt-12 flex flex-wrap items-center justify-center gap-2 border-t border-white/[0.05] pt-8">
+          <nav className="fm-pager" aria-label="Pagination">
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1 || loading}
-              className="flex h-10 items-center justify-center border border-white/10 bg-white/5 px-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/20 disabled:opacity-20 disabled:pointer-events-none active:scale-95"
+              className="fm-pg"
             >
               ← Prev
             </button>
 
-            <div className="flex items-center gap-1.5">
+            <div className="contents">
               {getPageNumbers().map((pageNum, index) => {
                 if (pageNum === "...") {
                   return (
-                    <span
-                      key={`ellipsis-${index}`}
-                      className="flex h-10 w-10 items-center justify-center font-mono text-sm text-white/30"
-                    >
-                      ...
+                    <span key={`ellipsis-${index}`} className="fm-pg gap" aria-hidden="true">
+                      ···
                     </span>
                   );
                 }
-
                 return (
                   <button
                     key={pageNum}
                     onClick={() => setCurrentPage(Number(pageNum))}
                     disabled={loading}
-                    className={`flex h-10 w-10 items-center justify-center border font-mono text-sm transition-all active:scale-90 ${currentPage === pageNum
-                        ? "border-[#ff6a00] bg-[#ff6a00] text-white font-black shadow-[0_0_20px_rgba(255,106,0,0.25)]"
-                        : "border-white/10 bg-white/5 text-white/70 hover:bg-white/10 hover:text-white"
-                      }`}
+                    aria-current={currentPage === pageNum ? "page" : undefined}
+                    className={`fm-pg ${currentPage === pageNum ? "on" : ""}`}
                   >
-                    {pageNum}
+                    {String(pageNum).padStart(2, "0")}
                   </button>
                 );
               })}
@@ -244,11 +274,15 @@ export function CategoryProductGrid({
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages || loading}
-              className="flex h-10 items-center justify-center border border-white/10 bg-white/5 px-4 text-xs font-bold uppercase tracking-wider text-white transition-all hover:bg-white/10 hover:border-white/20 disabled:opacity-20 disabled:pointer-events-none active:scale-95"
+              className="fm-pg"
             >
               Next →
             </button>
-          </div>
+
+            <span className="fm-pager-meta">
+              Page {String(currentPage).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
+            </span>
+          </nav>
         )}
       </section>
     </>

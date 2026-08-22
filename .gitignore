@@ -50,3 +50,10 @@ next-env.d.ts
 # local social/media generation artifacts (do not commit)
 /docs/social-mockups/
 /scripts/upload_downloads_album_posts.py
+
+# design-sync machine state
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules
