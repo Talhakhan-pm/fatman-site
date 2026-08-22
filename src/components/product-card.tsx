@@ -134,7 +134,7 @@ export function ProductCard({
             src={media.src}
             alt={media.alt}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1020px) 50vw, 33vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1020px) 50vw, 33vw"
           />
         ) : (
           <div className="noimg">
@@ -154,6 +154,19 @@ export function ProductCard({
           {hasSavings && <span className="fm-save">Save {formatPrice((product.compareAt ?? 0) - product.price)}</span>}
         </div>
       </Link>
+      {/* mobile-only attribute chips over the image tile; body chips carry
+          these on desktop. Sits OUTSIDE the media Link (whose aria-label would
+          mask descendant text) and is NOT aria-hidden, so screen readers get
+          the condition info that .fm-chips (display:none on mobile) can't
+          provide. Anchored to the always-relative .fm-card; display:none on
+          desktop (see .fm-mchips in globals.css). */}
+      <div className="fm-mchips">
+        {getProductDisplayBadges(product).map((badge) => (
+          <span key={`m-${badge.kind}-${badge.value}`}>
+            {badge.label === "OEM" ? "Genuine OEM" : badge.label}
+          </span>
+        ))}
+      </div>
 
       <div className="fm-card-body">
         <p className="fm-brand">{product.brand}</p>
@@ -208,7 +221,7 @@ export function ProductCard({
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" aria-hidden="true">
                 <path d="M12 5v14M5 12h14" />
               </svg>
-              Add
+              <span className="txt">Add</span>
             </button>
           ) : (
             <Link href={`/fitment-help?product=${encodeURIComponent(product.slug)}`} className="fm-btn fm-btn-quote">

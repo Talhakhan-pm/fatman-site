@@ -287,7 +287,7 @@ export function ProductPageClient({ product, isAdmin }: { product: Product; isAd
 
       <CompatibleProducts currentSlug={product.slug} categorySlug={product.category} />
 
-      <div className="sticky bottom-0 border-t border-white/10 bg-fatman-900/95 p-3 backdrop-blur md:hidden">
+      <div className="sticky bottom-[calc(64px+env(safe-area-inset-bottom))] z-40 border-t border-white/10 bg-fatman-900/95 p-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <p className="text-lg font-black">{formatProductPrice(product)}</p>
           {canAddToCart ? (

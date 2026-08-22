@@ -150,7 +150,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     <CartContext.Provider value={value}>
       {children}
       {lastAdded && (
-        <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-md rounded-2xl border border-fatman-accent/40 bg-fatman-900/95 p-4 text-white shadow-2xl shadow-black/35 backdrop-blur md:left-auto md:right-6 md:mx-0">
+        <div className="fixed bottom-[calc(80px+env(safe-area-inset-bottom))] left-4 right-4 z-50 mx-auto max-w-md rounded-2xl border border-fatman-accent/40 bg-fatman-900/95 p-4 text-white shadow-2xl shadow-black/35 backdrop-blur md:bottom-4 md:left-auto md:right-6 md:mx-0">
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-fatman-accent">Added to cart</p>

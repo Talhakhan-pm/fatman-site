@@ -1271,6 +1271,97 @@ body[data-theme="light"] .fm-blob { opacity: 0.35; }
 .fm-trust-cell b { font-family: var(--fm-font-mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; display: block; }
 .fm-trust-cell p { font-size: 12px; color: var(--fm-ink-soft); margin-top: 5px; line-height: 1.5; }
 
+/* ── mobile image-overlay chips (fm-mchips) ───────────────────── */
+/* Desktop keeps attribute chips in the card body; on phones they move
+   onto the image tile as tiny translucent tags. Hidden by default. */
+.fm-mchips { display: none; }
+
+/* ── mobile bottom nav (fm-bnav) ──────────────────────────────── */
+/* App-like tab bar, phones only (<768px). Sits at z-50 alongside the
+   header; the cart toast and PDP buy bar are offset above it instead
+   of fighting it. */
+.fm-bnav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  display: none;
+  border-top: 1px solid var(--fm-line);
+  background: color-mix(in srgb, var(--fm-bg) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.fm-bnav-item {
+  flex: 1;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-family: var(--fm-font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fm-ink-faint);
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s;
+}
+.fm-bnav-item.on { color: var(--fm-accent); }
+.fm-bnav-ico { position: relative; display: grid; place-items: center; }
+.fm-bnav-badge {
+  position: absolute;
+  top: -5px;
+  right: -9px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--fm-accent);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+.fm-bnav-dot {
+  position: absolute;
+  top: -3px;
+  right: -4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--fm-fit-dot);
+}
+@media (max-width: 767px) {
+  .fm-bnav { display: flex; }
+  /* keep the footer's last rows clear of the fixed tab bar */
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  /* full-width blur bar behind the floating pill so scrolled content
+     never bleeds through the header gutters on phones. The bar is a
+     pseudo-element with a fixed height because the header element itself
+     also contains the collapsed (invisible, in-flow) search panel — a
+     background on the wrapper would paint far below the pill. */
+  .fm-siteheader::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 84px;
+    background: color-mix(in srgb, var(--fm-bg) 86%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--fm-line);
+    z-index: -1;
+  }
+  .fm-toolbar { top: 84px; } /* sits flush under the header blur bar */
+}
+
 /* ── responsive ───────────────────────────────────────────────── */
 @media (max-width: 1020px) {
   .fm-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1278,13 +1369,73 @@ body[data-theme="light"] .fm-blob { opacity: 0.35; }
   .fm-trust-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
-  .fm-grid { grid-template-columns: 1fr; }
-  .fm-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; }
-  .fm-stat b { font-size: 19px; }
-  .fm-stat span { font-size: 8px; letter-spacing: 0.12em; }
+  /* ── hero: compact spec plate ── */
+  .fm-hero { padding-top: 20px; }
+  .fm-stamp, .fm-riser { display: none; }
+  .fm-h1 { font-size: clamp(34px, 10vw, 44px); }
+  .fm-hero .fm-desc { font-size: 14px; margin-top: 12px; }
+  .fm-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; margin-top: 18px; }
+  .fm-stat b { font-size: 18px; }
+  .fm-stat span { font-size: 8.5px; letter-spacing: 0.12em; }
+  .fm-subcats { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 20px; padding-bottom: 4px; }
+  .fm-subcats::-webkit-scrollbar { display: none; }
+  .fm-subcat { flex: none; }
   .fm-trust-grid { grid-template-columns: 1fr; }
-  .fm-toolbar-in { gap: 8px; }
-  .fm-sort { margin-left: 0; }
+
+  /* ── toolbar: horizontal chip rail ── */
+  .fm-toolbar-in { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 8px; padding: 10px 0; }
+  .fm-toolbar-in::-webkit-scrollbar { display: none; }
+  .fm-vehicle, .fm-toggle, .fm-sort { flex: none; }
+  .fm-vehicle { font-size: 11px; white-space: nowrap; }
+  .fm-toggle { font-family: var(--fm-font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .fm-sort { margin-left: 0; font-size: 11px; letter-spacing: 0.08em; }
+  .fm-sort select { font-family: var(--fm-font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .fm-result { font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em; }
+
+  /* ── grid: 2-up compact app cards ── */
+  .fm-grid { grid-template-columns: repeat(2, 1fr); gap: 24px 12px; }
+  .fm-card { border: none; background: transparent; box-shadow: none; border-radius: 0; overflow: visible; }
+  .fm-card:hover { border-color: transparent; box-shadow: none; }
+  .fm-card-media { height: auto; aspect-ratio: 1 / 1; border-radius: 14px; border: 1px solid var(--fm-line); background: var(--fm-panel-2); }
+  .fm-card-media img { padding: 14px; }
+  .fm-card-media .corner, .fm-card-media .cat-tag { display: none; }
+  /* stock/save badges swap to top-right so the mchips column owns top-left */
+  .fm-badges { left: auto; right: 8px; top: 8px; align-items: flex-end; }
+  /* chips sit outside the media Link in the DOM (a11y) but overlay the tile;
+     pointer-events:none lets taps fall through to the product link. max-width
+     caps the column so a long chip (REMANUFACTURED) can never collide with the
+     right-anchored .fm-badges on a ~165px tile. */
+  .fm-mchips { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; position: absolute; top: 8px; left: 8px; z-index: 3; max-width: 55%; pointer-events: none; }
+  .fm-mchips span { font-family: var(--fm-font-mono); font-size: 9px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 7px; border-radius: 6px; border: 1px solid var(--fm-line); color: var(--fm-ink-soft); background: color-mix(in srgb, var(--fm-panel) 82%, transparent); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .fm-card-body { padding: 10px 2px 0; }
+  .fm-name { font-size: 14.5px; font-weight: 700; line-height: 1.25; margin-top: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .fm-card .fm-desc { display: none; }
+  .fm-partno { margin-top: 6px; border: none; border-radius: 0; background: transparent; padding: 0; gap: 6px; }
+  .fm-partno b { font-size: 10.5px; }
+  .fm-partno .barcode { display: none; }
+  .fm-card-body .fm-chips { display: none; }
+  .fm-fit-row { margin-top: 8px; }
+  .fm-fit-pill { font-size: 9.5px; letter-spacing: 0.1em; gap: 6px; padding: 4px 9px 4px 5px; }
+  .fm-fit-pill .ck { width: 14px; height: 14px; }
+  .fm-fit-pill .ck svg { width: 8px; height: 8px; }
+  .fm-fit-note { display: none; }
+  .fm-card-foot { margin-top: 10px; padding-top: 10px; gap: 8px; }
+  .fm-price b { font-size: 16px; font-weight: 800; }
+  /* the outline pill already says "Request Quote" — drop the duplicate price-slot label */
+  .fm-price .quote { display: none; }
+  /* 40px minimum tap target (can't use a ::after hit-area extension — .fm-btn
+     is overflow:hidden and ::before is the shine sweep) */
+  .fm-btn-add { width: 40px; height: 40px; padding: 0; border-radius: 50%; flex: none; }
+  .fm-btn-add .txt { display: none; }
+  .fm-btn-quote { font-family: var(--fm-font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 8px 12px; border: 1px solid var(--fm-accent); color: var(--fm-accent); background: transparent; }
+
+  /* ── pagination: prev · meta · next ── */
+  .fm-pager { flex-wrap: nowrap; justify-content: space-between; width: 100%; gap: 8px; padding: 26px 0 8px; }
+  .fm-pager .contents { display: none; }
+  .fm-pager > button.fm-pg:last-of-type { order: 2; }
+  .fm-pager-meta { order: 1; margin-left: 0; }
+  .fm-pg { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; height: 40px; min-width: 0; }
 }
 
 /* ── reduced motion ───────────────────────────────────────────── */

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Archivo, Geist, Geist_Mono, IBM_Plex_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { GarageProvider } from "@/components/garage-provider";
@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggleButton } from "@/components/theme-toggle-button";
 import { CartProvider } from "@/components/cart-provider";
+import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import NextTopLoader from "nextjs-toploader";
 import Script from "next/script";
 
@@ -38,6 +39,15 @@ const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
+
+// viewport-fit=cover is required for env(safe-area-inset-*) to resolve to
+// non-zero values on notch/home-indicator iPhones; without it the bottom-nav,
+// cart-toast, and PDP buy-bar safe-area offsets are inert.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fatmanparts.com"),
@@ -142,6 +152,7 @@ export default function RootLayout({
               {children}
               <SiteFooter />
               <ThemeToggleButton />
+              <MobileBottomNav />
             </CartProvider>
           </GarageProvider>
         </ThemeProvider>

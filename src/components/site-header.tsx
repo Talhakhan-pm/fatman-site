@@ -137,7 +137,7 @@ export function SiteHeader() {
   }, [query, searchOpen]);
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6">
+    <header className="fm-siteheader fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6">
       <div
         className={`mx-auto flex max-w-7xl items-center gap-3 rounded-full px-3 py-2 transition-all duration-500 sm:gap-4 ${
           scrolled || searchOpen || garageOpen
