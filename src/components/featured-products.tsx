@@ -8,7 +8,7 @@ export function FeaturedProducts() {
         <h3 className="text-2xl font-bold">Featured Products</h3>
         <p className="text-sm text-white/60">Funny brand. Serious fitment.</p>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="fm-grid">
         {products.slice(0, 6).map((product) => (
           <ProductCard key={product.slug} product={product} />
         ))}

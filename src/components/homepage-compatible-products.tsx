@@ -110,13 +110,13 @@ export function HomepageCompatibleProducts() {
           </div>
 
           {isLoading ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="fm-grid">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div key={index} className="h-72 animate-pulse rounded-xl border border-white/10 bg-white/[0.04]" />
               ))}
             </div>
           ) : products.length ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="fm-grid">
               {products.map((product) => (
                 <ProductCard key={product.slug} product={product} fitmentState="fits" />
               ))}

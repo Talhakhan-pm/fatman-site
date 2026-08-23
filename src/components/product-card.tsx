@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useFitment } from "./use-fitment";
@@ -28,7 +28,14 @@ function StockBadge({ stock }: { stock: Product["stock"] }) {
  * Fitment truth pill — rebuilt in CSS to match the confirmed-fit brand asset
  * (mint fill, green ring, check seal). Green is reserved for fitment wins;
  * verify stays amber, no-fit red, per docs/fitment-ux-rule-set.md.
+ * Labels come in long (desktop) and short (mobile 2-col tiles) variants.
  */
+const FIT_LABELS: Record<FitmentState, { lg: string; sm: string }> = {
+  fits: { lg: "Confirmed Fit", sm: "Fits" },
+  verify: { lg: "Verify Fitment", sm: "Verify" },
+  "no-fit": { lg: "Does Not Fit", sm: "No Fit" },
+};
+
 function FitPill({ state }: { state: FitmentState }) {
   const ck = state === "fits" ? (
     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -44,12 +51,13 @@ function FitPill({ state }: { state: FitmentState }) {
     </svg>
   );
 
-  const label = state === "fits" ? "Confirmed Fit" : state === "verify" ? "Verify Fitment" : "Does Not Fit";
   const cls = state === "fits" ? "fits" : state === "verify" ? "verify" : "nofit";
+  const label = FIT_LABELS[state];
   return (
     <span className={`fm-fit-pill ${cls}`}>
       <span className="ck" aria-hidden="true">{ck}</span>
-      {label}
+      <span className="lg">{label.lg}</span>
+      <span className="sm">{label.sm}</span>
     </span>
   );
 }
@@ -113,19 +121,36 @@ export function ProductCard({
   const { addItem } = useCart();
   const fitment = useFitment(product.slug, vehicle, fitmentState);
   const tilt = useCardTilt();
+  const [justAdded, setJustAdded] = useState(false);
+  const addTimer = useRef<number>(0);
+  useEffect(() => () => window.clearTimeout(addTimer.current), []);
+
+  const handleAdd = useCallback(() => {
+    addItem(product);
+    track("add_to_cart", { slug: product.slug, price: product.price });
+    setJustAdded(true);
+    window.clearTimeout(addTimer.current);
+    addTimer.current = window.setTimeout(() => setJustAdded(false), 1500);
+  }, [addItem, product]);
+
   const hasSavings = typeof product.compareAt === "number" && product.compareAt > product.price;
   const media = getProductDisplayMedia(product);
+  const badges = getProductDisplayBadges(product);
   const partNumber = product.oemPartNumber || product.sku;
   const quoteRequired = isQuoteRequired(product);
   const canAddToCart = canAddProductToCart(product);
   const partTag = `PARTS · ${partNumber.replace(/[^A-Za-z0-9]/g, "").slice(0, 4).toUpperCase()}`;
+  // With no garage vehicle the fit row is normally hidden — but a page can
+  // pass a resolved verdict (/fits carries its vehicle in the URL), and then
+  // the pill is exactly the information this card exists to surface.
+  const showFitRow = Boolean(vehicle) || fitmentState !== undefined;
 
   return (
     <article
       ref={tilt.ref}
       onPointerMove={tilt.onPointerMove}
       onPointerLeave={tilt.onPointerLeave}
-      className={`fm-card ${vehicle ? "" : "no-vehicle"}`}
+      className={`fm-card ${showFitRow ? "" : "no-vehicle"}`}
       aria-label={`${product.brand} ${product.name}, OEM ${partNumber}`}
     >
       <Link href={`/product/${product.slug}`} className="fm-card-media" aria-label={`View ${product.name}`}>
@@ -154,22 +179,19 @@ export function ProductCard({
           {hasSavings && <span className="fm-save">Save {formatPrice((product.compareAt ?? 0) - product.price)}</span>}
         </div>
       </Link>
-      {/* mobile-only attribute chips over the image tile; body chips carry
-          these on desktop. Sits OUTSIDE the media Link (whose aria-label would
-          mask descendant text) and is NOT aria-hidden, so screen readers get
-          the condition info that .fm-chips (display:none on mobile) can't
-          provide. Anchored to the always-relative .fm-card; display:none on
-          desktop (see .fm-mchips in globals.css). */}
-      <div className="fm-mchips">
-        {getProductDisplayBadges(product).map((badge) => (
-          <span key={`m-${badge.kind}-${badge.value}`}>
-            {badge.label === "OEM" ? "Genuine OEM" : badge.label}
-          </span>
-        ))}
-      </div>
 
       <div className="fm-card-body">
-        <p className="fm-brand">{product.brand}</p>
+        {/* brand meta line: on phones it absorbs the attribute chips
+            (FORD · USED · GENUINE OEM) so nothing floats over the image
+            tile; desktop keeps the bare brand + the body chip row. */}
+        <p className="fm-brand">
+          {product.brand}
+          {badges.map((badge) => (
+            <span className="m" key={`m-${badge.kind}-${badge.value}`}>
+              {badge.label === "OEM" ? "Genuine OEM" : badge.label}
+            </span>
+          ))}
+        </p>
         <Link href={`/product/${product.slug}`}>
           <h3 className="fm-name">{product.name}</h3>
         </Link>
@@ -211,16 +233,19 @@ export function ProductCard({
           </div>
           {canAddToCart ? (
             <button
-              onClick={() => {
-                addItem(product);
-                track("add_to_cart", { slug: product.slug, price: product.price });
-              }}
-              className="fm-btn fm-btn-add"
+              onClick={handleAdd}
+              className={`fm-btn fm-btn-add ${justAdded ? "added" : ""}`}
               aria-label={`Add ${product.name} to cart`}
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" aria-hidden="true">
-                <path d="M12 5v14M5 12h14" />
-              </svg>
+              {justAdded ? (
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="m4.5 12.5 5 5 10-11" />
+                </svg>
+              ) : (
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              )}
               <span className="txt">Add</span>
             </button>
           ) : (

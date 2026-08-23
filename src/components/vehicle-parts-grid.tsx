@@ -180,7 +180,7 @@ export function VehiclePartsGrid({
           </div>
         </div>
 
-        <div className={`grid gap-4 md:grid-cols-2 lg:grid-cols-3 ${loading ? "opacity-60 transition-opacity" : ""}`}>
+        <div className={`fm-grid ${loading ? "opacity-60 transition-opacity" : ""}`}>
           {products.map((product: Product) => (
             <ProductCard key={product.slug} product={product} fitmentState={fitments[product.slug]} />
           ))}

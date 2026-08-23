@@ -76,7 +76,7 @@ export function CompatibleProducts({
             Same category, confirmed fit for your selected vehicle.
           </p>
         </div>
-        <div className={fits.length === 1 ? "max-w-sm" : "grid gap-4 md:grid-cols-2 lg:grid-cols-3"}>
+        <div className={fits.length === 1 ? "max-w-sm" : "fm-grid"}>
           {fits.map((product) => (
             <ProductCard key={product.slug} product={product} fitmentState="fits" />
           ))}
