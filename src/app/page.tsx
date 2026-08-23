@@ -72,12 +72,14 @@ function CornerBrackets({ color = "white/20" }: { color?: "white/20" | "white/10
   } as const;
   const c = borderClassMap[color] ?? borderClassMap["white/20"];
 
+  // hidden on phones (sm+) — pure decoration that reads oversized on
+  // compact mobile tiles
   return (
     <>
-      <span className={`absolute top-0 left-0 h-4 w-4 border-l-2 border-t-2 ${c}`} />
-      <span className={`absolute right-0 top-0 h-4 w-4 border-r-2 border-t-2 ${c}`} />
-      <span className={`absolute bottom-0 left-0 h-4 w-4 border-b-2 border-l-2 ${c}`} />
-      <span className={`absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 ${c}`} />
+      <span className={`absolute top-0 left-0 hidden h-4 w-4 border-l-2 border-t-2 sm:block ${c}`} />
+      <span className={`absolute right-0 top-0 hidden h-4 w-4 border-r-2 border-t-2 sm:block ${c}`} />
+      <span className={`absolute bottom-0 left-0 hidden h-4 w-4 border-b-2 border-l-2 sm:block ${c}`} />
+      <span className={`absolute bottom-0 right-0 hidden h-4 w-4 border-b-2 border-r-2 sm:block ${c}`} />
     </>
   );
 }
@@ -212,27 +214,27 @@ export default async function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <div className="pointer-events-none fixed inset-0 z-50 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`, backgroundRepeat: "repeat", backgroundSize: "200px 200px" }} />
-      <section className="relative flex min-h-[100vh] items-center overflow-hidden">
+      <section className="relative flex min-h-[100svh] items-center overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M20 0L25 10L20 20L15 10Z'/%3E%3Cpath d='M0 20L5 30L0 40L-5 30Z'/%3E%3Cpath d='M40 20L45 30L40 40L35 30Z'/%3E%3C/g%3E%3C/svg%3E")` }} />
         <div className="absolute right-[-5%] top-[-10%] h-[120%] w-[55%] bg-gradient-to-br from-[#ff6a00] to-[#c2410c] opacity-[0.07]" style={{ clipPath: "polygon(25% 0, 100% 0, 100% 100%, 5% 100%)", transform: "skewX(-6deg)" }} />
         <div className="absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[#ff6a00]/[0.06] blur-[150px]" />
         <CautionStripe className="absolute top-0 left-0 right-0 z-20" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-6 py-24 sm:px-8 lg:py-0">
-          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <div className="space-y-8 lg:col-span-7">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-14 sm:px-8 sm:py-24 lg:py-0">
+          <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-12 lg:gap-12">
+            <div className="space-y-5 sm:space-y-8 lg:col-span-7">
               <div className="inline-flex items-center gap-3 animate-[fadeUp_0.5s_ease-out]">
                 <span className="flex h-6 items-center bg-[#ff6a00] px-3 text-[10px] font-black uppercase tracking-[0.2em] text-white" style={{ clipPath: "polygon(0 0, 100% 0, 96% 100%, 4% 100%)" }}>OEM VERIFIED</span>
-                <span className="font-mono text-sm text-white/40">18,000+ fitment rules</span>
+                <span className="font-mono text-xs text-white/40 sm:text-sm">18,000+ fitment rules</span>
               </div>
               <h1 className="animate-[fadeUp_0.6s_ease-out_0.1s_both]">
-                <span className="block text-5xl font-black leading-[0.9] tracking-[-0.03em] text-white sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem]">THE RIGHT</span>
-                <span className="block text-5xl font-black leading-[0.9] tracking-[-0.03em] text-[#ff6a00] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem]"><HeroRotatingText words={heroRotatingWords} intervalMs={2200} /></span>
-                <span className="block text-5xl font-black leading-[0.9] tracking-[-0.03em] text-white/20 sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem]">FIRST TIME.</span>
+                <span className="block text-4xl font-black leading-[0.9] tracking-[-0.03em] text-white sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem]">THE RIGHT</span>
+                <span className="block text-4xl font-black leading-[0.9] tracking-[-0.03em] text-[#ff6a00] sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem]"><HeroRotatingText words={heroRotatingWords} intervalMs={2200} /></span>
+                <span className="block text-4xl font-black leading-[0.9] tracking-[-0.03em] text-white/20 sm:text-6xl md:text-7xl lg:text-[5.5rem] xl:text-[6.5rem]">FIRST TIME.</span>
               </h1>
-              <p className="max-w-lg animate-[fadeUp_0.6s_ease-out_0.2s_both] text-lg leading-relaxed text-white/50 sm:text-xl">Stop guessing compatibility. Enter your vehicle, get OEM-verified parts that are <span className="font-semibold text-white">guaranteed to fit</span> — shipped from the U.S. in 24–48 hours.</p>
-              <div className="flex flex-wrap gap-4 animate-[fadeUp_0.6s_ease-out_0.3s_both]">
-                <Link href="/category" className="group relative inline-flex items-center gap-3 bg-[#ff6a00] px-8 py-4 text-base font-black uppercase tracking-wide text-white transition-all duration-200 hover:translate-y-[-2px] hover:bg-[#e55d00] hover:shadow-[0_8px_40px_rgba(255,106,0,0.35)] sm:text-lg" style={{ clipPath: "polygon(0 0, 100% 0, 97% 100%, 3% 100%)" }}>FIND YOUR PART<span className="font-mono transition-transform group-hover:translate-x-1">→</span></Link>
-                <Link href="/about" className="inline-flex items-center gap-2 border-2 border-white/20 px-8 py-4 text-base font-bold uppercase tracking-wide text-white/60 transition-all duration-200 hover:border-[#ff6a00]/60 hover:text-white sm:text-lg">How It Works</Link>
+              <p className="max-w-lg animate-[fadeUp_0.6s_ease-out_0.2s_both] text-base leading-relaxed text-white/50 sm:text-xl">Stop guessing compatibility. Enter your vehicle, get OEM-verified parts that are <span className="font-semibold text-white">guaranteed to fit</span> — shipped from the U.S. in 24–48 hours.</p>
+              <div className="flex flex-wrap gap-3 animate-[fadeUp_0.6s_ease-out_0.3s_both] sm:gap-4">
+                <Link href="/category" className="group relative inline-flex items-center gap-3 bg-[#ff6a00] px-6 py-3.5 text-sm font-black uppercase tracking-wide text-white transition-all duration-200 hover:translate-y-[-2px] hover:bg-[#e55d00] hover:shadow-[0_8px_40px_rgba(255,106,0,0.35)] sm:px-8 sm:py-4 sm:text-lg" style={{ clipPath: "polygon(0 0, 100% 0, 97% 100%, 3% 100%)" }}>FIND YOUR PART<span className="font-mono transition-transform group-hover:translate-x-1">→</span></Link>
+                <Link href="/about" className="inline-flex items-center gap-2 border-2 border-white/20 px-6 py-3.5 text-sm font-bold uppercase tracking-wide text-white/60 transition-all duration-200 hover:border-[#ff6a00]/60 hover:text-white sm:px-8 sm:py-4 sm:text-lg">How It Works</Link>
               </div>
             </div>
             <div id="fitment-lookup" className="scroll-mt-28 animate-[fadeUp_0.8s_ease-out_0.3s_both] lg:col-span-5">
@@ -244,45 +246,45 @@ export default async function Home() {
       <HomepageCompatibleProducts />
       <HomepageCompatibleCategories />
 
-      <section className="relative overflow-hidden bg-[#15181f] py-20 sm:py-28">
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
+      <section className="relative overflow-hidden bg-[#15181f] py-12 sm:py-28">
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: "32px 32px" }} />
         <div className="absolute left-[-10%] top-12 h-56 w-56 rounded-full bg-[#ff6a00]/[0.08] blur-[120px]" />
-        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
-          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="grid gap-8 sm:gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
             <div>
               <SectionTag>WHY FATMAN WORKS</SectionTag>
-              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="text-2xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Built for people who are tired of <span className="text-[#ff6a00]">guessing at fitment.</span>
               </h2>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/50">
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/50 sm:mt-5 sm:text-lg">
                 We take the guesswork out of buying auto parts. Pick your vehicle, see verified OEM-matched parts, and get exactly what you need without digging through endless pages of generic catalog clutter.
               </p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-5">
+              <div className="mt-5 grid gap-3 sm:mt-8 sm:grid-cols-2 sm:gap-4">
+                <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-4 sm:p-5">
                   <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#ff6a00]">Live catalog</p>
-                  <p className="mt-3 text-3xl font-black text-white">{categories.length}</p>
-                  <p className="mt-2 text-sm text-white/45">Homepage-ready categories already mapped to real catalog sections.</p>
+                  <p className="mt-2 text-2xl font-black text-white sm:mt-3 sm:text-3xl">{categories.length}</p>
+                  <p className="mt-2 text-xs text-white/45 sm:text-sm">Homepage-ready categories already mapped to real catalog sections.</p>
                 </div>
-                <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-5">
+                <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-4 sm:p-5">
                   <p className="font-mono text-xs font-bold uppercase tracking-[0.24em] text-[#ff6a00]">Buyer flow</p>
-                  <p className="mt-3 text-3xl font-black text-white">3-step</p>
-                  <p className="mt-2 text-sm text-white/45">We keep the path tight: vehicle, verified parts, fast checkout.</p>
+                  <p className="mt-2 text-2xl font-black text-white sm:mt-3 sm:text-3xl">3-step</p>
+                  <p className="mt-2 text-xs text-white/45 sm:text-sm">We keep the path tight: vehicle, verified parts, fast checkout.</p>
                 </div>
               </div>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3 sm:gap-4">
               {steps.map((step) => (
-                <div key={step.num} className="group relative overflow-hidden rounded-[1.75rem] border border-white/[0.08] bg-[#1a1d24] p-6 transition hover:border-[#ff6a00]/35 hover:shadow-[0_16px_50px_rgba(255,106,0,0.12)] sm:p-7">
-                  <span className="pointer-events-none absolute right-4 top-2 font-mono text-6xl font-black tracking-[-0.05em] text-white/[0.03] sm:text-7xl">{step.num}</span>
-                  <div className="relative z-10 flex items-start gap-4">
-                    <span className="mt-1 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#ff6a00]/20 bg-[#ff6a00]/10 text-sm font-black text-[#ff6a00]">
+                <div key={step.num} className="group relative overflow-hidden rounded-[1.25rem] border border-white/[0.08] bg-[#1a1d24] p-4 transition hover:border-[#ff6a00]/35 hover:shadow-[0_16px_50px_rgba(255,106,0,0.12)] sm:rounded-[1.75rem] sm:p-7">
+                  <span className="pointer-events-none absolute right-4 top-2 font-mono text-5xl font-black tracking-[-0.05em] text-white/[0.03] sm:text-7xl">{step.num}</span>
+                  <div className="relative z-10 flex items-start gap-3 sm:gap-4">
+                    <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-[#ff6a00]/20 bg-[#ff6a00]/10 text-xs font-black text-[#ff6a00] sm:mt-1 sm:h-11 sm:w-11 sm:rounded-2xl sm:text-sm">
                       {step.num}
                     </span>
                     <div>
-                      <h3 className="text-xl font-black uppercase tracking-wide text-white">{step.title}</h3>
-                      <p className="mt-3 text-base leading-relaxed text-white/55">{step.desc}</p>
-                      <p className="mt-3 text-sm font-semibold uppercase tracking-[0.18em] text-white/30">{step.detail}</p>
+                      <h3 className="text-base font-black uppercase tracking-wide text-white sm:text-xl">{step.title}</h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-white/55 sm:mt-3 sm:text-base">{step.desc}</p>
+                      <p className="mt-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/30 sm:mt-3 sm:text-sm">{step.detail}</p>
                     </div>
                   </div>
                   <CornerBrackets color="white/[0.08]" />
@@ -293,31 +295,31 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="relative bg-[#111318] py-20 sm:py-28">
-        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
-          <div className="mb-14 text-center">
+      <section className="relative bg-[#111318] py-12 sm:py-28">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="mb-8 text-center sm:mb-14">
             <SectionTag>SHOP BY CATEGORY</SectionTag>
-            <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">What Are You <span className="text-[#ff6a00]">Working On?</span></h2>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">What Are You <span className="text-[#ff6a00]">Working On?</span></h2>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
             {categories.map((cat, i) => (
-              <Link key={cat.slug} href={`/category/${cat.slug}`} className="group relative block overflow-hidden border border-white/[0.06] bg-[#1a1d24] transition-all duration-300 hover:translate-y-[-3px] hover:border-[#ff6a00]/40 hover:shadow-[0_12px_40px_rgba(255,106,0,0.12)]" style={{ animationDelay: `${i * 0.08}s` }}>
-                <div className="relative h-44 overflow-hidden border-b border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-white/[0.01] sm:h-48">
+              <Link key={cat.slug} href={`/category/${cat.slug}`} className="group relative block overflow-hidden rounded-xl border border-white/[0.06] bg-[#1a1d24] transition-all duration-300 hover:translate-y-[-3px] hover:border-[#ff6a00]/40 hover:shadow-[0_12px_40px_rgba(255,106,0,0.12)] active:scale-[0.97] sm:rounded-none" style={{ animationDelay: `${i * 0.08}s` }}>
+                <div className="relative h-24 overflow-hidden border-b border-white/[0.06] bg-gradient-to-br from-white/[0.03] to-white/[0.01] sm:h-48">
                   <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `linear-gradient(rgba(255,106,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,106,0,0.3) 1px, transparent 1px)`, backgroundSize: "20px 20px" }} />
                   <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#1a1d24] to-transparent opacity-40 category-icon-wash" />
-                  <div className="absolute inset-0 flex items-center justify-center p-8"><div className="h-24 w-24 text-white/[0.35] transition-all duration-500 group-hover:scale-110 group-hover:text-[#ff6a00]/60 sm:h-28 sm:w-28"><cat.Icon /></div></div>
+                  <div className="absolute inset-0 flex items-center justify-center p-3 sm:p-8"><div className="h-12 w-12 text-white/[0.35] transition-all duration-500 group-hover:scale-110 group-hover:text-[#ff6a00]/60 sm:h-28 sm:w-28"><cat.Icon /></div></div>
                   {cat.tag && <span className="absolute right-3 top-3 z-10 bg-[#ff6a00] px-2.5 py-1 text-[9px] font-black uppercase tracking-[0.15em] text-white" style={{ clipPath: "polygon(0 0, 100% 0, 95% 100%, 5% 100%)" }}>{cat.tag}</span>}
                   <CornerBrackets color="white/[0.08]" />
                 </div>
-                <div className="p-5 sm:p-6">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <h3 className="text-base font-black uppercase leading-tight tracking-wide text-white transition-colors group-hover:text-[#ff6a00] sm:text-lg">{cat.name}</h3>
-                      <p className="mt-1.5 text-sm text-white/35">{cat.desc}</p>
+                <div className="p-3 sm:p-6">
+                  <div className="flex items-start justify-between gap-2 sm:gap-3">
+                    <div className="min-w-0">
+                      <h3 className="text-[11.5px] font-black uppercase leading-tight tracking-wide text-white transition-colors group-hover:text-[#ff6a00] sm:text-lg">{cat.name}</h3>
+                      <p className="mt-1 hidden text-sm text-white/35 sm:block">{cat.desc}</p>
                     </div>
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/[0.06] bg-white/[0.04] text-lg text-white/30 transition-all duration-300 group-hover:border-[#ff6a00]/30 group-hover:bg-[#ff6a00]/20 group-hover:text-[#ff6a00]">→</span>
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-white/[0.06] bg-white/[0.04] text-sm text-white/30 transition-all duration-300 group-hover:border-[#ff6a00]/30 group-hover:bg-[#ff6a00]/20 group-hover:text-[#ff6a00] sm:h-10 sm:w-10 sm:text-lg">→</span>
                   </div>
-                  <div className="mt-4 flex items-center justify-between border-t border-white/[0.05] pt-3"><span className="font-mono text-sm font-bold text-[#ff6a00]">{cat.count}</span><span className="font-mono text-xs uppercase tracking-wider text-white/25">Live SKUs</span></div>
+                  <div className="mt-2 flex items-center justify-between border-t border-white/[0.05] pt-2 sm:mt-4 sm:pt-3"><span className="font-mono text-xs font-bold text-[#ff6a00] sm:text-sm">{cat.count}</span><span className="font-mono text-[9px] uppercase tracking-wider text-white/25 sm:text-xs">Live SKUs</span></div>
                 </div>
               </Link>
             ))}
@@ -325,34 +327,34 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#15181f] py-20 sm:py-28">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 20% 20%, rgba(255,106,0,0.15), transparent 22%), radial-gradient(circle at 80% 0%, rgba(255,255,255,0.08), transparent 18%)" }} />
-        <div className="relative z-10 mx-auto max-w-7xl px-6 sm:px-8">
-          <div className="mb-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <section className="relative overflow-hidden bg-[#15181f] py-12 sm:py-28">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `radial-gradient(circle at 20% 20%, rgba(255,106,0,0.15), transparent 22%), radial-gradient(circle at 80% 0%, rgba(255,255,255,0.08), transparent 18%)` }} />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="mb-8 flex flex-col gap-5 sm:mb-14 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <SectionTag>REAL BUYER PROOF</SectionTag>
-              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="text-2xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
                 Confidence beats gimmicks.
               </h2>
-              <p className="mt-3 max-w-2xl text-lg text-white/50">
+              <p className="mt-2 max-w-2xl text-sm text-white/50 sm:mt-3 sm:text-lg">
                 Don&apos;t just take our word for it. See what real builders, mechanics, and gearheads are saying about their Fatman Parts experience.
               </p>
             </div>
-            <div className="rounded-full border border-[#ff6a00]/20 bg-[#ff6a00]/10 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#ff6a00]">
+            <div className="hidden rounded-full border border-[#ff6a00]/20 bg-[#ff6a00]/10 px-5 py-3 text-sm font-bold uppercase tracking-[0.18em] text-[#ff6a00] sm:block">
               Fast dispatch • Verified fitment • Real support
             </div>
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-3">
+          <div className="grid gap-3 sm:gap-5 lg:grid-cols-3">
             {testimonials.map((testimonial) => (
-              <article key={`${testimonial.name}-${testimonial.vehicle}`} className="relative rounded-[1.75rem] border border-white/[0.08] bg-[#1a1d24] p-6 sm:p-7">
+              <article key={`${testimonial.name}-${testimonial.vehicle}`} className="relative rounded-[1.25rem] border border-white/[0.08] bg-[#1a1d24] p-4 sm:rounded-[1.75rem] sm:p-7">
                 <CornerBrackets color="white/[0.08]" />
                 <div className="relative z-10">
                   <StarRating rating={testimonial.rating} />
-                  <p className="mt-5 text-lg leading-relaxed text-white/75">“{testimonial.quote}”</p>
-                  <div className="mt-6 border-t border-white/[0.08] pt-4">
-                    <p className="font-black uppercase tracking-[0.14em] text-white">{testimonial.name}</p>
-                    <p className="mt-1 text-sm text-white/40">{testimonial.vehicle}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-white/75 sm:mt-5 sm:text-lg">“{testimonial.quote}”</p>
+                  <div className="mt-4 border-t border-white/[0.08] pt-3 sm:mt-6 sm:pt-4">
+                    <p className="text-sm font-black uppercase tracking-[0.14em] text-white">{testimonial.name}</p>
+                    <p className="mt-1 text-xs text-white/40 sm:text-sm">{testimonial.vehicle}</p>
                   </div>
                 </div>
               </article>
@@ -361,31 +363,31 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#15181f] py-20 sm:py-28 border-t border-white/[0.04]">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
-        <div className="relative z-10 mx-auto max-w-4xl px-6 sm:px-8">
-          <div className="mb-14 text-center">
+      <section className="relative overflow-hidden bg-[#15181f] py-12 sm:py-28 border-t border-white/[0.04]">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)`, backgroundSize: "32px 32px" }} />
+        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-8">
+          <div className="mb-8 text-center sm:mb-14">
             <SectionTag>FAQ</SectionTag>
-            <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
               Frequently Asked <span className="text-[#ff6a00]">Questions</span>
             </h2>
-            <p className="mt-4 text-base text-white/50">Got questions about compatibility, shipping, or returns? We&apos;ve got answers.</p>
+            <p className="mt-3 text-sm text-white/50 sm:mt-4 sm:text-base">Got questions about compatibility, shipping, or returns? We&apos;ve got answers.</p>
           </div>
-          
-          <div className="rounded-[2.5rem] border border-white/[0.08] bg-[#1a1d24] p-6 sm:p-10 relative shadow-2xl shadow-black/40 overflow-hidden">
+
+          <div className="rounded-3xl border border-white/[0.08] bg-[#1a1d24] p-4 sm:rounded-[2.5rem] sm:p-10 relative shadow-2xl shadow-black/40 overflow-hidden">
             <CornerBrackets color="white/[0.08]" />
             <div className="divide-y divide-white/[0.08]">
               {faqItems.map((item, idx) => (
-                <details key={idx} className="group py-5 first:pt-0 last:pb-0">
+                <details key={idx} className="group py-3.5 sm:py-5 first:pt-0 last:pb-0">
                   <summary className="flex cursor-pointer items-center justify-between text-left font-black uppercase tracking-wide text-white transition-colors duration-300 hover:text-[#ff6a00] [&::-webkit-details-marker]:hidden list-none">
-                    <span className="text-base sm:text-lg pr-4">{item.question}</span>
+                    <span className="text-[13px] sm:text-lg pr-4">{item.question}</span>
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 text-white/40 transition-transform duration-300 group-open:rotate-180 group-open:border-[#ff6a00]/30 group-open:text-[#ff6a00]">
                       <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                       </svg>
                     </span>
                   </summary>
-                  <div className="mt-4 text-sm sm:text-base leading-relaxed text-white/60">
+                  <div className="mt-3 text-[13px] sm:mt-4 sm:text-base leading-relaxed text-white/60">
                     {item.answer}
                   </div>
                 </details>
@@ -395,30 +397,30 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="cta-orange relative overflow-hidden bg-[#111318] px-6 pb-24 sm:px-8 sm:pb-28">
+      <section className="cta-orange relative overflow-hidden bg-[#111318] px-4 pb-12 sm:px-8 sm:pb-28">
         <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-[2rem] border border-[#ff6a00]/20 bg-[#1a1d24] p-8 sm:p-10 lg:p-12">
+          <div className="relative overflow-hidden rounded-3xl border border-[#ff6a00]/20 bg-[#1a1d24] p-5 sm:rounded-[2rem] sm:p-10 lg:p-12">
             <div className="absolute inset-0 bg-gradient-to-br from-[#ff6a00] via-[#d45500] to-[#9a3412] opacity-95" />
             <div className="absolute right-0 top-0 h-full w-1/2 opacity-20" style={{ backgroundImage: "linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 55%)" }} />
-            <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div className="relative z-10 grid gap-6 sm:gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
               <div>
-                <div className="mb-4 inline-flex items-center gap-2 text-white/80">
+                <div className="mb-3 inline-flex items-center gap-2 text-white/80 sm:mb-4">
                   <span className="h-[2px] w-8 bg-white/35" />
-                  <span className="font-mono text-xs font-bold uppercase tracking-[0.3em]">READY TO PUSH IT FURTHER?</span>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.3em] sm:text-xs">READY TO PUSH IT FURTHER?</span>
                   <span className="h-[2px] w-8 bg-white/35" />
                 </div>
-                <h2 className="max-w-3xl text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl" style={{ color: "#ffffff" }}>
+                <h2 className="max-w-3xl text-xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl" style={{ color: "#ffffff" }}>
                   Ready to lock in your next build? Start browsing our verified catalog.
                 </h2>
-                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/80" style={{ color: "rgba(255,255,255,0.82)" }}>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 sm:mt-4 sm:text-lg" style={{ color: "rgba(255,255,255,0.82)" }}>
                   Stop guessing at fitment and start building. Join thousands of other gearheads who trust Fatman Parts for their OEM and performance needs.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 lg:justify-end">
-                <Link href="/category" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-[#111318] transition hover:bg-white/90">
+                <Link href="/category" className="inline-flex w-full items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-[#111318] transition hover:bg-white/90 sm:w-auto">
                   Browse categories
                 </Link>
-                <Link href="/fitment-help" className="inline-flex items-center justify-center rounded-full border border-white/60 bg-white/10 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-white hover:bg-white/10" style={{ color: "#ffffff" }}>
+                <Link href="/fitment-help" className="inline-flex w-full items-center justify-center rounded-full border border-white/60 bg-white/10 px-6 py-3 text-sm font-black uppercase tracking-[0.16em] text-white transition hover:border-white hover:bg-white/10 sm:w-auto" style={{ color: "#ffffff" }}>
                   Get fitment help
                 </Link>
               </div>

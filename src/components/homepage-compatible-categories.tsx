@@ -78,10 +78,10 @@ export function HomepageCompatibleCategories() {
     .slice(0, SECTION_LIMIT);
 
   return (
-    <section className="relative bg-[#111318] py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8">
-        <div className="rounded-[28px] border border-white/[0.08] bg-[#15181f] p-6 sm:p-8">
-          <div className="mb-8 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+    <section className="relative bg-[#111318] py-10 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8">
+        <div className="rounded-3xl border border-white/[0.08] bg-[#15181f] p-4 sm:rounded-[28px] sm:p-8">
+          <div className="mb-5 flex flex-col gap-3 sm:mb-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="mb-3 inline-flex items-center gap-2">
                 <span className="h-[2px] w-8 bg-[#ff6a00]" />
@@ -89,10 +89,10 @@ export function HomepageCompatibleCategories() {
                   SHOP BY CATEGORY
                 </span>
               </div>
-              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+              <h2 className="text-xl font-black tracking-tight text-white sm:text-4xl">
                 Categories that fit <span className="text-[#ff6a00]">{vehicleLabel}</span>
               </h2>
-              <p className="mt-2 max-w-2xl text-sm text-white/60 sm:text-base">
+              <p className="mt-2 max-w-2xl text-xs text-white/60 sm:text-base">
                 Ranked by the number of confirmed-fit parts in our live catalog. Counts reflect
                 products verified for your exact vehicle, not the full category size.
               </p>
@@ -100,46 +100,46 @@ export function HomepageCompatibleCategories() {
           </div>
 
           {isLoading ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 3 }).map((_, index) => (
                 <div
                   key={index}
-                  className="h-36 animate-pulse rounded-2xl border border-white/10 bg-white/[0.04]"
+                  className="h-28 animate-pulse rounded-2xl border border-white/10 bg-white/[0.04] sm:h-36"
                 />
               ))}
             </div>
           ) : resolved.length ? (
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
               {resolved.map((category) => {
                 const Icon = categoryIconMap[category.icon];
                 return (
                   <Link
                     key={category.slug}
                     href={`/category/${category.slug}?fitsOnly=1`}
-                    className="group relative flex items-start gap-4 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#1a1d24] p-5 transition hover:-translate-y-[2px] hover:border-[#ff6a00]/40 hover:shadow-[0_12px_40px_rgba(255,106,0,0.12)]"
+                    className="group relative flex items-start gap-3 overflow-hidden rounded-2xl border border-white/[0.08] bg-[#1a1d24] p-3.5 transition hover:-translate-y-[2px] hover:border-[#ff6a00]/40 hover:shadow-[0_12px_40px_rgba(255,106,0,0.12)] active:scale-[0.98] sm:gap-4 sm:p-5"
                   >
-                    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.04] text-white/40 transition group-hover:border-[#ff6a00]/30 group-hover:bg-[#ff6a00]/15 group-hover:text-[#ff6a00]">
-                      <div className="h-8 w-8">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.04] text-white/40 transition group-hover:border-[#ff6a00]/30 group-hover:bg-[#ff6a00]/15 group-hover:text-[#ff6a00] sm:h-14 sm:w-14">
+                      <div className="h-6 w-6 sm:h-8 sm:w-8">
                         <Icon />
                       </div>
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">
-                        <h3 className="truncate text-base font-black uppercase tracking-wide text-white transition group-hover:text-[#ff6a00] sm:text-lg">
+                        <h3 className="truncate text-sm font-black uppercase tracking-wide text-white transition group-hover:text-[#ff6a00] sm:text-lg">
                           {category.title}
                         </h3>
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center border border-white/[0.06] bg-white/[0.04] text-sm text-white/30 transition group-hover:border-[#ff6a00]/30 group-hover:bg-[#ff6a00]/20 group-hover:text-[#ff6a00]">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center border border-white/[0.06] bg-white/[0.04] text-xs text-white/30 transition group-hover:border-[#ff6a00]/30 group-hover:bg-[#ff6a00]/20 group-hover:text-[#ff6a00] sm:h-8 sm:w-8 sm:text-sm">
                           →
                         </span>
                       </div>
-                      <p className="mt-1 line-clamp-2 text-sm text-white/55">
+                      <p className="mt-1 line-clamp-2 text-xs text-white/55 sm:text-sm">
                         {category.shortDescription}
                       </p>
-                      <div className="mt-3 flex items-center gap-2 border-t border-white/[0.05] pt-3">
-                        <span className="font-mono text-sm font-bold text-[#ff6a00]">
+                      <div className="mt-2 flex items-center gap-2 border-t border-white/[0.05] pt-2 sm:mt-3 sm:pt-3">
+                        <span className="font-mono text-xs font-bold text-[#ff6a00] sm:text-sm">
                           {category.fitsCount}
                         </span>
-                        <span className="font-mono text-[11px] uppercase tracking-wider text-white/45">
+                        <span className="font-mono text-[10px] uppercase tracking-wider text-white/45 sm:text-[11px]">
                           {category.fitsCount === 1 ? "confirmed fit" : "confirmed fits"}
                         </span>
                       </div>

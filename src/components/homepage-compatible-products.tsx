@@ -74,19 +74,19 @@ export function HomepageCompatibleProducts() {
   const isLoading = loadedVehicleKey !== vehicleKey;
 
   return (
-    <section className="relative bg-[#15181f] py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-6 sm:px-8">
-        <div className="rounded-[28px] border border-white/[0.08] bg-[#1a1d24] p-6 sm:p-8">
-          <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+    <section className="relative bg-[#15181f] py-10 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8">
+        <div className="rounded-3xl border border-white/[0.08] bg-[#1a1d24] p-4 sm:rounded-[28px] sm:p-8">
+          <div className="mb-5 flex flex-col gap-4 sm:mb-8 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <div className="mb-3 inline-flex items-center gap-2">
                 <span className="h-[2px] w-8 bg-[#ff6a00]" />
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-[#ff6a00]">YOUR VEHICLE</span>
               </div>
-              <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl">
+              <h2 className="text-xl font-black tracking-tight text-white sm:text-4xl">
                 Compatible Products for <span className="text-[#ff6a00]">{vehicleLabel}</span>
               </h2>
-              <p className="mt-2 max-w-2xl text-sm text-white/60 sm:text-base">
+              <p className="mt-2 max-w-2xl text-xs text-white/60 sm:text-base">
                 Confirmed-fit products for your selected vehicle, pulled from the live catalog instead of generic homepage filler.
               </p>
             </div>
