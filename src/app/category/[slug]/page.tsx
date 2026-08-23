@@ -84,13 +84,13 @@ export async function generateMetadata({
 
   if (!category) {
     return {
-      title: "Category Not Found | Fatman Parts",
+      title: "Category Not Found",
       description: "The requested category could not be found.",
     };
   }
 
   return {
-    title: `${category.title} | Fatman Parts`,
+    title: category.title,
     description: `${category.description} Shop ${category.title.toLowerCase()} with verified fitment and fast U.S. shipping.`,
     alternates: { canonical: `/category/${category.slug}` },
     openGraph: {

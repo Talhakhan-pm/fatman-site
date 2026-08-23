@@ -17,7 +17,7 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found | Fatman Parts",
+      title: "Product Not Found",
       description: "The requested product could not be found.",
     };
   }
@@ -27,7 +27,7 @@ export async function generateMetadata({
     : undefined;
 
   return {
-    title: `${product.name} | Fatman Parts`,
+    title: product.name,
     description: `${product.shortDescription} Shop with verified fitment and fast U.S. shipping.`,
     alternates: {
       canonical: `/product/${product.slug}`,

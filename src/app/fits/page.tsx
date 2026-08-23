@@ -38,7 +38,7 @@ export async function generateMetadata({
 
   if (!vehicle) {
     return {
-      title: "Parts That Fit Your Vehicle | Fatman Parts",
+      title: "Parts That Fit Your Vehicle",
       description: "Every OEM-verified part in our live catalog that fits your exact vehicle.",
       robots: { index: false },
     };
@@ -46,7 +46,7 @@ export async function generateMetadata({
 
   const label = formatVehicleLabel(vehicle);
   return {
-    title: `Parts That Fit ${label} | Fatman Parts`,
+    title: `Parts That Fit ${label}`,
     description: `Every OEM-verified part in our live catalog confirmed to fit a ${label}, with fast U.S. shipping.`,
     alternates: { canonical: `${SITE_URL}/fits` },
   };

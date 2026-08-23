@@ -4,7 +4,7 @@ import { getCategories } from "@/lib/catalog-db";
 import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
 
 export const metadata: Metadata = {
-  title: "All Categories | Fatman Parts",
+  title: "All Categories",
   description:
     "Browse all Fatman catalog categories from the synced registry and live catalog snapshot. OEM-verified fitment.",
   alternates: { canonical: "/category" },

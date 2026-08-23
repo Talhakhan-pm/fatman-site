@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { CheckoutSuccessClient } from "@/components/checkout-success-client";
 
 export const metadata: Metadata = {
-  title: "Order confirmed | Fatman Parts",
+  title: "Order confirmed",
   description: "Your Fatman Parts order confirmation.",
 };
 

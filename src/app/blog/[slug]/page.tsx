@@ -18,7 +18,7 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Blog Post Not Found | Fatman Parts",
+      title: "Blog Post Not Found",
       description: "The requested Fatman Garage blog post could not be found.",
     };
   }
