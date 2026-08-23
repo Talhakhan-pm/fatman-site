@@ -163,7 +163,7 @@ export default async function CategoryPage({
   };
 
   return (
-    <div className="catv2 min-h-screen pt-24 lg:pt-28">
+    <div className="catv2 min-h-screen pt-[76px] lg:pt-28">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
       <section className="fm-hero">
@@ -196,7 +196,7 @@ export default async function CategoryPage({
             <span>{category.title}</span>
           </nav>
 
-          <div className="mt-5 grid grid-cols-1 items-start gap-7 lg:grid-cols-[1fr_auto]">
+          <div className="mt-3 grid grid-cols-1 items-start gap-7 sm:mt-5 lg:grid-cols-[1fr_auto]">
             <div>
               <span className="fm-eyebrow">{categoryCode} · OEM Parts Lane</span>
               <h1 className="fm-h1">

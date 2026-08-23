@@ -63,7 +63,7 @@ export default async function FitsPage({
 
   if (!normalized) {
     return (
-      <div className="min-h-screen bg-fatman-900 text-white pt-24 lg:pt-32">
+      <div className="min-h-screen bg-fatman-900 text-white pt-[76px] lg:pt-32">
         <FitsFromGarage />
         <div className="mt-12">
           <TrustStrip />
@@ -108,23 +108,24 @@ export default async function FitsPage({
   };
 
   return (
-    <div className="min-h-screen bg-fatman-900 text-white pt-24 lg:pt-32">
+    <div className="min-h-screen bg-fatman-900 text-white pt-[76px] lg:pt-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
       <section className="mx-auto max-w-6xl px-4 pb-2 pt-2 sm:px-6">
-        <div className="mb-3 inline-flex items-center gap-2">
+        <div className="mb-2 inline-flex items-center gap-2 sm:mb-3">
           <span className="h-[2px] w-8 bg-[#ff6a00]" />
           <span className="font-mono text-xs font-bold uppercase tracking-[0.3em] text-[#ff6a00]">
             Verified for your vehicle
           </span>
         </div>
-        <h1 className="text-3xl font-black tracking-tight sm:text-5xl">
+        <h1 className="text-xl font-black tracking-tight sm:text-5xl">
           Parts that fit <span className="text-[#ff6a00]">{label}</span>
         </h1>
-        <p className="mt-2 max-w-2xl text-base leading-7 text-white/70">
+        {/* the grid header below repeats the counts, so phones skip this paragraph */}
+        <p className="mt-2 hidden max-w-2xl text-base leading-7 text-white/70 sm:block">
           {initialPage.total} parts in the live catalog matched to this exact vehicle —
           filter by category or browse everything.
         </p>

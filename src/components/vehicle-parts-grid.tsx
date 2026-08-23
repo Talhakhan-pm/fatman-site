@@ -37,6 +37,9 @@ export function VehiclePartsGrid({
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sort, setSort] = useState<Sort>("relevance");
   const [currentPage, setCurrentPage] = useState(initialPage.page || 1);
+  // chip rail: 6 facets by default, "+N" reveals the rest
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const COLLAPSED_FACETS = 6;
 
   const [data, setData] = useState<CategoryPage>(initialPage);
   const [loading, setLoading] = useState(false);
@@ -117,11 +120,24 @@ export function VehiclePartsGrid({
   };
 
   const chipClass = (active: boolean) =>
-    `rounded-full border px-4 py-1.5 text-xs font-semibold transition hover:-translate-y-px ${
+    `rounded-full border px-4 py-1.5 text-xs font-semibold transition hover:-translate-y-px whitespace-nowrap ${
       active
         ? "border-fatman-accent bg-fatman-accent/10 text-fatman-accent"
         : "border-white/15 bg-white/5 text-white/70 hover:bg-white/10"
     }`;
+
+  // The selected facet always stays on the rail even when it lives beyond
+  // the collapsed cutoff — otherwise picking "Wheels" would hide your
+  // own selection behind the +N button.
+  const activeFacetIndex = category
+    ? categories.findIndex((facet) => facet.slug === category)
+    : -1;
+  const collapsedCutoff =
+    activeFacetIndex >= COLLAPSED_FACETS ? activeFacetIndex + 1 : COLLAPSED_FACETS;
+  const visibleCategories = showAllCategories
+    ? categories
+    : categories.slice(0, collapsedCutoff);
+  const hiddenCategoryCount = categories.length - visibleCategories.length;
 
   return (
     <>
@@ -130,7 +146,7 @@ export function VehiclePartsGrid({
           <button onClick={() => setCategory(null)} className={chipClass(category === null)}>
             All categories
           </button>
-          {categories.map((facet) => (
+          {visibleCategories.map((facet) => (
             <button
               key={facet.slug}
               onClick={() => setCategory((prev) => (prev === facet.slug ? null : facet.slug))}
@@ -140,6 +156,24 @@ export function VehiclePartsGrid({
               <span className="ml-1.5 font-mono text-[10px] opacity-70">{facet.count}</span>
             </button>
           ))}
+          {hiddenCategoryCount > 0 && (
+            <button
+              onClick={() => setShowAllCategories(true)}
+              className={chipClass(false)}
+              aria-expanded={false}
+            >
+              +{hiddenCategoryCount} more
+            </button>
+          )}
+          {showAllCategories && categories.length > COLLAPSED_FACETS && (
+            <button
+              onClick={() => setShowAllCategories(false)}
+              className={chipClass(false)}
+              aria-expanded={true}
+            >
+              Less
+            </button>
+          )}
         </div>
 
         <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">

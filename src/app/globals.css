@@ -1352,21 +1352,22 @@ body[data-theme="light"] .fm-blob { opacity: 0.35; }
      never bleeds through the header gutters on phones. The bar is a
      pseudo-element with a fixed height because the header element itself
      also contains the collapsed (invisible, in-flow) search panel — a
-     background on the wrapper would paint far below the pill. */
+     background on the wrapper would paint far below the pill. 68px =
+     10px header offset + 36px pill controls + padding + breathing room. */
   .fm-siteheader::before {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
     top: 0;
-    height: 84px;
+    height: 68px;
     background: color-mix(in srgb, var(--fm-bg) 86%, transparent);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--fm-line);
     z-index: -1;
   }
-  .fm-toolbar { top: 84px; } /* sits flush under the header blur bar */
+  .fm-toolbar { top: 68px; } /* sits flush under the header blur bar */
 }
 
 /* ── tab view transitions (fm-chrome) ─────────────────────────── */
@@ -1419,15 +1420,14 @@ body[data-theme="light"] .fm-blob { opacity: 0.35; }
   .fm-trust-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
-  /* ── hero: compact spec plate ── */
-  .fm-hero { padding-top: 20px; }
+  /* ── hero: minimal strip — get to the parts ──
+     Crumbs, description, and the stats row are desktop garnish; on a
+     phone they push the product grid below the fold. */
+  .fm-hero { padding-top: 12px; }
   .fm-stamp, .fm-riser { display: none; }
-  .fm-h1 { font-size: clamp(34px, 10vw, 44px); }
-  .fm-hero .fm-desc { font-size: 14px; margin-top: 12px; }
-  .fm-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: none; margin-top: 18px; }
-  .fm-stat b { font-size: 18px; }
-  .fm-stat span { font-size: 8.5px; letter-spacing: 0.12em; }
-  .fm-subcats { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 20px; padding-bottom: 4px; }
+  .fm-crumbs, .fm-hero .fm-desc, .fm-stats { display: none; }
+  .fm-h1 { font-size: clamp(26px, 8vw, 34px); }
+  .fm-subcats { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; margin-top: 12px; padding-bottom: 4px; }
   .fm-subcats::-webkit-scrollbar { display: none; }
   .fm-subcat { flex: none; }
   .fm-trust-grid { grid-template-columns: 1fr; }
