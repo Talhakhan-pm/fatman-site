@@ -137,13 +137,21 @@ export function SiteHeader() {
   }, [query, searchOpen]);
 
   return (
-    <header className="fm-siteheader fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6">
+    <header
+      className={`fm-siteheader fixed left-0 right-0 top-0 z-50 px-4 pt-2.5 sm:px-6 sm:pt-4 ${
+        // The collapsed search panel below the pill keeps its layout size
+        // (opacity-0, not display:none), so the header's box is ~400px tall.
+        // Pass clicks through that dead zone unless a surface is open —
+        // otherwise the header shadows page content near the top.
+        searchOpen || garageOpen ? "" : "pointer-events-none"
+      }`}
+    >
       <div
-        className={`mx-auto flex max-w-7xl items-center gap-3 rounded-full px-3 py-2 transition-all duration-500 sm:gap-4 ${
+        className={`mx-auto flex max-w-7xl items-center gap-2.5 rounded-full px-2.5 py-1.5 transition-all duration-500 sm:gap-4 sm:px-3 sm:py-2 ${
           scrolled || searchOpen || garageOpen
             ? "border border-white/10 bg-[#10141b]/72 shadow-[0_18px_70px_rgba(0,0,0,0.32)] backdrop-blur-2xl"
             : "border border-transparent bg-transparent"
-        }`}
+        } pointer-events-auto`}
       >
         <Link href="/" className="flex shrink-0 items-center" aria-label="Fatman Parts home">
           <Image
@@ -152,19 +160,20 @@ export function SiteHeader() {
             width={1265}
             height={383}
             priority
-            className="h-9 w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)] transition duration-300 hover:scale-[1.02] sm:h-10"
+            className="h-7 w-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.45)] transition duration-300 hover:scale-[1.02] sm:h-10"
           />
         </Link>
 
         <button
           type="button"
           onClick={() => setSearchOpen(true)}
-          className="group relative flex h-11 min-w-0 flex-1 items-center overflow-hidden rounded-full border border-white/12 bg-white/[0.055] px-4 text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white sm:h-12 sm:px-5"
+          className="group relative flex h-9 min-w-0 flex-1 items-center overflow-hidden rounded-full border border-white/12 bg-white/[0.055] px-3.5 text-white/75 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white sm:h-12 sm:px-5"
           aria-label="Search products"
         >
-          <SearchIcon className="h-5 w-5 shrink-0 transition duration-300 group-hover:scale-110 group-hover:text-fatman-accent" />
-          <span className="ml-3 min-w-0 flex-1 truncate text-left text-sm font-semibold text-white/52 transition group-hover:text-white/85">
-            Search parts, SKU, OEM number, brand...
+          <SearchIcon className="h-4 w-4 shrink-0 transition duration-300 group-hover:scale-110 group-hover:text-fatman-accent sm:h-5 sm:w-5" />
+          <span className="ml-2.5 min-w-0 flex-1 truncate text-left text-[13px] font-semibold text-white/52 transition group-hover:text-white/85 sm:ml-3 sm:text-sm">
+            <span className="sm:hidden">Search parts...</span>
+            <span className="hidden sm:inline">Search parts, SKU, OEM number, brand...</span>
           </span>
           {vehicle ? (
             <span className="ml-3 hidden max-w-[180px] truncate rounded-full border border-white/10 bg-black/20 px-2.5 py-1 text-xs text-white/42 xl:inline" title={formatVehicleLabel(vehicle)}>
@@ -179,13 +188,13 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setGarageOpen((current) => !current)}
-            className={`relative inline-flex h-11 w-11 items-center justify-center rounded-full border text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white ${
+            className={`relative inline-flex h-9 w-9 items-center justify-center rounded-full border text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white sm:h-11 sm:w-11 ${
               garageOpen || vehicle ? "border-fatman-accent/45 bg-fatman-accent/12" : "border-white/12 bg-white/[0.045]"
             }`}
             aria-label="Garage fitment"
             aria-expanded={garageOpen}
           >
-            <GarageIcon className="h-5 w-5" />
+            <GarageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
             {vehicle ? <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-fatman-accent shadow-[0_0_12px_rgba(234,88,12,0.8)]" /> : null}
           </button>
 
@@ -194,26 +203,26 @@ export function SiteHeader() {
               garageOpen ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none -translate-y-2 scale-[0.96] opacity-0"
             }`}
           >
-            <div className="relative p-5 sm:p-6">
+            <div className="relative p-4 sm:p-6">
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_0%,rgba(234,88,12,0.22),transparent_42%)]" />
               <div className="relative">
                 <p className="text-[10px] font-black uppercase tracking-[0.24em] text-fatman-accent">Garage</p>
                 {vehicle ? (
                   <>
-                    <p className="mt-2 text-2xl font-black leading-tight text-white">{formatCompactVehicleLabel(vehicle)}</p>
-                    <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/35">{formatVehicleLabel(vehicle)}</p>
+                    <p className="mt-2 text-lg font-black leading-tight text-white sm:text-2xl">{formatCompactVehicleLabel(vehicle)}</p>
+                    <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-white/35 sm:text-xs">{formatVehicleLabel(vehicle)}</p>
                   </>
                 ) : (
                   <>
-                    <p className="mt-2 text-2xl font-black leading-tight text-white">No vehicle selected</p>
-                    <p className="mt-3 text-sm leading-relaxed text-white/55">Add your ride before you shop for smarter fitment warnings.</p>
+                    <p className="mt-2 text-lg font-black leading-tight text-white sm:text-2xl">No vehicle selected</p>
+                    <p className="mt-2 text-xs leading-relaxed text-white/55 sm:mt-3 sm:text-sm">Add your ride before you shop for smarter fitment warnings.</p>
                   </>
                 )}
-                <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                  <Link href="/" onClick={() => setGarageOpen(false)} className="rounded-2xl bg-fatman-accent px-4 py-3 text-center text-sm font-black text-fatman-900 transition hover:bg-fatman-accent-hover">
+                <div className="mt-4 grid gap-2 sm:mt-5 sm:grid-cols-2">
+                  <Link href="/" onClick={() => setGarageOpen(false)} className="rounded-2xl bg-fatman-accent px-4 py-2.5 text-center text-sm font-black text-fatman-900 transition hover:bg-fatman-accent-hover sm:py-3">
                     {vehicle ? "Update vehicle" : "Select vehicle"}
                   </Link>
-                  <Link href="/category" onClick={() => setGarageOpen(false)} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-center text-sm font-bold text-white/70 transition hover:bg-white/10 hover:text-white">
+                  <Link href="/category" onClick={() => setGarageOpen(false)} className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-center text-sm font-bold text-white/70 transition hover:bg-white/10 hover:text-white sm:py-3">
                     Browse parts
                   </Link>
                 </div>
@@ -243,7 +252,7 @@ export function SiteHeader() {
         }`}
       >
         <div className="overflow-hidden rounded-[1.75rem] border border-white/12 bg-[#10141b]/92 shadow-[0_28px_90px_rgba(0,0,0,0.48)] backdrop-blur-2xl">
-          <div className="flex items-center gap-3 border-b border-white/10 bg-white/[0.045] px-4 py-3">
+          <div className="flex items-center gap-3 border-b border-white/10 bg-white/[0.045] px-4 py-2.5 sm:py-3">
             <SearchIcon className="h-5 w-5 text-fatman-accent" />
             <input
               ref={inputRef}
@@ -263,7 +272,7 @@ export function SiteHeader() {
             {!query.trim() && (
               <div className="grid gap-2 sm:grid-cols-3">
                 {["radiator", "engine", "brake", "suspension", "OEM", "cooling"].map((term) => (
-                  <button key={term} type="button" onClick={() => setQuery(term)} className="rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-left text-sm font-bold text-white/64 transition hover:border-fatman-accent/45 hover:bg-fatman-accent/10 hover:text-white">
+                  <button key={term} type="button" onClick={() => setQuery(term)} className="rounded-2xl border border-white/10 bg-white/[0.035] px-3.5 py-2.5 text-left text-sm font-bold text-white/64 transition hover:border-fatman-accent/45 hover:bg-fatman-accent/10 hover:text-white sm:px-4 sm:py-3">
                     {term}
                   </button>
                 ))}
