@@ -92,6 +92,23 @@ export function useLazyFitmentCatalog() {
   const slicesRef = useRef<Record<string, YearSlice>>({});
   const yearsRef = useRef<string[]>([]);
   const pending = useRef<Map<string, Promise<YearSlice | null>>>(new Map());
+  // A render-phase cache miss schedules a fetch that can resolve before this
+  // hook's owner commits (dynamic ssr:false + StrictMode). setState then would
+  // hit an unmounted instance, so pre-mount results park in the ref and flush
+  // in the mount effect below.
+  const mounted = useRef(false);
+  const dirty = useRef(false);
+
+  useEffect(() => {
+    mounted.current = true;
+    if (dirty.current) {
+      dirty.current = false;
+      setSlices(slicesRef.current);
+    }
+    return () => {
+      mounted.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     let ignore = false;
@@ -124,7 +141,11 @@ export function useLazyFitmentCatalog() {
       .then((slice: YearSlice | null) => {
         if (slice) {
           slicesRef.current = { ...slicesRef.current, [year]: slice };
-          setSlices(slicesRef.current);
+          if (mounted.current) {
+            setSlices(slicesRef.current);
+          } else {
+            dirty.current = true;
+          }
         }
         return slice;
       })
