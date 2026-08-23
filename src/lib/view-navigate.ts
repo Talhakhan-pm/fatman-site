@@ -52,19 +52,32 @@ function canUseViewTransitions() {
  * instant). The 700ms ceiling keeps the frozen old snapshot from ever
  * outliving a slow network navigation; beyond it the transition simply
  * plays over whatever is on screen.
+ *
+ * Deliberately timer-driven, NOT rAF-driven: rAF pauses while the tab is
+ * hidden, and a rAF-gated loop inside the DOM-update callback can stall
+ * past the browser's 4s view-transition budget ("Transition was aborted
+ * because of timeout in DOM update"). Timers always fire, so this
+ * settles in <=700ms even backgrounded.
  */
 function whenSettled(href: string) {
   const target = new URL(href, window.location.href).pathname;
   const deadline = performance.now() + 700;
   return new Promise<void>((resolve) => {
     const tick = () => {
-      if (window.location.pathname === target || performance.now() > deadline) {
-        requestAnimationFrame(() => resolve());
+      if (window.location.pathname === target) {
+        // pathname can flip just before React commits the new tree —
+        // give the commit a beat to land so the new snapshot captures
+        // the destination, not the page we're leaving
+        setTimeout(resolve, 50);
         return;
       }
-      requestAnimationFrame(tick);
+      if (performance.now() > deadline) {
+        resolve();
+        return;
+      }
+      setTimeout(tick, 40);
     };
-    requestAnimationFrame(tick);
+    tick();
   });
 }
 
