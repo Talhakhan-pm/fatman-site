@@ -1,6 +1,7 @@
 const DEFAULT_KEY_SEPARATOR = "|||";
 const DEFAULT_VARIANT_LABEL = "Base";
 const cleanList = (values) => (values ?? []).filter((v) => typeof v === "string" && v.length > 0);
+const cleanEngineList = (values) => cleanList(values).filter((value) => value.trim().toLowerCase() !== "unknown");
 const dedupeSorted = (values) => Array.from(new Set(cleanList(values))).sort((a, b) => a.localeCompare(b));
 /**
  * Builds a read-only catalog from a flat tree-shaped input. The tree is
@@ -45,7 +46,7 @@ export function createFitmentCatalog(data, config = {}) {
         if (!yearBucket)
             return [];
         const lookupVariant = variant || defaultVariant;
-        return cleanList(yearBucket[buildKey(make, model, lookupVariant)]);
+        return cleanEngineList(yearBucket[buildKey(make, model, lookupVariant)]);
     };
     const getDefaultVariant = (variants) => {
         if (variants.length !== 1)
