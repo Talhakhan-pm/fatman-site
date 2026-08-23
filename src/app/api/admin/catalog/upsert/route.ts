@@ -6,6 +6,7 @@ import {
 } from "@/lib/admin-catalog-local-store";
 import { mergeProductBadgeMetadata } from "@/lib/product-badges";
 import { createSupabaseAdminClient } from "@/lib/supabase";
+import { productUrl, submitToIndexNow } from "@/lib/indexnow";
 
 const FITMENT_CHUNK_SIZE = 500;
 const STOCK_STATUSES = new Set(["in-stock", "low-stock", "preorder"]);
@@ -652,6 +653,16 @@ export async function POST(req: Request) {
             notes: rule.notes,
           })) ?? [],
         replaceFitment,
+      });
+    }
+
+    // Tell Bing (and Yandex/Naver/Seznam) the moment a published product
+    // changes, instead of waiting for the next sitemap crawl. Deliberately
+    // fire-and-forget: a slow or failing IndexNow call must never delay the
+    // save or turn a successful upsert into an error.
+    if (product.published) {
+      void submitToIndexNow([productUrl(product.slug)]).catch((error) => {
+        console.error("IndexNow ping failed", { slug: product.slug, error });
       });
     }
 
