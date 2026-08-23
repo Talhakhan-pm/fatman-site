@@ -1,14 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "./cart-provider";
 import { useGarage } from "./garage-provider";
+import { navigateWithViewTransition, tabDirection } from "@/lib/view-navigate";
 
 /**
  * Mobile bottom navigation — app-like tab bar, visible only below 768px
  * (see the fm-bnav block in globals.css). Four fixed destinations; no
- * account tab because the site has no auth surface.
+ * account tab because the site has no auth surface. Taps animate the
+ * page under the bar: cart lifts up like a sheet, neighbors slide.
  */
 
 type NavItem = {
@@ -90,8 +92,16 @@ const NAV_ITEMS: NavItem[] = [
 
 export function MobileBottomNav() {
   const pathname = usePathname() ?? "/";
+  const router = useRouter();
   const { itemCount, mounted: cartMounted } = useCart();
   const { vehicle } = useGarage();
+
+  const handleTap = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // leave modifier-clicks / new-tab gestures to the browser
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    event.preventDefault();
+    navigateWithViewTransition(router, href, tabDirection(pathname, href));
+  };
 
   return (
     <nav className="fm-bnav" aria-label="Mobile navigation">
@@ -101,13 +111,15 @@ export function MobileBottomNav() {
           <Link
             key={item.key}
             href={item.href}
+            onClick={(e) => handleTap(e, item.href)}
             className={`fm-bnav-item ${active ? "on" : ""}`}
             aria-current={active ? "page" : undefined}
           >
             <span className="fm-bnav-ico">
               {item.icon}
               {item.key === "cart" && cartMounted && itemCount > 0 && (
-                <span className="fm-bnav-badge" aria-label={`${itemCount} items in cart`}>
+                // keyed by count: every add/remove replays the pop-in
+                <span key={itemCount} className="fm-bnav-badge" aria-label={`${itemCount} items in cart`}>
                   {itemCount > 99 ? "99+" : itemCount}
                 </span>
               )}

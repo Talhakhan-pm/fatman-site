@@ -144,7 +144,11 @@ export default function RootLayout({
             />
           </noscript>
         )}
-        <NextTopLoader color="#ea580c" showSpinner={false} />
+        {/* hidden on phones: the bottom-nav view transitions are the load
+            feedback there, and the top bar flashing over them reads as jitter */}
+        <div className="hidden md:block">
+          <NextTopLoader color="#ea580c" showSpinner={false} />
+        </div>
         <ThemeProvider>
           <GarageProvider>
             <CartProvider>

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   useCallback,
@@ -12,6 +13,7 @@ import {
 } from "react";
 import { formatPrice, type Product } from "@/lib/catalog-types";
 import { canAddProductToCart } from "@/lib/product-pricing";
+import { navigateWithViewTransition } from "@/lib/view-navigate";
 
 const CART_STORAGE_KEY = "fatman-cart-v1";
 
@@ -60,9 +62,12 @@ function parseStoredCart(value: string | null): CartLine[] {
 }
 
 export function CartProvider({ children }: { children: ReactNode }) {
+  const router = useRouter();
   const [lines, setLines] = useState<CartLine[]>([]);
   const [mounted, setMounted] = useState(false);
   const [lastAdded, setLastAdded] = useState<CartLine | null>(null);
+  // holds the toast mounted through its exit animation
+  const [toastLeaving, setToastLeaving] = useState(false);
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -80,8 +85,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!lastAdded) return;
-    const timer = window.setTimeout(() => setLastAdded(null), 4200);
-    return () => window.clearTimeout(timer);
+    const startExit = window.setTimeout(() => setToastLeaving(true), 4200);
+    const unmount = window.setTimeout(() => setLastAdded(null), 4540);
+    return () => {
+      window.clearTimeout(startExit);
+      window.clearTimeout(unmount);
+    };
   }, [lastAdded]);
 
   const addItem = useCallback((product: Product, quantity = 1) => {
@@ -89,6 +98,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     const safeQuantity = normalizeQuantity(quantity);
     const addedAt = new Date().toISOString();
+    // a fresh add replays the entrance even if the old toast was mid-exit
+    setToastLeaving(false);
 
     setLines((current) => {
       const existing = current.find((line) => line.product.slug === product.slug);
@@ -150,7 +161,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     <CartContext.Provider value={value}>
       {children}
       {lastAdded && (
-        <div className="fixed bottom-[calc(80px+env(safe-area-inset-bottom))] left-4 right-4 z-50 mx-auto max-w-md rounded-2xl border border-fatman-accent/40 bg-fatman-900/95 p-4 text-white shadow-2xl shadow-black/35 backdrop-blur md:bottom-4 md:left-auto md:right-6 md:mx-0">
+        <div className={`fm-toast fixed bottom-[calc(80px+env(safe-area-inset-bottom))] left-4 right-4 z-50 mx-auto max-w-md rounded-2xl border border-fatman-accent/40 bg-fatman-900/95 p-4 text-white shadow-2xl shadow-black/35 backdrop-blur md:bottom-4 md:left-auto md:right-6 md:mx-0 ${toastLeaving ? "out" : ""}`}>
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-fatman-accent">Added to cart</p>
@@ -164,7 +175,16 @@ export function CartProvider({ children }: { children: ReactNode }) {
             </button>
           </div>
           <div className="mt-4 grid grid-cols-2 gap-2 text-sm font-semibold">
-            <Link href="/cart" className="rounded-lg border border-white/15 px-3 py-2 text-center text-white/85 hover:bg-white/10">
+            <Link
+              href="/cart"
+              onClick={(e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+                e.preventDefault();
+                setLastAdded(null);
+                navigateWithViewTransition(router, "/cart", "up");
+              }}
+              className="rounded-lg border border-white/15 px-3 py-2 text-center text-white/85 hover:bg-white/10"
+            >
               View cart
             </Link>
             <Link href="/checkout" className="rounded-lg bg-fatman-accent px-3 py-2 text-center text-fatman-900 hover:bg-fatman-accent-hover">

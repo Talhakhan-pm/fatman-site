@@ -1369,6 +1369,49 @@ body[data-theme="light"] .fm-blob { opacity: 0.35; }
   .fm-toolbar { top: 84px; } /* sits flush under the header blur bar */
 }
 
+/* ── tab view transitions (fm-chrome) ─────────────────────────── */
+/* The header and bottom bar become their own static snapshot layers,
+   so route content slides underneath them like a native app shell.
+   Directions are set as data-vt on <html> by view-navigate.ts:
+   cart presents "up" like a sheet and dismisses "down"; neighbor tabs
+   slide laterally; anything else cross-fades. */
+.fm-siteheader { view-transition-name: fm-header; }
+.fm-bnav { view-transition-name: fm-bnav; }
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+:root[data-vt="up"]::view-transition-new(root) { animation: fm-vt-rise 0.42s cubic-bezier(0.16, 1, 0.3, 1) both; }
+:root[data-vt="up"]::view-transition-old(root) { animation: fm-vt-sink 0.42s cubic-bezier(0.4, 0, 0.2, 1) both; }
+:root[data-vt="down"]::view-transition-new(root) { animation: fm-vt-drop-in 0.38s cubic-bezier(0.16, 1, 0.3, 1) both; }
+:root[data-vt="down"]::view-transition-old(root) { animation: fm-vt-drop-out 0.38s cubic-bezier(0.4, 0, 0.2, 1) both; }
+:root[data-vt="left"]::view-transition-new(root) { animation: fm-vt-in-right 0.32s cubic-bezier(0.2, 0.9, 0.25, 1.05) both; }
+:root[data-vt="left"]::view-transition-old(root) { animation: fm-vt-out-left 0.32s cubic-bezier(0.4, 0, 0.2, 1) both; }
+:root[data-vt="right"]::view-transition-new(root) { animation: fm-vt-in-left 0.32s cubic-bezier(0.2, 0.9, 0.25, 1.05) both; }
+:root[data-vt="right"]::view-transition-old(root) { animation: fm-vt-out-right 0.32s cubic-bezier(0.4, 0, 0.2, 1) both; }
+:root[data-vt="fade"]::view-transition-old(root) { animation: fm-vt-fade-out 0.24s ease both; }
+:root[data-vt="fade"]::view-transition-new(root) { animation: fm-vt-fade-in 0.24s ease both; }
+@keyframes fm-vt-rise { from { transform: translateY(100%); } }
+@keyframes fm-vt-sink { to { opacity: 0.35; transform: scale(0.97); } }
+@keyframes fm-vt-drop-out { to { transform: translateY(100%); } }
+@keyframes fm-vt-drop-in { from { opacity: 0.5; transform: scale(0.965); } }
+/* lateral slides travel asymmetrically: the incoming tab moves further,
+   the outgoing one eases just partway — reads as a single lateral drift */
+@keyframes fm-vt-in-right { from { opacity: 0; transform: translateX(18%); } }
+@keyframes fm-vt-out-left { to { opacity: 0; transform: translateX(-9%); } }
+@keyframes fm-vt-in-left { from { opacity: 0; transform: translateX(-18%); } }
+@keyframes fm-vt-out-right { to { opacity: 0; transform: translateX(9%); } }
+@keyframes fm-vt-fade-out { to { opacity: 0; } }
+@keyframes fm-vt-fade-in { from { opacity: 0; } }
+
+/* cart badge pops on every count change (nav keys it by itemCount) */
+.fm-bnav-badge { animation: fm-badge-pop 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.25); }
+@keyframes fm-badge-pop { 0% { transform: scale(0.3); } 60% { transform: scale(1.3); } 100% { transform: scale(1); } }
+
+/* cart toast slides in, then out before unmount (cart-provider.tsx
+   holds the leaving class for the exit duration) */
+.fm-toast { animation: fm-toast-in 0.45s cubic-bezier(0.2, 0.9, 0.25, 1.12) both; }
+.fm-toast.out { animation: fm-toast-out 0.32s cubic-bezier(0.4, 0, 1, 1) both; }
+@keyframes fm-toast-in { from { opacity: 0; transform: translateY(24px) scale(0.96); } }
+@keyframes fm-toast-out { to { opacity: 0; transform: translateY(16px) scale(0.97); } }
+
 /* ── responsive ───────────────────────────────────────────────── */
 @media (max-width: 1020px) {
   .fm-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1470,5 +1513,7 @@ body[data-theme="light"] .fm-blob { opacity: 0.35; }
   .fm-card, .fm-stamp { animation: none !important; opacity: 1 !important; transform: none !important; }
   .fm-ticker-track, .fm-blob, .fm-riser, .fm-stamp svg.ring, .fm-dot.pulse::after, .fm-stock .pd::after { animation: none !important; }
   .fm-btn-add.added, .fm-btn-add.added svg { animation: none !important; }
+  .fm-toast, .fm-toast.out, .fm-bnav-badge { animation: none !important; }
+  ::view-transition-group(*), ::view-transition-image-pair(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
   .fm-card, .fm-card-media, .fm-card-media img, .fm-btn, .fm-subcat, .fm-toggle, .fm-pg { transition: none !important; }
 }
