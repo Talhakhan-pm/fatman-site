@@ -9,7 +9,9 @@ import { catalogRegistry, categoryIconMap } from "@/lib/catalog-registry";
 import { socialProfileUrls } from "@/lib/social-links";
 
 export const metadata: Metadata = {
-  title: "OEM Parts with Guaranteed Fitment",
+  // The root layout's title.template applies to CHILD segments only, never
+  // to the root page itself — so this one carries the brand explicitly.
+  title: "OEM Parts with Guaranteed Fitment | Fatman Parts",
   description: "Stop guessing compatibility. Browse and search OEM-verified automotive parts with 18,000+ fitment rules and exact VIN lookups. Fast 24–48 hour U.S. shipping and guaranteed fit.",
   alternates: {
     canonical: "/",
