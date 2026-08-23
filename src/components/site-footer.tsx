@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useTheme } from "./theme-provider";
+import { ThemeToggleButton } from "./theme-toggle-button";
 import { catalogRegistry } from "@/lib/catalog-registry";
 import { socialIconMap } from "@/components/social-icons";
 import { socialLinks } from "@/lib/social-links";
@@ -164,6 +165,10 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
+          {/* Phones only — desktop keeps the floating toggle. */}
+          <div className="md:hidden">
+            <ThemeToggleButton variant="switch" />
+          </div>
           <p>
             © {new Date().getFullYear()} Fatman Parts. All rights reserved.
           </p>

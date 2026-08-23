@@ -224,7 +224,7 @@ export function SiteHeader() {
 
         <Link
           href="/cart"
-          className="relative inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.045] text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white"
+          className="relative hidden h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/12 bg-white/[0.045] text-white/72 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl transition-all duration-300 hover:border-fatman-accent/55 hover:bg-fatman-accent/12 hover:text-white md:inline-flex"
           aria-label="Cart"
         >
           <CartIcon className="h-5 w-5" />
