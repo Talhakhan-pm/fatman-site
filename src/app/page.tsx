@@ -219,7 +219,7 @@ export default async function Home() {
         <div className="absolute right-[-5%] top-[-10%] h-[120%] w-[55%] bg-gradient-to-br from-[#ff6a00] to-[#c2410c] opacity-[0.07]" style={{ clipPath: "polygon(25% 0, 100% 0, 100% 100%, 5% 100%)", transform: "skewX(-6deg)" }} />
         <div className="absolute right-1/4 top-1/4 h-[500px] w-[500px] rounded-full bg-[#ff6a00]/[0.06] blur-[150px]" />
         <CautionStripe className="absolute top-0 left-0 right-0 z-20" />
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-14 sm:px-8 sm:py-24 lg:py-0">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 pb-14 pt-24 sm:px-8 sm:py-24 lg:py-0">
           <div className="grid items-center gap-6 sm:gap-8 lg:grid-cols-12 lg:gap-12">
             <div className="space-y-5 sm:space-y-8 lg:col-span-7">
               <div className="inline-flex items-center gap-3 animate-[fadeUp_0.5s_ease-out]">
