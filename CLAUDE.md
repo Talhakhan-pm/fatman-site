@@ -16,13 +16,22 @@ wrong.
 
 ## Reaching the coordinator
 
-`ssh fatmanvps` (IPv6) is dead from most networks — the coordinator's IPv4 is in
-LACNIC space announced from Europe, so RPKI drops it inbound. Use
-`ssh fatmanvps-jump` (via worker-1).
+**Both routes fail intermittently — probe, don't assume.** The direct host
+`fatmanvps` is IPv6; the coordinator's IPv4 is LACNIC space announced from
+Europe, so RPKI drops it inbound and the v4 path is permanently useless.
+`fatmanvps-jump` reaches the same box through `fatman-w1`, which inherits
+worker-1's own uptime. On 2026-08-25 at 05:50 the direct route was dead and the
+jump was the only way in; by 07:34 that had flipped — direct connected in under
+a second while `fatman-w1` timed out on port 22. **Neither is "the" answer.**
 
-**`deploy.sh` defaults to `COORD=fatmanvps`.** Every invocation needs
-`FATMAN_COORD_HOST=fatmanvps-jump ./scripts/autopilot/deploy.sh …` or it hangs
-on "No route to host".
+```bash
+ssh -o ConnectTimeout=10 fatmanvps hostname || ssh -o ConnectTimeout=15 fatmanvps-jump hostname
+```
+
+**`deploy.sh` defaults to `COORD=fatmanvps`.** Set `FATMAN_COORD_HOST` to
+whichever host just answered — `FATMAN_COORD_HOST=fatmanvps-jump
+./scripts/autopilot/deploy.sh …` when the direct route is down, or leave it unset
+when it isn't. Pointing it at the dead one hangs on "No route to host".
 
 ---
 
@@ -110,6 +119,19 @@ good call, suspect call, good call, ~20s apart. Sequential tests minutes apart
 prove nothing, because CHARM recovers on its own in that window. A 429 arrives
 as `HTTP 429` / `rate_limited`; an encoding bug arrives as `errors`.
 
+**`products.metadata->>importBatchId` is a last-writer-wins stamp, not a per-batch
+count.** A SKU that fits several years is ONE product row carrying ONE batch id, and
+each later import re-stamps the rows it shares. So an older batch's live product count
+decays over time: Ford 1995 planned 7,073 products and reads 454 today; 2001 planned
+7,121 and reads 4,320; only the most recently applied batch (2005: 7,076/7,076) reads
+100%. **None of these are failed imports** — summing live products across all 20 batch
+ids gives exactly 29,676, the catalog total. Nothing is lost; the rows moved.
+`fitment_rules.source` has no such problem: it is genuinely per-batch and frozen at
+apply, and every published year matches its planned `fitment_count` exactly. **Verify a
+batch on fitment.** The product number is only true at apply time, where the state
+file's `apply`/`verify` stages already recorded it — read it from there rather than
+re-querying, or you will "discover" that a fine import lost 90% of its products.
+
 **PostgREST silently caps responses at 1,000 rows.** No error, no warning — the
 array is just short. `getProductSlugs` (`src/lib/catalog-db.ts:363`) pages
 deliberately for exactly this reason. Any new query that needs the whole catalog
@@ -168,7 +190,9 @@ is usually the more convenient one.
 | Is year Y in the catalog? | Supabase `fitment_rules` | the coordinator's `output/`, `queue.yaml`, or git |
 | Will year Y download? | `--years` in the fanout systemd unit | `queue.yaml` |
 | Will year Y publish? | `queue.yaml` | the fanout unit |
-| Did a batch really apply? | planned-vs-live row counts | a stage that says `completed` |
+| Did a batch really apply? | live `fitment_rules` vs `dryrun.fitment_count` | a stage that says `completed` |
+| How many products did a batch publish? | that batch's `apply`/`verify` state numbers | a live count on `importBatchId` (decays) |
+| Will a new batch start tonight? | the 21:00 `fatman-batch.timer` | `gate-recheck`, which only resumes parked ones |
 | What does the fleet cost, when? | `mission-control/data/money.yaml` | anything quoted in prose |
 | How many products lack images? | the batch state files (1,278 as of 08-25) | LESSONS.md's older ~400 |
 
