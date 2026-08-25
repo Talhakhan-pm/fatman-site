@@ -132,6 +132,32 @@ batch on fitment.** The product number is only true at apply time, where the sta
 file's `apply`/`verify` stages already recorded it — read it from there rather than
 re-querying, or you will "discover" that a fine import lost 90% of its products.
 
+**A failed `apply` is usually a Supabase statement timeout, and the fix is to re-run
+the unit — nothing else.** Ford 2002 died at 52,500 of 53,223 fitment rows with
+`HTTP 500 {"code":"57014","message":"canceling statement due to statement timeout"}`.
+That is Postgres killing one insert chunk under load, not bad data. `systemctl
+reset-failed fatman-batch && systemctl start --no-block fatman-batch` resumes at the
+first incomplete stage; the already-`completed` gate is **not** re-asked, so it costs
+no second Telegram approval, and `--replace-existing-fitment-source` drops only that
+batch's own rows first. 2002 landed on exactly 53,223 with no duplicates. Do **not**
+use `resume_supabase_image_expansion_fitment.py` for this — that script is for the
+May-era image-expansion batches and RUNBOOK.md points at it too broadly.
+
+**A silent `apply` is not a hung `apply`.** Duration varies ~15x for identical work:
+1998 took ~25 min for 46,492 rows, 2003 took ~2 min for 66,196. It tracks Supabase-side
+load, not row count. The importer logs per-chunk counters for categories and products
+but **never for fitment**, so a long fitment insert produces 20+ minutes of dead
+journal that looks exactly like a wedge. Query the live count to tell them apart —
+never kill the unit on silence alone.
+
+**Nothing but the 21:00 timer starts a *new* batch.** `gate_recheck.py` returns 0
+unless a batch is *already* parked at the gate; it re-offers that one batch, it never
+advances the queue. Left alone that is one year per night. To publish several in a
+session, `systemctl start --no-block fatman-batch.service` once per year, after each
+approval. Gate mode is B and real batches run 96–98% image coverage against Gate A's
+99% floor, so **every** batch needs a human Telegram `approve` — there is no
+configuration that makes this unattended.
+
 **PostgREST silently caps responses at 1,000 rows.** No error, no warning — the
 array is just short. `getProductSlugs` (`src/lib/catalog-db.ts:363`) pages
 deliberately for exactly this reason. Any new query that needs the whole catalog

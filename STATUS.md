@@ -4,9 +4,8 @@ phase: automated
 cadence_days: 7
 last_touched: 2026-08-25
 next:
-  - "Tonight (Aug 25, after 21:00 PDT): reply `approve ford-1998-autopilot-001` on Telegram, then verify live fitment == dryrun fitment_count. Repeat nightly — 1999 Aug 26, 2000 Aug 27, 2002 Aug 28, 2003 Aug 29, 2004 Aug 30 — one year per night, each needing its own approve. Verify on FITMENT only; the live product count is a last-writer-wins stamp and under-reports every batch but the newest (see STATUS body). That completes Ford 1982-2005."
-  - "Decide the worker fleet by ~Sep 12: cancel the 4x Hostinger KVM 1 ($77.96/mo, renews 2026-09-19) or keep them. After these 6 publish there is NO queued download work left, so cancelling is the default unless a second make is starting."
-  - Pick the next make (or don't) — that decision is what makes the fleet question answerable, and it is the only thing blocking a clean shutdown
+  - "Pick the next make — that is now the only thing blocking everything else. The moment a make is chosen: add its years to BOTH `--years` in /etc/systemd/system/fatman-fanout.service (daemon-reload) AND queue.yaml, or it silently never downloads. The 4 workers are idle as of today."
+  - "Decide the worker fleet by ~Sep 12: cancel the 4x Hostinger KVM 1 ($77.96/mo, renews 2026-09-19) or keep them. Ford is finished and the fleet has zero remaining work, so cancelling is the default unless a next make is starting."
   - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
   - "Generate images for 1,278 held-back products (worst: 2001=191, 1997=128) — they are skipped at import, so a backfill+reimport is needed"
 ---
@@ -22,42 +21,64 @@ by 07:34 the reverse was true — direct `ssh fatmanvps` connected, and `fatman-
 unrelated reasons. Test `ssh fatmanvps` first, fall back to `fatmanvps-jump`, and set
 `FATMAN_COORD_HOST` to whichever answered.
 
-## Pipeline status — verified Aug 25, 2026 (~05:50 PDT)
+## Ford 1982–2005 is COMPLETE — verified Aug 25, 2026 (~08:06 PDT)
 
-**Downloading: nothing. All 17 queued years are collected.** That is new as of today —
-three of them had been wedged for days (see below).
+All 24 model years are live. A `generate_series(1982,2005) EXCEPT (distinct year)`
+against `fitment_rules` returns **null** — no gaps anywhere in the range.
 
-**Live in Supabase, verified 2026-08-25 (18 years):** 1982–1997, 2001, 2005. Catalog
-totals 29,676 products and 854,940 fitment rules. The six not-yet-published years show
-`products = 1` in `fitment_rules` — that is a single stray `source='generated-data'`
-seed product touching those years, not a partial import.
+Catalog now: **31,999 products, 1,179,382 fitment rules** (was 29,676 / 854,940 at
+07:30 the same morning).
 
-**Downloaded, waiting on the 21:00 PDT batch runner (6):** 1998 (6,288 clean rows),
-1999 (6,765), 2000 (7,092), 2002 (7,396), 2003 (7,718), 2004 (7,541).
+### The last six published today, in one session
 
-**Publish queue verified ready Aug 25 ~07:40 PDT.** All six years have their full
-4-CSV set in `/opt/fatman/output/`, all six are in `queue.yaml`, none has a state file
-or a `supabase_checkpoint_` dir, and `runner.py --plan` selects **Ford 1998** with
-`resume at: download` (adoption skips download/parse — the CSVs are already there).
-Nothing needed changing.
+Rather than one year per night, the runner was triggered manually with
+`systemctl start --no-block fatman-batch.service` after each approval — one batch per
+invocation, Khan approving each on Telegram. Six years in ~2.5 hours.
 
-**Exactly one year per night — the 21:00 timer is the only thing that starts a new
-batch.** `gate-recheck.timer` fires every 15 min but `gate_recheck.py` returns 0 unless
-a batch is *already parked at the gate*; it never picks up the next one. So the Aug 24
-night's nine `fatman-batch` invocations were all one batch (2001) being re-polled, not
-nine batches. Schedule: 1998 Aug 25 → 1999 Aug 26 → 2000 Aug 27 → 2002 Aug 28 →
-2003 Aug 29 → 2004 Aug 30. Done Aug 30/31, ahead of the Sep 19 worker renewal.
+| year | planned fitment | live fitment | products | image coverage |
+|---|---|---|---|---|
+| 1998 | 46,492 | 46,492 ✅ | 6,159 | 97.96% |
+| 1999 | 55,918 | 55,918 ✅ | 6,627 | 97.97% |
+| 2000 | 52,015 | 52,015 ✅ | 6,919 | 97.57% |
+| 2002 | 53,223 | 53,223 ✅ | 7,182 | 97.12% |
+| 2003 | 66,196 | 66,196 ✅ | 7,486 | 97.02% |
+| 2004 | 50,598 | 50,598 ✅ | 7,301 | 96.84% |
 
-**Every one of the six needs a Telegram `approve` from Khan.** `FATMAN_GATE_MODE=B` in
-`/etc/fatman/env`, so the gate always asks. Gate A would not have helped anyway: it
-requires image coverage ≥ 99.0%, and real batches run 96–97% (2001: 97.39%, 2005:
-96.23%) — both were `auto_approvable: false` and manually approved. A batch left
-unapproved parks at the gate and burns a 15-min recheck slot indefinitely; it does not
-time out and it does not block the next night's year.
+Sum of the six = 324,442, and catalog fitment rose by exactly 324,442. No drift, no
+double-insert.
+
+**2002 failed its first apply and that was fine.** At 52,500 of 53,223 rows Supabase
+returned `HTTP 500 {"code":"57014","message":"canceling statement due to statement
+timeout"}` — Postgres killing an insert chunk under load, not a data problem. Recovery
+was simply re-running the service: the runner resumes at the first incomplete stage,
+the already-`completed` gate is NOT re-asked (no second Telegram approval), and
+`--replace-existing-fitment-source` drops only that batch's own rows before
+re-inserting. Live count landed on exactly 53,223 — no duplicates from the partial
+first pass. **Do not reach for `resume_supabase_image_expansion_fitment.py` here; just
+re-run the unit.**
+
+**Apply duration varies by ~15x for the same work.** 1998 took ~25 min for 46,492 rows;
+2003 took ~2 min for 66,196. Same code, same path — it tracks Supabase-side load, not
+row count. A slow apply logs nothing for 20+ minutes because the importer only prints
+per-chunk counters for categories and products, never fitment. **A silent apply is not
+a hung apply** — query the live count to tell them apart.
+
+## How the batch runner actually behaves
+
+**Only the 21:00 timer starts a *new* batch.** `gate-recheck.timer` fires every 15 min
+but `gate_recheck.py` returns 0 unless a batch is *already parked at the gate*; it never
+picks up the next one. So left alone this would have been one year per night. Triggering
+`systemctl start --no-block fatman-batch.service` by hand after each approval is what
+compressed it into one session — that is the lever for the next make too.
+
+**Every batch needs a Telegram `approve`.** `FATMAN_GATE_MODE=B` in `/etc/fatman/env`,
+so the gate always asks. Gate A would never fire anyway: it needs image coverage ≥ 99.0%
+and real batches run 96–98%. A batch left unapproved parks harmlessly and gate-recheck
+re-offers it every 15 min.
 
 ### Verifying a published batch — use fitment, not products
 
-Planned-vs-live for all six published-year spot checks, run Aug 25:
+Planned-vs-live spot checks on six older published years, run Aug 25:
 
 | year | planned fitment | live fitment | planned products | live products |
 |---|---|---|---|---|
