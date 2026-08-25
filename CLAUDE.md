@@ -69,6 +69,15 @@ committed, with nothing to warn you. Patch both, `md5` them, then deploy.
 deploys. Don't "tidy" that exclude away — a push from a stale Mac would silently
 revert live state.
 
+**`.design-sync/` stays untracked — and stays un-ignored.** Despite the leading
+dot it holds authored source (config, conventions, `make-sample-data.mjs`, 20
+hand-written `previews/*.tsx`), so it is not a generated folder. Khan's call
+2026-08-25: leave it out of git, it's Claude Design working material. Don't
+commit it, and don't "tidy" it into `.gitignore` either — `.gitignore` already
+excludes exactly its machine-state subpaths (`.cache/`, `learnings/`,
+`node_modules`), which is the intended boundary. `graphify-out/` **is**
+generated and is ignored.
+
 **Workers never touch Supabase.** One staging DB, one dry-run, one writer.
 Distributed *downloads* are fine; distributed writers would split-brain the
 provenance.
