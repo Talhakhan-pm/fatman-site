@@ -4,8 +4,8 @@ phase: automated
 cadence_days: 7
 last_touched: 2026-08-25
 next:
-  - "Pick the next make — that is now the only thing blocking everything else. The moment a make is chosen: add its years to BOTH `--years` in /etc/systemd/system/fatman-fanout.service (daemon-reload) AND queue.yaml, or it silently never downloads. The 4 workers are idle as of today."
-  - "Decide the worker fleet by ~Sep 12: cancel the 4x Hostinger KVM 1 ($77.96/mo, renews 2026-09-19) or keep them. Ford is finished and the fleet has zero remaining work, so cancelling is the default unless a next make is starting."
+  - "Ford 2006-2013 queued Aug 25 and downloading — 8 years, 606 bundles, ~3-4 days on the 4 workers. Watch for years reaching state=done, then publish each with `systemctl start --no-block fatman-batch.service` + a Telegram approve, one per invocation. That finishes Ford entirely: CHARM has no Ford past 2013."
+  - "KEEP the worker fleet through the Sep 19 renewal — 2006-2013 needs it. Revisit cancelling once those 8 are published; after that Ford is exhausted and there is no queued work unless a second make starts."
   - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
   - "Generate images for 1,278 held-back products (worst: 2001=191, 1997=128) — they are skipped at import, so a backfill+reimport is needed"
 ---
@@ -62,6 +62,31 @@ re-run the unit.**
 row count. A slow apply logs nothing for 20+ minutes because the importer only prints
 per-chunk counters for categories and products, never fitment. **A silent apply is not
 a hung apply** — query the live count to tell them apart.
+
+## Ford 2006–2013 queued Aug 25 ~08:15 PDT
+
+CHARM's Ford coverage ends at 2013 — the fitment CSV spans 1982–2013, 32 distinct
+years, and 1982–2005 are all live. So these 8 are the last Ford work that exists:
+**606 vehicle bundles, ~76/yr**, against 2,001 bundles already done at ~83/yr. Roughly
+30% of the effort already spent, so ~3–4 days on the 4 workers.
+
+Both required locations were updated (see the two-location invariant in CLAUDE.md):
+
+- `/etc/systemd/system/fatman-fanout.service` — `--years` **replaced** with
+  `2006,...,2013`, then `daemon-reload`. Replaced rather than appended: the 17 old
+  years are complete, and re-listing them only makes every pass walk finished state.
+- `scripts/autopilot/queue.yaml` — the 8 **appended** (now 25 entries). Completed
+  batches are skipped via their state files, so history stays.
+
+Backups of both are on the coordinator as `.bak-20260825T081209`.
+
+Verified by evidence, not by "it started": the first fanout pass opened with
+`[fanout] 4 workers, 8 jobs: Ford 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013` and
+dispatched 2006–2009 across worker-1..4.
+
+**Publishing them is not automatic.** Each finished year still needs
+`systemctl start --no-block fatman-batch.service` plus a Telegram `approve` — the
+21:00 timer would otherwise do one per night.
 
 ## How the batch runner actually behaves
 

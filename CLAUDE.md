@@ -132,6 +132,16 @@ batch on fitment.** The product number is only true at apply time, where the sta
 file's `apply`/`verify` stages already recorded it — read it from there rather than
 re-querying, or you will "discover" that a fine import lost 90% of its products.
 
+**Worker root is `/opt/fatman-worker`, NOT `/opt/fatman`.** The coordinator uses
+`/opt/fatman`; workers use `/opt/fatman-worker` (`WORKER_ROOT`, `fanout.py:47`), with
+`status/Ford_YYYY.{state,log,pid}` and `output/offline-bundles/` under it. Checking the
+coordinator's path on a worker returns no matches and **no error** — an idle-looking
+fleet that is actually mid-download. Worker addresses are in
+`scripts/autopilot/workers.json` (they are bare IPs; `worker-1` etc. are names in that
+file, not resolvable hostnames), reachable as
+`ssh -i /root/.ssh/fatman_coord_to_worker root@<ip>`. In a `while read` loop over them,
+use `ssh -n` or ssh eats the loop's stdin and you silently check only the first worker.
+
 **A failed `apply` is usually a Supabase statement timeout, and the fix is to re-run
 the unit — nothing else.** Ford 2002 died at 52,500 of 53,223 fitment rows with
 `HTTP 500 {"code":"57014","message":"canceling statement due to statement timeout"}`.
