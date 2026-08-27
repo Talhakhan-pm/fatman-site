@@ -2,12 +2,12 @@
 business: Fatman Parts
 phase: automated
 cadence_days: 7
-last_touched: 2026-08-25
+last_touched: 2026-08-27
 next:
-  - "Ford 2006-2013 queued Aug 25 and downloading — 8 years, 606 bundles, ~3-4 days on the 4 workers. Watch for years reaching state=done, then publish each with `systemctl start --no-block fatman-batch.service` + a Telegram approve, one per invocation. That finishes Ford entirely: CHARM has no Ford past 2013."
-  - "KEEP the worker fleet through the Sep 19 renewal — 2006-2013 needs it. Revisit cancelling once those 8 are published; after that Ford is exhausted and there is no queued work unless a second make starts."
-  - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
-  - "Generate images for 1,278 held-back products (worst: 2001=191, 1997=128) — they are skipped at import, so a backfill+reimport is needed"
+  - "do: Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
+  - "watch: Chevrolet 1982-2013 downloading on the 4 workers — 9 of 32 years touched, 0 done yet, errors=0 everywhere. Nothing to publish until a year reaches state=done; then it needs a manual `systemctl start --no-block fatman-batch.service` + Telegram approve."
+  - "do: Backfill images for ~5,016 held-back products — Aug 26 added 3,738 across the eight new years (2011=601, 2010=589, 2009=562, 2012=541, 2008=414, 2013=398, 2007=348, 2006=285). Post-2005 image coverage runs 92-96% vs ~98% for older years, so this is now the main ceiling on catalog size. They are skipped at import, so this needs generate + reimport."
+  - "do: Reclaim ~19.5 G on the coordinator — `rm -rf /opt/fatman/output/offline-bundles/Ford` (18 G, the pre-fanout 1995/1996/1997 zips) and `/opt/fatman/output/rescue-bundles/Ford` (1.5 G). Those years are published and verified and nothing reads the zips. Deferred Aug 27, not urgent at 26% used — do it before Chevrolet 2006+ lands, or if the coordinator tightens. Keep the ford_*_v1.csv files and supabase_checkpoint_* dirs."
 ---
 Live: fatmanparts.com (Next.js on Vercel, Supabase catalog, Stripe). VPS autopilot
 (coordinator + 4 workers, systemd) runs the catalog pipeline; repo fatman-autopilot is
@@ -174,3 +174,173 @@ vehicle — `Contour V6-153 2.5L VIN G (24 Valve) SFI`.
 by ~Sep 12: cancel, or keep them for the next make. Every queued year is downloaded and
 1994 turned out not to need doing, so the fleet has **no remaining work at all** — the
 only thing that would justify keeping it is starting a second make.
+
+
+## Ford 1982–2013 COMPLETE — Aug 26, 2026
+
+`generate_series(1982,2013)` against `fitment_rules` returns **0 missing years**.
+**32/32 model years live: 44,938 products, 1,405,570 fitment rules, 3,095 categories.**
+CHARM has no Ford past 2013, so this make is finished.
+
+The eight years published Aug 26 sum to 226,188 fitment rows, and the catalog rose
+from 1,179,382 to 1,405,570 — a difference of exactly 226,188. No drift, no
+double-insert across eight batches.
+
+| year | planned | live | | year | planned | live |
+|---|---|---|---|---|---|---|
+| 2006 | 31,197 | ✅ | | 2010 | 29,420 | ✅ |
+| 2007 | 37,531 | ✅ | | 2011 | 26,990 | ✅ |
+| 2008 | 27,800 | ✅ | | 2012 | 24,584 | ✅ |
+| 2009 | 27,470 | ✅ | | 2013 | 21,196 | ✅ |
+
+## How Aug 26 actually went — 7 of 8 years in one day
+
+Started as a Hostinger disk-full alert on worker-3 and ended with **seven years
+live**. Catalog went **31,999 → 44,660 products** and **1,179,382 → 1,380,986
+fitment rules**.
+
+| year | planned fitment | live fitment | products | image coverage |
+|---|---|---|---|---|
+| 2006 | 31,197 | 31,197 ✅ | 6,992 | 95.9% |
+| 2007 | 37,531 | 37,531 ✅ | 8,105 | 95.7% |
+| 2008 | 27,800 | 27,800 ✅ | 6,768 | 93.9% |
+| 2009 | 27,470 | 27,470 ✅ | 6,949 | 91.9% |
+| 2010 | 29,420 | 29,420 ✅ | 7,229 | 91.9% |
+| 2011 | 26,990 | 26,990 ✅ | 7,505 | 92.0% |
+| 2013 | 21,196 | 21,196 ✅ | 5,725 | 93.0% |
+
+Planned matched live exactly on all seven. **Only Ford 2012 remains.**
+
+**The newer years really are thinner — this is source data, not a defect.**
+2006–2013 land at 21–37 K fitment against 42–66 K for 2000–2005, and image
+coverage slides from ~98.4% to ~92%. A long investigation treated Ford 2008's
+27,800 as evidence of a broken parse; five later years landed in the same band
+and settled it. Related trap now in `fatman-autopilot/CLAUDE.md`: a year's
+parser output (`accepted_fitment_rows`) runs ~45% above its planned
+`fitment_count` on every year — compare planned-to-planned, never
+planned-to-parsed.
+
+**The fanout resumes stalled years on its own; do not hand-run the downloader.**
+The 04:00 PT pass completed 2006, 2007, 2009, 2010 and 2013 unattended. Earlier
+that day the repeated `incomplete → starting <other year>` journal pattern was
+misread as permanent abandonment, and Ford 2008 was rescued by hand — which
+bypassed the job wrapper and left the year unparsed, its 18 GB of zips
+undeleted and its CSVs uncollected until all three were done manually. Full
+detail in `fatman-autopilot/CLAUDE.md`.
+
+**Disk is the binding constraint on 2010–2013, and it is new.** Bundles grew
+~8×: 1991 ≈ 56 MB, 2007 ≈ 182 MB, 2011 ≈ 466 MB, biggest single 688 MB. Two
+modern years no longer fit on one 50 GB worker (2007 + 2011 = 51 GB), and the
+fanout assigns a second year on idleness without checking. worker-3 hit 100% and
+spent ~152 s per doomed retry burning CHARM budget — safely (temp-file +
+`is_zipfile()` validation means no corrupt archive ever commits) but wastefully.
+Upgrading KVM 1 → KVM 2 is +$5.00/mo each and was declined: unknown whether a
+Hostinger resize preserves the disk, and losing a worker's zips costs far more
+in re-downloads than the fee.
+
+**Worker IPv4 went unreachable from Khan's Mac mid-session** — all four DCs at
+once, while `ssh fatmanvps` over IPv6 and the Hostinger API kept working. Not
+the boxes: no fail2ban, empty `iptables INPUT`, `ufw` inactive, sshd listening.
+VPN off did not fix it. Reach workers through the coordinator with
+`/root/.ssh/fatman_coord_to_worker`. `fatmanvps-jump` proxies via worker-1 so it
+fails too — it is not a fallback for this.
+
+## Chevrolet 1982–2013 started — checked Aug 27, 2026 ~06:20 PDT
+
+The fanout unit was re-pointed at a new make. `ExecStart` now reads
+`--make Chevrolet --years 1982,…,2013` (32 years), and `queue.yaml` is at **57
+entries** — 25 Ford + 32 Chevrolet. Both halves of the two-location invariant are
+satisfied.
+
+**Download progress, 4 workers, ~2h into the 04:00 pass:**
+
+| worker | done-ish (rate-limited remainder) | now |
+|---|---|---|
+| worker-1 | 1982 83/100, 1986 81/101 | 1990 @ 14% |
+| worker-2 | 1983 80/96, 1987 85/109 | 1991 @ 17% |
+| worker-3 | 1984 80/91 | 1988 @ 82% |
+| worker-4 | 1985 96/112, 1989 78/98 | 1993 @ 7% |
+
+**9 of 32 years touched, 0 at `state=done`, 716 zips on disk.** Every year that
+logged `incomplete` did so with `errors=0, rate_limited=17–20` — the transient
+kind that resumes on a later pass, not the deterministic kind that never will.
+Nothing needs a human. First publishable years land in ~1–2 days; all 32 in
+roughly 4–6 days, well inside the Sep 19 renewal.
+
+### Disk: no crisis now, but Chevrolet 2006+ will repeat the Ford squeeze
+
+Checked Aug 27. Nothing is tight today:
+
+| box | disk | used | free |
+|---|---|---|---|
+| coordinator | 96 G | 25 G (26%) | 72 G |
+| worker-1 | 48 G | 11 G (23%) | 37 G |
+| worker-2 | 48 G | 11 G (23%) | 37 G |
+| worker-3 | 48 G | 12 G (25%) | 36 G |
+| worker-4 | 48 G | 12 G (24%) | 37 G |
+
+**The workers already threw their Ford zips away by themselves.** The job wrapper
+ends in `rm -rf output/offline-bundles/{make}/{year}` after a successful parse
+(`fanout.py:122`), so a year's bundles live only between download and parse. All
+four workers now hold Chevrolet only — the single exception is 64 MB of Ford 1990
+on worker-3, orphaned by the Aug 26 hand-rescue that bypassed the wrapper. Ford is
+costing the fleet nothing.
+
+**~19.5 G of dead Ford data does sit on the coordinator**, left from the
+pre-fanout era when the coordinator downloaded directly:
+`output/offline-bundles/Ford` (18 G — 1995 4.4 G, 1996 5.1 G, 1997 8.6 G) and
+`output/rescue-bundles/Ford` (1.5 G, the 1988 Tempo rescue). Those years are
+published and verified, so the zips are re-derivable from CHARM and nothing reads
+them. Safe to delete whenever; at 26% used it is not urgent.
+
+**Keep the Ford CSVs and checkpoints** — `output/ford_*_v1.csv` (1.6 G) plus
+`supabase_checkpoint_*` (748 M). They are the only local copy of the parse and the
+only way to re-import a batch without re-downloading the year. 2.3 G is cheap
+insurance.
+
+**The projection is the real finding.** Chevrolet is 2,823 bundles over 32 years
+(Ford was 2,607), so ~8 years per worker. 1980s years measure 3.6–5.6 G each
+(~47 MB/bundle). But Ford's modern bundles ran ~466 MB each, and Chevrolet
+2010–2013 carry 67–75 bundles per year — **~28–35 G for a single year**, against
+37 G free on a 48 G worker. One modern year very nearly fills a worker; two
+concurrently cannot fit. Compounding it: an `incomplete` year keeps its zips
+(below), so a worker holding two stalled 1980s years starts a modern year already
+8 G down. Expect the squeeze to start around Chevrolet 2006, roughly eight fanout
+passes out.
+
+### `incomplete` → start a different year is deliberate, not drift
+
+The pattern in the journal — `Chevrolet 1982 not finished (incomplete) — keeping
+downloaded bundles, will resume on a later run` followed immediately by
+`starting Chevrolet 1986` — is the designed behaviour, in four parts:
+
+1. `poll_job` treats `incomplete` as a **terminal** state, same as `done`. The
+   worker is free, so the dispatcher hands it the next year.
+2. The zips are kept on purpose. `rm -rf` only runs after a successful parse, so
+   a partial year's bundles survive.
+3. `progress_<make>_<year>.json` records what already landed, so the resume does
+   not re-download — recovered bundles come back on the `exists=` counter, not
+   `downloaded=`.
+4. The point is the rate limit. CHARM caps request *rate* per IP, and the
+   remaining bundles of a stalled year are exactly the ones with no allowance
+   left. Retrying them immediately burns the budget they need; spending it on a
+   fresh year's untouched bundles makes real progress on the same IP.
+
+So a year sitting at 80% across several passes is the system working. The tell
+that something is actually wrong is `errors=N` in the `Summary:` line rather than
+`rate_limited=N` — currently 0 everywhere. **The cost of the design is disk**:
+every stalled year holds its bundles until it finishes, which is what makes the
+modern-year projection above tight rather than comfortable.
+
+`queue.yaml` `status:` is **not a progress ledger** — all 57 entries read
+`pending`, including Ford years that are demonstrably live. The runner tracks
+completion in the per-batch state files and never writes back to the queue. Read
+completion from `fitment_rules` or the state files.
+
+**Connectivity today: direct IPv6 dead, jump alive, but the jump needs a longer
+timeout.** `ssh fatmanvps` returned `No route to host` on the coordinator's
+IPv6 (`2a02:4780:4:fb48::1`) from Khan's Mac, while worker-1 pings that same
+address in 61 ms — so it is a path problem from the Mac, not the box. `ssh
+fatmanvps-jump` works, but at `ConnectTimeout=10/15` it dies during banner
+exchange and looks exactly like a dead host. **Use `ConnectTimeout=30` on the
+jump before concluding it is down.**
