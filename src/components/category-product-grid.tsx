@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import { useFitmentBatch } from "@/components/use-fitment";
 import type { Product } from "@/lib/catalog";
+import { getSuppressedImageSlugs } from "@/lib/catalog-media";
 import { formatCompactVehicleLabel, type FitmentState } from "@/lib/fitment-lite";
 
 /**
@@ -111,6 +112,10 @@ export function CategoryProductGrid({
   const products = data.products;
   const total = data.total;
   const totalPages = data.totalPages || 1;
+
+  // Any single image fronts at most two cards per page; repeats fall back to
+  // the spec-plate card.
+  const suppressedImages = useMemo(() => getSuppressedImageSlugs(products), [products]);
 
   // Fit badges for the rendered page only — 60 slugs, not the whole category.
   const slugs = useMemo(() => products.map((p) => p.slug), [products]);
@@ -227,7 +232,12 @@ export function CategoryProductGrid({
 
         <div className={`fm-grid ${loading ? "opacity-60 transition-opacity" : ""}`}>
           {products.map((product) => (
-            <ProductCard key={product.slug} product={product} fitmentState={fitments[product.slug]} />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              fitmentState={fitments[product.slug]}
+              suppressPhoto={suppressedImages.has(product.slug)}
+            />
           ))}
         </div>
 

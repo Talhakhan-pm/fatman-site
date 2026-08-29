@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ProductCard } from "@/components/product-card";
 import { useGarage } from "@/components/garage-provider";
 import type { Product } from "@/lib/catalog";
+import { getSuppressedImageSlugs } from "@/lib/catalog-media";
 import type { FitmentState } from "@/lib/fitment";
 
 type Status = "idle" | "loading" | "done";
@@ -17,9 +18,12 @@ const SECTION_LIMIT = 8;
 export function CompatibleProducts({
   currentSlug,
   categorySlug,
+  excludeImageSrc,
 }: {
   currentSlug: string;
   categorySlug: string;
+  /** The viewed product's own image — never echoed back in this rail. */
+  excludeImageSrc?: string | null;
 }) {
   const { vehicle } = useGarage();
   const [products, setProducts] = useState<CompatibleProduct[]>([]);
@@ -61,10 +65,15 @@ export function CompatibleProducts({
     return () => controller.abort();
   }, [vehicle, currentSlug, categorySlug]);
 
+  const fits = useMemo(() => products.filter((item) => item.fitment === "fits"), [products]);
+  // Grid dedup plus the viewed product's own image, which must never repeat here.
+  const suppressedImages = useMemo(
+    () => getSuppressedImageSlugs(fits, { blockedSrc: excludeImageSrc ?? null }),
+    [fits, excludeImageSrc],
+  );
+
   if (!vehicle) return null;
   if (status !== "done") return null;
-
-  const fits = products.filter((item) => item.fitment === "fits");
   if (!fits.length) return null;
 
   return (
@@ -78,7 +87,12 @@ export function CompatibleProducts({
         </div>
         <div className={fits.length === 1 ? "max-w-sm" : "fm-grid"}>
           {fits.map((product) => (
-            <ProductCard key={product.slug} product={product} fitmentState="fits" />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              fitmentState="fits"
+              suppressPhoto={suppressedImages.has(product.slug)}
+            />
           ))}
         </div>
       </div>

@@ -9,6 +9,7 @@ import type { FitmentState } from "@/lib/fitment";
 import { formatPrice, type Product } from "@/lib/catalog-types";
 import { track } from "@/lib/analytics";
 import { getProductDisplayMedia } from "@/lib/catalog-media";
+import { categoryIconMap, getRegistryEntry } from "@/lib/catalog-registry";
 import { useCart } from "@/components/cart-provider";
 import { getProductDisplayBadges } from "@/lib/product-badges";
 import { canAddProductToCart, formatProductPrice, isQuoteRequired } from "@/lib/product-pricing";
@@ -76,6 +77,41 @@ function AttributeChips({ product }: { product: Product }) {
   );
 }
 
+function hashSeed(value: string) {
+  let hash = 0;
+  for (let i = 0; i < value.length; i++) hash = (hash * 31 + value.charCodeAt(i)) | 0;
+  return Math.abs(hash);
+}
+
+/**
+ * Deterministic per-SKU presentation variant. Many products share one catalog
+ * render, so each SKU gets its own framing (object-position shift, 1.0–1.3
+ * scale, optional mirror) and shared art reads as different shots. Static
+ * transforms only — nothing animates, so reduced-motion needs no branch.
+ * Diagrams are never mirrored: their callout text would read backwards.
+ */
+function getImageVariantStyle(seedText: string, kind: "diagram" | "photo" | null) {
+  const seed = hashSeed(seedText);
+  const scale = 1 + (seed % 7) * 0.05;
+  const flip = kind === "photo" && (seed >> 3) % 2 === 1 ? -1 : 1;
+  const posX = 40 + ((seed >> 5) % 5) * 5;
+  const posY = 42 + ((seed >> 8) % 4) * 4;
+  return {
+    "--fm-va-scale": scale.toFixed(2),
+    "--fm-va-flip": String(flip),
+    "--fm-va-pos": `${posX}% ${posY}%`,
+  } as React.CSSProperties;
+}
+
+/**
+ * Category accent for the no-photo spec plate: a stable hue per category,
+ * applied only as a low-alpha wash over the tokened panel so it reads
+ * correctly on both themes (ink/panel colors stay tokens).
+ */
+function getCategoryTint(category: string) {
+  return `hsl(${hashSeed(category) % 360} 62% 52% / 0.12)`;
+}
+
 /**
  * Subtle spec-plate tilt + glare for fine pointers. Skipped entirely for
  * reduced-motion users and touch devices; the card is fully usable without it.
@@ -113,9 +149,12 @@ function useCardTilt() {
 export function ProductCard({
   product,
   fitmentState,
+  suppressPhoto,
 }: {
   product: Product;
   fitmentState?: FitmentState;
+  /** Grid-level dedup: render the spec-plate card even though an image exists. */
+  suppressPhoto?: boolean;
 }) {
   const { vehicle } = useGarage();
   const { addItem } = useCart();
@@ -135,6 +174,10 @@ export function ProductCard({
 
   const hasSavings = typeof product.compareAt === "number" && product.compareAt > product.price;
   const media = getProductDisplayMedia(product);
+  const showImage = Boolean(media.src) && !suppressPhoto;
+  const variantStyle = showImage ? getImageVariantStyle(product.sku || product.slug, media.kind) : undefined;
+  const registryEntry = getRegistryEntry(product.category);
+  const CategoryIcon = categoryIconMap[registryEntry?.icon ?? "engine"];
   const badges = getProductDisplayBadges(product);
   const partNumber = product.oemPartNumber || product.sku;
   const quoteRequired = isQuoteRequired(product);
@@ -153,8 +196,8 @@ export function ProductCard({
       className={`fm-card ${showFitRow ? "" : "no-vehicle"}`}
       aria-label={`${product.brand} ${product.name}, OEM ${partNumber}`}
     >
-      <Link href={`/product/${product.slug}`} className="fm-card-media" aria-label={`View ${product.name}`}>
-        {media.src ? (
+      <Link href={`/product/${product.slug}`} className="fm-card-media" style={variantStyle} aria-label={`View ${product.name}`}>
+        {showImage && media.src ? (
           <Image
             src={media.src}
             alt={media.alt}
@@ -162,11 +205,10 @@ export function ProductCard({
             sizes="(max-width: 640px) 50vw, (max-width: 1020px) 50vw, 33vw"
           />
         ) : (
-          <div className="noimg">
-            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-              <rect x="3" y="3" width="18" height="18" rx="3" />
-              <path d="M3 15l4-4 3 3 5-5 6 6" />
-            </svg>
+          <div className="noimg" style={{ "--fm-cat-tint": getCategoryTint(product.category) } as React.CSSProperties}>
+            <span className="cat-ic" aria-hidden="true">
+              <CategoryIcon className="w-full h-full" />
+            </span>
             Photo on request
           </div>
         )}

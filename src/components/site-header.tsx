@@ -7,6 +7,7 @@ import { useGarage } from "./garage-provider";
 import { useCart } from "./cart-provider";
 import { formatCompactVehicleLabel, formatVehicleLabel } from "@/lib/fitment-lite";
 import { formatPrice, type Product } from "@/lib/catalog-types";
+import { getProductDisplayMedia } from "@/lib/catalog-media";
 
 type SearchState = "idle" | "loading" | "ready" | "error";
 
@@ -303,11 +304,15 @@ export function SiteHeader() {
 
             {query.trim() && searchState === "ready" && results.length > 0 && (
               <div className="space-y-2">
-                {results.map((product) => (
+                {results.map((product) => {
+                  // Same display resolution as the cards — placeholders can't
+                  // leak, and diagram art gets a light well.
+                  const media = getProductDisplayMedia(product);
+                  return (
                   <Link key={product.slug} href={`/product/${product.slug}`} onClick={() => setSearchOpen(false)} className="group grid gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-3 transition hover:border-fatman-accent/45 hover:bg-white/[0.07] sm:grid-cols-[72px_1fr_auto] sm:items-center">
-                    <div className="flex h-20 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/20 sm:h-16">
-                      {product.imageUrl ? (
-                        <Image src={product.imageUrl} alt="" width={96} height={96} className="h-full w-full object-contain p-1.5 transition group-hover:scale-105" />
+                    <div className={`flex h-20 items-center justify-center overflow-hidden rounded-xl border border-white/10 sm:h-16 ${media.kind === "diagram" ? "bg-[var(--fm-plate)]" : "bg-black/20"}`}>
+                      {media.src ? (
+                        <Image src={media.src} alt="" width={96} height={96} className="h-full w-full object-contain p-1.5 transition group-hover:scale-105" />
                       ) : (
                         <span className="text-[10px] font-black uppercase tracking-wide text-white/25">No image</span>
                       )}
@@ -325,7 +330,8 @@ export function SiteHeader() {
                       <p className="mt-0.5 text-xs font-bold uppercase tracking-wide text-white/30">View →</p>
                     </div>
                   </Link>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ProductCard } from "@/components/product-card";
 import type { CategoryPage } from "@/components/category-product-grid";
 import type { Product } from "@/lib/catalog";
+import { getSuppressedImageSlugs } from "@/lib/catalog-media";
 import type { FitmentState, Vehicle } from "@/lib/fitment-types";
 
 /**
@@ -101,6 +102,10 @@ export function VehiclePartsGrid({
     () => data.fitments ?? {},
     [data.fitments],
   );
+
+  // Any single image fronts at most two cards per page; repeats fall back to
+  // the spec-plate card.
+  const suppressedImages = useMemo(() => getSuppressedImageSlugs(products), [products]);
 
   const firstShown = total === 0 ? 0 : (currentPage - 1) * data.perPage + 1;
   const lastShown = Math.min(currentPage * data.perPage, total);
@@ -216,7 +221,12 @@ export function VehiclePartsGrid({
 
         <div className={`fm-grid ${loading ? "opacity-60 transition-opacity" : ""}`}>
           {products.map((product: Product) => (
-            <ProductCard key={product.slug} product={product} fitmentState={fitments[product.slug]} />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              fitmentState={fitments[product.slug]}
+              suppressPhoto={suppressedImages.has(product.slug)}
+            />
           ))}
         </div>
 

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FitmentBadge } from "@/components/fitment-badge";
 import { useGarage } from "@/components/garage-provider";
 import { useFitment } from "@/components/use-fitment";
@@ -37,11 +37,40 @@ function getProductEyebrow(product: Product) {
   return brand;
 }
 
+type HeroItem = {
+  src: string;
+  alt: string;
+  kind: "diagram" | "photo";
+};
+
 export function ProductPageClient({ product, isAdmin }: { product: Product; isAdmin?: boolean }) {
   const { vehicle } = useGarage();
   const { addItem } = useCart();
   const fitment = useFitment(product.slug, vehicle);
-  const media = getProductDisplayMedia(product);
+  const media = useMemo(() => getProductDisplayMedia(product), [product]);
+  // Hero rail: primary display first, then factory art, deduped by URL — the
+  // primary may itself be a promoted gallery image when no render exists.
+  const heroItems = useMemo<HeroItem[]>(() => {
+    const items: HeroItem[] = [];
+    const seen = new Set<string>();
+    if (media.src) {
+      items.push({ src: media.src, alt: media.alt, kind: media.kind ?? "photo" });
+      seen.add(media.src);
+    }
+    for (const image of media.gallery) {
+      if (seen.has(image.url)) continue;
+      seen.add(image.url);
+      items.push({ src: image.url, alt: image.alt || product.name, kind: image.kind });
+    }
+    return items;
+  }, [media, product.name]);
+  const hasGallery = media.gallery.length > 0;
+  const [heroIndex, setHeroIndex] = useState(0);
+  useEffect(() => {
+    setHeroIndex(0);
+  }, [product.slug]);
+  const activeHeroIndex = Math.min(heroIndex, Math.max(heroItems.length - 1, 0));
+  const hero = heroItems[activeHeroIndex] ?? null;
   const categoryLabel = product.category.replace(/-/g, " ");
   const eyebrow = getProductEyebrow(product);
   const quoteRequired = isQuoteRequired(product);
@@ -95,38 +124,79 @@ export function ProductPageClient({ product, isAdmin }: { product: Product; isAd
     <div className="min-h-screen bg-fatman-900 text-white">
       <main className="mx-auto grid max-w-6xl gap-8 px-6 pb-10 pt-28 md:grid-cols-2 lg:pt-32">
         <div className="self-start space-y-3 rounded-2xl border border-white/15 bg-white/5 p-6">
-          <div className="relative h-80 overflow-hidden rounded-xl bg-fatman-700/60">
-            {media.src ? (
-              <>
-                <Image src={media.src} alt={media.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-              </>
-            ) : (
-              <div className="absolute inset-0 flex flex-col justify-between bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.22),_transparent_42%),linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6">
-                <span className="self-start rounded-full border border-white/15 bg-black/35 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
-                  {categoryLabel}
-                </span>
-                <div>
-                  <p className="text-lg font-semibold text-white/90">Image coming soon</p>
-                  <p className="mt-2 max-w-xs text-sm text-white/60">We have live fitment and product data, but this listing still needs final media.</p>
+          {hasGallery && hero ? (
+            <>
+              {/* Factory diagrams are 1-bit black-on-white line art — they sit
+                  in a light "paper" well (--fm-plate, same in both themes),
+                  never directly on the dark theme. */}
+              <div className={`relative h-80 overflow-hidden rounded-xl ${hero.kind === "diagram" ? "bg-[var(--fm-plate)]" : "bg-fatman-700/60"}`}>
+                <Image
+                  src={hero.src}
+                  alt={hero.alt}
+                  fill
+                  className={hero.kind === "diagram" ? "object-contain p-6" : "object-cover"}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
+                {hero.kind !== "diagram" && <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />}
+              </div>
+              {hero.kind === "diagram" && <p className="text-xs leading-relaxed text-white/55">{hero.alt}</p>}
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/45">Factory diagrams</p>
+                <div className="mt-2 grid grid-cols-4 gap-2">
+                  {heroItems.map((item, index) => (
+                    <button
+                      key={item.src}
+                      type="button"
+                      onClick={() => setHeroIndex(index)}
+                      aria-label={`Show ${item.alt}`}
+                      aria-pressed={index === activeHeroIndex}
+                      className={`relative h-16 overflow-hidden rounded-md border transition ${
+                        index === activeHeroIndex ? "border-fatman-accent" : "border-white/10 hover:border-white/30"
+                      } ${item.kind === "diagram" ? "bg-[var(--fm-plate)]" : "bg-fatman-700/50"}`}
+                    >
+                      <Image src={item.src} alt="" fill className={item.kind === "diagram" ? "object-contain p-1" : "object-cover"} sizes="120px" />
+                    </button>
+                  ))}
                 </div>
               </div>
-            )}
-          </div>
-          <div className="grid grid-cols-4 gap-2">
-            {media.src ? (
-              <div className="relative col-span-1 h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
-                <Image src={media.src} alt={media.alt} fill className="object-cover" sizes="120px" />
-                <div className="absolute inset-0 bg-black/20" />
+            </>
+          ) : (
+            <>
+              <div className="relative h-80 overflow-hidden rounded-xl bg-fatman-700/60">
+                {media.src ? (
+                  <>
+                    <Image src={media.src} alt={media.alt} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" priority />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 flex flex-col justify-between bg-[radial-gradient(circle_at_top,_rgba(255,106,0,0.22),_transparent_42%),linear-gradient(135deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-6">
+                    <span className="self-start rounded-full border border-white/15 bg-black/35 px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm">
+                      {categoryLabel}
+                    </span>
+                    <div>
+                      <p className="text-lg font-semibold text-white/90">Image coming soon</p>
+                      <p className="mt-2 max-w-xs text-sm text-white/60">We have live fitment and product data, but this listing still needs final media.</p>
+                    </div>
+                  </div>
+                )}
               </div>
-            ) : (
-              Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="relative h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
-                  <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,106,0,0.18),rgba(255,255,255,0.04))]" />
-                </div>
-              ))
-            )}
-          </div>
+              <div className="grid grid-cols-4 gap-2">
+                {media.src ? (
+                  <div className="relative col-span-1 h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
+                    <Image src={media.src} alt={media.alt} fill className="object-cover" sizes="120px" />
+                    <div className="absolute inset-0 bg-black/20" />
+                  </div>
+                ) : (
+                  Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="relative h-16 overflow-hidden rounded-md border border-white/10 bg-fatman-700/50">
+                      <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,106,0,0.18),rgba(255,255,255,0.04))]" />
+                    </div>
+                  ))
+                )}
+              </div>
+            </>
+          )}
         </div>
 
         <div>
@@ -285,7 +355,7 @@ export function ProductPageClient({ product, isAdmin }: { product: Product; isAd
         </div>
       </main>
 
-      <CompatibleProducts currentSlug={product.slug} categorySlug={product.category} />
+      <CompatibleProducts currentSlug={product.slug} categorySlug={product.category} excludeImageSrc={media.src} />
 
       <div className="sticky bottom-[calc(64px+env(safe-area-inset-bottom))] z-40 border-t border-white/10 bg-fatman-900/95 p-3 backdrop-blur md:hidden">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
