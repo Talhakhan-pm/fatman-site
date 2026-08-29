@@ -2,15 +2,15 @@
 business: Fatman Parts
 phase: automated
 cadence_days: 7
-last_touched: 2026-08-28
+last_touched: 2026-08-29
 next:
-  - "do: RESTART THE FANOUT once the parser-fix deploy lands (that session presents to Khan first). The image-harvest step is already deployed and verified — all 4 workers md5-matched, autopilot commit da01c2f — so the restart-ordering decision is resolved. Restart: `systemctl start fatman-fanout.timer && systemctl start --no-block fatman-fanout.service`; --years already reads the remaining 12 (2002-2013). While stopped, no year can complete, so no art is at risk. Chevrolet 2002-2005 art was lost pre-patch (re-download backlog in docs/image-diversity-plan.md); 2006-2008 and 2010-2013 were never fetched and are fully preservable."
-  - "watch: first full year through the image harvest — compare HARVEST_MB in the worker log against the ~3 GB/year planning budget before committing coordinator disk to a GMC-scale make (the 76.8% dedupe measurement came from an alphabetical, variant-heavy sample)."
-  - "Publish the 13 collected-but-unpublished Chevrolet years (1988-1993, 1995-2001): `systemctl start --no-block fatman-batch.service` + a Telegram approve, ONE per invocation. Confirm the service reads `inactive` before each trigger — a start during the previous verify stage is a silent no-op that skips a year."
-  - "DECIDE THE FLEET by ~2026-09-12 ($77.96/mo, cancel_by 2026-09-19). Chevrolet still has ~1,700 bundles across 12 years, so this is not a free cancel."
-  - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
-  - "do: image diversity build per docs/image-diversity-plan.md — CHARM factory-diagram enrichment (Tier 3, PoC proven Aug 28), AI pool expansion recovering the ~5,200 held-back products (the main ceiling on catalog size), and frontend grid dedup. Awaiting Khan's go + git checkpoint."
-  - "Consider adding scripts/catalog_db/import_supabase_image_expansion.py to deploy.sh's --check manifest — it has the same deployed-but-never-verified gap the exporter had for three months."
+  - "do: RESTART THE FANOUT once the parser-fix deploy lands (that session presents to Khan first). Image-harvest step deployed and verified (autopilot commit da01c2f). Restart: `systemctl start fatman-fanout.timer && systemctl start --no-block fatman-fanout.service`; --years reads the remaining 12 (2002-2013). Note: 2002-2005's parsed CSVs likely still sit uncollected on workers (fanout stopped before collection) — expect them to collect on restart, then re-run the publish loop for them."
+  - "do: make the importer PRESERVE metadata.images on product upsert — today a batch re-stamping a shared SKU rebuilds metadata and silently drops the factory-diagram gallery (6,503 products carry one as of Aug 29). Patch import_supabase_checkpoint.py to merge the images + imageDiagramsBatch keys, both trees, before the next publish run."
+  - "watch: first full year through the image harvest — compare HARVEST_MB in the worker log against the ~3 GB/year planning budget before committing coordinator disk to a GMC-scale make."
+  - "DECIDE THE FLEET by ~2026-09-12 ($77.96/mo, cancel_by 2026-09-19). ~12 Chevrolet years of downloads remain, so this is not a free cancel; art re-downloads (Ford + Chevy 2002-2005) also depend on keeping it."
+  - "do: extend diagram enrichment beyond Ford 1994 — run enrich_product_images.py on the local Ford 1983/1984 bundles and, once harvests land, on coordinator stores (harvest mode needs the crawler CSV for the parts side). Then Tier 2 AI pool expansion for the ~5,200 held-back products (the catalog-size ceiling)."
+  - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: every category page renders dynamic (no ISR)"
+  - "Consider adding scripts/catalog_db/import_supabase_image_expansion.py and enrich_product_images.py to deploy.sh's --check manifest."
 ---
 Live: fatmanparts.com (Next.js on Vercel, Supabase catalog, Stripe). VPS autopilot
 (coordinator + 4 workers, systemd) runs the catalog pipeline; repo fatman-autopilot is
@@ -472,3 +472,33 @@ Two catches recorded there: workers delete zips after parse, so the un-restarted
 fanout's 12 remaining Chevrolet years are the last free art (hence the new
 `decide:` above), and 170/529 of the Mustang '94 parts pages parse to zero rows
 from malformed `<tr>` markup — a silent catalog gap spun off as its own task.
+
+## Aug 29 — 13 years published overnight; factory diagrams LIVE on the storefront
+
+**Overnight publish run (Khan-delegated approvals): 13/13 Chevrolet years
+published, zero errors, zero interventions.** A driver on the coordinator
+(`/opt/fatman/overnight/`) parked each batch at the gate, re-computed the gate
+evaluation with strict bands (coverage 88-99.9%, ratio ±0.20, zero QA flags,
+fitment 5k-120k), approved via the state file's resume semantics, and verified
+planned-vs-live before the next year. Chevrolet is now 20/32 live. The driver
+stopped itself at 2002 (no collected CSVs) exactly as designed. 1988 sample:
+6,966 products / 86,056 fitment planned = live exactly.
+
+**Image diversity Phases C+D shipped and deployed** (commits `4ca84a5` →
+`9d9b07c`, master fast-forwarded, Vercel READY):
+- `fatman-data/scripts/catalog_db/enrich_product_images.py` — joins CHARM
+  factory line art to parts by component breadcrumb; full Ford 1994 run:
+  88.2% of products got ≥1 diagram, 3,639 deduped blobs / 63.5MB.
+- Storefront: PDP "Factory diagrams" gallery (light wells, honest
+  component-level captions), per-page grid dedup (max 4 cards per image, then
+  spec-plate with category icon + tint), deterministic per-SKU crop/scale
+  variation, search-dropdown hardening.
+- Backfill: 3,325 diagrams in Storage (`fatman-catalog/diagrams/`), **6,503
+  live products across 17 categories** carry `metadata.images`, tagged
+  `imageDiagramsBatch=ford-1994-diagrams-001` (rollback = strip that key by
+  tag). Verified on production: pilot + random non-pilot PDPs serve 4 diagrams.
+
+**Durability trap (now next: #2): the importer rebuilds metadata on upsert**,
+so any future batch that re-stamps a shared SKU drops that product's gallery
+silently. Merge-preserve `images`/`imageDiagramsBatch` in the importer before
+the next publish run.
