@@ -4,7 +4,7 @@ phase: automated
 cadence_days: 7
 last_touched: 2026-08-29
 next:
-  - "do: RESTART THE FANOUT once the parser-fix deploy lands (that session presents to Khan first). Image-harvest step deployed and verified (autopilot commit da01c2f). Restart: `systemctl start fatman-fanout.timer && systemctl start --no-block fatman-fanout.service`; --years reads the remaining 12 (2002-2013). Note: 2002-2005's parsed CSVs likely still sit uncollected on workers (fanout stopped before collection) — expect them to collect on restart, then re-run the publish loop for them."
+  - "watch: the 2002-2013 drain (fanout restarted Aug 29 ~05:01 PT with the orphan-row parser fix AND image harvest live; dispatched 4 workers/12 jobs; 2005 was already collected). When years land: publish via the overnight driver pattern (/opt/fatman/overnight/driver.sh — re-run it) or Telegram approvals; confirm HARVEST_MB appears in worker logs on each completed year."
   - "do: make the importer PRESERVE metadata.images on product upsert — today a batch re-stamping a shared SKU rebuilds metadata and silently drops the factory-diagram gallery (6,503 products carry one as of Aug 29). Patch import_supabase_checkpoint.py to merge the images + imageDiagramsBatch keys, both trees, before the next publish run."
   - "watch: first full year through the image harvest — compare HARVEST_MB in the worker log against the ~3 GB/year planning budget before committing coordinator disk to a GMC-scale make."
   - "DECIDE THE FLEET by ~2026-09-12 ($77.96/mo, cancel_by 2026-09-19). ~12 Chevrolet years of downloads remain, so this is not a free cancel; art re-downloads (Ford + Chevy 2002-2005) also depend on keeping it."
@@ -502,3 +502,21 @@ stopped itself at 2002 (no collected CSVs) exactly as designed. 1988 sample:
 so any future batch that re-stamps a shared SKU drops that product's gallery
 silently. Merge-preserve `images`/`imageDiagramsBatch` in the importer before
 the next publish run.
+
+## Aug 29 (early morning) — orphan-row parser fix deployed; fanout restarted
+
+The chip session spawned for this died without doing work, so it was done here.
+~1/3 of CHARM parts pages ship body rows missing their opening `<tr>` and Part
+cell; both parser engines dropped those cells, so the pages parsed to zero rows
+silently. Fix: `repair_orphan_table_rows()` re-opens the row pre-parse
+(byte-identical in `extract_offline_parts.py` + `extract_offline_parts_fast.py`),
+plus a 'related parts information' label filter. Validated before deploy:
+Mustang/F-150 '94 gained +135/+56 clean rows with ZERO rows lost by
+(part_number, price, breadcrumb) identity and all three engines in exact
+agreement; on worker-4's real Chevy 2009 zips: +37 clean rows and rejects
+byte-identical to the old parser (pre-existing data noise, all
+invalid_part_number). ~100 names CHANGED because section labels now attach to
+the right rows (old names were wrong, e.g. Internal vs External steel plates)
+— published years are never re-parsed, so no live churn. Deployed via
+deploy.sh (md5-verified on coordinator + all 4 workers), autopilot commit
+`7916c74`. Fanout restarted 05:01 PT: 4 workers, 12 jobs, 2002-2013.
