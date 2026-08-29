@@ -4,11 +4,12 @@ phase: automated
 cadence_days: 7
 last_touched: 2026-08-28
 next:
-  - "RESTART THE FANOUT — it was stopped for the Aug 28 exporter deploy and never restarted, so downloads are paused: `systemctl start fatman-fanout.timer && systemctl start --no-block fatman-fanout.service`. Its --years is already restored to the remaining 12 (2002-2013)."
+  - "do: RESTART THE FANOUT once the parser-fix deploy lands (that session presents to Khan first). The image-harvest step is already deployed and verified — all 4 workers md5-matched, autopilot commit da01c2f — so the restart-ordering decision is resolved. Restart: `systemctl start fatman-fanout.timer && systemctl start --no-block fatman-fanout.service`; --years already reads the remaining 12 (2002-2013). While stopped, no year can complete, so no art is at risk. Chevrolet 2002-2005 art was lost pre-patch (re-download backlog in docs/image-diversity-plan.md); 2006-2008 and 2010-2013 were never fetched and are fully preservable."
+  - "watch: first full year through the image harvest — compare HARVEST_MB in the worker log against the ~3 GB/year planning budget before committing coordinator disk to a GMC-scale make (the 76.8% dedupe measurement came from an alphabetical, variant-heavy sample)."
   - "Publish the 13 collected-but-unpublished Chevrolet years (1988-1993, 1995-2001): `systemctl start --no-block fatman-batch.service` + a Telegram approve, ONE per invocation. Confirm the service reads `inactive` before each trigger — a start during the previous verify stage is a silent no-op that skips a year."
   - "DECIDE THE FLEET by ~2026-09-12 ($77.96/mo, cancel_by 2026-09-19). Chevrolet still has ~1,700 bundles across 12 years, so this is not a free cancel."
   - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
-  - "Backfill images for ~5,200 held-back products. Post-2005 image coverage runs 92-96% vs ~98% for older years, so this is the main ceiling on catalog size."
+  - "do: image diversity build per docs/image-diversity-plan.md — CHARM factory-diagram enrichment (Tier 3, PoC proven Aug 28), AI pool expansion recovering the ~5,200 held-back products (the main ceiling on catalog size), and frontend grid dedup. Awaiting Khan's go + git checkpoint."
   - "Consider adding scripts/catalog_db/import_supabase_image_expansion.py to deploy.sh's --check manifest — it has the same deployed-but-never-verified gap the exporter had for three months."
 ---
 Live: fatmanparts.com (Next.js on Vercel, Supabase catalog, Stripe). VPS autopilot
@@ -454,3 +455,20 @@ before running any repair.
 **The exporter had never been in `deploy.sh`'s `--check` manifest** — its live
 copy sat at a May 25 build for three months, shipping on every `--push` (which
 rsyncs all of `scripts/`) but never verified by anything. Now on the list.
+
+## Aug 28 (evening) — image diversity investigated, plan written
+
+Why every category grid shows one photo repeated: 101 AI renders serve ~59k
+products (top image fronts 8,612 alone), assigned at export by first-match
+substring in `export_live_import_plan.py` — CHARM parts pages carry no images at
+all. But the bundle zips DO ship 1,400–2,100 real factory illustrations per
+vehicle, joinable to products by component breadcrumb name with zero fuzzy
+matching — proven end-to-end on three products (clutch disc, brake caliper, fuel
+injector) from the local Ford '94 bundles. Full findings, phases, and invariants:
+`docs/image-diversity-plan.md`. Visual proof artifact:
+https://claude.ai/code/artifact/0198eb8a-ecc7-4891-a64a-7f238f871351
+
+Two catches recorded there: workers delete zips after parse, so the un-restarted
+fanout's 12 remaining Chevrolet years are the last free art (hence the new
+`decide:` above), and 170/529 of the Mustang '94 parts pages parse to zero rows
+from malformed `<tr>` markup — a silent catalog gap spun off as its own task.
