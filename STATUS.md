@@ -2,12 +2,14 @@
 business: Fatman Parts
 phase: automated
 cadence_days: 7
-last_touched: 2026-08-27
+last_touched: 2026-08-28
 next:
-  - "do: Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
-  - "watch: Chevrolet 1982-2013 downloading on the 4 workers — 9 of 32 years touched, 0 done yet, errors=0 everywhere. Nothing to publish until a year reaches state=done; then it needs a manual `systemctl start --no-block fatman-batch.service` + Telegram approve."
-  - "do: Backfill images for ~5,016 held-back products — Aug 26 added 3,738 across the eight new years (2011=601, 2010=589, 2009=562, 2012=541, 2008=414, 2013=398, 2007=348, 2006=285). Post-2005 image coverage runs 92-96% vs ~98% for older years, so this is now the main ceiling on catalog size. They are skipped at import, so this needs generate + reimport."
-  - "do: Reclaim ~19.5 G on the coordinator — `rm -rf /opt/fatman/output/offline-bundles/Ford` (18 G, the pre-fanout 1995/1996/1997 zips) and `/opt/fatman/output/rescue-bundles/Ford` (1.5 G). Those years are published and verified and nothing reads the zips. Deferred Aug 27, not urgent at 26% used — do it before Chevrolet 2006+ lands, or if the coordinator tightens. Keep the ford_*_v1.csv files and supabase_checkpoint_* dirs."
+  - "RESTART THE FANOUT — it was stopped for the Aug 28 exporter deploy and never restarted, so downloads are paused: `systemctl start fatman-fanout.timer && systemctl start --no-block fatman-fanout.service`. Its --years is already restored to the remaining 12 (2002-2013)."
+  - "Publish the 13 collected-but-unpublished Chevrolet years (1988-1993, 1995-2001): `systemctl start --no-block fatman-batch.service` + a Telegram approve, ONE per invocation. Confirm the service reads `inactive` before each trigger — a start during the previous verify stage is a silent no-op that skips a year."
+  - "DECIDE THE FLEET by ~2026-09-12 ($77.96/mo, cancel_by 2026-09-19). Chevrolet still has ~1,700 bundles across 12 years, so this is not a free cancel."
+  - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: page awaits searchParams, no revalidate export, so every category page renders dynamic (no ISR)"
+  - "Backfill images for ~5,200 held-back products. Post-2005 image coverage runs 92-96% vs ~98% for older years, so this is the main ceiling on catalog size."
+  - "Consider adding scripts/catalog_db/import_supabase_image_expansion.py to deploy.sh's --check manifest — it has the same deployed-but-never-verified gap the exporter had for three months."
 ---
 Live: fatmanparts.com (Next.js on Vercel, Supabase catalog, Stripe). VPS autopilot
 (coordinator + 4 workers, systemd) runs the catalog pipeline; repo fatman-autopilot is
@@ -344,3 +346,111 @@ address in 61 ms — so it is a path problem from the Mac, not the box. `ssh
 fatmanvps-jump` works, but at `ConnectTimeout=10/15` it dies during banner
 exchange and looks exactly like a dead host. **Use `ConnectTimeout=30` on the
 jump before concluding it is down.**
+
+
+## Chevrolet started Aug 26 — parser incident, fixed and verified Aug 28
+
+Catalog: **50,238 products / 1,463,040 fitment**. Chevrolet **1 of 32 years
+published** (1994, 57,470 rows — planned matched live exactly, and the catalog rose
+from 1,405,570 by precisely that). Getting there took finding and fixing a bug that
+had silently destroyed a year, and the story is worth keeping.
+
+**The parser silently rejected 100% of Chevrolet rows.** `valid_part_number`
+required a letter — true of every Ford part number (`F5TZ-1104-A`), false of every
+GM one (`24229186`). Chevrolet 1997 downloaded 69/69 bundles cleanly, then parsed
+to `clean_rows=0, rejected_rows=80309`.
+
+**What made it destructive rather than merely wrong:** the job wrapper only
+branched on the *download* exit code. A parse that produced a bare header still
+wrote `done`, fired `{cleanup}` to delete all 69 zips, and shipped empty CSVs —
+which `already_collected()` then read as proof the year was finished, so it could
+never be retried. That year now needs a full re-download; it is the only
+permanent loss.
+
+Both halves are fixed and deployed (parser accepts GM digit runs; wrapper refuses
+cleanup on an empty parse). Verified on real data: Chevrolet 1988 re-parsed to
+6,253 clean rows at a 3.5% rejection rate, in line with Ford's usual 3-4%.
+
+**Two process lessons, both in `fatman-autopilot/CLAUDE.md`:**
+
+- **Validate a new make on one year before running the fleet.** A ten-minute dry
+  parse to /tmp would have caught this before two days of four workers produced
+  zero publishable years.
+- **The fanout walks years breadth-first and CHARM cuts every year at ~80%**, so
+  on a fresh make all 32 years get opened and parked one tail short before any
+  completes. Narrow the unit's `--years` to the incomplete years, cheapest tail
+  first, and restart — each completion frees 5-9 GB for the next.
+
+Also fixed: the morning digest was printing 28 finished Ford batches and 30
+unchanged `(±0)` fitment sources every day, reading as though Ford were still
+active. It now collapses finished makes to one line and shows only sources that
+moved.
+
+
+### Resolution — verified end to end Aug 28
+
+**Chevrolet 1994 ran the whole chain unattended** — download → parse → cleanup →
+collect → stage → QA → dry-run → gate → apply → verify — and landed 57,470 rows.
+Ten hours earlier the same year would have imported zero and had its bundles
+deleted. Parse health: `raw_rows=89183, clean_rows=5475, rejected_rows=3045` — a
+3.4% rejection rate, in Ford's usual 3-4% band, versus 100% before the fix.
+
+Image coverage 96.8% (175 held back), better than any post-2005 Ford year.
+
+**Damage was contained to one year.** Chevrolet 1997 lost its 69 zips and needs a
+full re-download; all 23 other in-flight years kept theirs and only need re-parsing
+via the normal drain. Note the cleanup had to happen in **two** places: the empty
+CSVs on the coordinator (which made `already_collected()` skip the year forever)
+*and* the stale `done` state file plus empty CSVs on the worker — otherwise the
+wrapper's `DONE_PENDING_FETCH` branch would have handed the empty CSVs straight
+back and silently re-polluted the coordinator.
+
+**Why nothing published for two days:** the fanout walks years breadth-first, and
+CHARM cuts every year off around 80%. It opened all 32 years and parked each one a
+tail short before any completed, because a year only yields CSVs at 100%. The fix
+is to narrow `--years` to just the incomplete years so the fanout can only close
+years, never open new ones — which is why restoring that list later is the second
+`next:` item and easy to forget.
+
+**Expect a few years to close per pass, not all at once.** Within one pass a
+refused bundle gets 2 attempts and is then abandoned; across passes the per-IP
+budget recovers and they land. Evidence: 1997 went 10-for-10 and Ford 2008 went
+10-for-10 on previously-refused bundles. Passes run 04:00 and 16:00 PT.
+
+Also fixed Aug 28: the morning digest was printing 28 finished Ford batches and 30
+unchanged `(±0)` fitment sources daily, reading as though Ford were still active.
+It now collapses finished makes to one line and shows only sources that moved.
+
+
+## Aug 28 (later) — the exporter was Ford-specific too; fixed and backfilled
+
+**7 Chevrolet years live** (1982-1987, 1994), 13 more collected and awaiting a
+publish. All 20 drain years completed, including 1997's full re-download.
+
+**Every Chevrolet product published before this fix carried `brand='Ford'`**,
+Ford alt text and Ford short descriptions, because
+`scripts/catalog_db/export_live_import_plan.py` hard-coded the make into every
+customer-visible string. The make now comes from the batch name
+("Chevrolet 1987 autopilot v1"), which is the only place the original casing
+survives — the slugified `import_batch_id` cannot round-trip "GMC" or
+"Dodge and Ram", both of which are real makes still to come.
+
+**It was seven literals across three files**, not the three in one that it first
+appeared to be, and `make_product()` turned out to have callers in two *other*
+files that the first deploy crashed on. Full detail in
+`fatman-autopilot/CLAUDE.md`.
+
+**Backfill: 8,412 rows corrected** across chevrolet-1982/83/84/85/86/94 — brand,
+short_description, metadata.imageAlt, metadata.imageText. Verified afterwards
+that Ford's 44,710 products were untouched, which is the check that proves the
+anchored update did not reach outside its filter.
+
+Worth knowing for any future backfill: the damage count **moved on its own**.
+Publishing 1987 re-stamped every SKU it shared with earlier years and re-branded
+them correctly, dropping the rows needing repair from 14,355 to 8,412 with no
+intervention. `importBatchId` is last-writer-wins, so re-measure immediately
+before running any repair.
+
+**The exporter had never been in `deploy.sh`'s `--check` manifest** — its live
+copy sat at a May 25 build for three months, shipping on every `--push` (which
+rsyncs all of `scripts/`) but never verified by anything. Now on the list.
