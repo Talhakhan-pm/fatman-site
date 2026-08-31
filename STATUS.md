@@ -521,3 +521,30 @@ the right rows (old names were wrong, e.g. Internal vs External steel plates)
 — published years are never re-parsed, so no live churn. Deployed via
 deploy.sh (md5-verified on coordinator + all 4 workers), autopilot commit
 `7916c74`. Fanout restarted 05:01 PT: 4 workers, 12 jobs, 2002-2013.
+
+## Aug 31 — Chevrolet COMPLETE (32/32); Dodge and Ram started
+
+All 32 Chevrolet years published (Khan approved 2002-2013 via Telegram over two
+sessions; catalog now 87,056 products / 3.3M fitment). Enrichment sweep running
+post-publish attaches factory diagrams per year automatically (server-side —
+the Mac round-trip is retired; see /opt/fatman/overnight/{pinger,auto_enrich,
+backfill_diagrams}).
+
+**"Dodge and Ram" (exact CHARM make string) began 2026-08-31 ~09:49 PT** with
+the single-year validation the Chevrolet incident made law: year 2005 only
+(43 bundles, smallest), --keep-zips, on worker-1. Before it ran, a multi-word-
+make audit found and fixed: unquoted rm -rf in the worker wrapper (would have
+deleted the Dodge tree), --make word-splitting whose argparse failure
+masqueraded as CHARM rate-limiting (silent infinite retry), fanout/runner CSV
+filename contract mismatch (spaces vs hyphen slug), unquoted rsync remote
+paths, and fetch_images now VERIFIES index.json landed (the Chevy 2006-2008
+art-loss bug). fanout commit `83b2a98`, deployed + md5-verified fleet-wide.
+First bundle downloaded clean at 16:49Z.
+
+Gates before opening all 32 Dodge years: state=done with healthy CLEAN_ROWS,
+reject reasons reviewed (Mopar part-number format may need a validator
+pattern like GM's digit-runs did), harvest index present, CSVs collected under
+dodge-and-ram_* names, brand string on dry-run products = "Dodge and Ram".
+Still to generalize before Dodge publishes: pinger.sh/auto_enrich.sh are
+Chevrolet-hardcoded (audit has exact lines; deploy after the Chevy sweep ends).
+Starting Dodge = fleet kept past Sep 19 renewal (Khan's call, explicit).
