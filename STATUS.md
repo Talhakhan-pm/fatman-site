@@ -560,3 +560,27 @@ should get the same fix). backfill_diagrams.py now uses keyset pagination
 counts redistribute as later years re-tag shared SKUs — count galleries by
 `metadata ? 'images'`, never by summing per-tag numbers over time.
 Dodge and Ram 2005 validation download ~60% at the time of writing.
+
+## Sep 1 — Dodge and Ram validated end-to-end; all 32 years downloading
+
+**2005 published (4,244 products, 14,795 fitment) and auto-enriched (4,162
+products got factory-diagram galleries)** — first Dodge year live, first
+brand-new make to pass parsing with ZERO validator changes (Mopar shapes were
+already covered). The gate/publish/enrich loop ran hands-free from Khan's tap.
+
+Two fixes en route: (1) fetch_images must pass rsync remote paths RAW — rsync
+>=3.2.4 self-protects, quoting breaks it (autopilot `a9915b5`; this is why
+2005's 909MB art needed a manual pull). (2) The importer's post-apply product
+count (filter on metadata->>checkpointImportBatchId, unindexed jsonb) began
+timing out consistently at 87k products and failed 2005's apply twice —
+FIXED with expression indexes (migration
+`index_products_batch_metadata_expressions`: checkpointImportBatchId +
+importBatchId). fitment_rules.source was already indexed. Expect the morning
+digest's 2-day-old "query failed HTTP 500" to clear too; if not, its count
+needs the same keyset/planned treatment as backfill_diagrams.py got.
+
+Full fanout open since 05:27 PT: --make "Dodge and Ram" --years 1982-2013,
+queue at +31 entries, art harvest + parts recovery + verified index hand-off
+live. ~2,012 bundles remain (~4-6 days). Publish train: generalize pinger.sh
+for the make (audit lines are in the Aug 31 section) BEFORE years start
+landing, or gates go un-triggered.
