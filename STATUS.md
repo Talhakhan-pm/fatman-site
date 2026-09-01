@@ -548,3 +548,15 @@ dodge-and-ram_* names, brand string on dry-run products = "Dodge and Ram".
 Still to generalize before Dodge publishes: pinger.sh/auto_enrich.sh are
 Chevrolet-hardcoded (audit has exact lines; deploy after the Chevy sweep ends).
 Starting Dodge = fleet kept past Sep 19 renewal (Khan's call, explicit).
+
+### Aug 31 late — diagram sweep landed on second pass (keyset pagination)
+
+First sweep failed 5/5 backfills: OFFSET paging over the now-87k-row products
+table with jsonb metadata hits the statement timeout every time (HTTP 500 /
+57014 — same class as the morning digest's 2-day-old "query failed" line, which
+should get the same fix). backfill_diagrams.py now uses keyset pagination
+(id=gt.<last>); resweep of 2009-2013 completed 19:16Z. Live galleries:
+**15,654 products** (Ford 6,503 + Chevrolet 9,151, up from 1,708). Per-tag
+counts redistribute as later years re-tag shared SKUs — count galleries by
+`metadata ? 'images'`, never by summing per-tag numbers over time.
+Dodge and Ram 2005 validation download ~60% at the time of writing.
