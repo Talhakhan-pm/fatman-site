@@ -4,14 +4,13 @@ phase: automated
 cadence_days: 7
 last_touched: 2026-08-29
 next:
-  - "watch: the 2002-2013 drain (fanout restarted Aug 29 ~05:01 PT with the orphan-row parser fix AND image harvest live; dispatched 4 workers/12 jobs; 2005 was already collected). When years land: publish via the overnight driver pattern (/opt/fatman/overnight/driver.sh — re-run it) or Telegram approvals; confirm HARVEST_MB appears in worker logs on each completed year."
-  - "watch: gallery preservation — SOLVED via DB trigger preserve_diagram_gallery_trg (Aug 29, tested with a simulated importer re-stamp; see fatman-autopilot/CLAUDE.md). After the next real publish, spot-check that a shared SKU kept its metadata.images. Intentional gallery removal now requires images:null explicitly."
-  - "RESOLVED Aug 29: first full harvest year measured — Chevrolet 2009 = HARVEST_MB 988.3 for 79 bundles (53,471 blobs on coordinator), a third of the ~3 GB/year budget. GMC/Dodge-scale makes are disk-feasible. 2009 completed the full new chain end-to-end: download → recovery-parse (5,758 clean rows) → harvest → ship → cleanup."
-  - "DECIDE THE FLEET by ~2026-09-12 ($77.96/mo, cancel_by 2026-09-19). ~12 Chevrolet years of downloads remain, so this is not a free cancel; art re-downloads (Ford + Chevy 2002-2005) also depend on keeping it."
-  - "do: re-run the 2009-diagram backfill after each new Chevy year publishes (scratchpad chevy_backfill.py pattern; uploads idempotent) — 5,720 part numbers have diagrams ready, only 1,708 matched live products pre-2009-publish. Also harvest-enrich each new year (2010-2013) as its store lands on the coordinator."
-  - "do: extend diagram enrichment beyond Ford 1994 — run enrich_product_images.py on the local Ford 1983/1984 bundles and, once harvests land, on coordinator stores (harvest mode needs the crawler CSV for the parts side). Then Tier 2 AI pool expansion for the ~5,200 held-back products (the catalog-size ceiling)."
-  - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — verified real Aug 25: every category page renders dynamic (no ISR)"
-  - "Consider adding scripts/catalog_db/import_supabase_image_expansion.py and enrich_product_images.py to deploy.sh's --check manifest."
+  - "do: generalize /opt/fatman/overnight/pinger.sh for make 'Dodge and Ram' BEFORE years start landing (~Sep 3-4) — it is Chevrolet-hardcoded (regex \\w+ stops at the space; chevrolet_*.json globs; images/Chevrolet paths; Aug 31 audit has exact lines). auto_enrich.sh is already make-ready. Without this, finished Dodge years sit untriggered."
+  - "watch: the Dodge and Ram 1982-2013 drain (all 32 years dispatched Sep 1 05:27 PT; ~2,012 bundles, ~4-6 days). 2005 already published + enriched (4,162 galleries). Telegram gates per year as they land."
+  - "watch: morning digest Supabase 500 — expression indexes added Sep 1 (migration index_products_batch_metadata_expressions) should clear it; if Sep 2's digest still errors, port backfill_diagrams.py's keyset/count fix into digest.py."
+  - "DECIDE THE FLEET formally resolved: kept for Dodge (Khan, Aug 31). money.yaml cancel_by should be updated/removed when renewing."
+  - "do: art re-download backlog — Ford (all years) + Chevrolet 2002-2005 + Chevy 2006-2008 index.json rebuilds; fleet will be free after Dodge (~Sep 7). Then GMC (2,143 bundles) when Khan says go."
+  - "do: Tier 2 AI pool expansion for held-back products (~5,400 across makes) — the catalog-size ceiling; exporter's missing_image_category_counts is the worklist."
+  - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — every category page renders dynamic (no ISR)"
 ---
 Live: fatmanparts.com (Next.js on Vercel, Supabase catalog, Stripe). VPS autopilot
 (coordinator + 4 workers, systemd) runs the catalog pipeline; repo fatman-autopilot is
