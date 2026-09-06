@@ -583,3 +583,29 @@ queue at +31 entries, art harvest + parts recovery + verified index hand-off
 live. ~2,012 bundles remain (~4-6 days). Publish train: generalize pinger.sh
 for the make (audit lines are in the Aug 31 section) BEFORE years start
 landing, or gates go un-triggered.
+
+## Sep 5-6 — Dodge fitment repaired in place; GMC validation underway
+
+**The multi-word make bit one more place the audit missed:** the extractor's
+`parse_vehicle_from_folder` assumes a one-token make, so every CHARM-parsed
+Dodge fitment row landed as make='Dodge', model='and Ram <Model>' — the
+seed-driven vehicle selector (correctly saying "Dodge and Ram" + clean models)
+matched zero rows. Found via Khan's 1982 Dodge 400 "0 parts" screenshot.
+Repaired IN PLACE (no re-download; pure string split): make → 'Dodge and Ram',
+model → strip 'and Ram ' prefix, scoped to `model LIKE 'and Ram %'` so the
+2,426 legacy generated-data Dodge rows stayed untouched. 1,270,157 rows
+repaired, 0 remaining, verified live on the /fits page. Technique that worked:
+multi-statement UPDATE batches keep running server-side after the MCP client
+times out — fire, then poll pg_stat_activity + counts; do NOT re-fire into the
+locks. Also: enrichment rerun for Dodge 2008-2013 completed after adding 429
+(Storage rate-limit) backoff to backfill_diagrams.py — sweep uploads must pace
+themselves on marathon runs.
+
+- "do: teach parse_vehicle_from_folder (both extractors, parity) to take the
+  make explicitly — REQUIRED before Land Rover / Mercedes Benz / Nissan-Datsun;
+  GMC is single-token and safe. New validation gate added to the playbook:
+  eyeball a fitment CSV row's make/model during single-year validation."
+
+**GMC started Sep 6:** validation year 2008 (49 bundles, --keep-zips) on
+worker-1; full 32-year fanout opens once gates pass (incl. the new
+fitment-row gate). 2,143 bundles total.
