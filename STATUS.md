@@ -609,3 +609,18 @@ themselves on marathon runs.
 **GMC started Sep 6:** validation year 2008 (49 bundles, --keep-zips) on
 worker-1; full 32-year fanout opens once gates pass (incl. the new
 fitment-row gate). 2,143 bundles total.
+
+## Sep 8 — GMC disk squeeze caught and defused mid-drain
+
+The breadth-first walk opened 24 GMC years (parked ~80% with kept zips) and then
+started four MODERN years into 4-9GB of remaining disk — each needs 15-20GB.
+Same trap as Chevy 2006+, caught by a routine status check before the
+budget-burning doomed-retry phase. Intervention: killed the four modern
+downloads (partials kept, states set incomplete — they resume later), cleared
+~1GB/worker of leftover Dodge bundle dirs, narrowed the fanout unit to
+--years 1983-2005 so passes CLOSE cheap tails (each completion frees 2-4GB at
+cleanup) instead of opening big years. Disk watcher armed (alert ≥95%); modern
+years get re-added a few at a time once ~12 cheap years close.
+Ops gotcha that bit twice tonight: pkill -f over nested ssh self-matches its
+own command line and kills the shell mid-script, eating all output — use a
+bracketed pattern (pkill -f 'download_offlin[e]') every time.
