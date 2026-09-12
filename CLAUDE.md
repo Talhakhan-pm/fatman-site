@@ -246,3 +246,20 @@ is usually the more convenient one.
   offering a fix. He pushes back on plausible-sounding causes — expect to have
   to rule out the alternative you didn't test.
 - One next action at the end, not a roadmap.
+
+---
+
+## The gate CAN run unattended now — /opt/fatman/overnight/ (added 2026-09-12)
+
+The "no configuration makes this unattended" paragraph above predates the
+overnight tooling. With Khan's explicit per-run delegation, the standing
+pattern is `/opt/fatman/overnight/driver.sh` (make-parameterized via
+FATMAN_DRIVER_MAKE): it triggers batches, verifies each parked gate against
+strict bands (expected make, coverage 88-99.9%, ratio ±0.20, zero QA flags,
+sane fitment) via verify_and_approve.py, approves through the state file's
+resume semantics, and halts loudly on any failed check. Rolling-drain mode
+waits for CSVs still being downloaded. `pinger.sh` (FATMAN_PINGER_MAKE) is the
+approval-free variant that only triggers gates for human Telegram taps, and
+runs the post-publish enrichment sweep when the queue empties. Both were used
+end-to-end for Chevrolet, Dodge and Ram, and GMC. Never run driver.sh without
+Khan's fresh say-so — the delegation is per-run, not standing.
