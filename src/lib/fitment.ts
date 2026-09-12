@@ -53,6 +53,17 @@ export function getLiveFitmentModelCandidates(vehicle: Vehicle): string[] {
     candidates.push(`${vehicle.model} ${variant}`);
   }
 
+  // CHARM's offline-bundle folder names drop "/" (filesystems), and
+  // fitment_rules vehicle strings come from those folders — so the catalog's
+  // "C 1500 1/2 Ton" is stored as "C 1500 12 Ton", "S15/T15 P/U" as
+  // "S15T15 PU". ~1,568 slash-named vehicles across the four makes matched
+  // zero rows until each candidate also tries its slash-stripped twin.
+  for (const candidate of [...candidates]) {
+    if (candidate.includes("/")) {
+      candidates.push(candidate.replaceAll("/", ""));
+    }
+  }
+
   return [...new Set(candidates.filter(Boolean))];
 }
 
