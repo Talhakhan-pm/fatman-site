@@ -2,14 +2,12 @@
 business: Fatman Parts
 phase: automated
 cadence_days: 7
-last_touched: 2026-08-29
+last_touched: 2026-09-12
 next:
-  - "do: generalize /opt/fatman/overnight/pinger.sh for make 'Dodge and Ram' BEFORE years start landing (~Sep 3-4) — it is Chevrolet-hardcoded (regex \\w+ stops at the space; chevrolet_*.json globs; images/Chevrolet paths; Aug 31 audit has exact lines). auto_enrich.sh is already make-ready. Without this, finished Dodge years sit untriggered."
-  - "watch: the Dodge and Ram 1982-2013 drain (all 32 years dispatched Sep 1 05:27 PT; ~2,012 bundles, ~4-6 days). 2005 already published + enriched (4,162 galleries). Telegram gates per year as they land."
-  - "watch: morning digest Supabase 500 — expression indexes added Sep 1 (migration index_products_batch_metadata_expressions) should clear it; if Sep 2's digest still errors, port backfill_diagrams.py's keyset/count fix into digest.py."
-  - "DECIDE THE FLEET formally resolved: kept for Dodge (Khan, Aug 31). money.yaml cancel_by should be updated/removed when renewing."
-  - "do: art re-download backlog — Ford (all years) + Chevrolet 2002-2005 + Chevy 2006-2008 index.json rebuilds; fleet will be free after Dodge (~Sep 7). Then GMC (2,143 bundles) when Khan says go."
-  - "do: Tier 2 AI pool expansion for held-back products (~5,400 across makes) — the catalog-size ceiling; exporter's missing_image_category_counts is the worklist."
+  - "decide: WORKER FLEET — renews ~2026-09-19 at $77.96/mo and ALL FOUR MAKES ARE NOW DONE, workers idle. Keep only if doing: art re-downloads (Ford + Chevy 2002-2005/2006-2008 indexes) or a new make (Toyota/Honda etc. are smaller in CHARM). Otherwise cancel before renewal. (due 2026-09-16)"
+  - "do: multi-word-make parser fix (parse_vehicle_from_folder in both extractors, parity) — REQUIRED before Land Rover / Mercedes Benz / Nissan-Datsun; not needed for anything current."
+  - "do: Tier 2 AI pool expansion for held-back products (the catalog-size ceiling); exporter's missing_image_category_counts is the worklist."
+  - "do: art re-download backlog if fleet is kept — Ford all years, Chevy 2002-2005, Chevy 2006-2008 index rebuilds."
   - "Fix category-page caching: move searchParams out of page.tsx:117 + add revalidate — every category page renders dynamic (no ISR)"
 ---
 Live: fatmanparts.com (Next.js on Vercel, Supabase catalog, Stripe). VPS autopilot
@@ -624,3 +622,21 @@ years get re-added a few at a time once ~12 cheap years close.
 Ops gotcha that bit twice tonight: pkill -f over nested ssh self-matches its
 own command line and kills the shell mid-script, eating all output — use a
 bracketed pattern (pkill -f 'download_offlin[e]') every time.
+
+
+## Sep 12 — ALL FOUR MAKES COMPLETE
+
+GMC 32/32 published (bypass driver in rolling-drain mode; disk squeeze on
+Sep 8 handled by pausing modern years and closing cheap tails first — the
+narrow-years playbook, then modern years staggered 4+3). Diagram sweep done.
+
+**Catalog: 131,989 products / 6,268,496 fitment rows / 58,407 products with
+factory-diagram galleries. Ford, Chevrolet, Dodge and Ram, GMC — every year
+CHARM offers (1982-2013), all live on fatmanparts.com, verified at product,
+fitment, and database level.** Started Aug 20 with ~30k products of one make.
+
+The pipeline that did it, end-state: fanout download with per-IP pacing +
+orphan-row parts recovery + content-addressed art harvest with verified index
+hand-off; rolling-drain auto-approve driver (strict gate bands, make-param);
+server-side enrichment sweep with 429 backoff + keyset pagination; DB trigger
+preserving galleries across re-imports; all make-parameterized. Workers idle.
