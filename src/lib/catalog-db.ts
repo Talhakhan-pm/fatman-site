@@ -114,8 +114,26 @@ const emptyPage = (page: number, perPage: number): ProductPage => ({
  */
 const isSafeSlug = (slug: string) => /^[a-z0-9-]+$/.test(slug);
 
-const categoryMatchFilter = (slug: string) =>
-  `top_level_category_slug.eq.${slug},category_slug.eq.${slug}`;
+/**
+ * Filter on ONE category column, never both. The old
+ * `.or(top_level.eq.X,category_slug.eq.X)` defeated the ordered
+ * (top_level_category_slug, name) index: Postgres bitmap-unioned both
+ * conditions and heap-scanned every row in the category (~29k rows /
+ * 19k pages for engine-cooling-exhaust) just to top-N sort 60 — 19.5s at
+ * 131k gallery-widened rows, past the 8s statement timeout, which took every
+ * category page down on 2026-09-13. The slug's granularity is knowable
+ * locally: the 17 storefront slugs live in catalogRegistry; everything else
+ * is a granular category_slug.
+ */
+const isTopLevelSlug = (slug: string) => catalogRegistry.some((entry) => entry.slug === slug);
+
+const applyCategoryFilter = <T extends { eq: (column: string, value: string) => T }>(
+  builder: T,
+  slug: string,
+): T =>
+  isTopLevelSlug(slug)
+    ? builder.eq("top_level_category_slug", slug)
+    : builder.eq("category_slug", slug);
 
 /** Categories with their product counts. 17 rows; one query plus one grouped count. */
 export const getCategories = cache(async (): Promise<Category[]> => {
@@ -188,11 +206,11 @@ export const getCategory = cache(async (slug: string): Promise<Category | undefi
     if (!data) return undefined;
 
     const row = data as unknown as SupabaseCategoryRow;
-    const { count } = await supabase
+    const countBase = supabase
       .from("products")
       .select("sku", { count: "exact", head: true })
-      .eq("published", true)
-      .or(categoryMatchFilter(slug));
+      .eq("published", true);
+    const { count } = await applyCategoryFilter(countBase, slug);
 
     return {
       slug: row.slug as Category["slug"],
@@ -226,11 +244,13 @@ export async function getProductsByCategory(
 
   try {
     const supabase = createSupabaseServerClient();
-    let builder = supabase
-      .from("products")
-      .select(PRODUCT_COLUMNS, { count: "exact" })
-      .eq("published", true)
-      .or(categoryMatchFilter(slug));
+    let builder = applyCategoryFilter(
+      supabase
+        .from("products")
+        .select(PRODUCT_COLUMNS, { count: "exact" })
+        .eq("published", true),
+      slug,
+    );
 
     if (options.inStockOnly) builder = builder.eq("stock_status", "in-stock");
     if (options.slugs) builder = builder.in("slug", options.slugs);
