@@ -61,6 +61,28 @@ export function getProductDisplayMedia(
 ): ProductDisplayMedia {
   const gallery = parseGalleryImages(product.metadata);
 
+  // Exact-tier factory art depicts the precise component, so it beats the
+  // shared category render as the product's face: unique-per-product images
+  // (vs ~101 renders fronting 130k products) and honest imagery for an
+  // audience that reads diagrams. Parent-tier art stays gallery-only — a
+  // subsystem drawing must not masquerade as the part itself.
+  const exactDiagram = gallery.find((image) => image.tier === "exact");
+  if (exactDiagram) {
+    // Keep the studio render reachable in the gallery rail when it exists —
+    // demoted, not discarded.
+    const render: ProductGalleryImage[] =
+      isValidProductImageUrl(product.imageUrl) && !isPlaceholderProductImage(product.imageUrl)
+        ? [{ url: product.imageUrl!.trim(), alt: product.name, kind: "photo", tier: "exact" }]
+        : [];
+    return {
+      src: exactDiagram.url,
+      alt: exactDiagram.alt || product.name,
+      isPhoto: true,
+      kind: exactDiagram.kind,
+      gallery: [...render, ...gallery],
+    };
+  }
+
   if (isValidProductImageUrl(product.imageUrl) && !isPlaceholderProductImage(product.imageUrl)) {
     return {
       src: product.imageUrl!.trim(),
