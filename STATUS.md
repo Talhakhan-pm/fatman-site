@@ -640,3 +640,30 @@ orphan-row parts recovery + content-addressed art harvest with verified index
 hand-off; rolling-drain auto-approve driver (strict gate bands, make-param);
 server-side enrichment sweep with 429 backoff + keyset pagination; DB trigger
 preserving galleries across re-imports; all make-parameterized. Workers idle.
+
+## Sep 13-14 — Chrysler complete (5th make); category-page outage fixed; diagrams now primary
+
+**Chrysler 32/32 published + swept** in ~33h door-to-door (569 bundles — small
+years finish in one fanout pass, no rate-limit parking). Driver halt lesson:
+FIT_MIN sanity band is now per-make via FATMAN_FIT_MIN (Chrysler 2011
+legitimately plans ~2k fitment from 5 bundles; the Chevy-tuned 5,000 floor
+halted the train on healthy numbers).
+
+**Catalog: 135,401 products / 6.56M fitment / 61,297 diagram galleries
+(36,765 exact-tier) across Ford, Chevrolet, Dodge and Ram, GMC, Chrysler.**
+
+**Incident (Sep 13, small hours): every category page empty on production.**
+Root cause: catalog-db's `.or(top_level.eq.X,category_slug.eq.X)` filter
+forced a BitmapOr plan — Postgres heap-visited all ~29k rows of a category
+(19k pages) to top-N sort 60; 19.5s measured at 131k gallery-widened rows,
+past the 8s statement timeout. NOT train load (that was disproved — the query
+was structurally slow). Fix `430831a`: filter exactly one category column
+(the 17 storefront slugs are known client-side in catalogRegistry) → ordered
+index walk, 29ms, 660x. Plus VACUUM ANALYZE (21k dead tuples from backfill
+waves). Lesson: every PostgREST .or() across differently-indexed columns is a
+plan hazard as tables grow — grep for or() before the next 100k rows.
+
+**Diagram-primary shipped (`341ae2d`, Khan approved from grid montage + PDP
+preview):** exact-tier factory diagrams are now the product face catalog-wide,
+all makes past and future; renders demoted into the gallery rail; parent-tier
+stays gallery-only. Verified live on grid + PDP.
