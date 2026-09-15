@@ -667,3 +667,24 @@ plan hazard as tables grow — grep for or() before the next 100k rows.
 preview):** exact-tier factory diagrams are now the product face catalog-wide,
 all makes past and future; renders demoted into the gallery rail; parent-tier
 stays gallery-only. Verified live on grid + PDP.
+
+## Sep 15 — coordinator disk incident (100% full); two Jeep findings
+
+**Jeep train halted at year 1999's QA: sqlite "database or disk is full" — the
+coordinator hit 96G/100%.** The hog: 173 per-batch supabase_checkpoint_* dirs
+(never cleaned across 160+ published years) plus swept makes' local image
+stores. Both safely reclaimed (96G→27G used): checkpoints REGENERATE from the
+kept 7G staging sqlite + exporter (no re-download needed — the Aug 27 "keep
+checkpoints" doctrine predates retaining the full staging DB), and swept
+stores' blobs live in Supabase Storage with assignments kept in enrich/
+(verified all 79 .backfilled markers before deleting). Jeep's materials kept.
+The Aug-27-documented redundants (parked/Ford, dead Ford bundles) were already
+gone. do: teach the train to delete a batch's checkpoint dir after verify
+passes, and a swept year's image store after its .backfilled lands — this
+incident recurs every ~2 makes otherwise.
+
+**AMC-era Jeep part numbers are partially rejected:** 1982/83 run 24-28%
+rejects; ~220/year are real 5-digit AMC digit-runs below valid_part_number's
+{6,8} floor (the Chevy-era bound). Years are published and fine otherwise;
+recovery = widen to {5,8} AFTER checking 5-digit junk in other makes' rejects,
+then re-download 1982-87 Jeep (~6 small years). Backlogged, not urgent.
